@@ -1,0 +1,335 @@
+﻿<Window x:Class="Image_text_extractor.ReviewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Review" Height="500" Width="900" Background="#FFE4E4E4">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.8*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="0.2*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Label 
+                Content="Review"
+                VerticalAlignment="Center" 
+                FontSize="26"
+                FontWeight="Bold" 
+                HorizontalAlignment="Center"/>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1.5*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="1">
+                <Image
+                    Source="{Binding CurrentPageData.FileName}"
+                    Height="310" 
+                    Width="250"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top"/>
+                <Button 
+                    HorizontalAlignment="Left"
+                    Height="25"
+                    Width="80"
+                    Content="Previous" 
+                    FontSize="12" 
+                    Margin="15,0,0,5"
+                    VerticalAlignment="Bottom"
+                    Click="PreviousClick"/>
+                <Label 
+                    Height="auto"
+                    Width="auto"
+                    Content="{Binding CurrentPageData.PageNumber}" 
+                    FontSize="12" 
+                    Margin="15,0,0,5"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"/>
+                <Button 
+                    HorizontalAlignment="Right"
+                    Height="25"
+                    Width="80"
+                    Content="Next" 
+                    FontSize="12" 
+                    Margin="0,0,15,5"
+                    VerticalAlignment="Bottom"
+                    Click="NextClick"/>
+            </Grid>
+
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.55*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Label
+                    Grid.Row="0"
+                    Content="PRIMARY"
+                    FontSize="14"
+                    FontWeight="Bold"/>
+                <Grid Grid.Row="1" Grid.RowSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="0.75*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <Label
+                            Content="Name: First"
+                            FontSize="10"/>
+                        <TextBox
+                            Margin="2,0,0,2"
+                            Padding="1"
+                            FontSize="11"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <Label
+                            Content="Middle"
+                            FontSize="10"/>
+                        <TextBox
+                            Margin="2,0,0,2"
+                            FontSize="12"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2">
+                        <Label
+                            Content="Last"
+                            FontSize="10"/>
+                        <TextBox
+                            Margin="2,0,0,2"
+                            FontSize="12"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="3">
+                        <Label
+                            Content="Suffix"
+                            FontSize="10"/>
+                        <TextBox
+                            Margin="2,0,0,2"
+                            FontSize="11"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <Label
+                            Content="Location"
+                            FontSize="10"/>
+                        <TextBox
+                            Margin="2,0,0,2"
+                            FontSize="11"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <Label
+                            Content="Rank"
+                            FontSize="10"/>
+                        <TextBox
+                            Margin="2,0,0,2"
+                            FontSize="11"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2">
+                        <Label
+                            Content="Branch"
+                            FontSize="10"/>
+                        <TextBox
+                            Margin="2,0,0,2"
+                            FontSize="11"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="3">
+                    <StackPanel Grid.Column="0">
+                        <Label
+                            Content="Branch-Unit Custom"
+                            FontSize="10"/>
+                        <TextBox
+                            Margin="2,0,0,2"
+                            FontSize="11"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="0.2*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <Label
+                            Content="War"
+                            FontSize="10"/>
+                        <TextBox
+                            Margin="2,0,2,0"
+                            FontSize="11"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <Label
+                            Content="War 2"
+                            FontSize="10"/>
+                        <TextBox
+                            Margin="2,0,2,0"
+                            FontSize="11"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="3">
+                        <Label
+                            Content="Birth Date"
+                            FontSize="10"/>
+                        <TextBox
+                            Text="{Binding CurrentPageData.BirthDate}"
+                            Margin="2,0,2,0"
+                            FontSize="11"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="4">
+                        <Label
+                            Content="Death Date"
+                            FontSize="10"/>
+                        <TextBox
+                            Text="{Binding CurrentPageData.DeathDate}"
+                            Margin="2,0,2,0"
+                            FontSize="11"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="0.2*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <Label
+                            Content="Award"
+                            FontSize="10"/>
+                        <TextBox
+                            Margin="2,0,2,0"
+                            FontSize="11"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <Label
+                            Content="Award 2"
+                            FontSize="10"/>
+                        <TextBox
+                            Margin="2,0,2,0"
+                            FontSize="11"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="3">
+                        <Label
+                            Content="Awards Custom"
+                            FontSize="10"/>
+                        <TextBox
+                            Margin="2,0,2,0"
+                            FontSize="11"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="6">
+                    <StackPanel Grid.Column="0">
+                        <Label
+                            Content="Inscription"
+                            FontSize="10"/>
+                        <TextBox
+                            Margin="2,0,0,2"
+                            FontSize="11"/>
+                    </StackPanel>
+                </Grid>
+
+
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Button 
+                    Grid.Column="0"
+                    Height="20"
+                    Width="auto"
+                    FontSize="11" 
+                    Margin="0,5,8, 5"
+                    Click="BackClick">
+                    <TextBlock 
+                        TextWrapping="Wrap"
+                        TextAlignment="Center">
+                        Back to Results
+                    </TextBlock>
+                </Button>
+
+                <Button 
+                    Grid.Column="1"
+                    Height="20"
+                    Width="auto"
+                    FontSize="11" 
+                    Margin="0,5,8, 5"
+                    Click="BackClick">
+                    <TextBlock 
+                        TextWrapping="Wrap"
+                        TextAlignment="Center">
+                        Save changes
+                    </TextBlock>
+                </Button>
+
+                <Button 
+                    Grid.Column="2"
+                    Height="20"
+                    Width="auto"
+                    FontSize="11" 
+                    Margin="0,5,0, 5"
+                    Click="BackClick">
+                    <TextBlock 
+                        TextWrapping="Wrap"
+                        TextAlignment="Center">
+                        Save to Database
+                    </TextBlock>
+                </Button>
+
+                <Button 
+                    Grid.Column="3"
+                    Height="20"
+                    Width="auto"
+                    FontSize="11" 
+                    Margin="8,5,0, 5"
+                    Click="BackClick">
+                    <TextBlock 
+                        TextWrapping="Wrap"
+                        TextAlignment="Center">
+                        Exit
+                    </TextBlock>
+                </Button>
+
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
