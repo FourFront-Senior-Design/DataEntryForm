@@ -43,10 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IDatabase.cs" />
-    <Compile Include="IImageLoader.cs" />
-    <Compile Include="IImageProcessor.cs" />
-    <Compile Include="ITextClassifier.cs" />
-    <Compile Include="ITextExtractor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

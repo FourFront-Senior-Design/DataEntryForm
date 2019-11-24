@@ -1,10 +1,4 @@
 ﻿using ServicesInterfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
 using ViewModelInterfaces;
 using System.ComponentModel;
 
@@ -12,9 +6,7 @@ namespace ViewModels
 {
     public class MainWindowVM : IMainWindowVM, INotifyPropertyChanged
     {
-        IImageLoader _imageLoader;
-        IImageProcessor _imageProcessor;
-        List<string> _images;
+        IDatabase _database;
         private string fileLocation;
 
         public string FileLocation
@@ -32,24 +24,15 @@ namespace ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public bool LoadImages()
+        public int LoadData()
         {
-            _images = _imageLoader.GetImages(FileLocation);
-            return _images.Count() != 0;
+            //call database service
+            return 0;
         }
-
-        public bool ProcessImages()
+      
+        public MainWindowVM(IDatabase database)
         {
-            if (_images.Count() == 0)
-                return false;
-
-            return _imageProcessor.ProcessImages(_images);
-        }
-
-        public MainWindowVM(IImageLoader imageLoader, IImageProcessor imageProcessor)
-        {
-            _imageLoader = imageLoader;
-            _imageProcessor = imageProcessor;
+            _database = database;
         }
     }
 }

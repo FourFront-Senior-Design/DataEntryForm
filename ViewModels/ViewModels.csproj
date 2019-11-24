@@ -44,7 +44,6 @@
   <ItemGroup>
     <Compile Include="MainWindowVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResultWindowVM.cs" />
     <Compile Include="ReviewWindowVM.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -270,58 +270,28 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
                 <Button 
                     Grid.Column="0"
                     Height="20"
-                    Width="auto"
+                    Width="50"
                     FontSize="11" 
                     Margin="0,5,8, 5"
                     Click="BackClick">
                     <TextBlock 
                         TextWrapping="Wrap"
                         TextAlignment="Center">
-                        Back to Results
-                    </TextBlock>
-                </Button>
-
-                <Button 
-                    Grid.Column="1"
-                    Height="20"
-                    Width="auto"
-                    FontSize="11" 
-                    Margin="0,5,8, 5"
-                    Click="BackClick">
-                    <TextBlock 
-                        TextWrapping="Wrap"
-                        TextAlignment="Center">
-                        Save changes
-                    </TextBlock>
-                </Button>
-
-                <Button 
-                    Grid.Column="2"
-                    Height="20"
-                    Width="auto"
-                    FontSize="11" 
-                    Margin="0,5,0, 5"
-                    Click="BackClick">
-                    <TextBlock 
-                        TextWrapping="Wrap"
-                        TextAlignment="Center">
-                        Save to Database
+                        Back
                     </TextBlock>
                 </Button>
 
                 <Button 
                     Grid.Column="3"
                     Height="20"
-                    Width="auto"
+                    Width="50"
                     FontSize="11" 
                     Margin="8,5,0, 5"
-                    Click="BackClick">
+                    Click="ExitClick">
                     <TextBlock 
                         TextWrapping="Wrap"
                         TextAlignment="Center">

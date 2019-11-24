@@ -18,7 +18,7 @@ namespace Image_text_extractor
 {
     public partial class ReviewWindow : Window
     {
-        public event EventHandler MoveToResultsPage;
+        public event EventHandler MoveToMainPage;
 
         private IReviewWindowVM _viewModel;
 
@@ -42,7 +42,7 @@ namespace Image_text_extractor
 
         private void BackClick(object sender, RoutedEventArgs e)
         {
-            MoveToResultsPage?.Invoke(this, new EventArgs());
+            MoveToMainPage?.Invoke(this, new EventArgs());
         }
 
         private void NextClick(object sender, RoutedEventArgs e)

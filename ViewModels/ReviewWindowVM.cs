@@ -48,7 +48,6 @@ namespace ViewModels
 
         public void NextImage()
         {
-            Trace.WriteLine("Next click");
             if (_currentPageIndex == _pageContent.Count - 1)
             {
                 return;
@@ -58,16 +57,13 @@ namespace ViewModels
             CurrentPageData = _pageContent[_currentPageIndex];
 
 
-            Trace.WriteLine("Location: ");
+            Trace.WriteLine("Next click");
             Trace.WriteLine(CurrentPageData.FileName);
             Trace.WriteLine(CurrentPageData.PageNumber);
-
         }
 
         public void PreviousImage()
         {
-            Trace.WriteLine("Previous click");
-
             if (_currentPageIndex == 0)
             {
                 return;
@@ -77,10 +73,9 @@ namespace ViewModels
             CurrentPageData = _pageContent[_currentPageIndex];
 
 
-            Trace.WriteLine("Location: ");
+            Trace.WriteLine("Previous click: ");
             Trace.WriteLine(CurrentPageData.FileName);
             Trace.WriteLine(CurrentPageData.PageNumber);
-
         }
     }
 }

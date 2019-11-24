@@ -42,7 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IMainWindowVM.cs" />
-    <Compile Include="IResultWindowVM.cs" />
     <Compile Include="IReviewWindowVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

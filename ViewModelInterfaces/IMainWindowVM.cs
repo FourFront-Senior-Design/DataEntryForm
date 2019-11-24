@@ -9,7 +9,6 @@ namespace ViewModelInterfaces
     public interface IMainWindowVM
     {
         string FileLocation { get; set; }
-        bool LoadImages();
-        bool ProcessImages();
+        int LoadData();
     }
 }
