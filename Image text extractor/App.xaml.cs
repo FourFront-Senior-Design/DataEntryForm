@@ -32,7 +32,7 @@ namespace Image_text_extractor
             serviceCollection.AddTransient<IReviewWindowVM, ReviewWindowVM>();
             serviceCollection.AddTransient<IResultWindowVM, ResultWindowVM>();
             serviceCollection.AddTransient<IMainWindowVM, MainWindowVM>();
-            serviceCollection.AddTransient<IDatabase, FileDatabase>();
+            serviceCollection.AddTransient<IDatabaseService, FileDatabase>();
 
             serviceCollection.AddTransient<MainWindow, MainWindow>();
             serviceCollection.AddTransient<ResultsWindow, ResultsWindow>();

@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IDatabase.cs" />
+    <Compile Include="IDatabaseService.cs" />
     <Compile Include="IImageLoader.cs" />
     <Compile Include="IImageProcessor.cs" />
     <Compile Include="ITextClassifier.cs" />

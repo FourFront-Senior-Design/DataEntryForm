@@ -10,7 +10,7 @@ namespace ViewModels
     public class ResultWindowVM: IResultWindowVM, INotifyPropertyChanged
     {
         IImageProcessor _imageProcessor;
-        IDatabase _database;
+        IDatabaseService _database;
         ResultsPageData _data;
 
         public ResultsPageData Data
@@ -29,7 +29,7 @@ namespace ViewModels
         public event PropertyChangedEventHandler PropertyChanged;
      
 
-        public ResultWindowVM(IImageProcessor imageProcessor, IDatabase database)
+        public ResultWindowVM(IImageProcessor imageProcessor, IDatabaseService database)
         {
             _imageProcessor = imageProcessor;
             _database = database;
@@ -56,10 +56,10 @@ namespace ViewModels
         {
             foreach (FieldData data in fieldData)
             {
-                if (_database.Insert(data) == false)
-                {
-                    return false;
-                }
+                //if (_database.Insert(data) == false)
+                //{
+                //    return false;
+                //}
             }
             return true;
         }

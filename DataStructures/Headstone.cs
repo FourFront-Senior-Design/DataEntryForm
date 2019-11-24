@@ -8,6 +8,7 @@ namespace DataStructures
 {
     public class Headstone
     {
+        public string SequenceID { get; set; }
         string CemeteryName;
         string BurialSectionNumber;
         string WallID;
