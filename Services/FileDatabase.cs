@@ -8,11 +8,23 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    public class FileDatabase : IDatabase
+    public class FileDatabase : IDatabaseService
     {
-        public bool Insert(FieldData data)
+        public int TotalItems => throw new NotImplementedException();
+
+        public Headstone Get(int index)
         {
-            return true;
+            throw new NotImplementedException();
+        }
+
+        public void InitDatabaseService(string sectionFilePath)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Insert(int index, Headstone headstone)
+        {
+            throw new NotImplementedException();
         }
     }
 }
