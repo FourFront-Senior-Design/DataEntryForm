@@ -22,11 +22,6 @@ namespace Services
             throw new NotImplementedException();
         }
 
-        public bool Insert(FieldData data)
-        {
-            return true;
-        }
-
         public void Insert(int index, Headstone headstone)
         {
             throw new NotImplementedException();
