@@ -7,7 +7,7 @@ namespace Image_text_extractor
 {
     public partial class MainWindow : Window
     {
-        public event EventHandler MoveToResultsPage;
+        public event EventHandler MoveToReviewPage;
 
         IMainWindowVM _viewModel;
 
@@ -18,7 +18,7 @@ namespace Image_text_extractor
             DataContext = _viewModel;
         }
 
-        private void LoadImagesClick(object sender, RoutedEventArgs e)
+        private void LoadDataClick(object sender, RoutedEventArgs e)
         {
             var dialog = new System.Windows.Forms.FolderBrowserDialog();
             dialog.ShowDialog();
@@ -28,34 +28,30 @@ namespace Image_text_extractor
             Trace.WriteLine("Printing...");
             Trace.WriteLine(_viewModel.FileLocation);
 
-            if (_viewModel.LoadImages() == false)  //Make this false 
+            int countData = _viewModel.LoadData();
+
+            if (countData != 0)  //Make this 0
             {
-                System.Windows.MessageBox.Show("No images found", "Alert",
+                System.Windows.MessageBox.Show("No database found", "Alert",
                     MessageBoxButton.OK, MessageBoxImage.Information);
             } else
             {
-                System.Windows.MessageBox.Show("Successful", "Alert",
+                string display = "Successfully loaded " + countData.ToString() + " records";
+                System.Windows.MessageBox.Show(display, "Success",
                     MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
+
+        private void ReviewClick(object sender, RoutedEventArgs e)
+        {
+            MoveToReviewPage?.Invoke(this, new EventArgs());
+        }
+
 
         private void ExitClick(object sender, RoutedEventArgs e)
         {
             this.Close();
             Application.Current.Shutdown();
-        }
-
-        private void ExtractClick(object sender, RoutedEventArgs e)
-        {
-            if (_viewModel.ProcessImages())
-            {
-                MoveToResultsPage?.Invoke(this, new EventArgs());
-            }
-            else
-            {
-                System.Windows.MessageBox.Show("Unable to extract images. Try again.", "Alert",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-            }
         }
     }
 }

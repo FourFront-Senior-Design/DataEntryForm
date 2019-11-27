@@ -4,332 +4,1015 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Review" Height="500" Width="900" Background="#FFE4E4E4">
+        Title="Review" WindowState="Maximized" Background="#FFE4E4E4" d:DesignWidth="1158" d:DesignHeight="843">
+
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="CharacterCasing" Value="Upper" />
+        </Style>
+        <DataTemplate x:Key="emblemCmbTemplate">
+            <WrapPanel Margin="0,0,0,0">
+                <Image Width="18" Height="18" Stretch="Fill" Source="{Binding Photo}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2,0,15,0"/>
+                <Label Content="{Binding Name}" FontSize="12" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </WrapPanel>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.8*"/>
-            <RowDefinition Height="6*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="0.2*"/>
         </Grid.RowDefinitions>
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="0.3*"/>
             <ColumnDefinition Width="10*"/>
-            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="0.3*"/>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="0" Grid.Column="1">
-            <Label 
-                Content="Review"
-                VerticalAlignment="Center" 
-                FontSize="26"
-                FontWeight="Bold" 
-                HorizontalAlignment="Center"/>
-        </Grid>
-
-        <Grid Grid.Row="1" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="1.5*"/>
-            </Grid.ColumnDefinitions>
-
-            <Grid Grid.Column="1">
-                <Image
-                    Source="{Binding CurrentPageData.FileName}"
-                    Height="310" 
-                    Width="250"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Top"/>
-                <Button 
-                    HorizontalAlignment="Left"
-                    Height="25"
-                    Width="80"
-                    Content="Previous" 
-                    FontSize="12" 
-                    Margin="15,0,0,5"
-                    VerticalAlignment="Bottom"
-                    Click="PreviousClick"/>
-                <Label 
-                    Height="auto"
-                    Width="auto"
-                    Content="{Binding CurrentPageData.PageNumber}" 
-                    FontSize="12" 
-                    Margin="15,0,0,5"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Bottom"/>
-                <Button 
-                    HorizontalAlignment="Right"
-                    Height="25"
-                    Width="80"
-                    Content="Next" 
-                    FontSize="12" 
-                    Margin="0,0,15,5"
-                    VerticalAlignment="Bottom"
-                    Click="NextClick"/>
+        <Border Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="1">
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2.5*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Content="Record" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"/>
+                    <TextBox Grid.Column="1" FontSize="14" Height="18"/>
+                    <Label Grid.Column="2" Content="of" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"/>
+                    <TextBox Grid.Column="3" FontSize="14" Height="18" Margin="0,0,5,0"/>
+                </Grid>
+                <TextBox Grid.Column="1" FontSize="14" Width="auto" Height="18" Margin="2"/>
+                <TextBox Grid.Column="2" FontSize="14" Width="auto" Height="18" Margin="2,2,0,2"/>
+                <Grid Grid.Column="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.2*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Go to Record" Margin="2,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14"/>
+                    <TextBox Grid.Column="1" FontSize="14" Height="18" Margin="0,0,5,0"/>
+                </Grid>
+                <Grid Grid.Column="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.7*"/>
+                        <ColumnDefinition Width="0.5*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Height="20" FontSize="12"
+                            Grid.Column="0" Click="PreviousClick">
+                        <TextBlock TextWrapping="Wrap" TextAlignment="Center">
+                             Previous
+                        </TextBlock>
+                    </Button>
+                    <Button Height="20" FontSize="12" 
+                            Grid.Column="1" Click="NextClick">
+                        <TextBlock TextWrapping="Wrap" TextAlignment="Center">
+                            Next
+                        </TextBlock>
+                    </Button>
+                    <Button Height="20" FontSize="12" 
+                            Grid.Column="2" Click="PreviousClick">
+                        <TextBlock TextWrapping="Wrap" TextAlignment="Center">
+                            First Record
+                        </TextBlock>
+                    </Button>
+                    <Button Height="20"  FontSize="12" 
+                            Grid.Column="3" Click="NextClick">
+                        <TextBlock TextWrapping="Wrap" TextAlignment="Center">
+                            Last Record
+                        </TextBlock>
+                    </Button>
+                    <Button Height="20" FontSize="12"
+                            Grid.Column="4" Click="BackClick">
+                        <TextBlock TextWrapping="Wrap" TextAlignment="Center">
+                            Open Image
+                        </TextBlock>
+                    </Button>
+                    <Button Height="20" FontSize="12"
+                            Grid.Column="5" Click="BackClick">
+                        <TextBlock TextWrapping="Wrap" TextAlignment="Center">
+                            Change sections
+                        </TextBlock>
+                    </Button>
+                    <Button Height="20" FontSize="12" 
+                            Grid.Column="6" Click="ExitClick">
+                        <TextBlock TextWrapping="Wrap" TextAlignment="Center">
+                                Close Form
+                        </TextBlock>
+                    </Button>
+                </Grid>
             </Grid>
+        </Border>
 
-            <Grid Grid.Column="0">
+        <Border  Grid.Row="2" Grid.Column="1" BorderBrush="Black" BorderThickness="1">
+            <Grid>
+                <Grid.Resources>
+                    <Style TargetType="TextBox">
+                        <Setter Property="FontSize" Value="14" />
+                    </Style>
+                    <Style TargetType="Label">
+                        <Setter Property="FontSize" Value="14" />
+                    </Style>
+                    <Style TargetType="ComboBox">
+                        <Setter Property="FontSize" Value="12" />
+                        <Setter Property="Height" Value="25" />
+                    </Style>
+                </Grid.Resources>
+
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.55*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-                <Label
-                    Grid.Row="0"
-                    Content="PRIMARY"
-                    FontSize="14"
-                    FontWeight="Bold"/>
-                <Grid Grid.Row="1" Grid.RowSpan="2">
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Content="Cemetry Name"  VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="0" Margin="120,10,20,10" Padding="2"/>
+                    <Label Grid.Column="1" Content="Burial Section #" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1" Margin="120,10,0,10" Padding="2"/>
+                </Grid>
+                <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="0.75*"/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0">
-                        <Label
-                            Content="Name: First"
-                            FontSize="10"/>
-                        <TextBox
-                            Margin="2,0,0,2"
-                            Padding="1"
-                            FontSize="11"/>
-                    </StackPanel>
-                    <StackPanel Grid.Column="1">
-                        <Label
-                            Content="Middle"
-                            FontSize="10"/>
-                        <TextBox
-                            Margin="2,0,0,2"
-                            FontSize="12"/>
-                    </StackPanel>
-                    <StackPanel Grid.Column="2">
-                        <Label
-                            Content="Last"
-                            FontSize="10"/>
-                        <TextBox
-                            Margin="2,0,0,2"
-                            FontSize="12"/>
-                    </StackPanel>
-                    <StackPanel Grid.Column="3">
-                        <Label
-                            Content="Suffix"
-                            FontSize="10"/>
-                        <TextBox
-                            Margin="2,0,0,2"
-                            FontSize="11"/>
-                    </StackPanel>
+                    <Label Grid.Column="0" Content="Wall ID #"  VerticalAlignment="Center"/>
+                    <TextBox  Grid.Column="0" Margin="100,10,10,10" Padding="2"/>
+                    <Label Grid.Column="1" Content="Row #" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1" Margin="80,10,10,10" Padding="2"/>
+                    <Label Grid.Column="2" Content="Gravesite #"  VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="2" Margin="90,10,0,10" Padding="2"/>
                 </Grid>
-
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="361"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0">
-                        <Label
-                            Content="Location"
-                            FontSize="10"/>
-                        <TextBox
-                            Margin="2,0,0,2"
-                            FontSize="11"/>
-                    </StackPanel>
-                    <StackPanel Grid.Column="1">
-                        <Label
-                            Content="Rank"
-                            FontSize="10"/>
-                        <TextBox
-                            Margin="2,0,0,2"
-                            FontSize="11"/>
-                    </StackPanel>
-                    <StackPanel Grid.Column="2">
-                        <Label
-                            Content="Branch"
-                            FontSize="10"/>
-                        <TextBox
-                            Margin="2,0,0,2"
-                            FontSize="11"/>
-                    </StackPanel>
+                    <Label Grid.Column="0" Content="Marker Type"  VerticalAlignment="Center"/>
+                    <ComboBox Grid.Column="0" Margin="100,10,10,10" Padding="2"
+                              HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                        <ComboBoxItem Content="Upright Headstone"></ComboBoxItem>
+                        <ComboBoxItem Content="Flat Marker"></ComboBoxItem>
+                        <ComboBoxItem Content="Niche Cover"></ComboBoxItem>
+                        <ComboBoxItem Content="Section Monument"></ComboBoxItem>
+                        <ComboBoxItem Content="Temprory Marker"></ComboBoxItem>
+                    </ComboBox>
+                    <Label Grid.Column="1" Content="Emblem 1"  VerticalAlignment="Center"/>
+                    <ComboBox Grid.Column="1" Margin="80,10,10,10" Padding="1"
+                              Background="White" HorizontalAlignment="Stretch" ItemsSource="{Binding GetEmblemData}"
+                              ItemTemplate="{StaticResource emblemCmbTemplate}" VerticalAlignment="Center"/>
+                    <Label Grid.Column="2" Content="Emblem 2"  VerticalAlignment="Center"/>
+                    <ComboBox Grid.Column="2" Margin="90,10,0,10" Padding="1"
+                              ItemTemplate="{StaticResource emblemCmbTemplate}" ItemsSource="{Binding GetEmblemData}"
+                              HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
                 </Grid>
-
-                <Grid Grid.Row="3">
-                    <StackPanel Grid.Column="0">
-                        <Label
-                            Content="Branch-Unit Custom"
-                            FontSize="10"/>
-                        <TextBox
-                            Margin="2,0,0,2"
-                            FontSize="11"/>
-                    </StackPanel>
-                </Grid>
-
-                <Grid Grid.Row="4">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="0.2*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0">
-                        <Label
-                            Content="War"
-                            FontSize="10"/>
-                        <TextBox
-                            Margin="2,0,2,0"
-                            FontSize="11"/>
-                    </StackPanel>
-                    <StackPanel Grid.Column="1">
-                        <Label
-                            Content="War 2"
-                            FontSize="10"/>
-                        <TextBox
-                            Margin="2,0,2,0"
-                            FontSize="11"/>
-                    </StackPanel>
-                    <StackPanel Grid.Column="3">
-                        <Label
-                            Content="Birth Date"
-                            FontSize="10"/>
-                        <TextBox
-                            Text="{Binding CurrentPageData.BirthDate}"
-                            Margin="2,0,2,0"
-                            FontSize="11"/>
-                    </StackPanel>
-                    <StackPanel Grid.Column="4">
-                        <Label
-                            Content="Death Date"
-                            FontSize="10"/>
-                        <TextBox
-                            Text="{Binding CurrentPageData.DeathDate}"
-                            Margin="2,0,2,0"
-                            FontSize="11"/>
-                    </StackPanel>
-                </Grid>
-
-                <Grid Grid.Row="5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="0.2*"/>
-                        <ColumnDefinition Width="2*"/>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0">
-                        <Label
-                            Content="Award"
-                            FontSize="10"/>
-                        <TextBox
-                            Margin="2,0,2,0"
-                            FontSize="11"/>
-                    </StackPanel>
-                    <StackPanel Grid.Column="1">
-                        <Label
-                            Content="Award 2"
-                            FontSize="10"/>
-                        <TextBox
-                            Margin="2,0,2,0"
-                            FontSize="11"/>
-                    </StackPanel>
-                    <StackPanel Grid.Column="3">
-                        <Label
-                            Content="Awards Custom"
-                            FontSize="10"/>
-                        <TextBox
-                            Margin="2,0,2,0"
-                            FontSize="11"/>
-                    </StackPanel>
-                </Grid>
-
-                <Grid Grid.Row="6">
-                    <StackPanel Grid.Column="0">
-                        <Label
-                            Content="Inscription"
-                            FontSize="10"/>
-                        <TextBox
-                            Margin="2,0,0,2"
-                            FontSize="11"/>
-                    </StackPanel>
-                </Grid>
-
-
             </Grid>
-        </Grid>
+        </Border>
 
-        <Grid Grid.Row="2" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
-                <Button 
-                    Grid.Column="0"
-                    Height="20"
-                    Width="auto"
-                    FontSize="11" 
-                    Margin="0,5,8, 5"
-                    Click="BackClick">
-                    <TextBlock 
-                        TextWrapping="Wrap"
-                        TextAlignment="Center">
-                        Back to Results
-                    </TextBlock>
-                </Button>
 
-                <Button 
-                    Grid.Column="1"
-                    Height="20"
-                    Width="auto"
-                    FontSize="11" 
-                    Margin="0,5,8, 5"
-                    Click="BackClick">
-                    <TextBlock 
-                        TextWrapping="Wrap"
-                        TextAlignment="Center">
-                        Save changes
-                    </TextBlock>
-                </Button>
+        <Border Grid.Row="3" Grid.Column="1" BorderBrush="Black" BorderThickness="1">
+            <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
+                <Grid Margin="30,0,0,30">
+                    <Grid.Resources>
+                        <Style TargetType="TextBox">
+                            <Setter Property="FontSize" Value="16" />
+                        </Style>
+                        <Style TargetType="Label">
+                            <Setter Property="FontSize" Value="14" />
+                        </Style>
+                        <Style TargetType="ComboBox">
+                            <Setter Property="FontSize" Value="16" />
+                        </Style>
+                    </Grid.Resources>
 
-                <Button 
-                    Grid.Column="2"
-                    Height="20"
-                    Width="auto"
-                    FontSize="11" 
-                    Margin="0,5,0, 5"
-                    Click="BackClick">
-                    <TextBlock 
-                        TextWrapping="Wrap"
-                        TextAlignment="Center">
-                        Save to Database
-                    </TextBlock>
-                </Button>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-                <Button 
-                    Grid.Column="3"
-                    Height="20"
-                    Width="auto"
-                    FontSize="11" 
-                    Margin="8,5,0, 5"
-                    Click="BackClick">
-                    <TextBlock 
-                        TextWrapping="Wrap"
-                        TextAlignment="Center">
-                        Exit
-                    </TextBlock>
-                </Button>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
 
-            </Grid>
-        </Grid>
+
+                        <StackPanel>
+                            <Label
+                                Margin="0,25,0,0"
+                                Content="PRIMARY"
+                                FontSize="17"
+                                FontWeight="Bold"/>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="Name: First" />
+                                    <TextBox Margin="2,0,0,2" Padding="1" Width="200" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Middle" />
+                                    <TextBox Margin="2,0,0,2" Width="200" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Last" />
+                                    <TextBox Margin="2,0,0,2" Width="200" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Suffix" />
+                                    <TextBox Margin="2,0,0,2"  Width="100" />
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="Location" />
+                                    <ComboBox Margin="2,0,0,2" Width="300" Padding="1" 
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                                              ItemsSource="{Binding GetLocation}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <DataGridRow DataContext="{Binding}" Height="30" Width="250" HorizontalAlignment="Stretch">
+                                                    <DataGridRow.Template>
+                                                        <ControlTemplate>
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="5*"/>
+                                                                    <ColumnDefinition Width="5"/>
+                                                                    <ColumnDefinition Width="1*"/>
+                                                                </Grid.ColumnDefinitions>
+                                                                <TextBlock Text="{Binding Name}"></TextBlock>
+                                                                <Border BorderBrush="Black" BorderThickness="2" Margin="2" Grid.Column="1"></Border>
+                                                                <TextBlock Grid.Column="2" Text="{Binding Abbr}"></TextBlock>
+                                                            </Grid>
+                                                        </ControlTemplate>
+                                                    </DataGridRow.Template>
+                                                </DataGridRow>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Rank" />
+                                    <TextBox Margin="2,0,0,2" Width="200"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Branch" />
+                                    <ComboBox Margin="2,0,0,2" Width="200" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="Branch-Unit Custom" />
+                                    <TextBox Margin="2,0,0,2"  Width="702"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="War" />
+                                    <ComboBox Margin="2,0,0,2" Width="100" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="War 2" />
+                                    <ComboBox Margin="2,0,0,2" Width="100" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Width="90"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Birth Date" />
+                                    <TextBox Margin="2,0,2,0"  Width="200"
+                                        Text="{Binding CurrentPageData.BirthDate}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Death Date" />
+                                    <TextBox Margin="2,0,2,0"  Width="200"
+                                        Text="{Binding CurrentPageData.DeathDate}"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="Award" />
+                                    <ComboBox Margin="2,0,0,2" Width="100" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1">
+                                    <Label Content="Award 2" />
+                                    <ComboBox Margin="2,0,0,2" Width="100" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Width="90"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="3">
+                                    <Label Content="Awards Custom" />
+                                    <TextBox Margin="2,0,2,0"  Width="405"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="Inscription" />
+                                    <TextBox Margin="2,0,0,2"  Width="700"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Margin="50,50,0,0">
+                            <StackPanel.Resources>
+                                <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+                            </StackPanel.Resources>
+
+                            <CheckBox  Name="morePrimaryData"
+                                  Content="Add Additional Information for Primary"/>
+
+                            <StackPanel Orientation="Horizontal" 
+                                    Visibility="{Binding ElementName=morePrimaryData, Path=IsChecked, 
+                                    Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <StackPanel>
+                                    <Label Content="War 3" />
+                                    <ComboBox Margin="2,0,0,2" Width="100" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="War 4" />
+                                    <ComboBox Margin="2,0,0,2" Width="100" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" 
+                                    Visibility="{Binding ElementName=morePrimaryData, Path=IsChecked, 
+                                    Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <StackPanel>
+                                    <Label Content="Award 3" />
+                                    <ComboBox Margin="2,0,0,2" Width="90" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Award 4" />
+                                    <ComboBox Margin="2,0,0,2" Width="90" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Award 5" />
+                                    <ComboBox Margin="2,0,0,2" Width="90" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Award 6" />
+                                    <ComboBox Margin="2,0,0,2" Width="90" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Award 7" />
+                                    <ComboBox Margin="2,0,0,2" Width="90" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" 
+                                    Visibility="{Binding ElementName=morePrimaryData, Path=IsChecked, 
+                                    Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <StackPanel>
+                                    <Label Content="Rank 2" />
+                                    <ComboBox Margin="2,0,0,2" Width="100" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Branch 2" />
+                                    <ComboBox Margin="2,0,0,2" Width="100" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Rank 3" />
+                                    <ComboBox Margin="2,0,0,2" Width="100" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Branch 3" />
+                                    <ComboBox Margin="2,0,0,2" Width="100" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <Label
+                                Margin="0,50,0,0"
+                                Content="SECONDARY"
+                                FontSize="17"
+                                FontWeight="Bold"/>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="Name: First" />
+                                    <TextBox Margin="2,0,0,2" Padding="1" Width="200" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Middle" />
+                                    <TextBox Margin="2,0,0,2" Width="200" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Last" />
+                                    <TextBox Margin="2,0,0,2" Width="200" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Suffix" />
+                                    <TextBox Margin="2,0,0,2"  Width="100" />
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="Location" />
+                                    <ComboBox Margin="2,0,0,2" Width="300" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Rank" />
+                                    <TextBox Margin="2,0,0,2" Width="200" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Branch" />
+                                    <ComboBox Margin="2,0,0,2" Width="200" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="Branch-Unit Custom" />
+                                    <TextBox Margin="2,0,0,2"  Width="702"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="War" />
+                                    <ComboBox Margin="2,0,0,2" Width="100" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="War 2" />
+                                    <ComboBox Margin="2,0,0,2" Width="100" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Width="90"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Birth Date" />
+                                    <TextBox Margin="2,0,2,0"  Width="200"
+                                        Text="{Binding CurrentPageData.BirthDate}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Death Date" />
+                                    <TextBox Margin="2,0,2,0"  Width="200"
+                                        Text="{Binding CurrentPageData.DeathDate}"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="Award" />
+                                    <ComboBox Margin="2,0,0,2" Width="100" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1">
+                                    <Label Content="Award 2" />
+                                    <ComboBox Margin="2,0,0,2" Width="100" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Width="90"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="3">
+                                    <Label Content="Awards Custom" />
+                                    <TextBox Margin="2,0,2,0"  Width="405"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="Inscription" />
+                                    <TextBox Margin="2,0,0,2"  Width="700"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+
+
+                        <StackPanel Grid.Column="1" Margin="60,60,0,0">
+                            <StackPanel.Resources>
+                                <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+                            </StackPanel.Resources>
+
+
+                            <CheckBox  Name="moreSecondaryData"
+                                  Content="Add Additional Information for Secondary"/>
+
+                            <StackPanel Orientation="Horizontal" 
+                                    Visibility="{Binding ElementName=moreSecondaryData, Path=IsChecked, 
+                                    Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <StackPanel>
+                                    <Label Content="War 3" />
+                                    <ComboBox Margin="2,0,0,2" Width="100" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="War 4" />
+                                    <ComboBox Margin="2,0,0,2" Width="100" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" 
+                                    Visibility="{Binding ElementName=moreSecondaryData, Path=IsChecked, 
+                                    Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <StackPanel>
+                                    <Label Content="Award 3" />
+                                    <ComboBox Margin="2,0,0,2" Width="90" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Award 4" />
+                                    <ComboBox Margin="2,0,0,2" Width="90" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Award 5" />
+                                    <ComboBox Margin="2,0,0,2" Width="90" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Award 6" />
+                                    <ComboBox Margin="2,0,0,2" Width="90" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Award 7" />
+                                    <ComboBox Margin="2,0,0,2" Width="90" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" 
+                                    Visibility="{Binding ElementName=moreSecondaryData, Path=IsChecked, 
+                                    Converter={StaticResource BooleanToVisibilityConverter}}">
+                                <StackPanel>
+                                    <Label Content="Rank 2" />
+                                    <ComboBox Margin="2,0,0,2" Width="100" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Branch 2" />
+                                    <ComboBox Margin="2,0,0,2" Width="100" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Rank 3" />
+                                    <ComboBox Margin="2,0,0,2" Width="100" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Branch 3" />
+                                    <ComboBox Margin="2,0,0,2" Width="100" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+
+                    <StackPanel Grid.Row="2" Margin="0,0,0,50">
+                        <StackPanel.Resources>
+                            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+                        </StackPanel.Resources>
+
+                        <Label
+                                Margin="0,50,0,10"
+                                Content="ADDITIONAL NAMES"
+                                FontSize="17"
+                                FontWeight="Bold"/>
+
+                        <CheckBox FontSize="15" Name="Name3" Margin="5,10,0,0"
+                                  FontWeight="Bold" Content="3rd Name Listed"/>
+
+                        <StackPanel Visibility="{Binding ElementName=Name3, Path=IsChecked, 
+                                    Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="Name: First" />
+                                    <TextBox Margin="2,0,0,2" Padding="1" Width="200" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Middle" />
+                                    <TextBox Margin="2,0,0,2" Width="200" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Last" />
+                                    <TextBox Margin="2,0,0,2" Width="200" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Suffix" />
+                                    <TextBox Margin="2,0,0,2"  Width="95" />
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel>
+                                <Label Content="Location" />
+                                <ComboBox Margin="2,0,0,2" Width="700" Padding="1"
+                                              HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="Rank" />
+                                    <TextBox Margin="2,0,0,2" Width="350" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Branch" />
+                                    <ComboBox Margin="2,0,0,2" Width="350" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="War" />
+                                    <ComboBox Margin="2,0,0,2" Width="200" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Birth Date" />
+                                    <TextBox Margin="2,0,2,0"  Width="245"
+                                        Text="{Binding CurrentPageData.BirthDate}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Death Date" />
+                                    <TextBox Margin="2,0,2,0"  Width="250"
+                                        Text="{Binding CurrentPageData.DeathDate}"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="Award" />
+                                    <ComboBox Margin="2,0,0,2" Width="120" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Inscription" />
+                                    <TextBox Margin="2,0,0,50"  Width="580"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <CheckBox FontSize="15" Name="Name4" Margin="5,10,0,0"
+                                  FontWeight="Bold" Content="4th Name Listed"/>
+
+                        <StackPanel Visibility="{Binding ElementName=Name4, Path=IsChecked, 
+                                    Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="Name: First" />
+                                    <TextBox Margin="2,0,0,2" Padding="1" Width="200" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Middle" />
+                                    <TextBox Margin="2,0,0,2" Width="200" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Last" />
+                                    <TextBox Margin="2,0,0,2" Width="200" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Suffix" />
+                                    <TextBox Margin="2,0,0,2"  Width="95" />
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel>
+                                <Label Content="Location" />
+                                <ComboBox Margin="2,0,0,2" Width="700" Padding="1"
+                                              HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="Rank" />
+                                    <TextBox Margin="2,0,0,2" Width="350" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Branch" />
+                                    <ComboBox Margin="2,0,0,2" Width="350" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="War" />
+                                    <ComboBox Margin="2,0,0,2" Width="200" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Birth Date" />
+                                    <TextBox Margin="2,0,2,0"  Width="245"
+                                        Text="{Binding CurrentPageData.BirthDate}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Death Date" />
+                                    <TextBox Margin="2,0,2,0"  Width="250"
+                                        Text="{Binding CurrentPageData.DeathDate}"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="Award" />
+                                    <ComboBox Margin="2,0,0,2" Width="120" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Inscription" />
+                                    <TextBox Margin="2,0,0,50"  Width="580"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <CheckBox FontSize="15" Name="Name5" Margin="5,10,0,0"
+                                  FontWeight="Bold" Content="5th Name Listed"/>
+
+                        <StackPanel Visibility="{Binding ElementName=Name5, Path=IsChecked, 
+                                    Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="Name: First" />
+                                    <TextBox Margin="2,0,0,2" Padding="1" Width="200" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Middle" />
+                                    <TextBox Margin="2,0,0,2" Width="200" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Last" />
+                                    <TextBox Margin="2,0,0,2" Width="200" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Suffix" />
+                                    <TextBox Margin="2,0,0,2"  Width="95" />
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel>
+                                <Label Content="Location" />
+                                <ComboBox Margin="2,0,0,2" Width="700" Padding="1"
+                                              HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="Rank" />
+                                    <TextBox Margin="2,0,0,2" Width="350" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Branch" />
+                                    <ComboBox Margin="2,0,0,2" Width="350" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="War" />
+                                    <ComboBox Margin="2,0,0,2" Width="200" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Birth Date" />
+                                    <TextBox Margin="2,0,2,0"  Width="245"
+                                        Text="{Binding CurrentPageData.BirthDate}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Death Date" />
+                                    <TextBox Margin="2,0,2,0"  Width="250"
+                                        Text="{Binding CurrentPageData.DeathDate}"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="Award" />
+                                    <ComboBox Margin="2,0,0,2" Width="120" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Inscription" />
+                                    <TextBox Margin="2,0,0,50"  Width="580"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <CheckBox FontSize="15" Name="Name6" Margin="5,10,0,0"
+                                  FontWeight="Bold" Content="6th Name Listed"/>
+
+                        <StackPanel Visibility="{Binding ElementName=Name6, Path=IsChecked, 
+                                    Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="Name: First" />
+                                    <TextBox Margin="2,0,0,2" Padding="1" Width="200" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Middle" />
+                                    <TextBox Margin="2,0,0,2" Width="200" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Last" />
+                                    <TextBox Margin="2,0,0,2" Width="200" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Suffix" />
+                                    <TextBox Margin="2,0,0,2"  Width="95" />
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel>
+                                <Label Content="Location" />
+                                <ComboBox Margin="2,0,0,2" Width="700" Padding="1"
+                                              HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="Rank" />
+                                    <TextBox Margin="2,0,0,2" Width="350" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Branch" />
+                                    <ComboBox Margin="2,0,0,2" Width="350" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="War" />
+                                    <ComboBox Margin="2,0,0,2" Width="200" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Birth Date" />
+                                    <TextBox Margin="2,0,2,0"  Width="245"
+                                        Text="{Binding CurrentPageData.BirthDate}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Death Date" />
+                                    <TextBox Margin="2,0,2,0"  Width="250"
+                                        Text="{Binding CurrentPageData.DeathDate}"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="Award" />
+                                    <ComboBox Margin="2,0,0,2" Width="120" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Inscription" />
+                                    <TextBox Margin="2,0,0,50"  Width="580"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+
+                        <CheckBox FontSize="15" Name="Name7" Margin="5,10,0,0"
+                                  FontWeight="Bold" Content="7th Name Listed"/>
+
+                        <StackPanel Visibility="{Binding ElementName=Name7, Path=IsChecked, 
+                                    Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="Name: First" />
+                                    <TextBox Margin="2,0,0,2" Padding="1" Width="200" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Middle" />
+                                    <TextBox Margin="2,0,0,2" Width="200" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Last" />
+                                    <TextBox Margin="2,0,0,2" Width="200" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Suffix" />
+                                    <TextBox Margin="2,0,0,2"  Width="95" />
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel>
+                                <Label Content="Location" />
+                                <ComboBox Margin="2,0,0,2" Width="700" Padding="1"
+                                              HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="Rank" />
+                                    <TextBox Margin="2,0,0,2" Width="350" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Branch" />
+                                    <ComboBox Margin="2,0,0,2" Width="350" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="War" />
+                                    <ComboBox Margin="2,0,0,2" Width="200" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Birth Date" />
+                                    <TextBox Margin="2,0,2,0"  Width="245"
+                                        Text="{Binding CurrentPageData.BirthDate}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Death Date" />
+                                    <TextBox Margin="2,0,2,0"  Width="250"
+                                        Text="{Binding CurrentPageData.DeathDate}"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel>
+                                    <Label Content="Award" />
+                                    <ComboBox Margin="2,0,0,2" Width="120" Padding="1"
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                              ItemsSource="{Binding GetLocation}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="Inscription" />
+                                    <TextBox Margin="2,0,0,0"  Width="580"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+
+                    </StackPanel>
+                </Grid>
+            </ScrollViewer>
+        </Border>
     </Grid>
 </Window>

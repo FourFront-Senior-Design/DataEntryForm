@@ -15,13 +15,13 @@
         <Grid Grid.Row="1">
             <StackPanel>
                 <Label
-                    Content="Image Text Extractor"
+                    Content="Data Extraction"
                     FontSize="26"
                     FontWeight="Bold"
                     Padding="20"
                     HorizontalAlignment="Center"/>
                 <Label
-                    Content="Enter the location of the images"
+                    Content="Enter the section path"
                     FontSize="20"
                     HorizontalAlignment="Center"
                     Margin="7"/>
@@ -44,20 +44,20 @@
                 Margin="10">
 
                 <Button 
-                    Content="Load Images" 
+                    Content="Load Data" 
                     Height="45" 
                     Width="130" 
                     FontSize="18"
                     Margin="10"
-                    Click="LoadImagesClick" />
+                    Click="LoadDataClick" />
 
                 <Button 
-                    Content="Extract" 
+                    Content="Review" 
                     Height="45" 
                     Width="130" 
-                    FontSize="18" 
+                    FontSize="18"
                     Margin="10"
-                    Click="ExtractClick"/>
+                    Click="ReviewClick" />
 
                 <Button 
                     Content="Exit" 

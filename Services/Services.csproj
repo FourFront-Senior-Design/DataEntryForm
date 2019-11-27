@@ -48,12 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileDatabase.cs" />
-    <Compile Include="GoogleVision.cs" />
-    <Compile Include="ImageLoader.cs" />
-    <Compile Include="ImageProcessor.cs" />
     <Compile Include="MicrosoftAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TextClassifier.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataStructures\DataStructures.csproj">
