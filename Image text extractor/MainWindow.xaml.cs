@@ -53,5 +53,12 @@ namespace Image_text_extractor
             this.Close();
             Application.Current.Shutdown();
         }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            Application.Current.Shutdown();
+        }
     }
 }
