@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2050
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Image text extractor", "Image text extractor\Image text extractor.csproj", "{054A964B-37D2-4473-AE1C-A385A1D78168}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageTextExtractor", "Image text extractor\ImageTextExtractor.csproj", "{054A964B-37D2-4473-AE1C-A385A1D78168}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModelInterfaces", "ViewModelInterfaces\ViewModelInterfaces.csproj", "{F65A0368-09C8-4986-AD75-6956049C7B28}"
 EndProject

@@ -26,6 +26,7 @@ namespace Image_text_extractor
         {
             InitializeComponent();
             _viewModel = viewModel;
+            // this.locationComboBox.ItemsSource = _viewModel.GetLocations();
             DataContext = _viewModel;
         }
 

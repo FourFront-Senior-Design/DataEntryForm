@@ -7,7 +7,7 @@
     <ProjectGuid>{054A964B-37D2-4473-AE1C-A385A1D78168}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Image_text_extractor</RootNamespace>
-    <AssemblyName>Image text extractor</AssemblyName>
+    <AssemblyName>ImageTextExtractor</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -133,6 +133,81 @@
       <Project>{9754EA98-88F9-44F4-8EA9-B818F37D01F2}</Project>
       <Name>ViewModels</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Emblems\emb-01.jpg" />
+    <Resource Include="Emblems\emb-02.jpg" />
+    <Resource Include="Emblems\emb-03.jpg" />
+    <Resource Include="Emblems\emb-04.jpg" />
+    <Resource Include="Emblems\emb-05.jpg" />
+    <Resource Include="Emblems\emb-06.jpg" />
+    <Resource Include="Emblems\emb-07.jpg" />
+    <Resource Include="Emblems\emb-08.jpg" />
+    <Resource Include="Emblems\emb-09.jpg" />
+    <Resource Include="Emblems\emb-10.jpg" />
+    <Resource Include="Emblems\emb-11.jpg" />
+    <Resource Include="Emblems\emb-12.jpg" />
+    <Resource Include="Emblems\emb-13.jpg" />
+    <Resource Include="Emblems\emb-14.jpg" />
+    <Resource Include="Emblems\emb-15.jpg" />
+    <Resource Include="Emblems\emb-16.jpg" />
+    <Resource Include="Emblems\emb-17.jpg" />
+    <Resource Include="Emblems\emb-18.jpg" />
+    <Resource Include="Emblems\emb-19.jpg" />
+    <Resource Include="Emblems\emb-20.jpg" />
+    <Resource Include="Emblems\emb-21.jpg" />
+    <Resource Include="Emblems\emb-22.jpg" />
+    <Resource Include="Emblems\emb-23.jpg" />
+    <Resource Include="Emblems\emb-24.jpg" />
+    <Resource Include="Emblems\emb-25.jpg" />
+    <Resource Include="Emblems\emb-26.jpg" />
+    <Resource Include="Emblems\emb-27.jpg" />
+    <Resource Include="Emblems\emb-28.jpg" />
+    <Resource Include="Emblems\emb-29.jpg" />
+    <Resource Include="Emblems\emb-30.jpg" />
+    <Resource Include="Emblems\emb-31.jpg" />
+    <Resource Include="Emblems\emb-32.jpg" />
+    <Resource Include="Emblems\emb-33.jpg" />
+    <Resource Include="Emblems\emb-34.jpg" />
+    <Resource Include="Emblems\emb-35.jpg" />
+    <Resource Include="Emblems\emb-36.jpg" />
+    <Resource Include="Emblems\emb-37.jpg" />
+    <Resource Include="Emblems\emb-38.jpg" />
+    <Resource Include="Emblems\emb-39.jpg" />
+    <Resource Include="Emblems\emb-40.jpg" />
+    <Resource Include="Emblems\emb-41.jpg" />
+    <Resource Include="Emblems\emb-42.jpg" />
+    <Resource Include="Emblems\emb-43.jpg" />
+    <Resource Include="Emblems\emb-44.jpg" />
+    <Resource Include="Emblems\emb-45.jpg" />
+    <Resource Include="Emblems\emb-46.jpg" />
+    <Resource Include="Emblems\emb-47.jpg" />
+    <Resource Include="Emblems\emb-48.jpg" />
+    <Resource Include="Emblems\emb-49.jpg" />
+    <Resource Include="Emblems\emb-51.jpg" />
+    <Resource Include="Emblems\emb-52.jpg" />
+    <Resource Include="Emblems\emb-53.jpg" />
+    <Resource Include="Emblems\emb-54.jpg" />
+    <Resource Include="Emblems\emb-55.jpg" />
+    <Resource Include="Emblems\emb-56.jpg" />
+    <Resource Include="Emblems\emb-57.jpg" />
+    <Resource Include="Emblems\emb-58.jpg" />
+    <Resource Include="Emblems\emb-59.jpg" />
+    <Resource Include="Emblems\emb-60.jpg" />
+    <Resource Include="Emblems\emb-61.jpg" />
+    <Resource Include="Emblems\emb-62.jpg" />
+    <Resource Include="Emblems\emb-63.jpg" />
+    <Resource Include="Emblems\emb-64.jpg" />
+    <Resource Include="Emblems\emb-65.jpg" />
+    <Resource Include="Emblems\emb-66.jpg" />
+    <Resource Include="Emblems\emb-67.jpg" />
+    <Resource Include="Emblems\emb-68.jpg" />
+    <Resource Include="Emblems\emb-69.jpg" />
+    <Resource Include="Emblems\emb-70.jpg" />
+    <Resource Include="Emblems\emb-71.jpg" />
+    <Resource Include="Emblems\emb-72.jpg" />
+    <Resource Include="Emblems\emb-73.jpg" />
+    <Resource Include="Emblems\emb-74.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
