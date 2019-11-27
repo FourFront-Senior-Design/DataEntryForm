@@ -6,7 +6,7 @@ namespace ViewModels
 {
     public class MainWindowVM : IMainWindowVM, INotifyPropertyChanged
     {
-        IDatabase _database;
+        IDatabaseService _database;
         private string fileLocation;
 
         public string FileLocation
@@ -30,7 +30,7 @@ namespace ViewModels
             return 0;
         }
       
-        public MainWindowVM(IDatabase database)
+        public MainWindowVM(IDatabaseService database)
         {
             _database = database;
         }

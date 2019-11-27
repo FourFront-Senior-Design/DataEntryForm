@@ -25,7 +25,7 @@ namespace Image_text_extractor
           
             serviceCollection.AddTransient<IReviewWindowVM, ReviewWindowVM>();
             serviceCollection.AddTransient<IMainWindowVM, MainWindowVM>();
-            serviceCollection.AddTransient<IDatabase, MicrosoftAccess>();
+            serviceCollection.AddTransient<IDatabaseService, MicrosoftAccess>();
 
             serviceCollection.AddTransient<MainWindow, MainWindow>();
             serviceCollection.AddTransient<ReviewWindow, ReviewWindow>();
