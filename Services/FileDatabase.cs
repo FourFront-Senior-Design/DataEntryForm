@@ -10,9 +10,19 @@ namespace Services
 {
     public class FileDatabase : IDatabase
     {
-        public bool Insert(FieldData data)
+        public Headstone GetHeadstone(int index)
         {
-            return true;
+            throw new NotImplementedException();
+        }
+
+        public void InitDatabase(string FileName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetHeadstone(int index, Headstone headstoneData)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -9,6 +9,8 @@ namespace ServicesInterfaces
 {
     public interface IDatabase
     {
-        bool Insert(FieldData data);
+        void InitDatabase(string FileName);
+        Headstone GetHeadstone(int index);
+        void SetHeadstone(int index, Headstone headstoneData);
     }
 }
