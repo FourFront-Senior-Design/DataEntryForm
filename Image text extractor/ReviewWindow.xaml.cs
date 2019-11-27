@@ -55,5 +55,12 @@ namespace Image_text_extractor
         {
             _viewModel.PreviousImage();
         }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            Application.Current.Shutdown();
+        }
     }
 }
