@@ -12,7 +12,9 @@
         </Style>
         <DataTemplate x:Key="emblemCmbTemplate">
             <WrapPanel Margin="0,0,0,0">
-                <Image Width="18" Height="18" Stretch="Fill" Source="{Binding Photo}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2,0,15,0"/>
+                <!--<Image Width="18" Height="18" Stretch="Fill" Source="{Binding Photo}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2,0,15,0"/>-->
+                <!--<Label Content="{Binding Name}" FontSize="12" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>-->
+                <Image Width="24" Height="24" Stretch="Fill" Source="{Binding Photo}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2,0,15,0"/>
                 <Label Content="{Binding Name}" FontSize="12" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </WrapPanel>
         </DataTemplate>
