@@ -53,10 +53,5 @@ namespace Image_text_extractor
             this.Close();
             Application.Current.Shutdown();
         }
-
-        public static void Exit(System.ComponentModel.CancelEventArgs e)
-        { 
-            Application.Current.Shutdown();
-        }
     }
 }

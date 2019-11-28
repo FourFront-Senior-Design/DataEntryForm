@@ -16,11 +16,14 @@ namespace Image_text_extractor
 
         private IReviewWindowVM _viewModel;
 
+        private bool isBack;
+
         public ReviewWindow(IReviewWindowVM viewModel)
         {
             InitializeComponent();
             _viewModel = viewModel;
             DataContext = _viewModel;
+            isBack = false;
         }
 
         public void SetImagesToReview(List<FieldData> images)
@@ -30,12 +33,8 @@ namespace Image_text_extractor
 
         private void BackClick(object sender, RoutedEventArgs e)
         {
-            if (System.Windows.MessageBox.Show("Are you sure you want to go " +
-                "back to main menu?\n\nNote: All changes will be saved.", "Confirm",
-                MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-            {
-                MoveToMainPage?.Invoke(this, new EventArgs());
-            }
+            isBack = true;
+            MoveToMainPage?.Invoke(this, new EventArgs());
         }
 
         private void NextClick(object sender, RoutedEventArgs e)
@@ -54,9 +53,10 @@ namespace Image_text_extractor
                 "\n\nNote: All changes will be saved.", "Confirm",
                 MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                base.OnClosed(e);
-
-                Application.Current.Shutdown();
+                if (isBack == false)
+                {
+                    Application.Current.Shutdown();
+                }
             }
             else
             {
