@@ -54,10 +54,8 @@ namespace Image_text_extractor
             Application.Current.Shutdown();
         }
 
-        protected override void OnClosed(EventArgs e)
-        {
-            base.OnClosed(e);
-
+        public static void Exit(System.ComponentModel.CancelEventArgs e)
+        { 
             Application.Current.Shutdown();
         }
     }

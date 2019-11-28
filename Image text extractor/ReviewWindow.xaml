@@ -3,13 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="Review" WindowState="Maximized" Background="#FFE4E4E4" d:DesignWidth="1158" d:DesignHeight="843">
+        Title="Review" WindowState="Maximized" Background="#FFE4E4E4" Closing="WindowClosing" d:DesignWidth="1158" d:DesignHeight="843">
 
     <Window.Resources>
-        <Style TargetType="TextBox">
-            <Setter Property="CharacterCasing" Value="Upper" />
-        </Style>
         <DataTemplate x:Key="emblemCmbTemplate">
             <WrapPanel Margin="0,0,0,0">
                 <Image Width="18" Height="18" Stretch="Fill" Source="{Binding Photo}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2,0,15,0"/>
@@ -17,6 +15,7 @@
             </WrapPanel>
         </DataTemplate>
     </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.2*"/>
@@ -49,25 +48,24 @@
                         <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Content="Record" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"/>
-                    <TextBox Grid.Column="1" FontSize="14" Height="18"/>
+                    <TextBox Grid.Column="1" CharacterCasing="Upper" FontSize="14" Height="18"/>
                     <Label Grid.Column="2" Content="of" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"/>
-                    <TextBox Grid.Column="3" FontSize="14" Height="18" Margin="0,0,5,0"/>
+                    <TextBox Grid.Column="3" CharacterCasing="Upper" FontSize="14" Height="18" Margin="0,0,5,0"/>
                 </Grid>
-                <TextBox Grid.Column="1" FontSize="14" Width="auto" Height="18" Margin="2"/>
-                <TextBox Grid.Column="2" FontSize="14" Width="auto" Height="18" Margin="2,2,0,2"/>
+                <TextBox Grid.Column="1" CharacterCasing="Upper" FontSize="14" Width="auto" Height="18" Margin="2"/>
+                <TextBox Grid.Column="2" CharacterCasing="Upper" FontSize="14" Width="auto" Height="18" Margin="2,2,0,2"/>
                 <Grid Grid.Column="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1.2*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
                     <Label Content="Go to Record" Margin="2,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="14"/>
-                    <TextBox Grid.Column="1" FontSize="14" Height="18" Margin="0,0,5,0"/>
+                    <TextBox Grid.Column="1" CharacterCasing="Upper" FontSize="14" Height="18" Margin="0,0,5,0"/>
                 </Grid>
                 <Grid Grid.Column="4">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.7*"/>
-                        <ColumnDefinition Width="0.5*"/>
-                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="0.6*"/>
+                        <ColumnDefinition Width="0.6*"/>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
@@ -106,13 +104,7 @@
                     <Button Height="20" FontSize="12"
                             Grid.Column="5" Click="BackClick">
                         <TextBlock TextWrapping="Wrap" TextAlignment="Center">
-                            Change sections
-                        </TextBlock>
-                    </Button>
-                    <Button Height="20" FontSize="12" 
-                            Grid.Column="6" Click="ExitClick">
-                        <TextBlock TextWrapping="Wrap" TextAlignment="Center">
-                                Close Form
+                            Back to Main Menu
                         </TextBlock>
                     </Button>
                 </Grid>
@@ -123,6 +115,7 @@
             <Grid>
                 <Grid.Resources>
                     <Style TargetType="TextBox">
+                        <Setter Property="CharacterCasing" Value="Upper" />
                         <Setter Property="FontSize" Value="14" />
                     </Style>
                     <Style TargetType="Label">
@@ -196,6 +189,7 @@
                 <Grid Margin="30,0,0,30">
                     <Grid.Resources>
                         <Style TargetType="TextBox">
+                            <Setter Property="CharacterCasing" Value="Upper" />
                             <Setter Property="FontSize" Value="16" />
                         </Style>
                         <Style TargetType="Label">
@@ -306,13 +300,13 @@
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Birth Date" />
-                                    <TextBox Margin="2,0,2,0"  Width="200"
-                                        Text="{Binding CurrentPageData.BirthDate}"/>
+                                    <TextBox  VerticalAlignment="Center" Margin="2,0,2,0" Width="200" 
+                                            Text="  /  /    " />
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Death Date" />
-                                    <TextBox Margin="2,0,2,0"  Width="200"
-                                        Text="{Binding CurrentPageData.DeathDate}"/>
+                                    <TextBox Margin="2,0,2,0"  Width="200" PreviewTextInput="NumberValidationTextBox"
+                                        />
                                 </StackPanel>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">

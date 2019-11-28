@@ -1,18 +1,12 @@
 ﻿using DataStructures;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using ViewModelInterfaces;
+using System.Text.RegularExpressions;
+using System.ComponentModel;
+using System.Diagnostics;
 
 namespace Image_text_extractor
 {
@@ -26,7 +20,6 @@ namespace Image_text_extractor
         {
             InitializeComponent();
             _viewModel = viewModel;
-            // this.locationComboBox.ItemsSource = _viewModel.GetLocations();
             DataContext = _viewModel;
         }
 
@@ -35,15 +28,14 @@ namespace Image_text_extractor
             _viewModel.SetImagesToReview(images);
         }
 
-        private void ExitClick(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-            System.Windows.Application.Current.Shutdown();
-        }
-
         private void BackClick(object sender, RoutedEventArgs e)
         {
-            MoveToMainPage?.Invoke(this, new EventArgs());
+            if (System.Windows.MessageBox.Show("Are you sure you want to go " +
+                "back to main menu?\n\nNote: All changes will be saved.", "Confirm",
+                MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                MoveToMainPage?.Invoke(this, new EventArgs());
+            }
         }
 
         private void NextClick(object sender, RoutedEventArgs e)
@@ -56,11 +48,26 @@ namespace Image_text_extractor
             _viewModel.PreviousImage();
         }
 
-        protected override void OnClosed(EventArgs e)
+        private void WindowClosing(object sender, CancelEventArgs e)
         {
-            base.OnClosed(e);
+            if (System.Windows.MessageBox.Show("Are you sure you want to close the form?" +
+                "\n\nNote: All changes will be saved.", "Confirm",
+                MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                base.OnClosed(e);
 
-            Application.Current.Shutdown();
+                Application.Current.Shutdown();
+            }
+            else
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }
