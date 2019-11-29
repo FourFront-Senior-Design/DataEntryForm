@@ -52,6 +52,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{0C493421-EBE7-4915-8BDD-23D2E456C9E3}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataStructures\DataStructures.csproj">
       <Project>{AA71ED64-9E35-496B-BFD0-60D04D17318D}</Project>
       <Name>DataStructures</Name>
