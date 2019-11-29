@@ -2,6 +2,7 @@
 using ServicesInterfaces;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.OleDb;
 using System.IO;
 using System.Linq;
@@ -13,8 +14,8 @@ namespace Services
 {
     public class MicrosoftAccess : IDatabaseService
     {
-        private OleDbConnection DbConnection;
-        private int index;
+        private string _connectionString;
+        private int _rowIndex;
 
 
         public int TotalItems
@@ -24,18 +25,50 @@ namespace Services
 
         public Headstone GetHeadstone(int index)
         {
-            string sql = "select * from Master where AccessUniqueID = " + index.ToString();
-
-            OleDbDataReader DbReader;
-            OleDbCommand cmd = new OleDbCommand(sql, DbConnection);
-            DbReader = cmd.ExecuteReader();
-
-            DbReader.Read();
+            string sqlQuery = "SELECT * FROM Master WHERE AccessUniqueID = " + index.ToString();
             Headstone headstone = new Headstone();
 
-            headstone.SequenceID = DbReader.GetString(1);
+            var dataRow = GetDataRow(sqlQuery);
 
             return headstone;
+        }
+
+        public Dictionary<string,object> GetDataRow(string sqlQuery)
+        {
+            OleDbCommand cmd;
+            OleDbDataReader reader;
+            Dictionary<string, object> dataRow;
+
+            using (OleDbConnection connection = new OleDbConnection(_connectionString)) // using to ensure connection is closed when we are done
+            {
+                try
+                {
+                    cmd = new OleDbCommand(sqlQuery, connection);
+                    connection.Open(); // try to open the connection
+
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error accsessing Database");
+                    throw e;
+                }
+
+                dataRow = new Dictionary<string, object>();
+                reader = cmd.ExecuteReader();
+
+                DataTable table = reader.GetSchemaTable();
+                DataColumn nameCol = table.Columns["ColumnName"];
+
+                reader.Read();
+
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    dataRow.Add(table.Rows[i][nameCol].ToString(), reader[i]);
+                }
+
+            }
+
+            return dataRow;
         }
 
 
@@ -47,10 +80,24 @@ namespace Services
                 .Where(path => reg.IsMatch(path))
                 .ToList();
 
-            DbConnection = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Dbfiles[0]);
+            // set the connection string
+            _connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Dbfiles[0];
 
-            DbConnection.Open();
-            index = 1;
+            // create the db connection
+            using (OleDbConnection connection = new OleDbConnection(_connectionString)) // using to ensure connection is closed when we are done
+            {
+                try
+                {
+                    connection.Open(); // try to open the connection
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error accsessing Database");
+                    throw e;
+                }
+            }
+
+            _rowIndex = 1;
         }
 
         public void SetHeadstone(int index, Headstone headstone)

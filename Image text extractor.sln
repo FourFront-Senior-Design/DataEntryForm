@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2050
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageTextExtractor", "Image text extractor\ImageTextExtractor.csproj", "{054A964B-37D2-4473-AE1C-A385A1D78168}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{2D9FEEC2-3218-4755-8FD9-233CEB7B636D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataStructures", "DataStructures\DataStructures.csproj", "{AA71ED64-9E35-496B-BFD0-60D04D17318D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceTests", "ServiceTests\ServiceTests.csproj", "{C60ACF7F-6D2F-4423-84C3-AD29F8EEFDCD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{AA71ED64-9E35-496B-BFD0-60D04D17318D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA71ED64-9E35-496B-BFD0-60D04D17318D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA71ED64-9E35-496B-BFD0-60D04D17318D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C60ACF7F-6D2F-4423-84C3-AD29F8EEFDCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C60ACF7F-6D2F-4423-84C3-AD29F8EEFDCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C60ACF7F-6D2F-4423-84C3-AD29F8EEFDCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C60ACF7F-6D2F-4423-84C3-AD29F8EEFDCD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
