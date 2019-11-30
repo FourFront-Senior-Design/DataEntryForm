@@ -33,6 +33,11 @@ namespace Image_text_extractor
             GoToRecordTextBox.Text = "";
         }
 
+        private void FirstRecordClick(object sender, RoutedEventArgs e)
+        {
+            _viewModel.PageIndex = 1;
+        }
+
         private void BackClick(object sender, RoutedEventArgs e)
         {
             isBack = true;
