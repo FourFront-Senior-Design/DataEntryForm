@@ -6,19 +6,33 @@ namespace ViewModels
 {
     public class MainWindowVM : IMainWindowVM, INotifyPropertyChanged
     {
-        IDatabaseService _database;
-        private string fileLocation;
+        private IDatabaseService _database;
+        private string _fileLocation;
+        private bool _enableExtract = false;
 
         public string FileLocation
         {
             get
             {
-                return fileLocation;
+                return _fileLocation;
             }
             set
             {
-                fileLocation = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(fileLocation)));
+                _fileLocation = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(FileLocation)));
+            }
+        }
+
+        public bool EnableExtract
+        {
+            get
+            {
+                return _enableExtract;
+            }
+            set
+            {
+                _enableExtract = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EnableExtract)));
             }
         }
 
@@ -26,8 +40,9 @@ namespace ViewModels
 
         public int LoadData()
         {
-            //call database service
-            return 0;
+            if (_database.InitDBConnection(_fileLocation) == false)
+                return -1;
+            return _database.TotalItems;
         }
       
         public MainWindowVM(IDatabaseService database)

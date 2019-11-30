@@ -25,7 +25,7 @@ namespace Image_text_extractor
           
             serviceCollection.AddTransient<IReviewWindowVM, ReviewWindowVM>();
             serviceCollection.AddTransient<IMainWindowVM, MainWindowVM>();
-            serviceCollection.AddTransient<IDatabaseService, MicrosoftAccess>();
+            serviceCollection.AddSingleton<IDatabaseService, MicrosoftAccess>();
 
             serviceCollection.AddTransient<MainWindow, MainWindow>();
             serviceCollection.AddTransient<ReviewWindow, ReviewWindow>();
@@ -46,6 +46,7 @@ namespace Image_text_extractor
                 _reviewWindow = _serviceProvider.GetService<ReviewWindow>();
                 _reviewWindow.MoveToMainPage += ReviewWindow_MoveToMainPage;
             }
+            _reviewWindow.SetImagesToReview();
             _reviewWindow.Show();
         }
 
@@ -54,6 +55,7 @@ namespace Image_text_extractor
             _reviewWindow.Close();
             if (_reviewWindow == null || !_reviewWindow.IsActive)
             {
+                _mainWindow.ResetMainWindow();
                 _mainWindow.Show();
             }
         }

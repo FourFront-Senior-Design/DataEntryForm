@@ -18,27 +18,40 @@ namespace Image_text_extractor
             DataContext = _viewModel;
         }
 
+        public void ResetMainWindow()
+        {
+            _viewModel.EnableExtract = false;
+            _viewModel.FileLocation = "";
+        }
+
         private void LoadDataClick(object sender, RoutedEventArgs e)
         {
             var dialog = new System.Windows.Forms.FolderBrowserDialog();
             dialog.ShowDialog();
 
-            _viewModel.FileLocation = dialog.SelectedPath;
+             _viewModel.FileLocation = dialog.SelectedPath;
 
             Trace.WriteLine("Printing...");
             Trace.WriteLine(_viewModel.FileLocation);
 
             int countData = _viewModel.LoadData();
 
-            if (countData != 0)  //Make this 0
+            if(countData == -1)
+            {
+                System.Windows.MessageBox.Show("Invalid Data Path. Try Again", "Alert",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else if (countData == 0)  
             {
                 System.Windows.MessageBox.Show("No database found", "Alert",
                     MessageBoxButton.OK, MessageBoxImage.Information);
-            } else
+            }
+            else
             {
                 string display = "Successfully loaded " + countData.ToString() + " records";
                 System.Windows.MessageBox.Show(display, "Success",
                     MessageBoxButton.OK, MessageBoxImage.Information);
+                _viewModel.EnableExtract = true;
             }
         }
 

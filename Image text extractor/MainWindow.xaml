@@ -32,7 +32,7 @@
                     FontSize="18"
                     Padding="4"
                     HorizontalAlignment="Center"
-                    Width="400"/>
+                    Width="550"/>
             </StackPanel>
         </Grid>
 
@@ -57,7 +57,8 @@
                     Width="130" 
                     FontSize="18"
                     Margin="10"
-                    Click="ReviewClick" />
+                    Click="ReviewClick"
+                    IsEnabled="{Binding EnableExtract}" />
 
                 <Button 
                     Content="Exit" 

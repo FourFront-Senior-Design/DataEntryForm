@@ -13,6 +13,8 @@ namespace ServicesInterfaces
 
         void SetHeadstone(int index, Headstone headstone);
 
-        void InitDBConnection(string sectionFilePath);
+        bool InitDBConnection(string sectionFilePath);
+
+        int TotalItems { get; }
     }
 }

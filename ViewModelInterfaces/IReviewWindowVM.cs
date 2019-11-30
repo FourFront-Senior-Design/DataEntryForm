@@ -18,9 +18,9 @@ namespace ViewModelInterfaces
 
     public interface IReviewWindowVM
     {
-        FieldData CurrentPageData { get; set; }
-        void SetImagesToReview(List<FieldData> images);
-        bool SaveToDatabase();
+        int PageIndex { get; set; }
+        Headstone CurrentPageData { get; set; }
+        void SetImagesToReview();
         void NextImage();
         void PreviousImage();
         List<LocationData> GetLocation { get; }

@@ -22,13 +22,14 @@ namespace Image_text_extractor
         {
             InitializeComponent();
             _viewModel = viewModel;
+            _viewModel.SetImagesToReview();
             DataContext = _viewModel;
             isBack = false;
         }
 
-        public void SetImagesToReview(List<FieldData> images)
+        private void GoToRecordClick(object sender, RoutedEventArgs e)
         {
-            _viewModel.SetImagesToReview(images);
+            
         }
 
         private void BackClick(object sender, RoutedEventArgs e)
@@ -45,6 +46,11 @@ namespace Image_text_extractor
         private void PreviousClick(object sender, RoutedEventArgs e)
         {
             _viewModel.PreviousImage();
+        }
+
+        public void SetImagesToReview()
+        {
+            _viewModel.SetImagesToReview();
         }
 
         private void WindowClosing(object sender, CancelEventArgs e)

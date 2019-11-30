@@ -8,20 +8,20 @@ namespace DataStructures
 {
     public class Headstone
     {
-        public string SequenceID;
-        public string CemeteryName;
-        public string BurialSectionNumber;
-        public string WallID;
-        public string RowNum;
-        public string GavestoneNumber;
-        public string MarkerType;
-        public string Emblem1;
-        public string Emblem2;
+        public string SequenceID { get; set; }
+        public string CemeteryName { get; set; }
+        public string BurialSectionNumber { get; set; }
+        public string WallID { get; set; }
+        public string RowNum { get; set; }
+        public string GavestoneNumber { get; set; }
+        public string MarkerType { get; set; }
+        public string Emblem1 { get; set; }
+        public string Emblem2 { get; set; }
 
-        public Person PrimaryDecedent;
-        public List<Person> OthersDecedentList;
+        public Person PrimaryDecedent { get; set; }
+        public List<Person> OthersDecedentList { get; set; }
 
-        public string Image1FilePath;
-        public string Image2FilePath;
+        public string Image1FilePath { get; set; }
+        public string Image2FilePath { get; set; }
     }
 }

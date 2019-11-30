@@ -19,7 +19,7 @@ namespace ServiceTests
         { 
             MicrosoftAccess databaseService = new MicrosoftAccess();
             
-            databaseService.InitDBConnection(@"C:\Users\7309977\source\repos\Section0000P");
+            databaseService.InitDBConnection(@"C:\Users\7405148\Desktop\Sha\2019_Fall\Senior_design\Database");
 
 
             Headstone headstone = databaseService.GetHeadstone(1);
@@ -30,7 +30,7 @@ namespace ServiceTests
         {
             Regex reg = new Regex(@".*_be.accdb");
 
-            var Dbfiles = Directory.GetFiles(@"C:\Users\7309977\source\repos\Section0000P")
+            var Dbfiles = Directory.GetFiles(@"C:\Users\7405148\Desktop\Sha\2019_Fall\Senior_design\Database")
                 .Where(path => reg.IsMatch(path))
                 .ToList();
 
