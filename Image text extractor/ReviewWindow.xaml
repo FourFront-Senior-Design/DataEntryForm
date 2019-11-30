@@ -54,9 +54,9 @@
                             <ColumnDefinition Width="2*"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0" Content="Record" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"/>
-                        <TextBox Grid.Column="1" Text="{Binding PageIndex}" IsReadOnly="True" CharacterCasing="Upper" FontSize="14" Height="18"/>
+                        <TextBox Grid.Column="1" Text="{Binding PageIndex}" IsReadOnly="True" CharacterCasing="Upper" FontSize="14" Height="20"/>
                         <Label Grid.Column="2" Content="of" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"/>
-                        <TextBox Grid.Column="3" CharacterCasing="Upper" FontSize="14" Height="18" Margin="0,0,5,0"/>
+                        <TextBox Grid.Column="3" CharacterCasing="Upper" FontSize="14" Height="20" Margin="0,0,5,0"/>
                     </Grid>
                 </Border>
 
@@ -66,8 +66,9 @@
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBox  IsReadOnly="True" CharacterCasing="Upper" FontSize="14" Width="auto" Height="18" Margin="2"/>
-                        <TextBox  Grid.Column="1" IsReadOnly="True" CharacterCasing="Upper" FontSize="14" Width="auto" Height="18" Margin="2,2,0,2"/>
+                        <TextBox  Text="{Binding CurrentPageData.SequenceID}" IsEnabled="False"
+                                  IsReadOnly="True" CharacterCasing="Upper" FontSize="14" Width="auto" Height="20" Margin="2"/>
+                        <TextBox  Grid.Column="1" IsReadOnly="True" CharacterCasing="Upper" FontSize="14" Width="auto" Height="20" Margin="2,2,2,2"/>
                     </Grid>
                 </Border>
 
@@ -84,7 +85,7 @@
                                 </TextBlock>
                             </Button>
                             <TextBox Grid.Column="0" Name="GoToRecordTextBox" CharacterCasing="Upper" 
-                                     FontSize="14" Height="18" Margin="3,6,5,0" VerticalAlignment="Top"/>
+                                     FontSize="14" Height="20" Margin="2"/>
                         </Grid>
                 </Border>
                 
