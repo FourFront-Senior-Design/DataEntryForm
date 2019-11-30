@@ -29,7 +29,8 @@ namespace Image_text_extractor
 
         private void GoToRecordClick(object sender, RoutedEventArgs e)
         {
-            
+            _viewModel.PageIndex = System.Convert.ToInt32(GoToRecordTextBox.Text);
+            GoToRecordTextBox.Text = "";
         }
 
         private void BackClick(object sender, RoutedEventArgs e)
