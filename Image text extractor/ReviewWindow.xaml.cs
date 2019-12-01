@@ -6,6 +6,7 @@ using ViewModelInterfaces;
 using System.Text.RegularExpressions;
 using System.ComponentModel;
 using System.Windows.Controls;
+using System.Reflection;
 
 namespace Image_text_extractor
 {
@@ -22,6 +23,19 @@ namespace Image_text_extractor
             InitializeComponent();
             _viewModel = viewModel;
             DataContext = _viewModel;
+            AddHandler(KeyDownEvent, new KeyEventHandler((ss, ee) =>
+            {
+                if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.PageUp))
+                {
+                    _viewModel.PreviousRecordMacro.Execute(null);
+                }
+
+                if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.PageDown))
+                {
+                    _viewModel.NextRecordMacro.Execute(null);
+                }
+                
+            }), true);
             isBack = false;
         }
 
@@ -87,6 +101,23 @@ namespace Image_text_extractor
             else
             {
                 e.Cancel = true;
+            }
+        }
+
+        private void Textbox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if((Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)) && Keyboard.IsKeyDown(Key.U))
+            {
+                System.Diagnostics.Trace.WriteLine("Detected Alt+U");
+                TextBox tb = (TextBox)sender;
+                tb.Text = "UNKNOWN";
+            }
+            
+            if ((Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)) && Keyboard.IsKeyDown(Key.I))
+            {
+                System.Diagnostics.Trace.WriteLine("Detected Alt+I");
+                TextBox tb = (TextBox)sender;
+                tb.Text = "ILLEGIBLE";
             }
         }
 

@@ -5,6 +5,7 @@ using System.Diagnostics;
 using ViewModelInterfaces;
 using ServicesInterfaces;
 using System.Windows.Input;
+using System;
 
 namespace ViewModels
 {
@@ -22,12 +23,11 @@ namespace ViewModels
             }
             set
             {
-                //string lastName = value.PrimaryDecedent.LastName;
-                //Trace.WriteLine("LastName: ", lastName);
-                //if (string.IsNullOrEmpty(lastName) || string.IsNullOrWhiteSpace(lastName))
-                //{
-                //    throw new ApplicationException("Last name is mandatory.");
-                //}
+                Trace.WriteLine(value.PrimaryDecedent.LastName);
+                if(string.IsNullOrEmpty(value.PrimaryDecedent.LastName) || string.IsNullOrWhiteSpace(value.PrimaryDecedent.LastName))
+                {
+                    throw new ApplicationException("Last Name is Mandatory");
+                }
                 _currentPageData = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentPageData)));
             }
@@ -38,6 +38,7 @@ namespace ViewModels
         {
             get
             {
+                Trace.WriteLine("Previou Record Macro selected");
                 return _previousRecordMacro
                     ?? (_previousRecordMacro = new ActionCommand(() =>
                     {
@@ -51,19 +52,12 @@ namespace ViewModels
         {
             get
             {
+                Trace.WriteLine("Next Record Macro selected");
                 return _nextRecordMacro
                     ?? (_nextRecordMacro = new ActionCommand(() =>
                     {
                         PageIndex++;
                     }));
-            }
-        }
-
-        public MacroCommand UnknownFieldMacro
-        {
-            get
-            {
-                return new MacroCommand(CurrentPageData, "UNKNOWN");
             }
         }
 
@@ -77,7 +71,6 @@ namespace ViewModels
             {
                 _currentPageIndex = value;
                 CurrentPageData = _database.GetHeadstone(_currentPageIndex);
-                UnknownFieldMacro.RaiseCanExecuteChanged();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PageIndex)));
             }
         }
