@@ -4,22 +4,41 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Review" WindowState="Maximized" Background="#FFE4E4E4" Closing="WindowClosing" d:DesignWidth="1158" d:DesignHeight="843">
+        Title="Review" WindowState="Maximized" Background="#FFE4E4E4" KeyDown="Window_KeyDown"
+        Closing="WindowClosing" d:DesignWidth="1158" d:DesignHeight="843">
 
     <Window.Resources>
         <DataTemplate x:Key="emblemCmbTemplate">
             <WrapPanel Margin="0,0,0,0">
-                <Image Width="24" Height="24" Stretch="Fill" Source="{Binding Photo}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2,0,15,0"/>
-                <Label Content="{Binding Name}" FontSize="12" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Image Width="24" Height="24" Stretch="Fill" Source="{Binding Photo}" 
+                       VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2,0,15,0"/>
+                <Label Content="{Binding Code}" FontSize="14" Margin="0,0,0,0" 
+                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Label Content="{Binding Name}" FontSize="14" Margin="0,0,0,0" 
+                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </WrapPanel>
         </DataTemplate>
-        <ControlTemplate x:Key="validationTemplate">
-            <DockPanel>
-                <TextBlock Foreground="Red" FontSize="25" Text="Last Field required" DockPanel.Dock="Right" />
-                <AdornedElementPlaceholder/>
-            </DockPanel>
-        </ControlTemplate>
+        <Style x:Key="ValidationTextBox" TargetType="{x:Type TextBox}">
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border BorderBrush="Red" BorderThickness="1">
+                            <AdornedElementPlaceholder />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
+
+
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding PreviousRecordMacro}" 
+                    Key="PageUp" Modifiers="Ctrl"/>
+        <KeyBinding Command="{Binding NextRecordMacro}" 
+                    Key="PageDown" Modifiers="Ctrl"/>
+    </Window.InputBindings>
+
 
     <Grid>
         <Grid.RowDefinitions>
@@ -98,7 +117,7 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Height="20" FontSize="12"
+                    <Button Height="20" FontSize="12" 
                             Grid.Column="0" Click="PreviousClick">
                         <TextBlock TextWrapping="Wrap" TextAlignment="Center">
                              Previous
@@ -149,7 +168,7 @@
                         <Setter Property="FontSize" Value="14" />
                     </Style>
                     <Style TargetType="ComboBox">
-                        <Setter Property="FontSize" Value="12" />
+                        <Setter Property="FontSize" Value="14" />
                         <Setter Property="Height" Value="25" />
                     </Style>
                 </Grid.Resources>
@@ -190,8 +209,9 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Content="Marker Type"  VerticalAlignment="Center"/>
-                    <ComboBox Grid.Column="0" Text="{Binding CurrentPageData.MarkerType}" Margin="100,10,10,10" Padding="2"
-                              HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                    <ComboBox Grid.Column="0" Text="{Binding CurrentPageData.MarkerType}" Margin="100,10,10,10" 
+                              Padding="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                              IsEditable="True" IsTextSearchEnabled="True" LostFocus="MarkerCombox_LostFocus">
                         <ComboBoxItem Content="Upright Headstone"></ComboBoxItem>
                         <ComboBoxItem Content="Flat Marker"></ComboBoxItem>
                         <ComboBoxItem Content="Niche Cover"></ComboBoxItem>
@@ -199,13 +219,19 @@
                         <ComboBoxItem Content="Temprory Marker"></ComboBoxItem>
                     </ComboBox>
                     <Label Grid.Column="1"  Content="Emblem 1"  VerticalAlignment="Center"/>
-                    <ComboBox Grid.Column="1" Text="{Binding CurrentPageData.Emblem1}" Margin="80,10,10,10" Padding="1"
-                              Background="White" HorizontalAlignment="Stretch" ItemsSource="{Binding GetEmblemData}"
-                              ItemTemplate="{StaticResource emblemCmbTemplate}" VerticalAlignment="Center"/>
+                    <ComboBox Grid.Column="1" Margin="80,10,10,10" Padding="1" 
+                              HorizontalAlignment="Stretch" ItemsSource="{Binding GetEmblemData}"
+                              ItemTemplate="{StaticResource emblemCmbTemplate}" IsEditable="True"
+                              Text="{Binding CurrentPageData.Emblem1}" LostFocus="EmblemCombox_LostFocus"
+                              TextSearch.TextPath="Code" IsTextSearchEnabled="True"
+                              VerticalAlignment="Center"/>
                     <Label Grid.Column="2" Content="Emblem 2"  VerticalAlignment="Center"/>
-                    <ComboBox Grid.Column="2" Text="{Binding CurrentPageData.Emblem2}"  Margin="90,10,0,10" Padding="1"
-                              ItemTemplate="{StaticResource emblemCmbTemplate}" ItemsSource="{Binding GetEmblemData}"
-                              HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                    <ComboBox Grid.Column="2"  Margin="90,10,0,10" Padding="1" 
+                              HorizontalAlignment="Stretch" ItemsSource="{Binding GetEmblemData}"
+                              ItemTemplate="{StaticResource emblemCmbTemplate}" IsEditable="True"
+                              Text="{Binding CurrentPageData.Emblem2}"  LostFocus="EmblemCombox_LostFocus"
+                              TextSearch.TextPath="Code" IsTextSearchEnabled="True"
+                              VerticalAlignment="Center"/>
                 </Grid>
             </Grid>
         </Border>
@@ -260,8 +286,17 @@
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Last" />
-                                    <TextBox  Text="{Binding CurrentPageData.PrimaryDecedent.LastName}" 
-                                              Margin="2,0,0,2" Width="200" />
+                                    <TextBox Margin="2,0,0,2" Width="200"  >
+                                        <TextBox.Text>
+                                            <Binding Path="CurrentPageData.PrimaryDecedent.LastName"
+                                                     Mode="TwoWay"
+                                                     UpdateSourceTrigger="PropertyChanged">
+                                                <Binding.ValidationRules>
+                                                    <ExceptionValidationRule />
+                                                </Binding.ValidationRules>
+                                            </Binding>
+                                        </TextBox.Text>
+                                    </TextBox>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Suffix" />
@@ -276,32 +311,11 @@
                                               Margin="2,0,0,2" Width="300" Padding="1" 
                                               HorizontalAlignment="Stretch" VerticalAlignment="Center"
                                               ItemsSource="{Binding GetLocation}">
-                                        <ComboBox.ItemTemplate>
-                                            <DataTemplate>
-                                                <DataGridRow DataContext="{Binding}" Height="30" Width="250" 
-                                                             HorizontalAlignment="Stretch">
-                                                    <DataGridRow.Template>
-                                                        <ControlTemplate>
-                                                            <Grid>
-                                                                <Grid.ColumnDefinitions>
-                                                                    <ColumnDefinition Width="5*"/>
-                                                                    <ColumnDefinition Width="5"/>
-                                                                    <ColumnDefinition Width="1*"/>
-                                                                </Grid.ColumnDefinitions>
-                                                                <TextBlock Text="{Binding Name}"></TextBlock>
-                                                                <Border BorderBrush="Black" BorderThickness="2" Margin="2" Grid.Column="1"></Border>
-                                                                <TextBlock Grid.Column="2" Text="{Binding Abbr}"></TextBlock>
-                                                            </Grid>
-                                                        </ControlTemplate>
-                                                    </DataGridRow.Template>
-                                                </DataGridRow>
-                                            </DataTemplate>
-                                        </ComboBox.ItemTemplate>
                                     </ComboBox>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Rank" />
-                                    <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.Rank}"
+                                    <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.RankList[0]}"
                                              Margin="2,0,0,2" Width="200"/>
                                 </StackPanel>
                                 <StackPanel>
@@ -376,7 +390,12 @@
                                 <StackPanel>
                                     <Label Content="Inscription" />
                                     <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.Inscription}"
-                                             Margin="2,0,0,2"  Width="700"/>
+                                             Margin="2,0,0,2"  Width="700">
+                                        <TextBox.InputBindings>
+                                            <KeyBinding Gesture="Alt+I" Command="{Binding UnknownFieldMacro}"
+                                                        CommandParameter="PrimaryDecedent.Inscription"/>
+                                        </TextBox.InputBindings>
+                                    </TextBox>
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>

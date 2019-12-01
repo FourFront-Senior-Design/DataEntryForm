@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using ViewModelInterfaces;
-using System.Globalization;
-using System.Reflection;
-using System;
 using ServicesInterfaces;
+using System.Windows.Input;
 
 namespace ViewModels
 {
@@ -15,7 +13,7 @@ namespace ViewModels
         private int _currentPageIndex;
         private Headstone _currentPageData;
         private IDatabaseService _database;
-
+        
         public Headstone CurrentPageData
         {
             get
@@ -24,8 +22,48 @@ namespace ViewModels
             }
             set
             {
+                //string lastName = value.PrimaryDecedent.LastName;
+                //Trace.WriteLine("LastName: ", lastName);
+                //if (string.IsNullOrEmpty(lastName) || string.IsNullOrWhiteSpace(lastName))
+                //{
+                //    throw new ApplicationException("Last name is mandatory.");
+                //}
                 _currentPageData = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentPageData)));
+            }
+        }
+
+        private ICommand _previousRecordMacro;
+        public ICommand PreviousRecordMacro
+        {
+            get
+            {
+                return _previousRecordMacro
+                    ?? (_previousRecordMacro = new ActionCommand(() =>
+                    {
+                        if(PageIndex != 1) PageIndex--;
+                    }));
+            }
+        }
+
+        private ICommand _nextRecordMacro;
+        public ICommand NextRecordMacro
+        {
+            get
+            {
+                return _nextRecordMacro
+                    ?? (_nextRecordMacro = new ActionCommand(() =>
+                    {
+                        PageIndex++;
+                    }));
+            }
+        }
+
+        public MacroCommand UnknownFieldMacro
+        {
+            get
+            {
+                return new MacroCommand(CurrentPageData, "UNKNOWN");
             }
         }
 
@@ -39,10 +77,10 @@ namespace ViewModels
             {
                 _currentPageIndex = value;
                 CurrentPageData = _database.GetHeadstone(_currentPageIndex);
+                UnknownFieldMacro.RaiseCanExecuteChanged();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PageIndex)));
             }
         }
-
         
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -51,61 +89,38 @@ namespace ViewModels
             _database = database;
         }
         
-        public void SetImagesToReview()
+        public void SetRecordsToReview()
         {
             PageIndex = 1;
 
-            Trace.WriteLine("Location: ");
-            Trace.WriteLine(CurrentPageData.Image1FilePath);
-            Trace.WriteLine(CurrentPageData.CemeteryName);
-            Trace.WriteLine(CurrentPageData.WallID);
-            Trace.WriteLine(CurrentPageData.Emblem1);
-
-            return;
+            Trace.WriteLine("Set up records to review: ");
+            Trace.WriteLine(CurrentPageData.PrimaryDecedent.LastName);
         }
 
-        public void NextImage()
+        public void NextRecord()
         {
-            //if (_currentPageIndex == _database.TotalItems)
+            //if (PageIndex == _database.TotalItems)
             //{
             //    return;
             //}
 
             PageIndex++;
-
-
+            
             Trace.WriteLine("Next click");
-            Trace.WriteLine(CurrentPageData.Image1FilePath);
-            Trace.WriteLine(CurrentPageData.CemeteryName);
-            Trace.WriteLine(CurrentPageData.WallID);
-            Trace.WriteLine(CurrentPageData.Emblem1);
+            Trace.WriteLine(CurrentPageData.PrimaryDecedent.LastName);
         }
 
-        public void PreviousImage()
+        public void PreviousRecord()
         {
-            //if (_currentPageIndex == 1)
-            //{
-            //    return;
-            //}
+            if (PageIndex == 1)
+            {
+                return;
+            }
 
             PageIndex--;
-
-
+            
             Trace.WriteLine("Previous click: ");
-            Trace.WriteLine(CurrentPageData.Image1FilePath);
-            Trace.WriteLine(CurrentPageData.CemeteryName);
-            Trace.WriteLine(CurrentPageData.WallID);
-            Trace.WriteLine(CurrentPageData.Emblem1);
-        }
-
-        public List<LocationData> GetLocation
-        {
-            get
-            {
-                List<LocationData> locations = new List<LocationData>();
-                
-                return locations;
-            }
+            Trace.WriteLine(CurrentPageData.PrimaryDecedent.LastName);
         }
 
         public List<EmblemData> GetEmblemData
@@ -113,88 +128,89 @@ namespace ViewModels
             get
             {                
                 List<EmblemData> emblems = new List<EmblemData>();
-                emblems.Add(new EmblemData { Photo = "", Name = "00 - UNKNOWN" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-01.jpg", Name = "01 - CHRISTIAN CROSS" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-02.jpg", Name = "02 - BUDDHIST (Wheel of Righteousness)" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-03.jpg", Name = "03 - JUDAISM (Star of David)" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-04.jpg", Name = "04 - PRESBYTERIAN CROSS" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-05.jpg", Name = "05 - RUSSIAN ORTHODOX CROSS" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-06.jpg", Name = "06 - LUTHERAN CROSS" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-07.jpg", Name = "07 - EPISCOPAL CROSS" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-08.jpg", Name = "08 - UNITARIAN CHRUCH" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-09.jpg", Name = "09 - PRESBYTERIAN CROSS" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-10.jpg", Name = "10 - RUSSIAN ORTHODOX CROSS" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-11.jpg", Name = "11 - MORMON (Angel Moroni)" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-12.jpg", Name = "12 - NATIVE AMERICAN CHURCH OF NORTH AMERICA" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-13.jpg", Name = "13 - SERBIAN ORTHODOX" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-14.jpg", Name = "14 - GREEK CROSS" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-15.jpg", Name = "15 - BAHAI (9 Pointed Star)" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-16.jpg", Name = "16 - ATHEIST" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-17.jpg", Name = "17 - MUSLIM (Crescent and Star)" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-18.jpg", Name = "18 - HINDU" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-19.jpg", Name = "19 - KONKO-KYO FAITH" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-20.jpg", Name = "20 - COMMUNITY OF CHRIST" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-21.jpg", Name = "21 - SUFISM REORIENTED" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-22.jpg", Name = "22 - TENRIKYO CHURCH" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-23.jpg", Name = "23 - SEICHO-NO-IE" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-24.jpg", Name = "24 - CHURCH OF WORLD MESSIANITY" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-25.jpg", Name = "25 - UNITED CHURCH OF RELIGIOUS SCIENCE" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-26.jpg", Name = "26 - CHRISTIAN REFORMED CHURCH" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-27.jpg", Name = "27 - UNITED MORAVIAN CHURCH" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-28.jpg", Name = "28 - ECKANKAR" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-29.jpg", Name = "29 - CHRISTIAN CHURCH" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-30.jpg", Name = "30 - CHRISTIAN & MISSIONARY ALLIANCE" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-31.jpg", Name = "31 - UNITED CHURCH OF CHRIST" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-32.jpg", Name = "32 - HUMANIST" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-33.jpg", Name = "33 - PRESBYTERIAN CHURCH (USA)" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-34.jpg", Name = "34 - IZUMO TAISHAKYO MISSION OF HAWAII" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-35.jpg", Name = "35 - SOKA GAKKAI INTERNATIONAL (USA)" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-36.jpg", Name = "36 - SIKH (KHANDA)" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-37.jpg", Name = "37 - WICCA (Pentacle)" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-38.jpg", Name = "38 - LUTHERAN CHURCH MISSOURI SYNOD" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-39.jpg", Name = "39 - NEW APOSTOLIC CHURCH" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-40.jpg", Name = "40 - SEVENTH DAY ADVENTIST CHURCH" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-41.jpg", Name = "41 - CELTIC CROSS" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-42.jpg", Name = "42 - ARMENIAN CROSS" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-43.jpg", Name = "43 - FAROHAR" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-44.jpg", Name = "44 - MESSIANIC JEWISH" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-45.jpg", Name = "45 - KOHEN HANDS" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-46.jpg", Name = "46 - CATHOLIC CELTIC CROSS" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-47.jpg", Name = "47 - CHRISTIAN SCIENTIST (Cross & Crown)" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-48.jpg", Name = "48 - MEDICINE WHEEL" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-49.jpg", Name = "49 - INFINITY" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-50.jpg", Name = "50 - SOUTHERN CROSS OF HONOR (Confederate States)" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-51.jpg", Name = "51 - LUTHER ROSE" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-52.jpg", Name = "52 - LANDING EAGLE" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-53.jpg", Name = "53 - FOUR DIRECTIONS" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-54.jpg", Name = "54 - CHURCH OF NAZARENE" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-55.jpg", Name = "55 - HAMMER OF THOR" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-56.jpg", Name = "56 - UNIFICATION CHURCH" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-57.jpg", Name = "57 - SANDHILL CRANE" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-58.jpg", Name = "58 - CHURCH OF GOD" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-59.jpg", Name = "59 - POMEGRANATE" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-60.jpg", Name = "60 - MESSIANIC" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-61.jpg", Name = "61 - SHINTO" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-62.jpg", Name = "62 - SACRED HEART" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-63.jpg", Name = "63 - AFRICAN ANCESTRAL TRADITIONALIST" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-64.jpg", Name = "64 - MALTESE CROSS" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-65.jpg", Name = "65 - DRUID (AWEN)" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-66.jpg", Name = "66 - WISCONSIN EVANGELICAL LUTHERAN SYNOD" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-67.jpg", Name = "67 - POLISH NATIONAL CATHOLIC CHURCH" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-68.jpg", Name = "68 - GUARDIAN ANGEL" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-69.jpg", Name = "69 - HEART" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-70.jpg", Name = "70 - SHEPHERD AND FLAG" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-71.jpg", Name = "71 - AFRICAN METHODIST EPISCOPAL" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-72.jpg", Name = "72 - EVANGELICAL LUTHERAN CHURCH" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-73.jpg", Name = "73 - UNIVERSALIST CROSS" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-74.jpg", Name = "74 - FAITH AND PRAYER" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-98.jpg", Name = "98 - MUSLIM (Islamic 5-Pointed Star)" });
-                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-99.jpg", Name = "99 - NON REQUESTED" });
+                emblems.Add(new EmblemData { Photo = "", Code="00", Name = "UNKNOWN" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-01.jpg", Code = "01", Name = "CHRISTIAN CROSS" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-02.jpg", Code = "02", Name = "BUDDHIST (Wheel of Righteousness)" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-03.jpg", Code = "03", Name = "JUDAISM (Star of David)" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-04.jpg", Code = "04", Name = "PRESBYTERIAN CROSS" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-05.jpg", Code = "05", Name = "RUSSIAN ORTHODOX CROSS" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-06.jpg", Code = "06", Name = "LUTHERAN CROSS" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-07.jpg", Code = "07", Name = "EPISCOPAL CROSS" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-08.jpg", Code = "08", Name = "UNITARIAN CHRUCH" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-09.jpg", Code = "09", Name = "PRESBYTERIAN CROSS" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-10.jpg", Code = "10", Name = "RUSSIAN ORTHODOX CROSS" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-11.jpg", Code = "11", Name = "MORMON (Angel Moroni)" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-12.jpg", Code = "12", Name = "NATIVE AMERICAN CHURCH OF NORTH AMERICA" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-13.jpg", Code = "13", Name = "SERBIAN ORTHODOX" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-14.jpg", Code = "14", Name = "GREEK CROSS" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-15.jpg", Code = "15", Name = "BAHAI (9 Pointed Star)" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-16.jpg", Code = "16", Name = "ATHEIST" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-17.jpg", Code = "17", Name = "MUSLIM (Crescent and Star)" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-18.jpg", Code = "18", Name = "HINDU" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-19.jpg", Code = "19", Name = "KONKO-KYO FAITH" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-20.jpg", Code = "20", Name = "COMMUNITY OF CHRIST" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-21.jpg", Code = "21", Name = "SUFISM REORIENTED" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-22.jpg", Code = "22", Name = "TENRIKYO CHURCH" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-23.jpg", Code = "23", Name = "SEICHO-NO-IE" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-24.jpg", Code = "24", Name = "CHURCH OF WORLD MESSIANITY" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-25.jpg", Code = "25", Name = "UNITED CHURCH OF RELIGIOUS SCIENCE" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-26.jpg", Code = "26", Name = "CHRISTIAN REFORMED CHURCH" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-27.jpg", Code = "27", Name = "UNITED MORAVIAN CHURCH" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-28.jpg", Code = "28", Name = "ECKANKAR" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-29.jpg", Code = "29", Name = "CHRISTIAN CHURCH" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-30.jpg", Code = "30", Name = "CHRISTIAN & MISSIONARY ALLIANCE" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-31.jpg", Code = "31", Name = "UNITED CHURCH OF CHRIST" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-32.jpg", Code = "32", Name = "HUMANIST" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-33.jpg", Code = "33", Name = "PRESBYTERIAN CHURCH (USA)" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-34.jpg", Code = "34", Name = "IZUMO TAISHAKYO MISSION OF HAWAII" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-35.jpg", Code = "35", Name = "SOKA GAKKAI INTERNATIONAL (USA)" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-36.jpg", Code = "36", Name = "SIKH (KHANDA)" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-37.jpg", Code = "37", Name = "WICCA (Pentacle)" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-38.jpg", Code = "38", Name = "LUTHERAN CHURCH MISSOURI SYNOD" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-39.jpg", Code = "39", Name = "NEW APOSTOLIC CHURCH" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-40.jpg", Code = "40", Name = "SEVENTH DAY ADVENTIST CHURCH" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-41.jpg", Code = "41", Name = "CELTIC CROSS" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-42.jpg", Code = "42", Name = "ARMENIAN CROSS" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-43.jpg", Code = "43", Name = "FAROHAR" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-44.jpg", Code = "44", Name = "MESSIANIC JEWISH" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-45.jpg", Code = "45", Name = "KOHEN HANDS" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-46.jpg", Code = "46", Name = "CATHOLIC CELTIC CROSS" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-47.jpg", Code = "47", Name = "CHRISTIAN SCIENTIST (Cross & Crown)" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-48.jpg", Code = "48", Name = "MEDICINE WHEEL" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-49.jpg", Code = "49", Name = "INFINITY" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-50.jpg", Code = "50", Name = "SOUTHERN CROSS OF HONOR (Confederate States)" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-51.jpg", Code = "51", Name = "LUTHER ROSE" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-52.jpg", Code = "52", Name = "LANDING EAGLE" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-53.jpg", Code = "53", Name = "FOUR DIRECTIONS" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-54.jpg", Code = "54", Name = "CHURCH OF NAZARENE" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-55.jpg", Code = "55", Name = "HAMMER OF THOR" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-56.jpg", Code = "56", Name = "UNIFICATION CHURCH" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-57.jpg", Code = "57", Name = "SANDHILL CRANE" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-58.jpg", Code = "58", Name = "CHURCH OF GOD" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-59.jpg", Code = "59", Name = "POMEGRANATE" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-60.jpg", Code = "60", Name = "MESSIANIC" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-61.jpg", Code = "61", Name = "SHINTO" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-62.jpg", Code = "62", Name = "SACRED HEART" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-63.jpg", Code = "63", Name = "AFRICAN ANCESTRAL TRADITIONALIST" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-64.jpg", Code = "64", Name = "MALTESE CROSS" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-65.jpg", Code = "65", Name = "DRUID (AWEN)" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-66.jpg", Code = "66", Name = "WISCONSIN EVANGELICAL LUTHERAN SYNOD" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-67.jpg", Code = "67", Name = "POLISH NATIONAL CATHOLIC CHURCH" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-68.jpg", Code = "68", Name = "GUARDIAN ANGEL" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-69.jpg", Code = "69", Name = "HEART" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-70.jpg", Code = "70", Name = "SHEPHERD AND FLAG" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-71.jpg", Code = "71", Name = "AFRICAN METHODIST EPISCOPAL" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-72.jpg", Code = "72", Name = "EVANGELICAL LUTHERAN CHURCH" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-73.jpg", Code = "73", Name = "UNIVERSALIST CROSS" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-74.jpg", Code = "74", Name = "FAITH AND PRAYER" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-98.jpg", Code = "98", Name = "MUSLIM (Islamic 5-Pointed Star)" });
+                emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-99.jpg", Code = "99", Name = "NON REQUESTED" });
                 return emblems;
             }
 
+            
 
-        }
+    }
 
     }
 }

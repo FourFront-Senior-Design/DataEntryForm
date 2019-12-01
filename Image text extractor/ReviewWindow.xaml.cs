@@ -1,12 +1,11 @@
 ﻿using DataStructures;
 using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using ViewModelInterfaces;
 using System.Text.RegularExpressions;
 using System.ComponentModel;
-using System.Diagnostics;
+using System.Windows.Controls;
 
 namespace Image_text_extractor
 {
@@ -22,9 +21,24 @@ namespace Image_text_extractor
         {
             InitializeComponent();
             _viewModel = viewModel;
-            _viewModel.SetImagesToReview();
             DataContext = _viewModel;
             isBack = false;
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                TraversalRequest tRequest = new TraversalRequest(FocusNavigationDirection.Next);
+                UIElement keyboardFocus = Keyboard.FocusedElement as UIElement;
+
+                if (keyboardFocus != null)
+                {
+                    keyboardFocus.MoveFocus(tRequest);
+                }
+
+                e.Handled = true;
+            }
         }
 
         private void GoToRecordClick(object sender, RoutedEventArgs e)
@@ -46,17 +60,17 @@ namespace Image_text_extractor
 
         private void NextClick(object sender, RoutedEventArgs e)
         {
-            _viewModel.NextImage();
+            _viewModel.NextRecord();
         }
 
         private void PreviousClick(object sender, RoutedEventArgs e)
         {
-            _viewModel.PreviousImage();
+            _viewModel.PreviousRecord();
         }
 
         public void SetImagesToReview()
         {
-            _viewModel.SetImagesToReview();
+            _viewModel.SetRecordsToReview();
         }
 
         private void WindowClosing(object sender, CancelEventArgs e)
@@ -81,5 +95,52 @@ namespace Image_text_extractor
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
+
+        private void MarkerCombox_LostFocus(object sender, EventArgs e)
+        {
+            ComboBox cb = (ComboBox)sender;
+            string input = cb.Text;
+            
+            foreach (ComboBoxItem i in cb.Items)
+            {
+                if (i.Content.ToString().Contains(input))
+                {
+                    cb.SelectedItem = i;
+                    return;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(input))
+            {
+                cb.Text = "";
+                MessageBox.Show("Invalid text");
+            }
+        }
+
+        private void EmblemCombox_LostFocus(object sender, EventArgs e)
+        {
+            ComboBox cb = (ComboBox)sender;
+
+            if (string.IsNullOrEmpty(cb.Text))
+            {
+                return;
+            }
+
+            int input = Convert.ToInt32(cb.Text);
+
+            foreach (EmblemData i in cb.Items)
+            {
+                int currentCode = Convert.ToInt32(i.Code);
+                if (currentCode == input)
+                {
+                    cb.SelectedItem = cb.Text;
+                    cb.Text = input.ToString();
+                    return;
+                }
+            }
+            cb.Text = "";
+            MessageBox.Show("Invalid text");
+        }
+
     }
 }
