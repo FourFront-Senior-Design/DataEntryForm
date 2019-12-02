@@ -1,18 +1,12 @@
 ﻿using DataStructures;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using ViewModelInterfaces;
+using System.Text.RegularExpressions;
+using System.ComponentModel;
+using System.Windows.Controls;
+using System.Reflection;
 
 namespace Image_text_extractor
 {
@@ -22,38 +16,241 @@ namespace Image_text_extractor
 
         private IReviewWindowVM _viewModel;
 
+        private bool isBack;
+
         public ReviewWindow(IReviewWindowVM viewModel)
         {
             InitializeComponent();
             _viewModel = viewModel;
-            // this.locationComboBox.ItemsSource = _viewModel.GetLocations();
             DataContext = _viewModel;
+            AddHandler(KeyDownEvent, new KeyEventHandler((ss, ee) =>
+            {
+                if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.PageUp))
+                {
+                    if (!_validateLastNameExists())
+                    {
+                        return;
+                    }
+                    _viewModel.PreviousRecord();
+                }
+
+                if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.PageDown))
+                {
+                    if (!_validateLastNameExists())
+                    {
+                        return;
+                    }
+                    _viewModel.NextRecord();
+                }
+                
+            }), true);
+            isBack = false;
         }
 
-        public void SetImagesToReview(List<FieldData> images)
+        private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            _viewModel.SetImagesToReview(images);
+            if (e.Key == Key.Enter)
+            {
+                TraversalRequest tRequest = new TraversalRequest(FocusNavigationDirection.Next);
+                UIElement keyboardFocus = Keyboard.FocusedElement as UIElement;
+
+                if (keyboardFocus != null)
+                {
+                    keyboardFocus.MoveFocus(tRequest);
+                }
+
+                e.Handled = true;
+            }
         }
 
-        private void ExitClick(object sender, RoutedEventArgs e)
+        private bool _validateLastNameExists()
         {
-            this.Close();
-            System.Windows.Application.Current.Shutdown();
+            if (string.IsNullOrEmpty(LastNameTextbox.Text)
+                || string.IsNullOrWhiteSpace(LastNameTextbox.Text))
+            {
+                LastNameTextbox.BorderBrush = System.Windows.Media.Brushes.Red;
+                MessageBox.Show("Last Name is Mandatory", "Error", MessageBoxButton.OK);
+                return false;
+            }
+
+            LastNameTextbox.ClearValue(Border.BorderBrushProperty);
+            return true;
+        }
+
+        private void GoToRecordClick(object sender, RoutedEventArgs e)
+        {
+            if(!_validateLastNameExists() || (string.IsNullOrEmpty(GoToRecordTextBox.Text) 
+                || string.IsNullOrWhiteSpace(GoToRecordTextBox.Text)))
+            {
+                GoToRecordTextBox.Text = "";
+                return;
+            }
+
+            _viewModel.PageIndex = System.Convert.ToInt32(GoToRecordTextBox.Text);
+            GoToRecordTextBox.Text = "";
+        }
+
+        private void FirstRecordClick(object sender, RoutedEventArgs e)
+        {
+            if (!_validateLastNameExists())
+            {
+                return;
+            }
+            _viewModel.PageIndex = 1;
         }
 
         private void BackClick(object sender, RoutedEventArgs e)
         {
+            if (!_validateLastNameExists())
+            {
+                return;
+            }
+            
+            isBack = true;
             MoveToMainPage?.Invoke(this, new EventArgs());
         }
 
         private void NextClick(object sender, RoutedEventArgs e)
         {
-            _viewModel.NextImage();
+            if (!_validateLastNameExists())
+            {
+                return;
+            }
+            _viewModel.NextRecord();
         }
 
         private void PreviousClick(object sender, RoutedEventArgs e)
         {
-            _viewModel.PreviousImage();
+            if (!_validateLastNameExists())
+            {
+                return;
+            }
+            _viewModel.PreviousRecord();
         }
+
+        public void SetImagesToReview()
+        {
+            _viewModel.SetRecordsToReview();
+        }
+
+        private void WindowClosing(object sender, CancelEventArgs e)
+        {
+            if (System.Windows.MessageBox.Show("Are you sure you want to close the form?" +
+                "\n\nNote: All changes will be saved.", "Confirm",
+                MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                if (isBack == false)
+                {
+                    Application.Current.Shutdown();
+                }
+            }
+            else
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void Textbox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if((Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)) && Keyboard.IsKeyDown(Key.U))
+            {
+                System.Diagnostics.Trace.WriteLine("Detected Alt+U");
+                TextBox tb = (TextBox)sender;
+                tb.Text = "UNKNOWN";
+            }
+            
+            if ((Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)) && Keyboard.IsKeyDown(Key.I))
+            {
+                System.Diagnostics.Trace.WriteLine("Detected Alt+I");
+                TextBox tb = (TextBox)sender;
+                tb.Text = "ILLEGIBLE";
+            }
+        }
+
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void MarkerCombox_LostFocus(object sender, EventArgs e)
+        {
+            ComboBox cb = (ComboBox)sender;
+            string input = cb.Text;
+            
+            foreach (ComboBoxItem i in cb.Items)
+            {
+                if (i.Content.ToString().Contains(input))
+                {
+                    cb.SelectedItem = i;
+                    return;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(input))
+            {
+                cb.Text = "";
+                MessageBox.Show("The text you have entered isn't an item in the list."+
+                    "\n\nSelect an item from the list, or enter text that matches one of the listed items.",
+                    "VA National Cemetery Inventory");
+                cb.IsDropDownOpen = true;
+            }
+        }
+
+        private void LastName_LostFocus(object sender, EventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+            if(string.IsNullOrEmpty(tb.Text) || string.IsNullOrWhiteSpace(tb.Text))
+            {
+                tb.BorderBrush = System.Windows.Media.Brushes.Red;
+                MessageBox.Show("Last Name is Mandatory", "Error", MessageBoxButton.OK);
+            }
+            else
+            {
+                tb.ClearValue(Border.BorderBrushProperty);
+            }
+        }
+
+        private void EmblemCombox_LostFocus(object sender, EventArgs e)
+        {
+            ComboBox cb = (ComboBox)sender;
+            int input = 0;
+            if(string.IsNullOrEmpty(cb.Text) || string.IsNullOrWhiteSpace(cb.Text))
+            {
+                return;
+            }
+
+            try
+            {
+                input = Convert.ToInt32(cb.Text);
+            }
+            catch
+            {
+                cb.Text = "";
+                MessageBox.Show("The text you have entered isn't an item in the list." +
+                "\n\nSelect an item from the list, or enter text that matches one of the listed items.",
+                "VA National Emblem Inventory");
+                cb.IsDropDownOpen = true;
+                return;
+            }
+
+            foreach (EmblemData i in cb.Items)
+            {
+                int currentCode = Convert.ToInt32(i.Code);
+                if (currentCode == input)
+                {
+                    cb.SelectedItem = cb.Text;
+                    cb.Text = input.ToString();
+                    return;
+                }
+            }
+            cb.Text = "";
+            MessageBox.Show("The text you have entered isn't an item in the list." +
+                "\n\nSelect an item from the list, or enter text that matches one of the listed items.",
+                "VA National Emblem Inventory");
+            cb.IsDropDownOpen = true;
+            
+        }
+
     }
 }

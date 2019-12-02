@@ -8,20 +8,20 @@ namespace DataStructures
 {
     public class Person
     {
-        public string FirstName;
-        public string MiddleName;
-        public string LastName;
-        public string Suffix;
-        public string Location;
-        public List<string> RankList;
-        public List<string> AwardList;
-        public string AwardCustom;
-        public List<string> WarList;
-        public List<string> BranchList;
-        public string BranchUnitCustom;
-        public DateTime BirthDate;
-        public DateTime DeathDate;
-        public string Inscription;
+        public string FirstName{ get; set; }
+        public string MiddleName { get; set; }
+        public string LastName { get; set; }
+        public string Suffix { get; set; }
+        public string Location { get; set; }
+        public List<string> RankList { get; set; }
+        public List<string> AwardList { get; set; }
+        public string AwardCustom { get; set; }
+        public List<string> WarList { get; set; }
+        public List<string> BranchList { get; set; }
+        public string BranchUnitCustom { get; set; }
+        public DateTime BirthDate { get; set; }
+        public DateTime DeathDate { get; set; }
+        public string Inscription { get; set; }
 
         public Person()
         {

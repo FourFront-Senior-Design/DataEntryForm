@@ -24,32 +24,41 @@ namespace Services
             get { return 1; }
         }
 
-        public void InitDBConnection(string sectionFilePath)
+        public bool InitDBConnection(string sectionFilePath)
         {
-            Regex reg = new Regex(@".*_be.accdb");
-
-            var Dbfiles = Directory.GetFiles(sectionFilePath)
-                .Where(path => reg.IsMatch(path))
-                .ToList();
-
-            // set the connection string
-            _connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Dbfiles[0];
-
-            // create the db connection
-            using (OleDbConnection connection = new OleDbConnection(_connectionString)) // using to ensure connection is closed when we are done
+            try
             {
-                try
-                {
-                    connection.Open(); // try to open the connection
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Error accsessing Database");
-                    throw e;
-                }
-            }
 
-            _rowIndex = 1;
+                Regex reg = new Regex(@".*_be.accdb");
+
+                var Dbfiles = Directory.GetFiles(sectionFilePath)
+                    .Where(path => reg.IsMatch(path))
+                    .ToList();
+
+                // set the connection string
+                _connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Dbfiles[0];
+
+                // create the db connection
+                using (OleDbConnection connection = new OleDbConnection(_connectionString))
+                // using to ensure connection is closed when we are done
+                {
+                    try
+                    {
+                        connection.Open(); // try to open the connection
+                    }
+                    catch (Exception e)
+                    {
+                        return false;
+                    }
+                }
+
+                _rowIndex = 1;
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public Headstone GetHeadstone(int index)
@@ -151,8 +160,11 @@ namespace Services
 
             primaryPerson.BranchUnitCustom = dataRow[(int)MasterTableCols.Branch_Unit_CustomV].ToString();
 
-            DateTime.TryParse(dataRow[(int)MasterTableCols.BirthDate].ToString(), out primaryPerson.BirthDate);
-            DateTime.TryParse(dataRow[(int)MasterTableCols.DeathDate].ToString(), out primaryPerson.DeathDate);
+            DateTime birthDate, deathDate;
+            DateTime.TryParse(dataRow[(int)MasterTableCols.BirthDate].ToString(), out birthDate);
+            DateTime.TryParse(dataRow[(int)MasterTableCols.DeathDate].ToString(), out deathDate);
+            primaryPerson.BirthDate = birthDate;
+            primaryPerson.DeathDate = deathDate;
 
             primaryPerson.Inscription = dataRow[(int)MasterTableCols.Inscription].ToString();
 
@@ -267,8 +279,11 @@ namespace Services
 
             secondPerson.BranchUnitCustom = dataRow[(int)MasterTableCols.Branch_Unit_CustomS_D].ToString();
 
-            DateTime.TryParse(dataRow[(int)MasterTableCols.BirthDateS_D].ToString(), out secondPerson.BirthDate);
-            DateTime.TryParse(dataRow[(int)MasterTableCols.DeathDateS_D].ToString(), out secondPerson.DeathDate);
+            DateTime birthDate, deathDate;
+            DateTime.TryParse(dataRow[(int)MasterTableCols.BirthDateS_D].ToString(), out birthDate);
+            DateTime.TryParse(dataRow[(int)MasterTableCols.DeathDateS_D].ToString(), out deathDate);
+            secondPerson.BirthDate = birthDate;
+            secondPerson.DeathDate = deathDate;
 
             secondPerson.Inscription = dataRow[(int)MasterTableCols.InscriptionS_D].ToString();
 
@@ -298,8 +313,11 @@ namespace Services
 
             thirdPerson.BranchList.Add(dataRow[(int)MasterTableCols.BranchS_D_2].ToString());
 
-            DateTime.TryParse(dataRow[(int)MasterTableCols.BirthDateS_D_2].ToString(), out thirdPerson.BirthDate);
-            DateTime.TryParse(dataRow[(int)MasterTableCols.DeathDateS_D_2].ToString(), out thirdPerson.DeathDate);
+            DateTime birthDate, deathDate;
+            DateTime.TryParse(dataRow[(int)MasterTableCols.BirthDateS_D_2].ToString(), out birthDate);
+            DateTime.TryParse(dataRow[(int)MasterTableCols.DeathDateS_D_2].ToString(), out deathDate);
+            thirdPerson.BirthDate = birthDate;
+            thirdPerson.DeathDate = deathDate;
 
             thirdPerson.Inscription = dataRow[(int)MasterTableCols.InscriptionS_D_2].ToString();
 
@@ -329,8 +347,11 @@ namespace Services
 
             forthPerson.BranchList.Add(dataRow[(int)MasterTableCols.BranchS_D_3].ToString());
 
-            DateTime.TryParse(dataRow[(int)MasterTableCols.BirthDateS_D_3].ToString(), out forthPerson.BirthDate);
-            DateTime.TryParse(dataRow[(int)MasterTableCols.DeathDateS_D_3].ToString(), out forthPerson.DeathDate);
+            DateTime birthDate, deathDate;
+            DateTime.TryParse(dataRow[(int)MasterTableCols.BirthDateS_D_3].ToString(), out birthDate);
+            DateTime.TryParse(dataRow[(int)MasterTableCols.DeathDateS_D_3].ToString(), out deathDate);
+            forthPerson.BirthDate = birthDate;
+            forthPerson.DeathDate = deathDate;
 
             forthPerson.Inscription = dataRow[(int)MasterTableCols.InscriptionS_D_3].ToString();
 
@@ -360,8 +381,11 @@ namespace Services
 
             fithPerson.BranchList.Add(dataRow[(int)MasterTableCols.BranchS_D_4].ToString());
 
-            DateTime.TryParse(dataRow[(int)MasterTableCols.BirthDateS_D_4].ToString(), out fithPerson.BirthDate);
-            DateTime.TryParse(dataRow[(int)MasterTableCols.DeathDateS_D_4].ToString(), out fithPerson.DeathDate);
+            DateTime birthDate, deathDate;
+            DateTime.TryParse(dataRow[(int)MasterTableCols.BirthDateS_D_4].ToString(), out birthDate);
+            DateTime.TryParse(dataRow[(int)MasterTableCols.DeathDateS_D_4].ToString(), out deathDate);
+            fithPerson.BirthDate = birthDate;
+            fithPerson.DeathDate = deathDate;
 
             fithPerson.Inscription = dataRow[(int)MasterTableCols.InscriptionS_D_4].ToString();
 
@@ -383,8 +407,11 @@ namespace Services
             sixthPerson.Suffix = dataRow[(int)MasterTableCols.SuffixS_D_5].ToString();
             sixthPerson.Location = dataRow[(int)MasterTableCols.LocationS_D_5].ToString();
 
-            DateTime.TryParse(dataRow[(int)MasterTableCols.BirthDateS_D_5].ToString(), out sixthPerson.BirthDate);
-            DateTime.TryParse(dataRow[(int)MasterTableCols.DeathDateS_D_5].ToString(), out sixthPerson.DeathDate);
+            DateTime birthDate, deathDate;
+            DateTime.TryParse(dataRow[(int)MasterTableCols.BirthDateS_D_5].ToString(), out birthDate);
+            DateTime.TryParse(dataRow[(int)MasterTableCols.DeathDateS_D_5].ToString(), out deathDate);
+            sixthPerson.BirthDate = birthDate;
+            sixthPerson.DeathDate = deathDate;
 
 
             return sixthPerson;
@@ -405,8 +432,11 @@ namespace Services
             seventhPerson.Suffix = dataRow[(int)MasterTableCols.SuffixS_D_6].ToString();
             seventhPerson.Location = dataRow[(int)MasterTableCols.LocationS_D_6].ToString();
 
-            DateTime.TryParse(dataRow[(int)MasterTableCols.BirthDateS_D_6].ToString(), out seventhPerson.BirthDate);
-            DateTime.TryParse(dataRow[(int)MasterTableCols.DeathDateS_D_6].ToString(), out seventhPerson.DeathDate);
+            DateTime birthDate, deathDate;
+            DateTime.TryParse(dataRow[(int)MasterTableCols.BirthDateS_D_6].ToString(), out birthDate);
+            DateTime.TryParse(dataRow[(int)MasterTableCols.DeathDateS_D_6].ToString(), out deathDate);
+            seventhPerson.BirthDate = birthDate;
+            seventhPerson.DeathDate = deathDate;
 
             return seventhPerson;
         }
