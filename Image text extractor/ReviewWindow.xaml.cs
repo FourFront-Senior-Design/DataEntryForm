@@ -82,6 +82,7 @@ namespace Image_text_extractor
             if(!_validateLastNameExists() || (string.IsNullOrEmpty(GoToRecordTextBox.Text) 
                 || string.IsNullOrWhiteSpace(GoToRecordTextBox.Text)))
             {
+                GoToRecordTextBox.Text = "";
                 return;
             }
 

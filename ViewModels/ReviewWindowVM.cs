@@ -23,11 +23,6 @@ namespace ViewModels
             }
             set
             {
-                Trace.WriteLine(value.PrimaryDecedent.LastName);
-                if(string.IsNullOrEmpty(value.PrimaryDecedent.LastName) || string.IsNullOrWhiteSpace(value.PrimaryDecedent.LastName))
-                {
-                    return;
-                }
                 _currentPageData = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentPageData)));
             }
