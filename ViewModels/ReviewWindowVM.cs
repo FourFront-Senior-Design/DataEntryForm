@@ -26,38 +26,10 @@ namespace ViewModels
                 Trace.WriteLine(value.PrimaryDecedent.LastName);
                 if(string.IsNullOrEmpty(value.PrimaryDecedent.LastName) || string.IsNullOrWhiteSpace(value.PrimaryDecedent.LastName))
                 {
-                    throw new ApplicationException("Last Name is Mandatory");
+                    return;
                 }
                 _currentPageData = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentPageData)));
-            }
-        }
-
-        private ICommand _previousRecordMacro;
-        public ICommand PreviousRecordMacro
-        {
-            get
-            {
-                Trace.WriteLine("Previou Record Macro selected");
-                return _previousRecordMacro
-                    ?? (_previousRecordMacro = new ActionCommand(() =>
-                    {
-                        if(PageIndex != 1) PageIndex--;
-                    }));
-            }
-        }
-
-        private ICommand _nextRecordMacro;
-        public ICommand NextRecordMacro
-        {
-            get
-            {
-                Trace.WriteLine("Next Record Macro selected");
-                return _nextRecordMacro
-                    ?? (_nextRecordMacro = new ActionCommand(() =>
-                    {
-                        PageIndex++;
-                    }));
             }
         }
 

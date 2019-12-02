@@ -27,12 +27,20 @@ namespace Image_text_extractor
             {
                 if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.PageUp))
                 {
-                    _viewModel.PreviousRecordMacro.Execute(null);
+                    if (!_validateLastNameExists())
+                    {
+                        return;
+                    }
+                    _viewModel.PreviousRecord();
                 }
 
                 if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.PageDown))
                 {
-                    _viewModel.NextRecordMacro.Execute(null);
+                    if (!_validateLastNameExists())
+                    {
+                        return;
+                    }
+                    _viewModel.NextRecord();
                 }
                 
             }), true);
@@ -55,30 +63,67 @@ namespace Image_text_extractor
             }
         }
 
+        private bool _validateLastNameExists()
+        {
+            if (string.IsNullOrEmpty(LastNameTextbox.Text)
+                || string.IsNullOrWhiteSpace(LastNameTextbox.Text))
+            {
+                LastNameTextbox.BorderBrush = System.Windows.Media.Brushes.Red;
+                MessageBox.Show("Last Name is Mandatory", "Error", MessageBoxButton.OK);
+                return false;
+            }
+
+            LastNameTextbox.ClearValue(Border.BorderBrushProperty);
+            return true;
+        }
+
         private void GoToRecordClick(object sender, RoutedEventArgs e)
         {
+            if(!_validateLastNameExists() || (string.IsNullOrEmpty(GoToRecordTextBox.Text) 
+                || string.IsNullOrWhiteSpace(GoToRecordTextBox.Text)))
+            {
+                return;
+            }
+
             _viewModel.PageIndex = System.Convert.ToInt32(GoToRecordTextBox.Text);
             GoToRecordTextBox.Text = "";
         }
 
         private void FirstRecordClick(object sender, RoutedEventArgs e)
         {
+            if (!_validateLastNameExists())
+            {
+                return;
+            }
             _viewModel.PageIndex = 1;
         }
 
         private void BackClick(object sender, RoutedEventArgs e)
         {
+            if (!_validateLastNameExists())
+            {
+                return;
+            }
+            
             isBack = true;
             MoveToMainPage?.Invoke(this, new EventArgs());
         }
 
         private void NextClick(object sender, RoutedEventArgs e)
         {
+            if (!_validateLastNameExists())
+            {
+                return;
+            }
             _viewModel.NextRecord();
         }
 
         private void PreviousClick(object sender, RoutedEventArgs e)
         {
+            if (!_validateLastNameExists())
+            {
+                return;
+            }
             _viewModel.PreviousRecord();
         }
 
@@ -144,20 +189,49 @@ namespace Image_text_extractor
             if (!string.IsNullOrEmpty(input))
             {
                 cb.Text = "";
-                MessageBox.Show("Invalid text");
+                MessageBox.Show("The text you have entered isn't an item in the list."+
+                    "\n\nSelect an item from the list, or enter text that matches one of the listed items.",
+                    "VA National Cemetery Inventory");
+                cb.IsDropDownOpen = true;
+            }
+        }
+
+        private void LastName_LostFocus(object sender, EventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+            if(string.IsNullOrEmpty(tb.Text) || string.IsNullOrWhiteSpace(tb.Text))
+            {
+                tb.BorderBrush = System.Windows.Media.Brushes.Red;
+                MessageBox.Show("Last Name is Mandatory", "Error", MessageBoxButton.OK);
+            }
+            else
+            {
+                tb.ClearValue(Border.BorderBrushProperty);
             }
         }
 
         private void EmblemCombox_LostFocus(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
-
-            if (string.IsNullOrEmpty(cb.Text))
+            int input = 0;
+            if(string.IsNullOrEmpty(cb.Text) || string.IsNullOrWhiteSpace(cb.Text))
             {
                 return;
             }
 
-            int input = Convert.ToInt32(cb.Text);
+            try
+            {
+                input = Convert.ToInt32(cb.Text);
+            }
+            catch
+            {
+                cb.Text = "";
+                MessageBox.Show("The text you have entered isn't an item in the list." +
+                "\n\nSelect an item from the list, or enter text that matches one of the listed items.",
+                "VA National Emblem Inventory");
+                cb.IsDropDownOpen = true;
+                return;
+            }
 
             foreach (EmblemData i in cb.Items)
             {
@@ -170,7 +244,11 @@ namespace Image_text_extractor
                 }
             }
             cb.Text = "";
-            MessageBox.Show("Invalid text");
+            MessageBox.Show("The text you have entered isn't an item in the list." +
+                "\n\nSelect an item from the list, or enter text that matches one of the listed items.",
+                "VA National Emblem Inventory");
+            cb.IsDropDownOpen = true;
+            
         }
 
     }
