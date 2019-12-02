@@ -70,6 +70,7 @@ namespace Services
 
 
             headstone.SequenceID = dataRow[(int)MasterTableCols.SequenceID].ToString();
+            headstone.PrimaryKey = dataRow[(int)MasterTableCols.PrimaryKey].ToString();
             headstone.CemeteryName = dataRow[(int)MasterTableCols.CemeteryName].ToString();
             headstone.BurialSectionNumber = dataRow[(int)MasterTableCols.BurialSectionNumber].ToString();
             headstone.WallID = dataRow[(int)MasterTableCols.Wall].ToString();
@@ -84,7 +85,7 @@ namespace Services
             headstone.OthersDecedentList = GetAddtionalDecedents(dataRow);
 
             headstone.Image1FilePath = dataRow[(int)MasterTableCols.FrontFilename].ToString();
-            headstone.Image1FilePath = dataRow[(int)MasterTableCols.BackFilename].ToString();
+            headstone.Image2FilePath = dataRow[(int)MasterTableCols.BackFilename].ToString();
 
             return headstone;
         }
