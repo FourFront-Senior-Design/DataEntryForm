@@ -194,5 +194,13 @@ namespace ViewModels
             CurrentPageData = _database.GetHeadstone(_currentPageIndex);
             HeadstoneChanged?.Invoke(this, new EventArgs());
         }
+
+        public List<string> GetCemeteryNames
+        {
+            get
+            {
+                return _database.GetCemeteryNames();
+            }
+        }
     }
 }

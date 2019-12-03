@@ -179,9 +179,8 @@
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Content="Cemetry Name"  VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,8"/>
                     <ComboBox Grid.Column="0" Text="{Binding CurrentPageData.CemeteryName}"
-                              HorizontalAlignment="Stretch" ItemsSource="{Binding GetCemeteryData}"
-                              IsEditable="True" 
-                              TextSearch.TextPath="Code" IsTextSearchEnabled="True"
+                              HorizontalAlignment="Stretch" ItemsSource="{Binding GetCemeteryNames}"
+                              IsEditable="True" IsTextSearchEnabled="True"
                               VerticalAlignment="Center" Margin="120,9,50,11" Padding="1" Grid.ColumnSpan="2"/>
                     <Label Grid.Column="2" Content="Burial Section #" VerticalAlignment="Center" Margin="0,8"/>
                     <TextBox Grid.Column="2" Text="{Binding CurrentPageData.BurialSectionNumber}" Margin="120,10,0,10" Padding="2"/>
