@@ -15,6 +15,7 @@ namespace ViewModelInterfaces
         void NextRecord();
         void PreviousRecord();
         List<EmblemData> GetEmblemData { get; }
+        List<string> GetCemeteryNames { get; }
         int GetDatabaseCount { get; }
     }
 }
