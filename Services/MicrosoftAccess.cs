@@ -477,6 +477,41 @@ namespace Services
             return seventhPerson;
         }
 
+        public List<string> GetCemeteryNames()
+        {
+            OleDbCommand cmd;
+            OleDbDataReader reader;
+            List<string> CemeteryNames = new List<string>();
+
+            string sqlQuery = "SELECT CemeteryName FROM CemeteryNames";
+
+            using (OleDbConnection connection = new OleDbConnection(_connectionString)) // using to ensure connection is closed when we are done
+            {
+                try
+                {
+                    cmd = new OleDbCommand(sqlQuery, connection);
+                    connection.Open(); // try to open the connection
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error accsessing Database");
+                    throw e;
+                }
+
+                reader = cmd.ExecuteReader();
+
+                while(reader.Read())
+                {
+                    CemeteryNames.Add(reader.GetString(0));
+                }
+
+                reader.Close();
+            }
+
+            return CemeteryNames;
+
+        }
+
         public void SetHeadstone(int index, Headstone headstone)
         {
             throw new NotImplementedException();
