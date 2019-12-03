@@ -386,49 +386,49 @@ namespace Services
             return seventhPerson;
         }
 
-        public CemeteryNameData GetCemeteryData()
-        {
-            OleDbCommand cmdID, cmdCemeteryName, cmdKeyCode;
-            OleDbDataReader readeID, readerCemeteryNames, readerKeyCode;
-            CemeteryNameData CemeteryNames = new CemeteryNameData();
+        //public CemeteryNameData GetCemeteryData()
+        //{
+        //    OleDbCommand cmdID, cmdCemeteryName, cmdKeyCode;
+        //    OleDbDataReader readeID, readerCemeteryNames, readerKeyCode;
+        //    CemeteryNameData CemeteryNames = new CemeteryNameData();
 
-            string sqlQueryID = "SELECT ID FROM CemeteryNames";
-            string sqlQueryCemeterName = "SELECT CemeteryName FROM CemeteryNames";
-            string sqlQueryKeyCode = "SELECT KeyCode FROM CemeteryNames";
+        //    string sqlQueryID = "SELECT ID FROM CemeteryNames";
+        //    string sqlQueryCemeterName = "SELECT CemeteryName FROM CemeteryNames";
+        //    string sqlQueryKeyCode = "SELECT KeyCode FROM CemeteryNames";
 
-            using (OleDbConnection connection = new OleDbConnection(_connectionString)) // using to ensure connection is closed when we are done
-            {
-                try
-                {
-                    cmdID = new OleDbCommand(sqlQueryID, connection);
-                    cmdCemeteryName = new OleDbCommand(sqlQueryCemeterName, connection);
-                    cmdKeyCode = new OleDbCommand(sqlQueryKeyCode, connection);
-                    connection.Open(); // try to open the connection
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Error accsessing Database");
-                    throw e;
-                }
+        //    using (OleDbConnection connection = new OleDbConnection(_connectionString)) // using to ensure connection is closed when we are done
+        //    {
+        //        try
+        //        {
+        //            cmdID = new OleDbCommand(sqlQueryID, connection);
+        //            cmdCemeteryName = new OleDbCommand(sqlQueryCemeterName, connection);
+        //            cmdKeyCode = new OleDbCommand(sqlQueryKeyCode, connection);
+        //            connection.Open(); // try to open the connection
+        //        }
+        //        catch (Exception e)
+        //        {
+        //            Console.WriteLine("Error accsessing Database");
+        //            throw e;
+        //        }
 
-                readeID = cmdID.ExecuteReader();
-                readerCemeteryNames = cmdCemeteryName.ExecuteReader();
-                readerKeyCode = cmdKeyCode.ExecuteReader();
+        //        readeID = cmdID.ExecuteReader();
+        //        readerCemeteryNames = cmdCemeteryName.ExecuteReader();
+        //        readerKeyCode = cmdKeyCode.ExecuteReader();
 
-                CemeteryNames.ID = GetInt32Data(readeID);
-                CemeteryNames.CemeteryName = GetStringData(readerCemeteryNames);
-                CemeteryNames.KeyName = GetStringData(readerKeyCode);
+        //        CemeteryNames.ID = GetInt32Data(readeID);
+        //        CemeteryNames.CemeteryName = GetStringData(readerCemeteryNames);
+        //        CemeteryNames.KeyName = GetStringData(readerKeyCode);
 
 
-                readeID.Close();
-                readerCemeteryNames.Close();
-                readerKeyCode.Close();
-                connection.Close();
-            }
+        //        readeID.Close();
+        //        readerCemeteryNames.Close();
+        //        readerKeyCode.Close();
+        //        connection.Close();
+        //    }
 
-            return CemeteryNames;
+        //    return CemeteryNames;
 
-        }
+        //}
 
         List<string> GetStringData(OleDbDataReader reader)
         {
@@ -473,14 +473,17 @@ namespace Services
             // Append all keys and values to the string
             foreach (KeyValuePair<string, string> entry in headstoneData)
             {
-                sqlQuery += entry.Key + " = " + entry.Value + ", ";
+                if(entry.Value != "")
+                {
+                    sqlQuery += entry.Key + " = '" + entry.Value + "', ";
+                }
             }
 
             // trim the last ", " off
             sqlQuery = sqlQuery.Substring(0, sqlQuery.Length - 2);
 
             // finalize update statement
-            sqlQuery += "WHERE AccessUniqueID = " + index;
+            sqlQuery += " WHERE AccessUniqueID = " + index + ";";
 
             OleDbCommand cmd;
             using (OleDbConnection connection = new OleDbConnection(_connectionString)) // using to ensure connection is closed when we are done
@@ -489,13 +492,13 @@ namespace Services
                 {
                     cmd = new OleDbCommand(sqlQuery, connection);
                     connection.Open(); // try to open the connection
-                    cmd.ExecuteNonQuery(); // do the update
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine("Error accsessing Database");
                     throw e;
                 }
+                cmd.ExecuteNonQuery(); // do the update
             }
         }
 
@@ -504,8 +507,8 @@ namespace Services
             dict.Add("CemetaryName", headstone.CemeteryName);
             dict.Add("BurialSection", headstone.BurialSectionNumber);
             dict.Add("Wall", headstone.WallID);
-            dict.Add("Row#", headstone.RowNum);
-            dict.Add("Gravesite#", headstone.GavestoneNumber);
+            //dict.Add("Row#", headstone.RowNum);
+            //dict.Add("Gravesite#", headstone.GavestoneNumber);
             dict.Add("MarkerType", headstone.MarkerType);
             dict.Add("Emblem1", headstone.Emblem1);
             dict.Add("Emblem2", headstone.Emblem2);
@@ -542,7 +545,7 @@ namespace Services
             dict.Add("Branch", headstone.PrimaryDecedent.BranchList[0]);
             dict.Add("Branch2", headstone.PrimaryDecedent.BranchList[1]);
             dict.Add("Branch3", headstone.PrimaryDecedent.BranchList[2]);
-            dict.Add("Branch-Unit_CustomV", headstone.PrimaryDecedent.BranchUnitCustom);
+            //dict.Add("Branch-Unit_CustomV", headstone.PrimaryDecedent.BranchUnitCustom);
 
             dict.Add("BirthDate", headstone.PrimaryDecedent.BirthDate.ToString());
             dict.Add("DeathDate", headstone.PrimaryDecedent.DeathDate.ToString());
@@ -579,7 +582,7 @@ namespace Services
             dict.Add("BranchS_D", headstone.OthersDecedentList[0].BranchList[0]);
             dict.Add("Branch2S_D", headstone.OthersDecedentList[0].BranchList[1]);
             dict.Add("Branch3S_D", headstone.OthersDecedentList[0].BranchList[2]);
-            dict.Add("Branch-Unit_CustomS_D", headstone.OthersDecedentList[0].BranchUnitCustom);
+            //dict.Add("Branch-Unit_CustomS_D", headstone.OthersDecedentList[0].BranchUnitCustom);
 
             dict.Add("BirthDateS_D", headstone.OthersDecedentList[0].BirthDate.ToString());
             dict.Add("DeathDateS_D", headstone.OthersDecedentList[0].DeathDate.ToString());
