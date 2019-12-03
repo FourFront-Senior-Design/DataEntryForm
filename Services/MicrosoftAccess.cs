@@ -160,11 +160,6 @@ namespace Services
         {
             Person primaryPerson = new Person();
 
-            if(string.IsNullOrEmpty(dataRow[(int)MasterTableCols.LastName].ToString()))
-            {
-                return null;
-            }
-
             primaryPerson.FirstName = dataRow[(int)MasterTableCols.FirstName].ToString();
             primaryPerson.MiddleName = dataRow[(int)MasterTableCols.MiddleName].ToString();
             primaryPerson.LastName = dataRow[(int)MasterTableCols.LastName].ToString();
@@ -210,67 +205,12 @@ namespace Services
         private List<Person> GetAddtionalDecedents(object[] dataRow)
         {
             List<Person> additonalDecedents = new List<Person>();
-            Person additionalDecedent;
-
-            additionalDecedent = GetSecondPerson(dataRow);
-            if(additionalDecedent == null)
-            {
-                return additonalDecedents;
-            }
-            else
-            {
-                additonalDecedents.Add(additionalDecedent);
-            }
-
-            additionalDecedent = GetThirdPerson(dataRow);
-            if (additionalDecedent == null)
-            {
-                return additonalDecedents;
-            }
-            else
-            {
-                additonalDecedents.Add(additionalDecedent);
-            }
-
-            additionalDecedent = GetForthPerson(dataRow);
-            if (additionalDecedent == null)
-            {
-                return additonalDecedents;
-            }
-            else
-            {
-                additonalDecedents.Add(additionalDecedent);
-            }
-
-            additionalDecedent = GetFithPerson(dataRow);
-            if (additionalDecedent == null)
-            {
-                return additonalDecedents;
-            }
-            else
-            {
-                additonalDecedents.Add(additionalDecedent);
-            }
-
-            additionalDecedent = GetSixthPerson(dataRow);
-            if (additionalDecedent == null)
-            {
-                return additonalDecedents;
-            }
-            else
-            {
-                additonalDecedents.Add(additionalDecedent);
-            }
-
-            additionalDecedent = GetSeventhPerson(dataRow);
-            if (additionalDecedent == null)
-            {
-                return additonalDecedents;
-            }
-            else
-            {
-                additonalDecedents.Add(additionalDecedent);
-            }
+            additonalDecedents.Add(GetSecondPerson(dataRow));
+            additonalDecedents.Add(GetThirdPerson(dataRow));
+            additonalDecedents.Add(GetForthPerson(dataRow));
+            additonalDecedents.Add(GetFithPerson(dataRow));
+            additonalDecedents.Add(GetSixthPerson(dataRow));
+            additonalDecedents.Add(GetSeventhPerson(dataRow));
 
             return additonalDecedents;
         }
@@ -278,11 +218,6 @@ namespace Services
         private Person GetSecondPerson(object[] dataRow)
         {
             Person secondPerson = new Person();
-
-            if(string.IsNullOrEmpty(dataRow[(int)MasterTableCols.LastNameS_D].ToString()))
-            {
-                return null;
-            }
 
             secondPerson.FirstName = dataRow[(int)MasterTableCols.FirstNameS_D].ToString();
             secondPerson.MiddleName = dataRow[(int)MasterTableCols.MiddleNameS_D].ToString();
@@ -330,11 +265,6 @@ namespace Services
         {
             Person thirdPerson = new Person();
 
-            if (string.IsNullOrEmpty(dataRow[(int)MasterTableCols.LastNameS_D_2].ToString()))
-            {
-                return null;
-            }
-
             thirdPerson.FirstName = dataRow[(int)MasterTableCols.FirstNameS_D_2].ToString();
             thirdPerson.MiddleName = dataRow[(int)MasterTableCols.MiddleNameS_D_2].ToString();
             thirdPerson.LastName = dataRow[(int)MasterTableCols.LastNameS_D_2].ToString();
@@ -363,11 +293,6 @@ namespace Services
         private Person GetForthPerson(object[] dataRow)
         {
             Person forthPerson = new Person();
-
-            if (string.IsNullOrEmpty(dataRow[(int)MasterTableCols.LastNameS_D_3].ToString()))
-            {
-                return null;
-            }
 
             forthPerson.FirstName = dataRow[(int)MasterTableCols.FirstNameS_D_3].ToString();
             forthPerson.MiddleName = dataRow[(int)MasterTableCols.MiddleNameS_D_3].ToString();
@@ -398,11 +323,6 @@ namespace Services
         {
             Person fithPerson = new Person();
 
-            if (string.IsNullOrEmpty(dataRow[(int)MasterTableCols.LastNameS_D_4].ToString()))
-            {
-                return null;
-            }
-
             fithPerson.FirstName = dataRow[(int)MasterTableCols.FirstNameS_D_4].ToString();
             fithPerson.MiddleName = dataRow[(int)MasterTableCols.MiddleNameS_D_4].ToString();
             fithPerson.LastName = dataRow[(int)MasterTableCols.LastNameS_D_4].ToString();
@@ -432,11 +352,6 @@ namespace Services
         {
             Person sixthPerson = new Person();
 
-            if (string.IsNullOrEmpty(dataRow[(int)MasterTableCols.LastNameS_D_5].ToString()))
-            {
-                return null;
-            }
-
             sixthPerson.FirstName = dataRow[(int)MasterTableCols.FirstNameS_D_5].ToString();
             sixthPerson.MiddleName = dataRow[(int)MasterTableCols.MiddleNameS_D_5].ToString();
             sixthPerson.LastName = dataRow[(int)MasterTableCols.LastNameS_D_5].ToString();
@@ -456,11 +371,6 @@ namespace Services
         private Person GetSeventhPerson(object[] dataRow)
         {
             Person seventhPerson = new Person();
-
-            if (string.IsNullOrEmpty(dataRow[(int)MasterTableCols.LastNameS_D_6].ToString()))
-            {
-                return null;
-            }
 
             seventhPerson.FirstName = dataRow[(int)MasterTableCols.FirstNameS_D_6].ToString();
             seventhPerson.MiddleName = dataRow[(int)MasterTableCols.MiddleNameS_D_6].ToString();
