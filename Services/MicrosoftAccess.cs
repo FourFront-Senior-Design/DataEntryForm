@@ -477,19 +477,23 @@ namespace Services
             return seventhPerson;
         }
 
-        public List<string> GetCemeteryNames()
+        public CemeteryNameData GetCemeteryData()
         {
-            OleDbCommand cmd;
-            OleDbDataReader reader;
-            List<string> CemeteryNames = new List<string>();
+            OleDbCommand cmdID, cmdCemeteryName, cmdKeyCode;
+            OleDbDataReader readeID, readerCemeteryNames, readerKeyCode;
+            CemeteryNameData CemeteryNames = new CemeteryNameData();
 
-            string sqlQuery = "SELECT CemeteryName FROM CemeteryNames";
+            string sqlQueryID = "SELECT ID FROM CemeteryNames";
+            string sqlQueryCemeterName = "SELECT CemeteryName FROM CemeteryNames";
+            string sqlQueryKeyCode = "SELECT KeyCode FROM CemeteryNames";
 
             using (OleDbConnection connection = new OleDbConnection(_connectionString)) // using to ensure connection is closed when we are done
             {
                 try
                 {
-                    cmd = new OleDbCommand(sqlQuery, connection);
+                    cmdID = new OleDbCommand(sqlQueryID, connection);
+                    cmdCemeteryName = new OleDbCommand(sqlQueryCemeterName, connection);
+                    cmdKeyCode = new OleDbCommand(sqlQueryKeyCode, connection);
                     connection.Open(); // try to open the connection
                 }
                 catch (Exception e)
@@ -498,18 +502,59 @@ namespace Services
                     throw e;
                 }
 
-                reader = cmd.ExecuteReader();
+                readeID = cmdID.ExecuteReader();
+                readerCemeteryNames = cmdCemeteryName.ExecuteReader();
+                readerKeyCode = cmdKeyCode.ExecuteReader();
 
-                while(reader.Read())
-                {
-                    CemeteryNames.Add(reader.GetString(0));
-                }
+                CemeteryNames.ID = GetCemeteryID(readeID);
+                CemeteryNames.CemeteryName = GetCemeteryNames(readerCemeteryNames);
+                CemeteryNames.KeyName = GetCemeteryKeys(readerKeyCode);
 
-                reader.Close();
+
+                readeID.Close();
+                readerCemeteryNames.Close();
+                readerKeyCode.Close();
+                connection.Close();
             }
 
             return CemeteryNames;
 
+        }
+
+        List<string> GetCemeteryNames(OleDbDataReader reader)
+        {
+            List<string> Names = new List<string>();
+
+            while (reader.Read())
+            {
+                Names.Add(reader.GetString(0));
+            }
+
+            return Names;
+        }
+
+        List<int> GetCemeteryID(OleDbDataReader reader)
+        {
+            List<int> IDs = new List<Int32>();
+
+            while (reader.Read())
+            {
+                IDs.Add(reader.GetInt32(0));
+            }
+
+            return IDs;
+        }
+
+        List<string> GetCemeteryKeys(OleDbDataReader reader)
+        {
+            List<string> keys = new List<string>();
+
+            while (reader.Read())
+            {
+                keys.Add(reader.GetString(0));
+            }
+
+            return keys;
         }
 
         public void SetHeadstone(int index, Headstone headstone)

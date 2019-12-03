@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace DataStructures
 {
-    class CemeteryNameData
+    public class CemeteryNameData
     {
-        public int ID { get; set; }
+        public List<int> ID { get; set; }
 
-        public string cemeteryName { get; set; }
+        public List<string> CemeteryName { get; set; }
 
-        public int KeyName { get; set; }
+        public List<string> KeyName { get; set; }
     }
 }
