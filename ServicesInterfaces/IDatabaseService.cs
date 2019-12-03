@@ -16,5 +16,7 @@ namespace ServicesInterfaces
         bool InitDBConnection(string sectionFilePath);
 
         int TotalItems { get; }
+
+        string SectionFilePath { get; }
     }
 }

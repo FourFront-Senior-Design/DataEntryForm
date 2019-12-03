@@ -1,0 +1,21 @@
+﻿<Window x:Class="Image_text_extractor.HeadstoneDisplayWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Image_text_extractor"
+        mc:Ignorable="d"
+        Title="HeadstoneDisplayWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <Image x:Name="frontFaceImage" Grid.Column="1" HorizontalAlignment="Center"/>
+        <Image x:Name="backFaceImage" Grid.Column="2" HorizontalAlignment="Center"/>
+    </Grid>
+    
+</Window>

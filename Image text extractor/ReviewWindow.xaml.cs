@@ -14,15 +14,20 @@ namespace Image_text_extractor
     {
         public event EventHandler MoveToMainPage;
 
-        private IReviewWindowVM _viewModel;
 
+        private IReviewWindowVM _viewModel;
+        private HeadstoneDisplayWindow _displayWindow;
         private bool isBack;
 
         public ReviewWindow(IReviewWindowVM viewModel)
         {
             InitializeComponent();
+
             _viewModel = viewModel;
             DataContext = _viewModel;
+
+            _displayWindow = new HeadstoneDisplayWindow(_viewModel);
+
             AddHandler(KeyDownEvent, new KeyEventHandler((ss, ee) =>
             {
                 if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.PageUp))
@@ -139,8 +144,10 @@ namespace Image_text_extractor
                 "\n\nNote: All changes will be saved.", "Confirm",
                 MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
+                _displayWindow.Close();
                 if (isBack == false)
                 {
+
                     Application.Current.Shutdown();
                 }
             }
@@ -252,5 +259,9 @@ namespace Image_text_extractor
             
         }
 
+        private void OpenImageClick(object sender, RoutedEventArgs e)
+        {
+            _displayWindow.Show();
+        }
     }
 }

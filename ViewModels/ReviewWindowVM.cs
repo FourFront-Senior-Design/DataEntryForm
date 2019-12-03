@@ -11,6 +11,9 @@ namespace ViewModels
 {
     public class ReviewWindowVM : IReviewWindowVM, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        public event EventHandler HeadstoneChanged;
+
         private int _currentPageIndex;
         private Headstone _currentPageData;
         private IDatabaseService _database;
@@ -37,13 +40,19 @@ namespace ViewModels
             set
             {
                 _currentPageIndex = value;
-                CurrentPageData = _database.GetHeadstone(_currentPageIndex);
+                displayHeadStone();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PageIndex)));
             }
         }
-        
-        public event PropertyChangedEventHandler PropertyChanged;
 
+        public string SectionFilePath
+        {
+            get
+            {
+                return _database.SectionFilePath;
+            }
+        }
+        
         public ReviewWindowVM(IDatabaseService database)
         {
             _database = database;
@@ -172,5 +181,10 @@ namespace ViewModels
 
     }
 
+        private void displayHeadStone()
+        {
+            CurrentPageData = _database.GetHeadstone(_currentPageIndex);
+            HeadstoneChanged?.Invoke(this, new EventArgs());
+        }
     }
 }
