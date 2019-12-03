@@ -8,10 +8,10 @@ namespace DataStructures
 {
     public class CemeteryNameData
     {
-        public List<int> ID { get; set; }
+        public int ID { get; set; }
 
-        public List<string> CemeteryName { get; set; }
+        public string CemeteryName { get; set; }
 
-        public List<string> KeyName { get; set; }
+        public string KeyName { get; set; }
     }
 }

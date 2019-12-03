@@ -195,12 +195,12 @@ namespace ViewModels
             HeadstoneChanged?.Invoke(this, new EventArgs());
         }
 
-        public List<string> GetCemeteryNames
-        {
-            get
-            {
-                return _database.GetCemeteryNames();
-            }
-        }
+        //public List<CemeteryNameData> GetCemeteryNames
+        //{
+        //    get
+        //    {
+        //        return _database.GetCemeteryData();
+        //    }
+        //}
     }
 }

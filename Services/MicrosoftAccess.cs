@@ -387,49 +387,49 @@ namespace Services
             return seventhPerson;
         }
 
-        public CemeteryNameData GetCemeteryData()
-        {
-            OleDbCommand cmdID, cmdCemeteryName, cmdKeyCode;
-            OleDbDataReader readeID, readerCemeteryNames, readerKeyCode;
-            CemeteryNameData CemeteryNames = new CemeteryNameData();
+        //public CemeteryNameData GetCemeteryData()
+        //{
+        //    OleDbCommand cmdID, cmdCemeteryName, cmdKeyCode;
+        //    OleDbDataReader readeID, readerCemeteryNames, readerKeyCode;
+        //    CemeteryNameData CemeteryNames = new CemeteryNameData();
 
-            string sqlQueryID = "SELECT ID FROM CemeteryNames";
-            string sqlQueryCemeterName = "SELECT CemeteryName FROM CemeteryNames";
-            string sqlQueryKeyCode = "SELECT KeyCode FROM CemeteryNames";
+        //    string sqlQueryID = "SELECT ID FROM CemeteryNames";
+        //    string sqlQueryCemeterName = "SELECT CemeteryName FROM CemeteryNames";
+        //    string sqlQueryKeyCode = "SELECT KeyCode FROM CemeteryNames";
 
-            using (OleDbConnection connection = new OleDbConnection(_connectionString)) // using to ensure connection is closed when we are done
-            {
-                try
-                {
-                    cmdID = new OleDbCommand(sqlQueryID, connection);
-                    cmdCemeteryName = new OleDbCommand(sqlQueryCemeterName, connection);
-                    cmdKeyCode = new OleDbCommand(sqlQueryKeyCode, connection);
-                    connection.Open(); // try to open the connection
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Error accsessing Database");
-                    throw e;
-                }
+        //    using (OleDbConnection connection = new OleDbConnection(_connectionString)) // using to ensure connection is closed when we are done
+        //    {
+        //        try
+        //        {
+        //            cmdID = new OleDbCommand(sqlQueryID, connection);
+        //            cmdCemeteryName = new OleDbCommand(sqlQueryCemeterName, connection);
+        //            cmdKeyCode = new OleDbCommand(sqlQueryKeyCode, connection);
+        //            connection.Open(); // try to open the connection
+        //        }
+        //        catch (Exception e)
+        //        {
+        //            Console.WriteLine("Error accsessing Database");
+        //            throw e;
+        //        }
 
-                readeID = cmdID.ExecuteReader();
-                readerCemeteryNames = cmdCemeteryName.ExecuteReader();
-                readerKeyCode = cmdKeyCode.ExecuteReader();
+        //        readeID = cmdID.ExecuteReader();
+        //        readerCemeteryNames = cmdCemeteryName.ExecuteReader();
+        //        readerKeyCode = cmdKeyCode.ExecuteReader();
 
-                CemeteryNames.ID = GetInt32Data(readeID);
-                CemeteryNames.CemeteryName = GetStringData(readerCemeteryNames);
-                CemeteryNames.KeyName = GetStringData(readerKeyCode);
+        //        CemeteryNames.ID = GetInt32Data(readeID);
+        //        CemeteryNames.CemeteryName = GetStringData(readerCemeteryNames);
+        //        CemeteryNames.KeyName = GetStringData(readerKeyCode);
 
 
-                readeID.Close();
-                readerCemeteryNames.Close();
-                readerKeyCode.Close();
-                connection.Close();
-            }
+        //        readeID.Close();
+        //        readerCemeteryNames.Close();
+        //        readerKeyCode.Close();
+        //        connection.Close();
+        //    }
 
-            return CemeteryNames;
+        //    return CemeteryNames;
 
-        }
+        //}
 
         List<string> GetStringData(OleDbDataReader reader)
         {

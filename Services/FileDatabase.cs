@@ -48,10 +48,6 @@ namespace Services
         {
             throw new NotImplementedException();
         }
-
-        CemeteryNameData IDatabaseService.GetCemeteryData()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
