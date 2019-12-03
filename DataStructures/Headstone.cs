@@ -9,6 +9,7 @@ namespace DataStructures
     public class Headstone
     {
         public string SequenceID { get; set; }
+        public string PrimaryKey { get; set; }
         public string CemeteryName { get; set; }
         public string BurialSectionNumber { get; set; }
         public string WallID { get; set; }
