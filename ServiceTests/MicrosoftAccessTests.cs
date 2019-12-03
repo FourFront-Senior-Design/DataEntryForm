@@ -52,10 +52,5 @@ namespace ServiceTests
                 }
             }
         }
-
-        public void GetAllCemeteryNames()
-        {
-            
-        }
     }
 }
