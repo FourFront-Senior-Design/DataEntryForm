@@ -445,6 +445,24 @@ namespace Services
             return seventhPerson;
         }
 
+        public List<string> GetCemeteryNames()
+        {
+            List<string> CemeteryNames = null;
+
+            string sqlQuery = "SELECT Distinct CemeteryName FROM CemeteryNames";
+
+            var dataRow = GetDataRow(sqlQuery);
+
+            int count = dataRow.Count();
+
+            for (int i = 1; i <= count; i++)
+            {
+                CemeteryNames.Add(dataRow[i].ToString());
+            }
+
+            return CemeteryNames;
+        }
+
         public void SetHeadstone(int index, Headstone headstone)
         {
             throw new NotImplementedException();
