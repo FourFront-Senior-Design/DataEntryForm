@@ -78,6 +78,14 @@ namespace ViewModels
             Trace.WriteLine("Next click");
             Trace.WriteLine(CurrentPageData.PrimaryDecedent.LastName);
         }
+        
+        public int GetDatabaseCount
+        {
+            get
+            {
+                return _database.TotalItems;
+            }
+        }
 
         public void PreviousRecord()
         {

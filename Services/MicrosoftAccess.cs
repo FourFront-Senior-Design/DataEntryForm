@@ -21,7 +21,7 @@ namespace Services
 
         public int TotalItems
         {
-            get { return 1; }
+            get { return _GetTotalRecords(); }
         }
 
         public string SectionFilePath { get; private set; } = string.Empty;
@@ -63,6 +63,34 @@ namespace Services
             {
                 return false;
             }
+        }
+
+        private int _GetTotalRecords()
+        {
+
+            string sqlQuery = "SELECT COUNT(AccessUniqueID) FROM Master";
+            OleDbCommand cmd;
+            OleDbDataReader reader;
+
+            using (OleDbConnection connection = new OleDbConnection(_connectionString)) // using to ensure connection is closed when we are done
+            {
+                try
+                {
+                    cmd = new OleDbCommand(sqlQuery, connection);
+                    connection.Open(); // try to open the connection
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error accsessing Database");
+                    throw e;
+                }
+
+                reader = cmd.ExecuteReader();
+                reader.Read();
+
+                return reader.GetInt32(0);
+            }
+
         }
 
         public Headstone GetHeadstone(int index)

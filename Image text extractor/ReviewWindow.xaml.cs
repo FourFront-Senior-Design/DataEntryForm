@@ -104,6 +104,15 @@ namespace Image_text_extractor
             _viewModel.PageIndex = 1;
         }
 
+        private void LastRecordClick(object sender, RoutedEventArgs e)
+        {
+            if (!_validateLastNameExists())
+            {
+                return;
+            }
+            _viewModel.PageIndex = _viewModel.GetDatabaseCount;
+        }
+
         private void BackClick(object sender, RoutedEventArgs e)
         {
             if (!_validateLastNameExists())
