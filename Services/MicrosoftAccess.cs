@@ -479,6 +479,7 @@ namespace Services
             // trim the last ", " off
             sqlQuery = sqlQuery.Substring(0, sqlQuery.Length - 2);
 
+            // finalize update statement
             sqlQuery += "WHERE AccessUniqueID = " + index;
 
             OleDbCommand cmd;
