@@ -26,9 +26,20 @@ namespace DataStructures
         public Person()
         {
             RankList = new List<string>();
+            for (int i = 0; i < 3; i++)
+                RankList.Add("");
+
             AwardList = new List<string>();
+            for (int i = 0; i < 7; i++)
+                RankList.Add("");
+
             WarList = new List<string>();
+            for (int i = 0; i < 4; i++)
+                RankList.Add("");
+
             BranchList = new List<string>();
+            for (int i = 0; i < 3; i++)
+                RankList.Add("");
         }
     }
 }

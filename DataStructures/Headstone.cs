@@ -24,8 +24,18 @@ namespace DataStructures
 
         public string Image1FilePath { get; set; }
         public string Image2FilePath { get; set; }
-        public string Image1FileName { get; set; }
-        public string Image2FileName { get; set; }
+
+        public Headstone()
+        {
+            OthersDecedentList = new List<Person>();
+
+            for (int i = 0; i < 7; i++)
+            {
+                Person tempPerson = new Person();
+
+                OthersDecedentList.Add(tempPerson);
+            }
+        }
         
     }
 
