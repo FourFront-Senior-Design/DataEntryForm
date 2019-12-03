@@ -29,6 +29,11 @@ namespace Services
             throw new NotImplementedException();
         }
 
+        List<string> GetCemeteryNames()
+        {
+            throw new NotImplementedException();
+        }
+
         Headstone IDatabaseService.GetHeadstone(int index)
         {
             throw new NotImplementedException();
@@ -40,6 +45,11 @@ namespace Services
         }
 
         void IDatabaseService.SetHeadstone(int index, Headstone headstone)
+        {
+            throw new NotImplementedException();
+        }
+
+        List<string> IDatabaseService.GetCemeteryNames()
         {
             throw new NotImplementedException();
         }

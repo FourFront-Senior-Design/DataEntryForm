@@ -17,6 +17,8 @@ namespace ServicesInterfaces
 
         int TotalItems { get; }
 
+        List<string> GetCemeteryNames();
+
         string SectionFilePath { get; }
     }
 }
