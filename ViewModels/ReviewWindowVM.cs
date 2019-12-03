@@ -68,10 +68,10 @@ namespace ViewModels
 
         public void NextRecord()
         {
-            //if (PageIndex == _database.TotalItems)
-            //{
-            //    return;
-            //}
+            if (PageIndex == _database.TotalItems)
+            {
+                return;
+            }
 
             PageIndex++;
             
