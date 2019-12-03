@@ -87,6 +87,9 @@ namespace Services
             headstone.Image1FilePath = dataRow[(int)MasterTableCols.FrontFilename].ToString();
             headstone.Image2FilePath = dataRow[(int)MasterTableCols.BackFilename].ToString();
 
+            headstone.Image1FileName = Path.GetFileName(headstone.Image1FilePath);
+            headstone.Image2FileName = Path.GetFileName(headstone.Image2FilePath);
+
             return headstone;
         }
 
