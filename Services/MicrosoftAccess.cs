@@ -387,7 +387,49 @@ namespace Services
             return seventhPerson;
         }
 
-        public CemeteryNameData GetCemeteryData()
+
+        public List<CemeteryNameData> GetCemeteryData()
+        {
+            List<CemeteryNameData> CemetaryData = new List<CemeteryNameData>();
+            OleDbCommand cmd;
+            OleDbDataReader reader;
+
+            string sqlQuery = "SELECT * FROM CemeteryNames";
+
+            using (OleDbConnection connection = new OleDbConnection(_connectionString))
+            {
+                try
+                {
+                    cmd = new OleDbCommand(sqlQuery, connection);
+                    connection.Open();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error accsessing Database");
+                    throw e;
+                }
+
+                reader = cmd.ExecuteReader();
+
+                while(reader.Read())
+                {
+                    CemeteryNameData data = new CemeteryNameData();
+
+                    data.ID = reader.GetInt32(0);
+                    data.CemeteryName = reader.GetString(1);
+                    data.KeyName = reader.GetString(2);
+
+                    CemetaryData.Add(data);
+                }
+
+
+                reader.Close();
+                connection.Close();
+            }
+
+            return CemetaryData;
+        }
+        /*public List<CemeteryNameData> GetCemeteryData()
         {
             OleDbCommand cmdID, cmdCemeteryName, cmdKeyCode;
             OleDbDataReader readeID, readerCemeteryNames, readerKeyCode;
@@ -429,7 +471,7 @@ namespace Services
 
             return CemeteryNames;
 
-        }
+        }*/
 
         List<string> GetStringData(OleDbDataReader reader)
         {

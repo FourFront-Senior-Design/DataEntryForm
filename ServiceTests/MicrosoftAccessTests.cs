@@ -61,7 +61,7 @@ namespace ServiceTests
             databaseService.InitDBConnection(@"C:\Users\7295201\csc464_465_senior_design\SectionA");
 
 
-            CemeteryNameData names = databaseService.GetCemeteryData();
+            List<CemeteryNameData> names = databaseService.GetCemeteryData();
         }
     }
 }

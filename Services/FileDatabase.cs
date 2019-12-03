@@ -29,7 +29,7 @@ namespace Services
             throw new NotImplementedException();
         }
 
-        CemeteryNameData GetCemeteryData()
+        List<CemeteryNameData> GetCemeteryData()
         {
             throw new NotImplementedException();
         }
@@ -49,7 +49,7 @@ namespace Services
             throw new NotImplementedException();
         }
 
-        CemeteryNameData IDatabaseService.GetCemeteryData()
+        List<CemeteryNameData> IDatabaseService.GetCemeteryData()
         {
             throw new NotImplementedException();
         }
