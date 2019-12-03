@@ -24,8 +24,12 @@ namespace Services
             get { return 1; }
         }
 
+        public string SectionFilePath { get; private set; } = string.Empty;
+
         public bool InitDBConnection(string sectionFilePath)
         {
+            SectionFilePath = sectionFilePath;
+
             try
             {
 

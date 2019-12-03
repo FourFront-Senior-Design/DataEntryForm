@@ -7,7 +7,9 @@ namespace ViewModelInterfaces
 {
     public interface IReviewWindowVM
     {
+        event EventHandler HeadstoneChanged;
         int PageIndex { get; set; }
+        string SectionFilePath { get; }
         Headstone CurrentPageData { get; set; }
         void SetRecordsToReview();
         void NextRecord();

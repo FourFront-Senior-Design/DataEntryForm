@@ -26,7 +26,6 @@ namespace DataStructures
         public string Image2FilePath { get; set; }
         public string Image1FileName { get; set; }
         public string Image2FileName { get; set; }
-        
     }
 
 }

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Common
 {
-    public class Constants
+    public static class Constants
     {
+        public static string REFERENCED_IMAGE_FOLDER_NAME = "ReferencedImages";
     }
 
     public enum MasterTableCols

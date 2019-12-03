@@ -10,6 +10,8 @@ namespace Services
 {
     public class FileDatabase : IDatabaseService
     {
+        public string SectionFilePath => throw new NotImplementedException();
+
         int IDatabaseService.TotalItems => throw new NotImplementedException();
 
         public Headstone GetHeadstone(int index)

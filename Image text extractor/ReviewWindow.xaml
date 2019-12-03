@@ -135,7 +135,7 @@
                         </TextBlock>
                     </Button>
                     <Button Height="20" FontSize="12"
-                            Grid.Column="4" Click="BackClick">
+                            Grid.Column="4" Click="OpenImageClick">
                         <TextBlock TextWrapping="Wrap" TextAlignment="Center">
                             Open Image
                         </TextBlock>
