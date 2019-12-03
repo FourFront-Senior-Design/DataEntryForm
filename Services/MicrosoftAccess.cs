@@ -416,9 +416,9 @@ namespace Services
                 readerCemeteryNames = cmdCemeteryName.ExecuteReader();
                 readerKeyCode = cmdKeyCode.ExecuteReader();
 
-                CemeteryNames.ID = GetCemeteryID(readeID);
-                CemeteryNames.CemeteryName = GetCemeteryNames(readerCemeteryNames);
-                CemeteryNames.KeyName = GetCemeteryKeys(readerKeyCode);
+                CemeteryNames.ID = GetInt32Data(readeID);
+                CemeteryNames.CemeteryName = GetStringData(readerCemeteryNames);
+                CemeteryNames.KeyName = GetStringData(readerKeyCode);
 
 
                 readeID.Close();
@@ -431,40 +431,28 @@ namespace Services
 
         }
 
-        List<string> GetCemeteryNames(OleDbDataReader reader)
+        List<string> GetStringData(OleDbDataReader reader)
         {
-            List<string> Names = new List<string>();
+            List<string> Data = new List<string>();
 
             while (reader.Read())
             {
-                Names.Add(reader.GetString(0));
+                Data.Add(reader.GetString(0));
             }
 
-            return Names;
+            return Data;
         }
 
-        List<int> GetCemeteryID(OleDbDataReader reader)
+        List<int> GetInt32Data(OleDbDataReader reader)
         {
-            List<int> IDs = new List<Int32>();
+            List<int> Data = new List<Int32>();
 
             while (reader.Read())
             {
-                IDs.Add(reader.GetInt32(0));
+                Data.Add(reader.GetInt32(0));
             }
 
-            return IDs;
-        }
-
-        List<string> GetCemeteryKeys(OleDbDataReader reader)
-        {
-            List<string> keys = new List<string>();
-
-            while (reader.Read())
-            {
-                keys.Add(reader.GetString(0));
-            }
-
-            return keys;
+            return Data;
         }
 
         public void SetHeadstone(int index, Headstone headstone)
