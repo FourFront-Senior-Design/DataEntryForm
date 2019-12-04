@@ -470,30 +470,6 @@ namespace Services
             return AwardNames;
         }
 
-        List<string> GetStringData(OleDbDataReader reader)
-        {
-            List<string> Data = new List<string>();
-
-            while (reader.Read())
-            {
-                Data.Add(reader.GetString(0));
-            }
-
-            return Data;
-        }
-
-        List<int> GetInt32Data(OleDbDataReader reader)
-        {
-            List<int> Data = new List<Int32>();
-
-            while (reader.Read())
-            {
-                Data.Add(reader.GetInt32(0));
-            }
-
-            return Data;
-        }
-
         public void SetHeadstone(int index, Headstone headstone)
         {
             throw new NotImplementedException();
