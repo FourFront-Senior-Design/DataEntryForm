@@ -680,14 +680,14 @@ namespace Services
             SetFifthPerson(ref headstoneData, ref headstone);
             SetSixthPerson(ref headstoneData, ref headstone);
 
-            string sqlQuery = "UPDATE Master SET ";
+            string sqlQuery = @"UPDATE Master SET ";
 
             // Append all keys and values to the string
             foreach (KeyValuePair<string, string> entry in headstoneData)
             {
                 if(entry.Value != "")
                 {
-                    sqlQuery += "[" + entry.Key + "] = " + "@" + entry.Key + ", ";
+                    sqlQuery += @"[" + entry.Key + @"] = " + @"@" + entry.Key + @", ";
                 }
             }
 
@@ -695,7 +695,7 @@ namespace Services
             sqlQuery = sqlQuery.Substring(0, sqlQuery.Length - 2);
 
             // finalize update statement
-            sqlQuery += " WHERE AccessUniqueID = " + index + ";";
+            sqlQuery += @" WHERE AccessUniqueID = " + index + @";";
 
             OleDbCommand cmd;
             using (OleDbConnection connection = new OleDbConnection(_connectionString)) // using to ensure connection is closed when we are done
@@ -711,11 +711,31 @@ namespace Services
                     throw e;
                 }
 
+                string[] intEntries = { "Wall", "Emblem1", "Emblem2", };
+                string[] dateEntries = { "BirthDate", "DeathDate",
+                                        "BirthDateS_D", "DeathDateS_D",
+                                        "BirthDateS_D_2", "DeathDateS_D_2",
+                                        "BirthDateS_D_3", "DeathDateS_D_3",
+                                        "BirthDateS_D_4", "DeathDateS_D_4",
+                                        "BirthDateS_D_5", "DeathDateS_D_5",
+                                        "BirthDateS_D_6", "DeathDateS_D_6" };
+
                 foreach(KeyValuePair<string, string> entry in headstoneData)
                 {
                     if (entry.Value != "")
                     {
-                        cmd.Parameters.AddWithValue("@" + entry.Key, entry.Value);
+                        if (intEntries.Contains(entry.Key))
+                        {
+                            cmd.Parameters.AddWithValue("@" + entry.Key, Convert.ToInt32(entry.Value));
+                        }
+                        else if (dateEntries.Contains(entry.Key))
+                        {
+                            cmd.Parameters.AddWithValue("@" + entry.Key, Convert.ToDateTime(entry.Value));
+                        }
+                        else
+                        {
+                            cmd.Parameters.AddWithValue("@" + entry.Key, entry.Value);
+                        }
                     }
                 }
 
@@ -726,17 +746,18 @@ namespace Services
                 catch (Exception e)
                 {
                     Console.WriteLine(e);
+                    Console.WriteLine(sqlQuery);
                 }
             }
         }
 
         private void SetHeader(ref Dictionary<string, string> dict, ref Headstone headstone)
         {
-            dict.Add("CemetaryName", headstone.CemeteryName);
-            dict.Add("BurialSection", headstone.BurialSectionNumber);
+            dict.Add("CemeteryName", headstone.CemeteryName);
+            dict.Add("BurialSectionNumber", headstone.BurialSectionNumber);
             dict.Add("Wall", headstone.WallID);
-            //dict.Add("Row#", headstone.RowNum);
-            //dict.Add("Gravesite#", headstone.GavestoneNumber);
+            dict.Add("RowNumber", headstone.RowNum);
+            dict.Add("GravesiteNumber", headstone.GavestoneNumber);
             dict.Add("MarkerType", headstone.MarkerType);
             dict.Add("Emblem1", headstone.Emblem1);
             dict.Add("Emblem2", headstone.Emblem2);
@@ -772,7 +793,7 @@ namespace Services
             dict.Add("Branch", headstone.PrimaryDecedent.BranchList[0]);
             dict.Add("Branch2", headstone.PrimaryDecedent.BranchList[1]);
             dict.Add("Branch3", headstone.PrimaryDecedent.BranchList[2]);
-            //dict.Add("Branch-Unit_CustomV", headstone.PrimaryDecedent.BranchUnitCustom);
+            dict.Add("Branch-Unit_CustomV", headstone.PrimaryDecedent.BranchUnitCustom);
 
             dict.Add("BirthDate", headstone.PrimaryDecedent.BirthDate.ToString());
             dict.Add("DeathDate", headstone.PrimaryDecedent.DeathDate.ToString());
@@ -782,10 +803,10 @@ namespace Services
 
         private void SetFirstPerson(ref Dictionary<string, string> dict, ref Headstone headstone)
         {
-            dict.Add("FirstNameSpouse/Dependent", headstone.OthersDecedentList[0].FirstName);
-            dict.Add("MiddleNameSpouse/Dependent", headstone.OthersDecedentList[0].MiddleName);
-            dict.Add("LastNameSpouse/Dependent", headstone.OthersDecedentList[0].LastName);
-            dict.Add("SuffixSpouse/Dependent", headstone.OthersDecedentList[0].Suffix);
+            dict.Add("FirstNameS_D", headstone.OthersDecedentList[0].FirstName);
+            dict.Add("MiddleNameS_D", headstone.OthersDecedentList[0].MiddleName);
+            dict.Add("LastNameS_D", headstone.OthersDecedentList[0].LastName);
+            dict.Add("SuffixS_D", headstone.OthersDecedentList[0].Suffix);
             dict.Add("LocationS_D", headstone.OthersDecedentList[0].Location);
 
             dict.Add("RankS_D", headstone.OthersDecedentList[0].RankList[0]);
@@ -809,7 +830,7 @@ namespace Services
             dict.Add("BranchS_D", headstone.OthersDecedentList[0].BranchList[0]);
             dict.Add("Branch2S_D", headstone.OthersDecedentList[0].BranchList[1]);
             dict.Add("Branch3S_D", headstone.OthersDecedentList[0].BranchList[2]);
-            //dict.Add("Branch-Unit_CustomS_D", headstone.OthersDecedentList[0].BranchUnitCustom);
+            dict.Add("Branch-Unit_CustomS_D", headstone.OthersDecedentList[0].BranchUnitCustom);
 
             dict.Add("BirthDateS_D", headstone.OthersDecedentList[0].BirthDate.ToString());
             dict.Add("DeathDateS_D", headstone.OthersDecedentList[0].DeathDate.ToString());
