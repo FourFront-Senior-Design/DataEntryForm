@@ -37,6 +37,7 @@ namespace Image_text_extractor
                         return;
                     }
                     _viewModel.PreviousRecord();
+                    BurialSectionField.Focus();
                 }
 
                 if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.PageDown))
@@ -46,6 +47,7 @@ namespace Image_text_extractor
                         return;
                     }
                     _viewModel.NextRecord();
+                    BurialSectionField.Focus();
                 }
                 
             }), true);
@@ -93,6 +95,7 @@ namespace Image_text_extractor
 
             _viewModel.PageIndex = System.Convert.ToInt32(GoToRecordTextBox.Text);
             GoToRecordTextBox.Text = "";
+            BurialSectionField.Focus();
         }
 
         private void FirstRecordClick(object sender, RoutedEventArgs e)
@@ -102,6 +105,7 @@ namespace Image_text_extractor
                 return;
             }
             _viewModel.PageIndex = 1;
+            BurialSectionField.Focus();
         }
 
         private void LastRecordClick(object sender, RoutedEventArgs e)
@@ -111,6 +115,7 @@ namespace Image_text_extractor
                 return;
             }
             _viewModel.PageIndex = _viewModel.GetDatabaseCount;
+            BurialSectionField.Focus();
         }
 
         private void BackClick(object sender, RoutedEventArgs e)
@@ -131,6 +136,7 @@ namespace Image_text_extractor
                 return;
             }
             _viewModel.NextRecord();
+            BurialSectionField.Focus();
         }
 
         private void PreviousClick(object sender, RoutedEventArgs e)
@@ -140,6 +146,7 @@ namespace Image_text_extractor
                 return;
             }
             _viewModel.PreviousRecord();
+            BurialSectionField.Focus();
         }
 
         public void SetImagesToReview()
