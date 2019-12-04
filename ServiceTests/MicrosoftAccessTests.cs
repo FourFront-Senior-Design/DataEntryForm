@@ -61,19 +61,10 @@ namespace ServiceTests
             databaseService.InitDBConnection(@"C:\Users\7295201\csc464_465_senior_design\SectionA");
 
 
-            List<CemeteryNameData> names = databaseService.GetCemeteryData();
+            List<CemeteryNameData> Cemeterynames = databaseService.GetCemeteryData();
+            List<AwardData> Awardnames = databaseService.GetAwardData();
+            List<BranchData> Branchnames = databaseService.GetBranchData();
         }
-        [TestMethod]
-        public void CanQuerryAllAwardNames()
-        {
-            MicrosoftAccess databaseService = new MicrosoftAccess();
-
-            databaseService.InitDBConnection(@"C:\Users\7295201\csc464_465_senior_design\SectionA");
-
-
-            List<AwardData> names = databaseService.GetAwardData();
-        }
-
 
     }
 }

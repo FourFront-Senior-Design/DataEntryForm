@@ -21,6 +21,8 @@ namespace ServicesInterfaces
 
         List<AwardData> GetAwardData();
 
+        List<BranchData> GetBranchData();
+
         string SectionFilePath { get; }
     }
 }

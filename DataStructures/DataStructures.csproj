@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AwardData.cs" />
+    <Compile Include="BranchData.cs" />
     <Compile Include="CemeteryNameData.cs" />
     <Compile Include="EmblemData.cs" />
     <Compile Include="Headstone.cs" />

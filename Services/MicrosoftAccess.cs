@@ -470,6 +470,48 @@ namespace Services
             return AwardNames;
         }
 
+        public List<BranchData> GetBranchData()
+        {
+            List<BranchData> BranchNames = new List<BranchData>();
+            OleDbCommand cmd;
+            OleDbDataReader reader;
+
+            string sqlQuery = "SELECT Code, [Branch of Service], [Short Description] FROM BranchList";
+
+            using (OleDbConnection connection = new OleDbConnection(_connectionString))
+            {
+                try
+                {
+                    cmd = new OleDbCommand(sqlQuery, connection);
+                    connection.Open();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error accsessing Database");
+                    throw e;
+                }
+
+                reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    BranchData data = new BranchData();
+
+                    data.Code = reader.GetString(0);
+                    data.BranchOfService = reader.GetString(1);
+                    data.ShortDescription = reader.GetString(2);
+
+                    BranchNames.Add(data);
+                }
+
+
+                reader.Close();
+                connection.Close();
+            }
+
+            return BranchNames;
+        }
+
         public void SetHeadstone(int index, Headstone headstone)
         {
             throw new NotImplementedException();
