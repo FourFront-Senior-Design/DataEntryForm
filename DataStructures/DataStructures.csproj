@@ -42,9 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AwardData.cs" />
+    <Compile Include="BranchData.cs" />
     <Compile Include="CemeteryNameData.cs" />
     <Compile Include="EmblemData.cs" />
     <Compile Include="Headstone.cs" />
+    <Compile Include="LocationData.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -386,72 +386,228 @@ namespace Services
             return seventhPerson;
         }
 
-        //public CemeteryNameData GetCemeteryData()
-        //{
-        //    OleDbCommand cmdID, cmdCemeteryName, cmdKeyCode;
-        //    OleDbDataReader readeID, readerCemeteryNames, readerKeyCode;
-        //    CemeteryNameData CemeteryNames = new CemeteryNameData();
-
-        //    string sqlQueryID = "SELECT ID FROM CemeteryNames";
-        //    string sqlQueryCemeterName = "SELECT CemeteryName FROM CemeteryNames";
-        //    string sqlQueryKeyCode = "SELECT KeyCode FROM CemeteryNames";
-
-        //    using (OleDbConnection connection = new OleDbConnection(_connectionString)) // using to ensure connection is closed when we are done
-        //    {
-        //        try
-        //        {
-        //            cmdID = new OleDbCommand(sqlQueryID, connection);
-        //            cmdCemeteryName = new OleDbCommand(sqlQueryCemeterName, connection);
-        //            cmdKeyCode = new OleDbCommand(sqlQueryKeyCode, connection);
-        //            connection.Open(); // try to open the connection
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            Console.WriteLine("Error accsessing Database");
-        //            throw e;
-        //        }
-
-        //        readeID = cmdID.ExecuteReader();
-        //        readerCemeteryNames = cmdCemeteryName.ExecuteReader();
-        //        readerKeyCode = cmdKeyCode.ExecuteReader();
-
-        //        CemeteryNames.ID = GetInt32Data(readeID);
-        //        CemeteryNames.CemeteryName = GetStringData(readerCemeteryNames);
-        //        CemeteryNames.KeyName = GetStringData(readerKeyCode);
-
-
-        //        readeID.Close();
-        //        readerCemeteryNames.Close();
-        //        readerKeyCode.Close();
-        //        connection.Close();
-        //    }
-
-        //    return CemeteryNames;
-
-        //}
-
-        List<string> GetStringData(OleDbDataReader reader)
+        public List<CemeteryNameData> GetCemeteryData()
         {
-            List<string> Data = new List<string>();
+            List<CemeteryNameData> CemetaryData = new List<CemeteryNameData>();
+            OleDbCommand cmd;
+            OleDbDataReader reader;
 
-            while (reader.Read())
+            string sqlQuery = "SELECT * FROM CemeteryNames";
+
+            using (OleDbConnection connection = new OleDbConnection(_connectionString))
             {
-                Data.Add(reader.GetString(0));
+                try
+                {
+                    cmd = new OleDbCommand(sqlQuery, connection);
+                    connection.Open();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error accsessing Database");
+                    throw e;
+                }
+
+                reader = cmd.ExecuteReader();
+
+                while(reader.Read())
+                {
+                    CemeteryNameData data = new CemeteryNameData();
+
+                    data.ID = reader.GetInt32(0);
+                    data.CemeteryName = reader.GetString(1);
+                    data.KeyName = reader.GetString(2);
+
+                    CemetaryData.Add(data);
+                }
+
+
+                reader.Close();
+                connection.Close();
             }
 
-            return Data;
+            return CemetaryData;
         }
 
-        List<int> GetInt32Data(OleDbDataReader reader)
+        public List<AwardData> GetAwardData()
         {
-            List<int> Data = new List<Int32>();
+            List<AwardData> AwardNames = new List<AwardData>();
+            OleDbCommand cmd;
+            OleDbDataReader reader;
 
-            while (reader.Read())
+            string sqlQuery = "SELECT CODE, AWARD FROM AwardList";
+
+            using (OleDbConnection connection = new OleDbConnection(_connectionString))
             {
-                Data.Add(reader.GetInt32(0));
+                try
+                {
+                    cmd = new OleDbCommand(sqlQuery, connection);
+                    connection.Open();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error accsessing Database");
+                    throw e;
+                }
+
+                reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    AwardData data = new AwardData();
+
+                    data.Code = reader.GetString(0);
+                    data.Award = reader.GetString(1);
+
+                    AwardNames.Add(data);
+                }
+
+
+                reader.Close();
+                connection.Close();
             }
 
-            return Data;
+            return AwardNames;
+        }
+
+        public List<BranchData> GetBranchData()
+        {
+            List<BranchData> BranchNames = new List<BranchData>();
+            OleDbCommand cmd;
+            OleDbDataReader reader;
+
+            string sqlQuery = "SELECT Code, [Branch of Service], [Short Description] FROM BranchList";
+
+            using (OleDbConnection connection = new OleDbConnection(_connectionString))
+            {
+                try
+                {
+                    cmd = new OleDbCommand(sqlQuery, connection);
+                    connection.Open();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error accsessing Database");
+                    throw e;
+                }
+
+                reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    BranchData data = new BranchData();
+
+                    data.Code = reader.GetString(0);
+                    data.BranchOfService = reader.GetString(1);
+                    data.ShortDescription = reader.GetString(2);
+
+                    BranchNames.Add(data);
+                }
+
+
+                reader.Close();
+                connection.Close();
+            }
+
+            return BranchNames;
+        }
+
+
+        public List<EmblemData> GetEmblemData()
+        {
+            List<EmblemData> EmblemNames = new List<EmblemData>();
+            OleDbCommand cmd;
+            OleDbDataReader reader;
+
+            string sqlQuery = "SELECT CODE, Emblem FROM EmblemList";
+
+            using (OleDbConnection connection = new OleDbConnection(_connectionString))
+            {
+                try
+                {
+                    cmd = new OleDbCommand(sqlQuery, connection);
+                    connection.Open();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error accsessing Database");
+                    throw e;
+                }
+
+                reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    EmblemData data = new EmblemData();
+
+                    data.Code = reader.GetInt16(0).ToString();
+                    data.Name = reader.GetString(1);
+
+                    if (Int32.Parse(data.Code) < 10)
+                        data.Code = "0" + data.Code;
+
+                    EmblemNames.Add(data);
+                }
+
+                reader.Close();
+                connection.Close();
+            }
+
+            EmblemNames = GetEmblemImages(EmblemNames);
+
+            return EmblemNames;
+        }
+
+        public List<LocationData> GetLocationData()
+        {
+            List<LocationData> LocationNames = new List<LocationData>();
+            OleDbCommand cmd;
+            OleDbDataReader reader;
+
+            string sqlQuery = "SELECT ID, Location FROM LocationList";
+
+            using (OleDbConnection connection = new OleDbConnection(_connectionString))
+            {
+                try
+                {
+                    cmd = new OleDbCommand(sqlQuery, connection);
+                    connection.Open();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error accsessing Database");
+                    throw e;
+                }
+
+                reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    LocationData data = new LocationData();
+
+                    data.ID = reader.GetInt32(0);
+                    data.Location = reader.GetString(1);
+
+                    LocationNames.Add(data);
+                }
+
+
+                reader.Close();
+                connection.Close();
+            }
+
+            return LocationNames;
+        }
+
+        List<EmblemData> GetEmblemImages(List<EmblemData> EmblemNames)
+        {
+            EmblemNames[0].Photo = "";
+
+            for (int i = 1; i < EmblemNames.Count(); i++)
+            {
+                EmblemNames[i].Photo = "/ImageTextExtractor;component/Emblems/emb-" + EmblemNames[i].Code + ".jpg";
+            }
+
+            return EmblemNames;
         }
 
         public void SetHeadstone(int index, Headstone headstone)
