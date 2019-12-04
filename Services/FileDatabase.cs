@@ -34,6 +34,11 @@ namespace Services
             throw new NotImplementedException();
         }
 
+        List<AwardData> GetAwardData()
+        {
+            throw new NotImplementedException();
+        }
+
         Headstone IDatabaseService.GetHeadstone(int index)
         {
             throw new NotImplementedException();
@@ -50,6 +55,11 @@ namespace Services
         }
 
         List<CemeteryNameData> IDatabaseService.GetCemeteryData()
+        {
+            throw new NotImplementedException();
+        }
+
+        List<AwardData> IDatabaseService.GetAwardData()
         {
             throw new NotImplementedException();
         }

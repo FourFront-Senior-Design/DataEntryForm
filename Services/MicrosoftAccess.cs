@@ -387,7 +387,6 @@ namespace Services
             return seventhPerson;
         }
 
-
         public List<CemeteryNameData> GetCemeteryData()
         {
             List<CemeteryNameData> CemetaryData = new List<CemeteryNameData>();
@@ -428,6 +427,47 @@ namespace Services
             }
 
             return CemetaryData;
+        }
+
+        public List<AwardData> GetAwardData()
+        {
+            List<AwardData> AwardNames = new List<AwardData>();
+            OleDbCommand cmd;
+            OleDbDataReader reader;
+
+            string sqlQuery = "SELECT CODE, AWARD FROM AwardList";
+
+            using (OleDbConnection connection = new OleDbConnection(_connectionString))
+            {
+                try
+                {
+                    cmd = new OleDbCommand(sqlQuery, connection);
+                    connection.Open();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error accsessing Database");
+                    throw e;
+                }
+
+                reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    AwardData data = new AwardData();
+
+                    data.Code = reader.GetString(0);
+                    data.Award = reader.GetString(1);
+
+                    AwardNames.Add(data);
+                }
+
+
+                reader.Close();
+                connection.Close();
+            }
+
+            return AwardNames;
         }
 
         List<string> GetStringData(OleDbDataReader reader)

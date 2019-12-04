@@ -19,6 +19,8 @@ namespace ServicesInterfaces
 
         List<CemeteryNameData> GetCemeteryData();
 
+        List<AwardData> GetAwardData();
+
         string SectionFilePath { get; }
     }
 }
