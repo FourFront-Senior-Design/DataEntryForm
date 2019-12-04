@@ -275,7 +275,7 @@
                                 <StackPanel>
                                     <Label Content="Name: First" />
                                     <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.FirstName}" 
-                                             Margin="2,0,0,2" Padding="1" Width="200" KeyDown="Textbox_KeyDown"/>
+                                             Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Middle" />
@@ -506,7 +506,7 @@
                                 <StackPanel>
                                     <Label Content="Name: First" />
                                     <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].FirstName}" 
-                                             Margin="2,0,0,2" Padding="1" Width="200" KeyDown="Textbox_KeyDown"/>
+                                             Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Middle" />
@@ -548,7 +548,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <StackPanel>
                                     <Label Content="Branch-Unit Custom" />
-                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].BranchCustom}"
+                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].BranchUnitCustom}"
                                              Margin="2,0,0,2"  Width="702" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                             </StackPanel>
@@ -736,7 +736,7 @@
                                 <StackPanel>
                                     <Label Content="Name: First" />
                                     <TextBox Text="{Binding CurrentPageData.OthersDecedentList[1].FirstName}"
-                                             Margin="2,0,0,2" Padding="1" Width="200" KeyDown="Textbox_KeyDown"/>
+                                             Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Middle" />
@@ -819,7 +819,7 @@
                                 <StackPanel>
                                     <Label Content="Name: First" />
                                     <TextBox Text="{Binding CurrentPageData.OthersDecedentList[2].FirstName}"
-                                             Margin="2,0,0,2" Padding="1" Width="200" KeyDown="Textbox_KeyDown"/>
+                                             Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Middle" />
@@ -902,7 +902,7 @@
                                 <StackPanel>
                                     <Label Content="Name: First" />
                                     <TextBox Text="{Binding CurrentPageData.OthersDecedentList[3].FirstName}"
-                                             Margin="2,0,0,2" Padding="1" Width="200" KeyDown="Textbox_KeyDown"/>
+                                             Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Middle" />
@@ -985,7 +985,7 @@
                                 <StackPanel>
                                     <Label Content="Name: First" />
                                     <TextBox Text="{Binding CurrentPageData.OthersDecedentList[4].FirstName}"
-                                             Margin="2,0,0,2" Padding="1" Width="200" KeyDown="Textbox_KeyDown"/>
+                                             Margin="2,0,0,2"  Width="200" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Middle" />
@@ -1005,56 +1005,20 @@
                             </StackPanel>
                             <StackPanel>
                                 <Label Content="Location" />
-                                <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[4].Location}"
+                                <TextBox Text="{Binding CurrentPageData.OthersDecedentList[4].Location}"
                                           Margin="2,0,0,2" Width="700" Padding="1"
-                                          HorizontalAlignment="Left" VerticalAlignment="Center" 
-                                          ItemsSource="{Binding GetLocation}"/>
+                                          HorizontalAlignment="Left" VerticalAlignment="Center"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <StackPanel>
-                                    <Label Content="Rank" />
-                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[4].RankList[0]}"
-                                             Margin="2,0,0,2" Width="350" KeyDown="Textbox_KeyDown"/>
-                                </StackPanel>
-                                <StackPanel>
-                                    <Label Content="Branch" />
-                                    <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[4].BranchList[0]}"
-                                              Margin="2,0,0,2" Width="350" Padding="1"
-                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
-                                              ItemsSource="{Binding GetLocation}"/>
-                                </StackPanel>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <StackPanel>
-                                    <Label Content="War" />
-                                    <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[4].WarList[0]}"
-                                              Margin="2,0,0,2" Width="200" Padding="1"
-                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
-                                              ItemsSource="{Binding GetLocation}"/>
-                                </StackPanel>
                                 <StackPanel>
                                     <Label Content="Birth Date" />
                                     <TextBox Text="{Binding CurrentPageData.OthersDecedentList[4].BirthDate}"
-                                             Margin="2,0,2,0"  Width="245" KeyDown="Textbox_KeyDown"/>
+                                             Margin="2,0,2,0"  Width="345" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Death Date" />
                                     <TextBox Text="{Binding CurrentPageData.OthersDecedentList[4].DeathDate}"
-                                             Margin="2,0,2,0"  Width="250" KeyDown="Textbox_KeyDown"/>
-                                </StackPanel>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <StackPanel>
-                                    <Label Content="Award" />
-                                    <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[4].AwardList[0]}"
-                                              Margin="2,0,0,2" Width="120" Padding="1"
-                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
-                                              ItemsSource="{Binding GetLocation}"/>
-                                </StackPanel>
-                                <StackPanel>
-                                    <Label Content="Inscription" />
-                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[4].Inscription}"
-                                             Margin="2,0,0,50"  Width="580" KeyDown="Textbox_KeyDown"/>
+                                             Margin="2,0,2,50"  Width="350" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
@@ -1068,7 +1032,7 @@
                                 <StackPanel>
                                     <Label Content="Name: First" />
                                     <TextBox Text="{Binding CurrentPageData.OthersDecedentList[5].FirstName}"
-                                             Margin="2,0,0,2" Padding="1" Width="200" KeyDown="Textbox_KeyDown"/>
+                                             Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Middle" />
@@ -1088,60 +1052,23 @@
                             </StackPanel>
                             <StackPanel>
                                 <Label Content="Location" />
-                                <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[5].Location}"
+                                <TextBox Text="{Binding CurrentPageData.OthersDecedentList[5].Location}"
                                           Margin="2,0,0,2" Width="700" Padding="1"
-                                          HorizontalAlignment="Left" VerticalAlignment="Center" 
-                                          ItemsSource="{Binding GetLocation}"/>
+                                          HorizontalAlignment="Left" VerticalAlignment="Center"/>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <StackPanel>
-                                    <Label Content="Rank" />
-                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[5].RankList[0]}"
-                                             Margin="2,0,0,2" Width="350" KeyDown="Textbox_KeyDown"/>
-                                </StackPanel>
-                                <StackPanel>
-                                    <Label Content="Branch" />
-                                    <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[5].BranchList[0]}"
-                                              Margin="2,0,0,2" Width="350" Padding="1"
-                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
-                                              ItemsSource="{Binding GetLocation}"/>
-                                </StackPanel>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <StackPanel>
-                                    <Label Content="War" />
-                                    <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[5].WarList[0]}"
-                                              Margin="2,0,0,2" Width="200" Padding="1"
-                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
-                                              ItemsSource="{Binding GetLocation}"/>
-                                </StackPanel>
                                 <StackPanel>
                                     <Label Content="Birth Date" />
                                     <TextBox Text="{Binding CurrentPageData.OthersDecedentList[5].BirthDate}"
-                                             Margin="2,0,2,0"  Width="245" KeyDown="Textbox_KeyDown"/>
+                                             Margin="2,0,2,0"  Width="345" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Death Date" />
                                     <TextBox Text="{Binding CurrentPageData.OthersDecedentList[5].DeathDate}"
-                                             Margin="2,0,2,0"  Width="250" KeyDown="Textbox_KeyDown"/>
-                                </StackPanel>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <StackPanel>
-                                    <Label Content="Award" />
-                                    <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[5].AwardList[0]}"
-                                              Margin="2,0,0,2" Width="120" Padding="1"
-                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
-                                              ItemsSource="{Binding GetLocation}"/>
-                                </StackPanel>
-                                <StackPanel>
-                                    <Label Content="Inscription" />
-                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[5].Inscription}"
-                                             Margin="2,0,0,0"  Width="580" KeyDown="Textbox_KeyDown"/>
+                                             Margin="2,0,2,50"  Width="350" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
-
                     </StackPanel>
                 </Grid>
             </ScrollViewer>

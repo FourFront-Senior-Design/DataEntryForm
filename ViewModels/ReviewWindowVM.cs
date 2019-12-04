@@ -39,6 +39,10 @@ namespace ViewModels
             }
             set
             {
+                if (_currentPageIndex != 0)
+                {
+                    _database.SetHeadstone(_currentPageIndex, _currentPageData);
+                }
                 _currentPageIndex = value;
                 displayHeadStone();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PageIndex)));
@@ -195,12 +199,12 @@ namespace ViewModels
             HeadstoneChanged?.Invoke(this, new EventArgs());
         }
 
-        /*public List<string> GetCemeteryNames
+        public List<CemeteryNameData> GetCemeteryNames
         {
             get
             {
-                return _database.GetCemeteryData();
+                return new List<CemeteryNameData>();
             }
-        }*/
+        }
     }
 }

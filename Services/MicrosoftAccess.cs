@@ -67,7 +67,6 @@ namespace Services
 
         private int _GetTotalRecords()
         {
-
             string sqlQuery = "SELECT COUNT(AccessUniqueID) FROM Master";
             OleDbCommand cmd;
             OleDbDataReader reader;
@@ -610,9 +609,222 @@ namespace Services
 
             return EmblemNames;
         }
+
         public void SetHeadstone(int index, Headstone headstone)
         {
-            throw new NotImplementedException();
+            // For each field in headstone that has content, update the database
+            Dictionary<string, string> headstoneData = new Dictionary<string, string>();
+
+            SetHeader(ref headstoneData, ref headstone);
+            SetPrimaryPerson(ref headstoneData, ref headstone);
+            SetFirstPerson(ref headstoneData, ref headstone);
+            SetSecondPerson(ref headstoneData, ref headstone);
+            SetThirdPerson(ref headstoneData, ref headstone);
+            SetFourthPerson(ref headstoneData, ref headstone);
+            SetFifthPerson(ref headstoneData, ref headstone);
+            SetSixthPerson(ref headstoneData, ref headstone);
+
+            string sqlQuery = "UPDATE Master SET ";
+
+            // Append all keys and values to the string
+            foreach (KeyValuePair<string, string> entry in headstoneData)
+            {
+                if(entry.Value != "")
+                {
+                    sqlQuery += entry.Key + " = '" + entry.Value + "', ";
+                }
+            }
+
+            // trim the last ", " off
+            sqlQuery = sqlQuery.Substring(0, sqlQuery.Length - 2);
+
+            // finalize update statement
+            sqlQuery += " WHERE AccessUniqueID = " + index + ";";
+
+            OleDbCommand cmd;
+            using (OleDbConnection connection = new OleDbConnection(_connectionString)) // using to ensure connection is closed when we are done
+            {
+                try
+                {
+                    cmd = new OleDbCommand(sqlQuery, connection);
+                    connection.Open(); // try to open the connection
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error accsessing Database");
+                    throw e;
+                }
+                cmd.ExecuteNonQuery(); // do the update
+            }
+        }
+
+        private void SetHeader(ref Dictionary<string, string> dict, ref Headstone headstone)
+        {
+            dict.Add("CemetaryName", headstone.CemeteryName);
+            dict.Add("BurialSection", headstone.BurialSectionNumber);
+            dict.Add("Wall", headstone.WallID);
+            //dict.Add("Row#", headstone.RowNum);
+            //dict.Add("Gravesite#", headstone.GavestoneNumber);
+            dict.Add("MarkerType", headstone.MarkerType);
+            dict.Add("Emblem1", headstone.Emblem1);
+            dict.Add("Emblem2", headstone.Emblem2);
+
+        }
+
+        private void SetPrimaryPerson(ref Dictionary<string, string> dict, ref Headstone headstone)
+        {
+            dict.Add("FirstName", headstone.PrimaryDecedent.FirstName);
+            dict.Add("MiddleName", headstone.PrimaryDecedent.MiddleName);
+            dict.Add("LastName", headstone.PrimaryDecedent.LastName);
+            dict.Add("Suffix", headstone.PrimaryDecedent.Suffix);
+            dict.Add("Location", headstone.PrimaryDecedent.Location);
+
+            dict.Add("Rank", headstone.PrimaryDecedent.RankList[0]);
+            dict.Add("Rank2", headstone.PrimaryDecedent.RankList[1]);
+            dict.Add("Rank3", headstone.PrimaryDecedent.RankList[2]);
+
+            dict.Add("Award", headstone.PrimaryDecedent.AwardList[0]);
+            dict.Add("Award2", headstone.PrimaryDecedent.AwardList[1]);
+            dict.Add("Award3", headstone.PrimaryDecedent.AwardList[2]);
+            dict.Add("Award4", headstone.PrimaryDecedent.AwardList[3]);
+            dict.Add("Award5", headstone.PrimaryDecedent.AwardList[4]);
+            dict.Add("Award6", headstone.PrimaryDecedent.AwardList[5]);
+            dict.Add("Award7", headstone.PrimaryDecedent.AwardList[6]);
+
+            dict.Add("Award_Custom", headstone.PrimaryDecedent.AwardCustom);
+
+            dict.Add("War", headstone.PrimaryDecedent.WarList[0]);
+            dict.Add("War2", headstone.PrimaryDecedent.WarList[1]);
+            dict.Add("War3", headstone.PrimaryDecedent.WarList[2]);
+            dict.Add("War4", headstone.PrimaryDecedent.WarList[3]);
+
+            dict.Add("Branch", headstone.PrimaryDecedent.BranchList[0]);
+            dict.Add("Branch2", headstone.PrimaryDecedent.BranchList[1]);
+            dict.Add("Branch3", headstone.PrimaryDecedent.BranchList[2]);
+            //dict.Add("Branch-Unit_CustomV", headstone.PrimaryDecedent.BranchUnitCustom);
+
+            dict.Add("BirthDate", headstone.PrimaryDecedent.BirthDate.ToString());
+            dict.Add("DeathDate", headstone.PrimaryDecedent.DeathDate.ToString());
+
+            dict.Add("Inscription", headstone.PrimaryDecedent.Inscription);
+        }
+
+        private void SetFirstPerson(ref Dictionary<string, string> dict, ref Headstone headstone)
+        {
+            dict.Add("FirstNameSpouse/Dependent", headstone.OthersDecedentList[0].FirstName);
+            dict.Add("MiddleNameSpouse/Dependent", headstone.OthersDecedentList[0].MiddleName);
+            dict.Add("LastNameSpouse/Dependent", headstone.OthersDecedentList[0].LastName);
+            dict.Add("SuffixSpouse/Dependent", headstone.OthersDecedentList[0].Suffix);
+            dict.Add("LocationS_D", headstone.OthersDecedentList[0].Location);
+
+            dict.Add("RankS_D", headstone.OthersDecedentList[0].RankList[0]);
+            dict.Add("Rank2S_D", headstone.OthersDecedentList[0].RankList[1]);
+            dict.Add("Rank3S_D", headstone.OthersDecedentList[0].RankList[2]);
+
+            dict.Add("AwardS_D", headstone.OthersDecedentList[0].AwardList[0]);
+            dict.Add("Award2S_D", headstone.OthersDecedentList[0].AwardList[1]);
+            dict.Add("Award3S_D", headstone.OthersDecedentList[0].AwardList[2]);
+            dict.Add("Award4S_D", headstone.OthersDecedentList[0].AwardList[3]);
+            dict.Add("Award5S_D", headstone.OthersDecedentList[0].AwardList[4]);
+            dict.Add("Award6S_D", headstone.OthersDecedentList[0].AwardList[5]);
+            dict.Add("Award7S_D", headstone.OthersDecedentList[0].AwardList[6]);
+            dict.Add("Award_CustomS_D", headstone.OthersDecedentList[0].AwardCustom);
+
+            dict.Add("WarS_D", headstone.OthersDecedentList[0].WarList[0]);
+            dict.Add("War2S_D", headstone.OthersDecedentList[0].WarList[1]);
+            dict.Add("War3S_D", headstone.OthersDecedentList[0].WarList[2]);
+            dict.Add("War4S_D", headstone.OthersDecedentList[0].WarList[3]);
+
+            dict.Add("BranchS_D", headstone.OthersDecedentList[0].BranchList[0]);
+            dict.Add("Branch2S_D", headstone.OthersDecedentList[0].BranchList[1]);
+            dict.Add("Branch3S_D", headstone.OthersDecedentList[0].BranchList[2]);
+            //dict.Add("Branch-Unit_CustomS_D", headstone.OthersDecedentList[0].BranchUnitCustom);
+
+            dict.Add("BirthDateS_D", headstone.OthersDecedentList[0].BirthDate.ToString());
+            dict.Add("DeathDateS_D", headstone.OthersDecedentList[0].DeathDate.ToString());
+
+            dict.Add("InscriptionS_D", headstone.OthersDecedentList[0].Inscription);
+        }
+
+        private void SetSecondPerson(ref Dictionary<string, string> dict, ref Headstone headstone)
+        {
+            dict.Add("FirstNameS_D_2", headstone.OthersDecedentList[1].FirstName);
+            dict.Add("MiddleNameS_D_2", headstone.OthersDecedentList[1].MiddleName);
+            dict.Add("LastNameS_D_2", headstone.OthersDecedentList[1].LastName);
+            dict.Add("SuffixS_D_2", headstone.OthersDecedentList[1].Suffix);
+            dict.Add("LocationS_D_2", headstone.OthersDecedentList[1].Location);
+
+            dict.Add("RankS_D_2", headstone.OthersDecedentList[1].RankList[0]);
+            dict.Add("AwardS_D_2", headstone.OthersDecedentList[1].AwardList[0]);
+            dict.Add("WarS_D_2", headstone.OthersDecedentList[1].WarList[0]);
+            dict.Add("BranchS_D_2", headstone.OthersDecedentList[1].BranchList[0]);
+
+            dict.Add("InscriptionS_D_2", headstone.OthersDecedentList[1].Inscription);
+
+            dict.Add("BirthDateS_D_2", headstone.OthersDecedentList[1].BirthDate.ToString());
+            dict.Add("DeathDateS_D_2", headstone.OthersDecedentList[1].DeathDate.ToString());
+        }
+
+        private void SetThirdPerson(ref Dictionary<string, string> dict, ref Headstone headstone)
+        {
+            dict.Add("FirstNameS_D_3", headstone.OthersDecedentList[2].FirstName);
+            dict.Add("MiddleNameS_D_3", headstone.OthersDecedentList[2].MiddleName);
+            dict.Add("LastNameS_D_3", headstone.OthersDecedentList[2].LastName);
+            dict.Add("SuffixS_D_3", headstone.OthersDecedentList[2].Suffix);
+            dict.Add("LocationS_D_3", headstone.OthersDecedentList[2].Location);
+
+            dict.Add("RankS_D_3", headstone.OthersDecedentList[2].RankList[0]);
+            dict.Add("AwardS_D_3", headstone.OthersDecedentList[2].AwardList[0]);
+            dict.Add("WarS_D_3", headstone.OthersDecedentList[2].WarList[0]);
+            dict.Add("BranchS_D_3", headstone.OthersDecedentList[2].BranchList[0]);
+
+            dict.Add("InscriptionS_D_3", headstone.OthersDecedentList[2].Inscription);
+
+            dict.Add("BirthDateS_D_3", headstone.OthersDecedentList[2].BirthDate.ToString());
+            dict.Add("DeathDateS_D_3", headstone.OthersDecedentList[2].DeathDate.ToString());
+        }
+
+        private void SetFourthPerson(ref Dictionary<string, string> dict, ref Headstone headstone)
+        {
+            dict.Add("FirstNameS_D_4", headstone.OthersDecedentList[3].FirstName);
+            dict.Add("MiddleNameS_D_4", headstone.OthersDecedentList[3].MiddleName);
+            dict.Add("LastNameS_D_4", headstone.OthersDecedentList[3].LastName);
+            dict.Add("SuffixS_D_4", headstone.OthersDecedentList[3].Suffix);
+            dict.Add("LocationS_D_4", headstone.OthersDecedentList[3].Location);
+
+            dict.Add("RankS_D_4", headstone.OthersDecedentList[3].RankList[0]);
+            dict.Add("AwardS_D_4", headstone.OthersDecedentList[3].AwardList[0]);
+            dict.Add("WarS_D_4", headstone.OthersDecedentList[3].WarList[0]);
+            dict.Add("BranchS_D_4", headstone.OthersDecedentList[3].BranchList[0]);
+
+            dict.Add("InscriptionS_D_4", headstone.OthersDecedentList[3].Inscription);
+
+            dict.Add("BirthDateS_D_4", headstone.OthersDecedentList[3].BirthDate.ToString());
+            dict.Add("DeathDateS_D_4", headstone.OthersDecedentList[3].DeathDate.ToString());
+        }
+
+        private void SetFifthPerson(ref Dictionary<string, string> dict, ref Headstone headstone)
+        {
+            dict.Add("FirstNameS_D_5", headstone.OthersDecedentList[4].FirstName);
+            dict.Add("MiddleNameS_D_5", headstone.OthersDecedentList[4].MiddleName);
+            dict.Add("LastNameS_D_5", headstone.OthersDecedentList[4].LastName);
+            dict.Add("SuffixS_D_5", headstone.OthersDecedentList[4].Suffix);
+            dict.Add("LocationS_D_5", headstone.OthersDecedentList[4].Location);
+
+            dict.Add("BirthDateS_D_5", headstone.OthersDecedentList[4].BirthDate.ToString());
+            dict.Add("DeathDateS_D_5", headstone.OthersDecedentList[4].DeathDate.ToString());
+        }
+
+        private void SetSixthPerson(ref Dictionary<string, string> dict, ref Headstone headstone)
+        {
+            dict.Add("FirstNameS_D_6", headstone.OthersDecedentList[5].FirstName);
+            dict.Add("MiddleNameS_D_6", headstone.OthersDecedentList[5].MiddleName);
+            dict.Add("LastNameS_D_6", headstone.OthersDecedentList[5].LastName);
+            dict.Add("SuffixS_D_6", headstone.OthersDecedentList[5].Suffix);
+            dict.Add("LocationS_D_6", headstone.OthersDecedentList[5].Location);
+
+            dict.Add("BirthDateS_D_6", headstone.OthersDecedentList[5].BirthDate.ToString());
+            dict.Add("DeathDateS_D_6", headstone.OthersDecedentList[5].DeathDate.ToString());
         }
     }
 }
