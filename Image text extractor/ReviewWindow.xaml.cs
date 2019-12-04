@@ -37,6 +37,7 @@ namespace Image_text_extractor
                         return;
                     }
                     _viewModel.PreviousRecord();
+                    BurialSectionField.Focus();
                 }
 
                 if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.PageDown))
@@ -46,6 +47,7 @@ namespace Image_text_extractor
                         return;
                     }
                     _viewModel.NextRecord();
+                    BurialSectionField.Focus();
                 }
                 
             }), true);
@@ -93,6 +95,7 @@ namespace Image_text_extractor
 
             _viewModel.PageIndex = System.Convert.ToInt32(GoToRecordTextBox.Text);
             GoToRecordTextBox.Text = "";
+            BurialSectionField.Focus();
         }
 
         private void FirstRecordClick(object sender, RoutedEventArgs e)
@@ -102,6 +105,7 @@ namespace Image_text_extractor
                 return;
             }
             _viewModel.PageIndex = 1;
+            BurialSectionField.Focus();
         }
 
         private void LastRecordClick(object sender, RoutedEventArgs e)
@@ -111,6 +115,7 @@ namespace Image_text_extractor
                 return;
             }
             _viewModel.PageIndex = _viewModel.GetDatabaseCount;
+            BurialSectionField.Focus();
         }
 
         private void BackClick(object sender, RoutedEventArgs e)
@@ -131,6 +136,7 @@ namespace Image_text_extractor
                 return;
             }
             _viewModel.NextRecord();
+            BurialSectionField.Focus();
         }
 
         private void PreviousClick(object sender, RoutedEventArgs e)
@@ -140,6 +146,7 @@ namespace Image_text_extractor
                 return;
             }
             _viewModel.PreviousRecord();
+            BurialSectionField.Focus();
         }
 
         public void SetImagesToReview()
@@ -213,6 +220,126 @@ namespace Image_text_extractor
             }
         }
 
+        private void LocationCombox_LostFocus(object sender, EventArgs e)
+        {
+            ComboBox cb = (ComboBox)sender;
+            string input = cb.Text;
+
+            foreach (LocationData i in cb.Items)
+            {
+                if (i.Location.Equals(input))
+                {
+                    cb.SelectedItem = i;
+                    return;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(input))
+            {
+                cb.Text = "";
+                MessageBox.Show("The text you have entered isn't an item in the list." +
+                    "\n\nSelect an item from the list, or enter text that matches one of the listed items.",
+                    "VA National Cemetery Inventory");
+                cb.IsDropDownOpen = true;
+            }
+        }
+
+        private void Cemetery_LostFocus(object sender, EventArgs e)
+        {
+            ComboBox cb = (ComboBox)sender;
+            string input = cb.Text;
+
+            foreach (CemeteryNameData i in cb.Items)
+            {
+                if (i.CemeteryName.Equals(input))
+                {
+                    cb.SelectedItem = i;
+                    return;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(input))
+            {
+                cb.Text = "";
+                MessageBox.Show("The text you have entered isn't an item in the list." +
+                    "\n\nSelect an item from the list, or enter text that matches one of the listed items.",
+                    "VA National Cemetery Inventory");
+                cb.IsDropDownOpen = true;
+            }
+        }
+
+        private void Branch_LostFocus(object sender, EventArgs e)
+        {
+            ComboBox cb = (ComboBox)sender;
+            string input = cb.Text;
+
+            foreach (BranchData i in cb.Items)
+            {
+                if (i.Code.Equals(input))
+                {
+                    cb.SelectedItem = i;
+                    return;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(input))
+            {
+                cb.Text = "";
+                MessageBox.Show("The text you have entered isn't an item in the list." +
+                    "\n\nSelect an item from the list, or enter text that matches one of the listed items.",
+                    "VA National Cemetery Inventory");
+                cb.IsDropDownOpen = true;
+            }
+        }
+
+        private void War_LostFocus(object sender, EventArgs e)
+        {
+            ComboBox cb = (ComboBox)sender;
+            string input = cb.Text;
+
+            foreach (WarData i in cb.Items)
+            {
+                if (i.Code.Equals(input))
+                {
+                    cb.SelectedItem = i;
+                    return;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(input))
+            {
+                cb.Text = "";
+                MessageBox.Show("The text you have entered isn't an item in the list." +
+                    "\n\nSelect an item from the list, or enter text that matches one of the listed items.",
+                    "VA National Cemetery Inventory");
+                cb.IsDropDownOpen = true;
+            }
+        }
+
+        private void Award_LostFocus(object sender, EventArgs e)
+        {
+            ComboBox cb = (ComboBox)sender;
+            string input = cb.Text;
+
+            foreach (AwardData i in cb.Items)
+            {
+                if (i.Code.Equals(input))
+                {
+                    cb.SelectedItem = i;
+                    return;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(input))
+            {
+                cb.Text = "";
+                MessageBox.Show("The text you have entered isn't an item in the list." +
+                    "\n\nSelect an item from the list, or enter text that matches one of the listed items.",
+                    "VA National Cemetery Inventory");
+                cb.IsDropDownOpen = true;
+            }
+        }
+
         private void LastName_LostFocus(object sender, EventArgs e)
         {
             TextBox tb = (TextBox)sender;
@@ -245,7 +372,7 @@ namespace Image_text_extractor
                 cb.Text = "";
                 MessageBox.Show("The text you have entered isn't an item in the list." +
                 "\n\nSelect an item from the list, or enter text that matches one of the listed items.",
-                "VA National Emblem Inventory");
+                "VA National Cemetery Inventory");
                 cb.IsDropDownOpen = true;
                 return;
             }
@@ -263,11 +390,11 @@ namespace Image_text_extractor
             cb.Text = "";
             MessageBox.Show("The text you have entered isn't an item in the list." +
                 "\n\nSelect an item from the list, or enter text that matches one of the listed items.",
-                "VA National Emblem Inventory");
+                "VA National Cemetery Inventory");
             cb.IsDropDownOpen = true;
             
         }
-
+        
         private void OpenImageClick(object sender, RoutedEventArgs e)
         {
             _displayWindow.Show();

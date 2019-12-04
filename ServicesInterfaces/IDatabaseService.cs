@@ -17,7 +17,17 @@ namespace ServicesInterfaces
 
         int TotalItems { get; }
 
-        //CemeteryNameData GetCemeteryData();
+        List<CemeteryNameData> CemeteryNames { get; }
+
+        List<EmblemData> EmblemNames { get;  }
+
+        List<LocationData> LocationNames { get; }
+
+        List<BranchData> BranchNames { get; }
+
+        List<WarData> WarNames { get; }
+
+        List<AwardData> AwardNames { get; }
 
         string SectionFilePath { get; }
     }

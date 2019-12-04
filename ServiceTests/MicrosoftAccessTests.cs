@@ -58,10 +58,15 @@ namespace ServiceTests
         {
             MicrosoftAccess databaseService = new MicrosoftAccess();
 
-            databaseService.InitDBConnection(@"C:\Users\7295201\csc464_465_senior_design\SectionA");
+            databaseService.InitDBConnection(@"C:\Users\7295201\csc464_465_senior_design\Section0000P");
 
 
-            CemeteryNameData names = databaseService.GetCemeteryData();
+            List<CemeteryNameData> Cemeterynames = databaseService.GetCemeteryData();
+            List<AwardData> Awardnames = databaseService.GetAwardData();
+            List<BranchData> Branchnames = databaseService.GetBranchData();
+            List<EmblemData> EmblemNames = databaseService.GetEmblemData();
+            List<LocationData> LocationNames = databaseService.GetLocationData();
         }
+
     }
 }

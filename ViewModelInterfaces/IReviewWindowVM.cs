@@ -15,7 +15,11 @@ namespace ViewModelInterfaces
         void NextRecord();
         void PreviousRecord();
         List<EmblemData> GetEmblemData { get; }
-        //List<CemeteryNameData> GetCemeteryNames { get; }
+        List<CemeteryNameData> GetCemeteryNames { get; }
+        List<LocationData> GetLocationData { get; }
+        List<BranchData> GetBranchData { get; }
+        List<AwardData> GetAwardData { get; }
+        List<WarData> GetWarData { get; }
         int GetDatabaseCount { get; }
     }
 }

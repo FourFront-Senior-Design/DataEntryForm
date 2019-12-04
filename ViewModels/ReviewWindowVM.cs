@@ -188,10 +188,7 @@ namespace ViewModels
                 emblems.Add(new EmblemData { Photo = "/ImageTextExtractor;component/Emblems/emb-99.jpg", Code = "99", Name = "NON REQUESTED" });
                 return emblems;
             }
-
-            
-
-    }
+        }   
 
         private void displayHeadStone()
         {
@@ -199,12 +196,44 @@ namespace ViewModels
             HeadstoneChanged?.Invoke(this, new EventArgs());
         }
 
-        //public List<CemeteryNameData> GetCemeteryNames
-        //{
-        //    get
-        //    {
-        //        return _database.GetCemeteryData();
-        //    }
-        //}
+        public List<CemeteryNameData> GetCemeteryNames
+        {
+            get
+            {
+                return _database.CemeteryNames;
+            }
+        }
+
+        public List<LocationData> GetLocationData
+        {
+            get
+            {
+                return _database.LocationNames;
+            }
+        }
+
+        public List<BranchData> GetBranchData
+        {
+            get
+            {
+                return _database.BranchNames;
+            }
+        }
+
+        public List<WarData> GetWarData
+        {
+            get
+            {
+                return _database.WarNames;
+            }
+        }
+
+        public List<AwardData> GetAwardData
+        {
+            get
+            {
+                return _database.AwardNames;
+            }
+        }
     }
 }
