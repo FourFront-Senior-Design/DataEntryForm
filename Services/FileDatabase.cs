@@ -29,26 +29,30 @@ namespace Services
             throw new NotImplementedException();
         }
 
-        List<CemeteryNameData> GetCemeteryData()
+        public List<CemeteryNameData> GetCemeteryData()
         {
             throw new NotImplementedException();
         }
 
-        List<AwardData> GetAwardData()
+        public List<AwardData> GetAwardData()
         {
             throw new NotImplementedException();
         }
 
-        List<BranchData> GetBranchData()
+        public List<BranchData> GetBranchData()
         {
             throw new NotImplementedException();
         }
 
-        List<EmblemData> GetEmblemData()
+        public List<EmblemData> GetEmblemData()
         {
             throw new NotImplementedException();
         }
 
+        public List<LocationData> GetLocationData()
+        {
+            throw new NotImplementedException();
+        }
 
         Headstone IDatabaseService.GetHeadstone(int index)
         {
@@ -81,6 +85,11 @@ namespace Services
         }
 
         List<EmblemData> IDatabaseService.GetEmblemData()
+        {
+            throw new NotImplementedException();
+        }
+
+        List<LocationData> IDatabaseService.GetLocationData()
         {
             throw new NotImplementedException();
         }

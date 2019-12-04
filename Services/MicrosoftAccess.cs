@@ -558,6 +558,47 @@ namespace Services
             return EmblemNames;
         }
 
+        public List<LocationData> GetLocationData()
+        {
+            List<LocationData> LocationNames = new List<LocationData>();
+            OleDbCommand cmd;
+            OleDbDataReader reader;
+
+            string sqlQuery = "SELECT ID, Location FROM LocationList";
+
+            using (OleDbConnection connection = new OleDbConnection(_connectionString))
+            {
+                try
+                {
+                    cmd = new OleDbCommand(sqlQuery, connection);
+                    connection.Open();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error accsessing Database");
+                    throw e;
+                }
+
+                reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    LocationData data = new LocationData();
+
+                    data.ID = reader.GetInt32(0);
+                    data.Location = reader.GetString(1);
+
+                    LocationNames.Add(data);
+                }
+
+
+                reader.Close();
+                connection.Close();
+            }
+
+            return LocationNames;
+        }
+
         List<EmblemData> GetEmblemImages(List<EmblemData> EmblemNames)
         {
             EmblemNames[0].Photo = "";

@@ -25,6 +25,8 @@ namespace ServicesInterfaces
 
         List<EmblemData> GetEmblemData();
 
+        List<LocationData> GetLocationData();
+
         string SectionFilePath { get; }
     }
 }
