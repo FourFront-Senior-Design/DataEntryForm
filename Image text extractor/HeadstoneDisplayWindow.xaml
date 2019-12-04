@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Image_text_extractor"
         mc:Ignorable="d"
         Title="HeadstoneDisplayWindow" Height="450" Width="800">
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>

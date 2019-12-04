@@ -409,7 +409,8 @@
                                     <Label Content="Death Date" />
                                     <TextBox Margin="2,0,2,0"  Width="200" KeyDown="Textbox_KeyDown"
                                              PreviewTextInput="NumberValidationTextBox"
-                                        Text="{Binding CurrentPageData.PrimaryDecedent.DeathDate}"/>
+                                             Text="{Binding CurrentPageData.PrimaryDecedent.DeathDate, StringFormat=MM/dd/yyyy}"
+                                             />
                                 </StackPanel>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
