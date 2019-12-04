@@ -403,7 +403,7 @@
                                     <Label Content="Birth Date" />
                                     <TextBox  VerticalAlignment="Center" Margin="2,0,2,0"
                                               Width="200" KeyDown="Textbox_KeyDown"
-                                            Text="{Binding CurrentPageData.PrimaryDecedent.BirthDate}" />
+                                            Text="{Binding CurrentPageData.PrimaryDecedent.BirthDate, StringFormat=MM/dd/yyyy}" />
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Death Date" />
@@ -436,7 +436,7 @@
                                     <Label Width="90"/>
                                 </StackPanel>
                                 <StackPanel Grid.Column="3">
-                                    <Label Content="Awards Custom" />
+                                    <Label Content="Awards Custom (Enter multiple w/ spaces between)" />
                                     <TextBox KeyDown="Textbox_KeyDown"
                                              Text="{Binding CurrentPageData.PrimaryDecedent.AwardCustom}" 
                                              Margin="2,0,2,0"  Width="405"/>
@@ -660,12 +660,12 @@
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Birth Date" />
-                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].BirthDate}"
+                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].BirthDate, StringFormat=MM/dd/yyyy}"
                                                     Margin="2,0,2,0" Width="200" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Death Date" />
-                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].DeathDate}"
+                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].DeathDate, StringFormat=MM/dd/yyyy}"
                                                     Margin="2,0,2,0" Width="200" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                             </StackPanel>
@@ -692,7 +692,7 @@
                                     <Label Width="90"/>
                                 </StackPanel>
                                 <StackPanel Grid.Column="3">
-                                    <Label Content="Awards Custom" />
+                                    <Label Content="Awards Custom (Enter multiple w/ spaces between)" />
                                     <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].AwardCustom}"
                                                  Margin="2,0,2,0"  Width="405" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
@@ -899,12 +899,12 @@
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Birth Date" />
-                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[1].BirthDate}"
+                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[1].BirthDate, StringFormat=MM/dd/yyyy}"
                                              Margin="2,0,2,0"  Width="245" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Death Date" />
-                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[1].DeathDate}"
+                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[1].DeathDate, StringFormat=MM/dd/yyyy}"
                                              Margin="2,0,2,0"  Width="250" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                             </StackPanel>
@@ -991,12 +991,12 @@
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Birth Date" />
-                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[2].BirthDate}"
+                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[2].BirthDate, StringFormat=MM/dd/yyyy}"
                                              Margin="2,0,2,0"  Width="245" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Death Date" />
-                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[2].DeathDate}"
+                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[2].DeathDate, StringFormat=MM/dd/yyyy}"
                                              Margin="2,0,2,0"  Width="250" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                             </StackPanel>
@@ -1083,12 +1083,12 @@
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Birth Date" />
-                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[3].BirthDate}"
+                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[3].BirthDate, StringFormat=MM/dd/yyyy}"
                                              Margin="2,0,2,0"  Width="245" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Death Date" />
-                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[3].DeathDate}"
+                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[3].DeathDate, StringFormat=MM/dd/yyyy}"
                                              Margin="2,0,2,0"  Width="250" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                             </StackPanel>
@@ -1150,12 +1150,12 @@
                             <StackPanel Orientation="Horizontal">
                                 <StackPanel>
                                     <Label Content="Birth Date" />
-                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[4].BirthDate}"
+                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[4].BirthDate, StringFormat=MM/dd/yyyy}"
                                              Margin="2,0,2,0"  Width="345" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Death Date" />
-                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[4].DeathDate}"
+                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[4].DeathDate, StringFormat=MM/dd/yyyy}"
                                              Margin="2,0,2,50"  Width="350" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                             </StackPanel>
@@ -1201,12 +1201,12 @@
                             <StackPanel Orientation="Horizontal">
                                 <StackPanel>
                                     <Label Content="Birth Date" />
-                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[5].BirthDate}"
+                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[5].BirthDate, StringFormat=MM/dd/yyyy}"
                                              Margin="2,0,2,0"  Width="345" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Death Date" />
-                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[5].DeathDate}"
+                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[5].DeathDate, StringFormat=MM/dd/yyyy}"
                                              Margin="2,0,2,50"  Width="350" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                             </StackPanel>
