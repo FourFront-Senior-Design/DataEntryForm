@@ -64,6 +64,7 @@ namespace ServiceTests
             List<CemeteryNameData> Cemeterynames = databaseService.GetCemeteryData();
             List<AwardData> Awardnames = databaseService.GetAwardData();
             List<BranchData> Branchnames = databaseService.GetBranchData();
+            List<EmblemData> EmblemNames = databaseService.GetEmblemData();
         }
 
     }

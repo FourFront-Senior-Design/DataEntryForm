@@ -44,6 +44,12 @@ namespace Services
             throw new NotImplementedException();
         }
 
+        List<EmblemData> GetEmblemData()
+        {
+            throw new NotImplementedException();
+        }
+
+
         Headstone IDatabaseService.GetHeadstone(int index)
         {
             throw new NotImplementedException();
@@ -70,6 +76,11 @@ namespace Services
         }
 
         List<BranchData> IDatabaseService.GetBranchData()
+        {
+            throw new NotImplementedException();
+        }
+
+        List<EmblemData> IDatabaseService.GetEmblemData()
         {
             throw new NotImplementedException();
         }

@@ -512,6 +512,63 @@ namespace Services
             return BranchNames;
         }
 
+
+        public List<EmblemData> GetEmblemData()
+        {
+            List<EmblemData> EmblemNames = new List<EmblemData>();
+            OleDbCommand cmd;
+            OleDbDataReader reader;
+
+            string sqlQuery = "SELECT CODE, Emblem FROM EmblemList";
+
+            using (OleDbConnection connection = new OleDbConnection(_connectionString))
+            {
+                try
+                {
+                    cmd = new OleDbCommand(sqlQuery, connection);
+                    connection.Open();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error accsessing Database");
+                    throw e;
+                }
+
+                reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    EmblemData data = new EmblemData();
+
+                    data.Code = reader.GetInt16(0).ToString();
+                    data.Name = reader.GetString(1);
+
+                    if (Int32.Parse(data.Code) < 10)
+                        data.Code = "0" + data.Code;
+
+                    EmblemNames.Add(data);
+                }
+
+                reader.Close();
+                connection.Close();
+            }
+
+            EmblemNames = GetEmblemImages(EmblemNames);
+
+            return EmblemNames;
+        }
+
+        List<EmblemData> GetEmblemImages(List<EmblemData> EmblemNames)
+        {
+            EmblemNames[0].Photo = "";
+
+            for (int i = 1; i < EmblemNames.Count(); i++)
+            {
+                EmblemNames[i].Photo = "/ImageTextExtractor;component/Emblems/emb-" + EmblemNames[i].Code + ".jpg";
+            }
+
+            return EmblemNames;
+        }
         public void SetHeadstone(int index, Headstone headstone)
         {
             throw new NotImplementedException();

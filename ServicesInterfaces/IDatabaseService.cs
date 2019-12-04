@@ -23,6 +23,8 @@ namespace ServicesInterfaces
 
         List<BranchData> GetBranchData();
 
+        List<EmblemData> GetEmblemData();
+
         string SectionFilePath { get; }
     }
 }
