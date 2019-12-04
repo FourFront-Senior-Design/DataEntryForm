@@ -14,45 +14,17 @@ namespace Services
 
         int IDatabaseService.TotalItems => throw new NotImplementedException();
 
-        public Headstone GetHeadstone(int index)
-        {
-            throw new NotImplementedException();
-        }
+        public List<CemeteryNameData> CemeteryNames => throw new NotImplementedException();
 
-        public bool InitDBConnection(string sectionFilePath)
-        {
-            throw new NotImplementedException();
-        }
+        public List<EmblemData> EmblemNames => throw new NotImplementedException();
 
-        public void SetHeadstone(int index, Headstone headstone)
-        {
-            throw new NotImplementedException();
-        }
+        public List<LocationData> LocationNames => throw new NotImplementedException();
 
-        public List<CemeteryNameData> GetCemeteryData()
-        {
-            throw new NotImplementedException();
-        }
+        public List<BranchData> BranchNames => throw new NotImplementedException();
 
-        public List<AwardData> GetAwardData()
-        {
-            throw new NotImplementedException();
-        }
+        public List<WarData> WarNames => throw new NotImplementedException();
 
-        public List<BranchData> GetBranchData()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<EmblemData> GetEmblemData()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<LocationData> GetLocationData()
-        {
-            throw new NotImplementedException();
-        }
+        public List<AwardData> AwardNames => throw new NotImplementedException();
 
         Headstone IDatabaseService.GetHeadstone(int index)
         {
@@ -68,30 +40,6 @@ namespace Services
         {
             throw new NotImplementedException();
         }
-
-        List<CemeteryNameData> IDatabaseService.GetCemeteryData()
-        {
-            throw new NotImplementedException();
-        }
-
-        List<AwardData> IDatabaseService.GetAwardData()
-        {
-            throw new NotImplementedException();
-        }
-
-        List<BranchData> IDatabaseService.GetBranchData()
-        {
-            throw new NotImplementedException();
-        }
-
-        List<EmblemData> IDatabaseService.GetEmblemData()
-        {
-            throw new NotImplementedException();
-        }
-
-        List<LocationData> IDatabaseService.GetLocationData()
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

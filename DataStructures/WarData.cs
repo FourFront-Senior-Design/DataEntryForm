@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace DataStructures
 {
-    public class LocationData
+    public class WarData
     {
-        public int ID { get; set; }
+        public string Code { get; set; }
 
-        public string Location { get; set; }
+        public string War { get; set; }
 
-        public string Abbr { get; set; }
+        public string ShortDescription { get; set; }
     }
 }
