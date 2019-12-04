@@ -654,7 +654,7 @@ namespace Services
                     Console.WriteLine("Error accsessing Database");
                     throw e;
                 }
-                cmd.ExecuteNonQuery(); // do the update
+                //cmd.ExecuteNonQuery(); // do the update
             }
         }
 
