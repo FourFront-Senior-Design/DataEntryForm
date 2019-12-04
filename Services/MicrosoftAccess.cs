@@ -475,7 +475,7 @@ namespace Services
             {
                 if(entry.Value != "")
                 {
-                    sqlQuery += entry.Key + " = '" + entry.Value + "', ";
+                    sqlQuery += "[" + entry.Key + "] = " + "@" + entry.Key + ", ";
                 }
             }
 
@@ -498,7 +498,23 @@ namespace Services
                     Console.WriteLine("Error accsessing Database");
                     throw e;
                 }
-                cmd.ExecuteNonQuery(); // do the update
+
+                foreach(KeyValuePair<string, string> entry in headstoneData)
+                {
+                    if (entry.Value != "")
+                    {
+                        cmd.Parameters.AddWithValue("@" + entry.Key, entry.Value);
+                    }
+                }
+
+                try
+                {
+                    cmd.ExecuteNonQuery(); // do the update
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
             }
         }
 
@@ -512,7 +528,6 @@ namespace Services
             dict.Add("MarkerType", headstone.MarkerType);
             dict.Add("Emblem1", headstone.Emblem1);
             dict.Add("Emblem2", headstone.Emblem2);
-
         }
 
         private void SetPrimaryPerson(ref Dictionary<string, string> dict, ref Headstone headstone)
