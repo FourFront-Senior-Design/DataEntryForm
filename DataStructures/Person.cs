@@ -30,5 +30,30 @@ namespace DataStructures
             BranchList = new List<string>();
             WarList = new List<string>();
         }
+
+        public bool containsData()
+        {
+            if (FirstName == "" &&
+                MiddleName == "" &&
+                LastName == "" &&
+                Suffix == "" &&
+                Location == "" &&
+                RankList.Count == 0 &&
+                AwardList.Count == 0 &&
+                AwardList.Count == 0 &&
+                AwardCustom == "" &&
+                WarList.Count == 0 &&
+                BranchList.Count == 0 &&
+                BranchUnitCustom == "" &&
+                BranchUnitCustom == "" &&
+                BirthDate == DateTime.MinValue &&
+                DeathDate == DateTime.MinValue &&
+                Inscription == "")
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

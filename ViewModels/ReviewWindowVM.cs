@@ -235,5 +235,44 @@ namespace ViewModels
                 return _database.AwardNames;
             }
         }
+
+        public List<bool> CheckMandatoryFields()
+        {
+            List<bool> isValidList = new List<bool>()
+            {
+                true, // gravesite number
+                true, // primary last name
+                true, // descedent 1 last name
+                true, // descedent 2 last name
+                true, // descedent 3 last name
+                true, // descedent 4 last name
+                true, // descedent 5 last name
+                true  // descedent 6 last name
+            };
+
+            if (_currentPageData.GavestoneNumber == "")
+            {
+                isValidList[0] = false;
+            }
+
+            if (_currentPageData.PrimaryDecedent.LastName == "")
+            {
+                isValidList[1] = false;
+            }
+
+            int personIndex = 2;
+            foreach (Person person in _currentPageData.OthersDecedentList)
+            {
+                // A person with contents is valid iff they have a last name
+                if (person.containsData() && person.LastName == "")
+                {
+                    isValidList[personIndex] = false;
+                }
+
+                personIndex += 1;
+            }
+
+            return isValidList;
+        }
     }
 }
