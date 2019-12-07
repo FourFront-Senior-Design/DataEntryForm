@@ -123,9 +123,9 @@
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBox  Text="{Binding CurrentPageData.SequenceID}" IsEnabled="False"
+                        <TextBox  Text="{Binding CurrentPageData.SequenceID}" IsEnabled="True"
                                   IsReadOnly="True" CharacterCasing="Upper" FontSize="14" Width="auto" Height="20" Margin="2"/>
-                        <TextBox  Text="{Binding CurrentPageData.PrimaryKey}" IsEnabled="False" Margin="2,2,2,2"
+                        <TextBox  Text="{Binding CurrentPageData.PrimaryKey}" IsEnabled="True" Margin="2,2,2,2"
                                   Grid.Column="1" IsReadOnly="True" CharacterCasing="Upper" FontSize="14" Width="auto" Height="20"/>
                     </Grid>
                 </Border>
