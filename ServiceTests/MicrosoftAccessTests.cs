@@ -61,11 +61,11 @@ namespace ServiceTests
             databaseService.InitDBConnection(@"C:\Users\7295201\csc464_465_senior_design\Section0000P");
 
 
-            List<CemeteryNameData> Cemeterynames = databaseService.GetCemeteryData();
-            List<AwardData> Awardnames = databaseService.GetAwardData();
-            List<BranchData> Branchnames = databaseService.GetBranchData();
-            List<EmblemData> EmblemNames = databaseService.GetEmblemData();
-            List<LocationData> LocationNames = databaseService.GetLocationData();
+            List<CemeteryNameData> Cemeterynames = databaseService.CemeteryNames;
+            List<AwardData> Awardnames = databaseService.AwardNames;
+            List<BranchData> Branchnames = databaseService.BranchNames;
+            List<EmblemData> EmblemNames = databaseService.EmblemNames;
+            List<LocationData> LocationNames = databaseService.LocationNames;
         }
 
     }
