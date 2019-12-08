@@ -689,8 +689,8 @@ namespace Services
                 sqlQuery += @"[" + entry.Key + @"] = " + @"@" + entry.Key + @", ";
             }
 
-            // trim the last ", " off
-            sqlQuery = sqlQuery.Substring(0, sqlQuery.Length - 2);
+            sqlQuery += "[Branch-Unit_CustomV] = '" + headstone.PrimaryDecedent.BranchUnitCustom +
+                "', [Branch-Unit_CustomS_D] = '" + headstone.OthersDecedentList[0].BranchUnitCustom + "'";
 
             // finalize update statement
             sqlQuery += @" WHERE AccessUniqueID = " + index + @";";
@@ -791,7 +791,6 @@ namespace Services
             dict.Add("Branch", headstone.PrimaryDecedent.BranchList[0]);
             dict.Add("Branch2", headstone.PrimaryDecedent.BranchList[1]);
             dict.Add("Branch3", headstone.PrimaryDecedent.BranchList[2]);
-            //dict.Add("Branch-Unit_CustomV", headstone.PrimaryDecedent.BranchUnitCustom);
 
             dict.Add("BirthDate", headstone.PrimaryDecedent.BirthDate.ToString());
             dict.Add("DeathDate", headstone.PrimaryDecedent.DeathDate.ToString());
@@ -828,7 +827,6 @@ namespace Services
             dict.Add("BranchS_D", headstone.OthersDecedentList[0].BranchList[0]);
             dict.Add("Branch2S_D", headstone.OthersDecedentList[0].BranchList[1]);
             dict.Add("Branch3S_D", headstone.OthersDecedentList[0].BranchList[2]);
-            //dict.Add("Branch-Unit_CustomS_D", headstone.OthersDecedentList[0].BranchUnitCustom);
 
             dict.Add("BirthDateS_D", headstone.OthersDecedentList[0].BirthDate.ToString());
             dict.Add("DeathDateS_D", headstone.OthersDecedentList[0].DeathDate.ToString());
