@@ -689,8 +689,8 @@ namespace Services
                 sqlQuery += @"[" + entry.Key + @"] = " + @"@" + entry.Key + @", ";
             }
 
-            // trim the last ", " off
-            sqlQuery = sqlQuery.Substring(0, sqlQuery.Length - 2);
+            sqlQuery += "[Branch-Unit_CustomV] = '" + headstone.PrimaryDecedent.BranchUnitCustom +
+                "', [Branch-Unit_CustomS_D] = '" + headstone.OthersDecedentList[0].BranchUnitCustom + "'";
 
             // finalize update statement
             sqlQuery += @" WHERE AccessUniqueID = " + index + @";";
@@ -717,14 +717,14 @@ namespace Services
                         if (intEntries.Contains(entry.Key))
                         {
                             if (entry.Value == "")
-                                cmd.Parameters.AddWithValue("@" + entry.Key, 0);
+                                cmd.Parameters.AddWithValue("@" + entry.Key, OleDbType.Integer).Value = DBNull.Value;
                             else
                                 cmd.Parameters.AddWithValue("@" + entry.Key, Convert.ToInt32(entry.Value));
                         }
                         else
                         {
                             if (entry.Value == "")
-                                cmd.Parameters.AddWithValue("@" + entry.Key, "");
+                                cmd.Parameters.AddWithValue("@" + entry.Key, OleDbType.VarChar).Value = DBNull.Value;
                             else
                                 cmd.Parameters.AddWithValue("@" + entry.Key, entry.Value);
                         }
@@ -781,7 +781,7 @@ namespace Services
             dict.Add("Award6", headstone.PrimaryDecedent.AwardList[5]);
             dict.Add("Award7", headstone.PrimaryDecedent.AwardList[6]);
 
-            //dict.Add("Award_Custom", headstone.PrimaryDecedent.AwardCustom);
+            dict.Add("Awards_Custom", headstone.PrimaryDecedent.AwardCustom);
 
             dict.Add("War", headstone.PrimaryDecedent.WarList[0]);
             dict.Add("War2", headstone.PrimaryDecedent.WarList[1]);
@@ -791,10 +791,9 @@ namespace Services
             dict.Add("Branch", headstone.PrimaryDecedent.BranchList[0]);
             dict.Add("Branch2", headstone.PrimaryDecedent.BranchList[1]);
             dict.Add("Branch3", headstone.PrimaryDecedent.BranchList[2]);
-            //dict.Add("Branch-Unit_CustomV", headstone.PrimaryDecedent.BranchUnitCustom);
 
-            dict.Add("BirthDate", headstone.PrimaryDecedent.BirthDate.ToString());
-            dict.Add("DeathDate", headstone.PrimaryDecedent.DeathDate.ToString());
+            dict.Add("BirthDate", headstone.PrimaryDecedent.BirthDate.ToShortDateString());
+            dict.Add("DeathDate", headstone.PrimaryDecedent.DeathDate.ToShortDateString());
 
             dict.Add("Inscription", headstone.PrimaryDecedent.Inscription);
         }
@@ -818,7 +817,7 @@ namespace Services
             dict.Add("Award5S_D", headstone.OthersDecedentList[0].AwardList[4]);
             dict.Add("Award6S_D", headstone.OthersDecedentList[0].AwardList[5]);
             dict.Add("Award7S_D", headstone.OthersDecedentList[0].AwardList[6]);
-            //dict.Add("Award_CustomS_D", headstone.OthersDecedentList[0].AwardCustom);
+            dict.Add("Awards_CustomS_D", headstone.OthersDecedentList[0].AwardCustom);
 
             dict.Add("WarS_D", headstone.OthersDecedentList[0].WarList[0]);
             dict.Add("War2S_D", headstone.OthersDecedentList[0].WarList[1]);
@@ -828,10 +827,9 @@ namespace Services
             dict.Add("BranchS_D", headstone.OthersDecedentList[0].BranchList[0]);
             dict.Add("Branch2S_D", headstone.OthersDecedentList[0].BranchList[1]);
             dict.Add("Branch3S_D", headstone.OthersDecedentList[0].BranchList[2]);
-            //dict.Add("Branch-Unit_CustomS_D", headstone.OthersDecedentList[0].BranchUnitCustom);
 
-            dict.Add("BirthDateS_D", headstone.OthersDecedentList[0].BirthDate.ToString());
-            dict.Add("DeathDateS_D", headstone.OthersDecedentList[0].DeathDate.ToString());
+            dict.Add("BirthDateS_D", headstone.OthersDecedentList[0].BirthDate.ToShortDateString());
+            dict.Add("DeathDateS_D", headstone.OthersDecedentList[0].DeathDate.ToShortDateString());
 
             dict.Add("InscriptionS_D", headstone.OthersDecedentList[0].Inscription);
         }
@@ -851,8 +849,8 @@ namespace Services
 
             dict.Add("InscriptionS_D_2", headstone.OthersDecedentList[1].Inscription);
 
-            dict.Add("BirthDateS_D_2", headstone.OthersDecedentList[1].BirthDate.ToString());
-            dict.Add("DeathDateS_D_2", headstone.OthersDecedentList[1].DeathDate.ToString());
+            dict.Add("BirthDateS_D_2", headstone.OthersDecedentList[1].BirthDate.ToShortDateString());
+            dict.Add("DeathDateS_D_2", headstone.OthersDecedentList[1].DeathDate.ToShortDateString());
         }
 
         private void SetThirdPerson(ref Dictionary<string, string> dict, ref Headstone headstone)
@@ -870,8 +868,8 @@ namespace Services
 
             dict.Add("InscriptionS_D_3", headstone.OthersDecedentList[2].Inscription);
 
-            dict.Add("BirthDateS_D_3", headstone.OthersDecedentList[2].BirthDate.ToString());
-            dict.Add("DeathDateS_D_3", headstone.OthersDecedentList[2].DeathDate.ToString());
+            dict.Add("BirthDateS_D_3", headstone.OthersDecedentList[2].BirthDate.ToShortDateString());
+            dict.Add("DeathDateS_D_3", headstone.OthersDecedentList[2].DeathDate.ToShortDateString());
         }
 
         private void SetFourthPerson(ref Dictionary<string, string> dict, ref Headstone headstone)
@@ -889,8 +887,8 @@ namespace Services
 
             dict.Add("InscriptionS_D_4", headstone.OthersDecedentList[3].Inscription);
 
-            dict.Add("BirthDateS_D_4", headstone.OthersDecedentList[3].BirthDate.ToString());
-            dict.Add("DeathDateS_D_4", headstone.OthersDecedentList[3].DeathDate.ToString());
+            dict.Add("BirthDateS_D_4", headstone.OthersDecedentList[3].BirthDate.ToShortDateString());
+            dict.Add("DeathDateS_D_4", headstone.OthersDecedentList[3].DeathDate.ToShortDateString());
         }
 
         private void SetFifthPerson(ref Dictionary<string, string> dict, ref Headstone headstone)
@@ -901,8 +899,8 @@ namespace Services
             dict.Add("SuffixS_D_5", headstone.OthersDecedentList[4].Suffix);
             dict.Add("LocationS_D_5", headstone.OthersDecedentList[4].Location);
 
-            dict.Add("BirthDateS_D_5", headstone.OthersDecedentList[4].BirthDate.ToString());
-            dict.Add("DeathDateS_D_5", headstone.OthersDecedentList[4].DeathDate.ToString());
+            dict.Add("BirthDateS_D_5", headstone.OthersDecedentList[4].BirthDate.ToShortDateString());
+            dict.Add("DeathDateS_D_5", headstone.OthersDecedentList[4].DeathDate.ToShortDateString());
         }
 
         private void SetSixthPerson(ref Dictionary<string, string> dict, ref Headstone headstone)
@@ -913,8 +911,8 @@ namespace Services
             dict.Add("SuffixS_D_6", headstone.OthersDecedentList[5].Suffix);
             dict.Add("LocationS_D_6", headstone.OthersDecedentList[5].Location);
 
-            dict.Add("BirthDateS_D_6", headstone.OthersDecedentList[5].BirthDate.ToString());
-            dict.Add("DeathDateS_D_6", headstone.OthersDecedentList[5].DeathDate.ToString());
+            dict.Add("BirthDateS_D_6", headstone.OthersDecedentList[5].BirthDate.ToShortDateString());
+            dict.Add("DeathDateS_D_6", headstone.OthersDecedentList[5].DeathDate.ToShortDateString());
         }
     }
 }

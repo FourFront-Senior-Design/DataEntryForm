@@ -68,5 +68,62 @@ namespace ServiceTests
             List<LocationData> LocationNames = databaseService.LocationNames;
         }
 
+        [TestMethod]
+        public void CanReadIntoBranchUnit()
+        {
+
+            string _connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + @"C:\Users\7309977\Desktop\Section0000P\FRNC_SectionP_be.accdb";
+            string sqlQuery = @"UPDATE Master SET ";
+            Dictionary<string, string> headstoneData = new Dictionary<string, string>();
+
+            headstoneData.Add("Branch-Unit_CustomV", "my Test Data");
+
+
+            // Append all keys and values to the string
+            //foreach (KeyValuePair<string, string> entry in headstoneData)
+            //{
+            //    sqlQuery += @"[" + entry.Key + @"] = " + @"@" + entry.Key + @", ";
+            //}
+
+            // trim the last ", " off
+            //sqlQuery = sqlQuery.Substring(0, sqlQuery.Length - 2);
+
+            sqlQuery += "[Branch-Unit_CustomV] = my test data ";
+
+            // finalize update statement
+            sqlQuery += @" WHERE AccessUniqueID = " + 1 + @";";
+
+            OleDbCommand cmd;
+            using (OleDbConnection connection = new OleDbConnection(_connectionString)) // using to ensure connection is closed when we are done
+            {
+                try
+                {
+                    cmd = new OleDbCommand(sqlQuery, connection);
+                    connection.Open(); // try to open the connection
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error accessing Database");
+                    throw e;
+                }
+
+                //foreach (KeyValuePair<string, string> entry in headstoneData)
+                //{
+                //    cmd.Parameters.AddWithValue("@" + entry.Key,("'" + entry.Value + "'"));
+                //}
+
+                try
+                {
+                    cmd.ExecuteNonQuery(); // do the update
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error writing to the database:");
+                    Console.WriteLine(e);
+                    Console.WriteLine(sqlQuery);
+                }
+            }
+        }
+
     }
 }
