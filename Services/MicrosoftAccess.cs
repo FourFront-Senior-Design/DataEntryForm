@@ -710,14 +710,6 @@ namespace Services
                 }
 
                 string[] intEntries = { "Wall", "Emblem1", "Emblem2" };
-                string[] dateEntries = { "BirthDate", "DeathDate",
-                                        "BirthDateS_D", "DeathDateS_D",
-                                        "BirthDateS_D_2", "DeathDateS_D_2",
-                                        "BirthDateS_D_3", "DeathDateS_D_3",
-                                        "BirthDateS_D_4", "DeathDateS_D_4",
-                                        "BirthDateS_D_5", "DeathDateS_D_5",
-                                        "BirthDateS_D_6", "DeathDateS_D_6" };
-
                 foreach(KeyValuePair<string, string> entry in headstoneData)
                 {
                     try
@@ -728,13 +720,6 @@ namespace Services
                                 cmd.Parameters.AddWithValue("@" + entry.Key, 0);
                             else
                                 cmd.Parameters.AddWithValue("@" + entry.Key, Convert.ToInt32(entry.Value));
-                        }
-                        else if (dateEntries.Contains(entry.Key))
-                        {
-                            if (entry.Value == "")
-                                cmd.Parameters.AddWithValue("@" + entry.Key, DateTime.MinValue);
-                            else
-                                cmd.Parameters.AddWithValue("@" + entry.Key, Convert.ToDateTime(entry.Value));
                         }
                         else
                         {
@@ -806,7 +791,7 @@ namespace Services
             dict.Add("Branch", headstone.PrimaryDecedent.BranchList[0]);
             dict.Add("Branch2", headstone.PrimaryDecedent.BranchList[1]);
             dict.Add("Branch3", headstone.PrimaryDecedent.BranchList[2]);
-            dict.Add("Branch-Unit_CustomV", headstone.PrimaryDecedent.BranchUnitCustom);
+            //dict.Add("Branch-Unit_CustomV", headstone.PrimaryDecedent.BranchUnitCustom);
 
             dict.Add("BirthDate", headstone.PrimaryDecedent.BirthDate.ToString());
             dict.Add("DeathDate", headstone.PrimaryDecedent.DeathDate.ToString());
