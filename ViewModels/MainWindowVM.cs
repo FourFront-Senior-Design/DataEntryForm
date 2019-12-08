@@ -8,7 +8,21 @@ namespace ViewModels
     {
         private IDatabaseService _database;
         private string _fileLocation;
+        private string _message;
         private bool _enableExtract = false;
+        
+        public string Message
+        {
+            get
+            {
+                return _message;
+            }
+            set
+            {
+                _message = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Message)));
+            }
+        }
 
         public string FileLocation
         {

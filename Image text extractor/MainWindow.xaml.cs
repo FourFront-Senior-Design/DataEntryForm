@@ -10,7 +10,7 @@ namespace Image_text_extractor
         public event EventHandler MoveToReviewPage;
 
         IMainWindowVM _viewModel;
-
+        
         public MainWindow(IMainWindowVM viewModel)
         {
             InitializeComponent();
@@ -22,15 +22,24 @@ namespace Image_text_extractor
         {
             _viewModel.EnableExtract = false;
             _viewModel.FileLocation = "";
+            _viewModel.Message = "";
+        }
+
+        private void BrowseClick(object sender, RoutedEventArgs e)
+        {
+            _viewModel.Message = "";
+            var dialog = new System.Windows.Forms.FolderBrowserDialog();
+            dialog.ShowDialog();
+
+            string selectedPath = dialog.SelectedPath;
+            if(selectedPath != string.Empty)
+            {
+                _viewModel.FileLocation = selectedPath;
+            }
         }
 
         private void LoadDataClick(object sender, RoutedEventArgs e)
         {
-            var dialog = new System.Windows.Forms.FolderBrowserDialog();
-            dialog.ShowDialog();
-
-             _viewModel.FileLocation = dialog.SelectedPath;
-
             Trace.WriteLine("Printing...");
             Trace.WriteLine(_viewModel.FileLocation);
 
@@ -38,19 +47,16 @@ namespace Image_text_extractor
 
             if(countData == -1)
             {
-                System.Windows.MessageBox.Show("Invalid Data Path. Try Again", "Alert",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                _viewModel.Message = "Invalid Path. Try Again.";
             }
             else if (countData == 0)  
             {
-                System.Windows.MessageBox.Show("No database found", "Alert",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                _viewModel.Message = "No database found. Try Again.";
             }
             else
             {
-                string display = "Successfully loaded " + countData.ToString() + " records";
-                System.Windows.MessageBox.Show(display, "Success",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                _viewModel.Message = "Successfully uploaded " + countData.ToString() +
+                                 " records from the Database";
                 _viewModel.EnableExtract = true;
             }
         }
@@ -60,7 +66,12 @@ namespace Image_text_extractor
             MoveToReviewPage?.Invoke(this, new EventArgs());
         }
 
-
+        private void OnTextChanged(object sender, RoutedEventArgs e)
+        {
+            _viewModel.EnableExtract = false;
+            _viewModel.Message = "";
+        }
+        
         private void ExitClick(object sender, RoutedEventArgs e)
         {
             this.Close();
