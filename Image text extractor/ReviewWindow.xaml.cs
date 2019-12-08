@@ -96,9 +96,17 @@ namespace Image_text_extractor
                 return;
             }
 
-            _viewModel.PageIndex = System.Convert.ToInt32(GoToRecordTextBox.Text);
-            GoToRecordTextBox.Text = "";
-            BurialSectionField.Focus();
+            try
+            {
+                _viewModel.PageIndex = System.Convert.ToInt32(GoToRecordTextBox.Text);
+                GoToRecordTextBox.Text = "";
+                BurialSectionField.Focus();
+            }
+            catch
+            {
+                MessageBox.Show("Invalid Record Number", "VA National Cemetery Inventory");
+                return;
+            }
         }
 
         private void FirstRecordClick(object sender, RoutedEventArgs e)
