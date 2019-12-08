@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using ViewModelInterfaces;
 using ServicesInterfaces;
-using System.Windows.Input;
+using Common;
 using System;
 
 namespace ViewModels
@@ -49,11 +49,19 @@ namespace ViewModels
             }
         }
 
-        public string SectionFilePath
+        public string ImageSource1
         {
             get
             {
-                return _database.SectionFilePath;
+                return _database.SectionFilePath + "\\" + Constants.REFERENCED_IMAGE_FOLDER_NAME + "\\" + CurrentPageData.Image1FileName;
+            }
+        }
+
+        public string ImageSource2
+        {
+            get
+            {
+                return _database.SectionFilePath + "\\" + Constants.REFERENCED_IMAGE_FOLDER_NAME + "\\" + CurrentPageData.Image2FileName;
             }
         }
         

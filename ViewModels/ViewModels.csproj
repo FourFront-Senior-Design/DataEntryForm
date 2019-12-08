@@ -67,6 +67,10 @@
     <Compile Include="ReviewWindowVM.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{0c493421-ebe7-4915-8bdd-23d2e456c9e3}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataStructures\DataStructures.csproj">
       <Project>{AA71ED64-9E35-496B-BFD0-60D04D17318D}</Project>
       <Name>DataStructures</Name>

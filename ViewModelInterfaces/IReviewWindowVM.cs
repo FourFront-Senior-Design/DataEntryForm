@@ -9,7 +9,8 @@ namespace ViewModelInterfaces
     {
         event EventHandler HeadstoneChanged;
         int PageIndex { get; set; }
-        string SectionFilePath { get; }
+        string ImageSource1 { get; }
+        string ImageSource2 { get; }
         Headstone CurrentPageData { get; set; }
         void SetRecordsToReview();
         void NextRecord();

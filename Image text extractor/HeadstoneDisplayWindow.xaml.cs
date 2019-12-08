@@ -26,18 +26,16 @@ namespace Image_text_extractor
 
         private void viewModel_HeadstoneChanged(object sender, EventArgs e)
         {
-            string sectionFilePath = _viewModel.SectionFilePath;
-            
-            string image1FullFilePath = sectionFilePath + "\\" + Constants.REFERENCED_IMAGE_FOLDER_NAME + "\\" + _viewModel.CurrentPageData.Image1FileName;
-            string image2FullFilePath;
+            frontFaceImage.Source = new BitmapImage(new Uri(_viewModel.ImageSource1));
 
-
-            frontFaceImage.Source = new BitmapImage(new Uri(image1FullFilePath));
-
-            if(!string.IsNullOrWhiteSpace(_viewModel.CurrentPageData.Image2FileName))
+            if (!string.IsNullOrWhiteSpace(_viewModel.CurrentPageData.Image2FileName))
             {
-                image2FullFilePath = sectionFilePath + "\\" + Constants.REFERENCED_IMAGE_FOLDER_NAME + "\\" + _viewModel.CurrentPageData.Image2FileName;
-                backFaceImage.Source = new BitmapImage(new Uri(image2FullFilePath));
+                backFaceImage.Source = new BitmapImage(new Uri(_viewModel.ImageSource2));
+                backFaceImage.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                backFaceImage.Visibility = Visibility.Collapsed;
             }
 
             this.Show();
