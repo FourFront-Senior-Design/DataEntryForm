@@ -724,7 +724,7 @@ namespace Services
                         else
                         {
                             if (entry.Value == "")
-                                cmd.Parameters.AddWithValue("@" + entry.Key, "");
+                                cmd.Parameters.AddWithValue("@" + entry.Key, String.Empty);
                             else
                                 cmd.Parameters.AddWithValue("@" + entry.Key, entry.Value);
                         }
