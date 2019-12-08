@@ -7,7 +7,8 @@ using System.Text.RegularExpressions;
 using System.ComponentModel;
 using System.Windows.Controls;
 using System.Reflection;
-using System.Windows.Media.Imaging;
+using System.Windows.Data;
+using System.Globalization;
 
 namespace Image_text_extractor
 {
@@ -28,8 +29,6 @@ namespace Image_text_extractor
             DataContext = _viewModel;
 
             _displayWindow = new HeadstoneDisplayWindow(_viewModel);
-
-            _viewModel.HeadstoneChanged += viewModel_HeadstoneChanged;
 
             AddHandler(KeyDownEvent, new KeyEventHandler((ss, ee) =>
             {
@@ -96,17 +95,9 @@ namespace Image_text_extractor
                 return;
             }
 
-            try
-            {
-                _viewModel.PageIndex = System.Convert.ToInt32(GoToRecordTextBox.Text);
-                GoToRecordTextBox.Text = "";
-                BurialSectionField.Focus();
-            }
-            catch
-            {
-                MessageBox.Show("Invalid Record Number", "VA National Cemetery Inventory");
-                return;
-            }
+            _viewModel.PageIndex = System.Convert.ToInt32(GoToRecordTextBox.Text);
+            GoToRecordTextBox.Text = "";
+            BurialSectionField.Focus();
         }
 
         private void FirstRecordClick(object sender, RoutedEventArgs e)
@@ -181,17 +172,6 @@ namespace Image_text_extractor
             else
             {
                 e.Cancel = true;
-            }
-        }
-
-        private void viewModel_HeadstoneChanged(object sender, EventArgs e)
-        {
-            frontFaceImage.Source = new BitmapImage(new Uri(_viewModel.ImageSource1));
-
-
-            if (!string.IsNullOrWhiteSpace(_viewModel.CurrentPageData.Image2FileName))
-            {
-                backFaceImage.Source = new BitmapImage(new Uri(_viewModel.ImageSource2));
             }
         }
 
@@ -389,7 +369,6 @@ namespace Image_text_extractor
                 "\n\nSelect an item from the list, or enter text that matches one of the listed items.",
                 "VA National Cemetery Inventory");
             cb.IsDropDownOpen = true;
-            
         }
         
         private void OpenImageClick(object sender, RoutedEventArgs e)
