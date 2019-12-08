@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Reflection;
 using System.Windows.Data;
 using System.Globalization;
+using System.Windows.Media.Imaging;
 
 namespace Image_text_extractor
 {
@@ -29,6 +30,8 @@ namespace Image_text_extractor
             DataContext = _viewModel;
 
             _displayWindow = new HeadstoneDisplayWindow(_viewModel);
+
+            _viewModel.HeadstoneChanged += viewModel_HeadstoneChanged;
 
             AddHandler(KeyDownEvent, new KeyEventHandler((ss, ee) =>
             {
@@ -54,6 +57,16 @@ namespace Image_text_extractor
                 
             }), true);
             isBack = false;
+        }
+
+        private void viewModel_HeadstoneChanged(object sender, EventArgs e)
+        {
+            frontFaceImage.Source = new BitmapImage(new Uri(_viewModel.ImageSource1));
+
+            if (!string.IsNullOrWhiteSpace(_viewModel.CurrentPageData.Image2FileName))
+            {
+                backFaceImage.Source = new BitmapImage(new Uri(_viewModel.ImageSource2));
+            }
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)

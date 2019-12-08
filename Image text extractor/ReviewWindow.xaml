@@ -1017,12 +1017,12 @@
                                         </StackPanel>
                                         <StackPanel>
                                             <Label Content="Middle" />
-                                            <TextBox Text="{Binding CurrentPageData.OthersDecedentList[3].LastName}"
+                                            <TextBox Text="{Binding CurrentPageData.OthersDecedentList[3].MiddleName}"
                                              Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                         </StackPanel>
                                         <StackPanel>
                                             <Label Content="Last" />
-                                            <TextBox x:Name="name5LastName" Text="{Binding CurrentPageData.OthersDecedentList[3].MiddleName}"
+                                            <TextBox x:Name="name5LastName" Text="{Binding CurrentPageData.OthersDecedentList[3].LastName}"
                                              Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                         </StackPanel>
                                         <StackPanel>
