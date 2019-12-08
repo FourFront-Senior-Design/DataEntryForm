@@ -19,8 +19,8 @@ namespace DataStructures
         public List<string> WarList { get; set; }
         public List<string> BranchList { get; set; }
         public string BranchUnitCustom { get; set; }
-        public DateTime BirthDate { get; set; }
-        public DateTime DeathDate { get; set; }
+        public string BirthDate { get; set; }
+        public string DeathDate { get; set; }
         public string Inscription { get; set; }
 
         public Person()
@@ -46,8 +46,8 @@ namespace DataStructures
                 BranchList.Count == 0 &&
                 BranchUnitCustom == "" &&
                 BranchUnitCustom == "" &&
-                BirthDate == DateTime.MinValue &&
-                DeathDate == DateTime.MinValue &&
+                BirthDate == "" &&
+                DeathDate == "" &&
                 Inscription == "")
             {
                 return false;

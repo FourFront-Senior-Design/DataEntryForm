@@ -205,11 +205,8 @@ namespace Services
 
             primaryPerson.BranchUnitCustom = dataRow[(int)MasterTableCols.Branch_Unit_CustomV].ToString();
 
-            DateTime birthDate, deathDate;
-            DateTime.TryParse(dataRow[(int)MasterTableCols.BirthDate].ToString(), out birthDate);
-            DateTime.TryParse(dataRow[(int)MasterTableCols.DeathDate].ToString(), out deathDate);
-            primaryPerson.BirthDate = birthDate;
-            primaryPerson.DeathDate = deathDate;
+            primaryPerson.BirthDate = dataRow[(int)MasterTableCols.DeathDate].ToString();
+            primaryPerson.DeathDate = dataRow[(int)MasterTableCols.BirthDate].ToString();
 
             primaryPerson.Inscription = dataRow[(int)MasterTableCols.Inscription].ToString();
 
@@ -264,11 +261,8 @@ namespace Services
 
             secondPerson.BranchUnitCustom = dataRow[(int)MasterTableCols.Branch_Unit_CustomS_D].ToString();
 
-            DateTime birthDate, deathDate;
-            DateTime.TryParse(dataRow[(int)MasterTableCols.BirthDateS_D].ToString(), out birthDate);
-            DateTime.TryParse(dataRow[(int)MasterTableCols.DeathDateS_D].ToString(), out deathDate);
-            secondPerson.BirthDate = birthDate;
-            secondPerson.DeathDate = deathDate;
+            secondPerson.BirthDate = dataRow[(int)MasterTableCols.BirthDateS_D].ToString();
+            secondPerson.DeathDate = dataRow[(int)MasterTableCols.DeathDateS_D].ToString();
 
             secondPerson.Inscription = dataRow[(int)MasterTableCols.InscriptionS_D].ToString();
 
@@ -293,11 +287,8 @@ namespace Services
 
             thirdPerson.BranchList.Add(dataRow[(int)MasterTableCols.BranchS_D_2].ToString());
 
-            DateTime birthDate, deathDate;
-            DateTime.TryParse(dataRow[(int)MasterTableCols.BirthDateS_D_2].ToString(), out birthDate);
-            DateTime.TryParse(dataRow[(int)MasterTableCols.DeathDateS_D_2].ToString(), out deathDate);
-            thirdPerson.BirthDate = birthDate;
-            thirdPerson.DeathDate = deathDate;
+            thirdPerson.BirthDate = dataRow[(int)MasterTableCols.BirthDateS_D_2].ToString();
+            thirdPerson.DeathDate = dataRow[(int)MasterTableCols.DeathDateS_D_2].ToString();
 
             thirdPerson.Inscription = dataRow[(int)MasterTableCols.InscriptionS_D_2].ToString();
 
@@ -322,11 +313,8 @@ namespace Services
 
             forthPerson.BranchList.Add(dataRow[(int)MasterTableCols.BranchS_D_3].ToString());
 
-            DateTime birthDate, deathDate;
-            DateTime.TryParse(dataRow[(int)MasterTableCols.BirthDateS_D_3].ToString(), out birthDate);
-            DateTime.TryParse(dataRow[(int)MasterTableCols.DeathDateS_D_3].ToString(), out deathDate);
-            forthPerson.BirthDate = birthDate;
-            forthPerson.DeathDate = deathDate;
+            forthPerson.BirthDate = dataRow[(int)MasterTableCols.BirthDateS_D_3].ToString();
+            forthPerson.DeathDate = dataRow[(int)MasterTableCols.DeathDateS_D_3].ToString();
 
             forthPerson.Inscription = dataRow[(int)MasterTableCols.InscriptionS_D_3].ToString();
 
@@ -351,11 +339,8 @@ namespace Services
 
             fithPerson.BranchList.Add(dataRow[(int)MasterTableCols.BranchS_D_4].ToString());
 
-            DateTime birthDate, deathDate;
-            DateTime.TryParse(dataRow[(int)MasterTableCols.BirthDateS_D_4].ToString(), out birthDate);
-            DateTime.TryParse(dataRow[(int)MasterTableCols.DeathDateS_D_4].ToString(), out deathDate);
-            fithPerson.BirthDate = birthDate;
-            fithPerson.DeathDate = deathDate;
+            fithPerson.BirthDate = dataRow[(int)MasterTableCols.BirthDateS_D_4].ToString();
+            fithPerson.DeathDate = dataRow[(int)MasterTableCols.DeathDateS_D_4].ToString();
 
             fithPerson.Inscription = dataRow[(int)MasterTableCols.InscriptionS_D_4].ToString();
 
@@ -372,11 +357,8 @@ namespace Services
             sixthPerson.Suffix = dataRow[(int)MasterTableCols.SuffixS_D_5].ToString();
             sixthPerson.Location = dataRow[(int)MasterTableCols.LocationS_D_5].ToString();
 
-            DateTime birthDate, deathDate;
-            DateTime.TryParse(dataRow[(int)MasterTableCols.BirthDateS_D_5].ToString(), out birthDate);
-            DateTime.TryParse(dataRow[(int)MasterTableCols.DeathDateS_D_5].ToString(), out deathDate);
-            sixthPerson.BirthDate = birthDate;
-            sixthPerson.DeathDate = deathDate;
+            sixthPerson.BirthDate = dataRow[(int)MasterTableCols.BirthDateS_D_5].ToString();
+            sixthPerson.DeathDate = dataRow[(int)MasterTableCols.DeathDateS_D_5].ToString();
 
 
             return sixthPerson;
@@ -392,11 +374,8 @@ namespace Services
             seventhPerson.Suffix = dataRow[(int)MasterTableCols.SuffixS_D_6].ToString();
             seventhPerson.Location = dataRow[(int)MasterTableCols.LocationS_D_6].ToString();
 
-            DateTime birthDate, deathDate;
-            DateTime.TryParse(dataRow[(int)MasterTableCols.BirthDateS_D_6].ToString(), out birthDate);
-            DateTime.TryParse(dataRow[(int)MasterTableCols.DeathDateS_D_6].ToString(), out deathDate);
-            seventhPerson.BirthDate = birthDate;
-            seventhPerson.DeathDate = deathDate;
+            seventhPerson.BirthDate = dataRow[(int)MasterTableCols.BirthDateS_D_6].ToString();
+            seventhPerson.DeathDate = dataRow[(int)MasterTableCols.DeathDateS_D_6].ToString();
 
             return seventhPerson;
         }
@@ -792,8 +771,8 @@ namespace Services
             dict.Add("Branch2", headstone.PrimaryDecedent.BranchList[1]);
             dict.Add("Branch3", headstone.PrimaryDecedent.BranchList[2]);
 
-            dict.Add("BirthDate", headstone.PrimaryDecedent.BirthDate.ToShortDateString());
-            dict.Add("DeathDate", headstone.PrimaryDecedent.DeathDate.ToShortDateString());
+            dict.Add("BirthDate", headstone.PrimaryDecedent.BirthDate);
+            dict.Add("DeathDate", headstone.PrimaryDecedent.DeathDate);
 
             dict.Add("Inscription", headstone.PrimaryDecedent.Inscription);
         }
@@ -828,8 +807,8 @@ namespace Services
             dict.Add("Branch2S_D", headstone.OthersDecedentList[0].BranchList[1]);
             dict.Add("Branch3S_D", headstone.OthersDecedentList[0].BranchList[2]);
 
-            dict.Add("BirthDateS_D", headstone.OthersDecedentList[0].BirthDate.ToShortDateString());
-            dict.Add("DeathDateS_D", headstone.OthersDecedentList[0].DeathDate.ToShortDateString());
+            dict.Add("BirthDateS_D", headstone.OthersDecedentList[0].BirthDate);
+            dict.Add("DeathDateS_D", headstone.OthersDecedentList[0].DeathDate);
 
             dict.Add("InscriptionS_D", headstone.OthersDecedentList[0].Inscription);
         }
@@ -849,8 +828,8 @@ namespace Services
 
             dict.Add("InscriptionS_D_2", headstone.OthersDecedentList[1].Inscription);
 
-            dict.Add("BirthDateS_D_2", headstone.OthersDecedentList[1].BirthDate.ToShortDateString());
-            dict.Add("DeathDateS_D_2", headstone.OthersDecedentList[1].DeathDate.ToShortDateString());
+            dict.Add("BirthDateS_D_2", headstone.OthersDecedentList[1].BirthDate);
+            dict.Add("DeathDateS_D_2", headstone.OthersDecedentList[1].DeathDate);
         }
 
         private void SetThirdPerson(ref Dictionary<string, string> dict, ref Headstone headstone)
@@ -868,8 +847,8 @@ namespace Services
 
             dict.Add("InscriptionS_D_3", headstone.OthersDecedentList[2].Inscription);
 
-            dict.Add("BirthDateS_D_3", headstone.OthersDecedentList[2].BirthDate.ToShortDateString());
-            dict.Add("DeathDateS_D_3", headstone.OthersDecedentList[2].DeathDate.ToShortDateString());
+            dict.Add("BirthDateS_D_3", headstone.OthersDecedentList[2].BirthDate);
+            dict.Add("DeathDateS_D_3", headstone.OthersDecedentList[2].DeathDate);
         }
 
         private void SetFourthPerson(ref Dictionary<string, string> dict, ref Headstone headstone)
@@ -887,8 +866,8 @@ namespace Services
 
             dict.Add("InscriptionS_D_4", headstone.OthersDecedentList[3].Inscription);
 
-            dict.Add("BirthDateS_D_4", headstone.OthersDecedentList[3].BirthDate.ToShortDateString());
-            dict.Add("DeathDateS_D_4", headstone.OthersDecedentList[3].DeathDate.ToShortDateString());
+            dict.Add("BirthDateS_D_4", headstone.OthersDecedentList[3].BirthDate);
+            dict.Add("DeathDateS_D_4", headstone.OthersDecedentList[3].DeathDate);
         }
 
         private void SetFifthPerson(ref Dictionary<string, string> dict, ref Headstone headstone)
@@ -899,8 +878,8 @@ namespace Services
             dict.Add("SuffixS_D_5", headstone.OthersDecedentList[4].Suffix);
             dict.Add("LocationS_D_5", headstone.OthersDecedentList[4].Location);
 
-            dict.Add("BirthDateS_D_5", headstone.OthersDecedentList[4].BirthDate.ToShortDateString());
-            dict.Add("DeathDateS_D_5", headstone.OthersDecedentList[4].DeathDate.ToShortDateString());
+            dict.Add("BirthDateS_D_5", headstone.OthersDecedentList[4].BirthDate);
+            dict.Add("DeathDateS_D_5", headstone.OthersDecedentList[4].DeathDate);
         }
 
         private void SetSixthPerson(ref Dictionary<string, string> dict, ref Headstone headstone)
@@ -911,8 +890,8 @@ namespace Services
             dict.Add("SuffixS_D_6", headstone.OthersDecedentList[5].Suffix);
             dict.Add("LocationS_D_6", headstone.OthersDecedentList[5].Location);
 
-            dict.Add("BirthDateS_D_6", headstone.OthersDecedentList[5].BirthDate.ToShortDateString());
-            dict.Add("DeathDateS_D_6", headstone.OthersDecedentList[5].DeathDate.ToShortDateString());
+            dict.Add("BirthDateS_D_6", headstone.OthersDecedentList[5].BirthDate);
+            dict.Add("DeathDateS_D_6", headstone.OthersDecedentList[5].DeathDate);
         }
     }
 }
