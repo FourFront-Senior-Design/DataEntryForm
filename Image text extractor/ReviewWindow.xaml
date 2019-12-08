@@ -246,7 +246,7 @@
                     <Label Grid.Column="1"  Content="Row #" VerticalAlignment="Center" Margin="0,8"/>
                     <TextBox Grid.Column="1" Text="{Binding CurrentPageData.RowNum}" Margin="80,10,10,10" Padding="2"/>
                     <Label Grid.Column="2" Content="Gravesite #"  VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,8"/>
-                    <TextBox Grid.Column="3" Text="{Binding CurrentPageData.GavestoneNumber}" Margin="11,10,0,10" Padding="2"/>
+                    <TextBox x:Name="gravesiteNum" Grid.Column="3" Text="{Binding CurrentPageData.GavestoneNumber}" Margin="11,10,0,10" Padding="2"/>
                 </Grid>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
@@ -335,9 +335,8 @@
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Last" />
-                                    <TextBox Name="LastNameTextbox" Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"
-                                         Text="{Binding CurrentPageData.PrimaryDecedent.LastName}"
-                                         LostFocus="LastName_LostFocus"/>
+                                    <TextBox x:Name="primaryLastName" Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"
+                                         Text="{Binding CurrentPageData.PrimaryDecedent.LastName}"/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Suffix" />
@@ -591,7 +590,7 @@
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Last" />
-                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].LastName}"
+                                    <TextBox x:Name="secondaryLastName" Text="{Binding CurrentPageData.OthersDecedentList[0].LastName}"
                                             Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                                 <StackPanel>
@@ -841,7 +840,7 @@
                                         </StackPanel>
                                         <StackPanel>
                                             <Label Content="Last" />
-                                            <TextBox Text="{Binding CurrentPageData.OthersDecedentList[1].LastName}"
+                                            <TextBox x:Name="name3LastName" Text="{Binding CurrentPageData.OthersDecedentList[1].LastName}"
                                              Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                         </StackPanel>
                                         <StackPanel>
@@ -932,7 +931,7 @@
                                         </StackPanel>
                                         <StackPanel>
                                             <Label Content="Last" />
-                                            <TextBox Text="{Binding CurrentPageData.OthersDecedentList[2].LastName}"
+                                            <TextBox x:Name="name4LastName" Text="{Binding CurrentPageData.OthersDecedentList[2].LastName}"
                                              Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                         </StackPanel>
                                         <StackPanel>
@@ -1023,7 +1022,7 @@
                                         </StackPanel>
                                         <StackPanel>
                                             <Label Content="Last" />
-                                            <TextBox Text="{Binding CurrentPageData.OthersDecedentList[3].MiddleName}"
+                                            <TextBox x:Name="name5LastName" Text="{Binding CurrentPageData.OthersDecedentList[3].MiddleName}"
                                              Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                         </StackPanel>
                                         <StackPanel>
@@ -1114,7 +1113,7 @@
                                         </StackPanel>
                                         <StackPanel>
                                             <Label Content="Last" />
-                                            <TextBox Text="{Binding CurrentPageData.OthersDecedentList[4].LastName}"
+                                            <TextBox x:Name="name6LastName" Text="{Binding CurrentPageData.OthersDecedentList[4].LastName}"
                                              Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                         </StackPanel>
                                         <StackPanel>
@@ -1164,7 +1163,7 @@
                                         </StackPanel>
                                         <StackPanel>
                                             <Label Content="Last" />
-                                            <TextBox Text="{Binding CurrentPageData.OthersDecedentList[5].LastName}"
+                                            <TextBox x:Name="name7LastName" Text="{Binding CurrentPageData.OthersDecedentList[5].LastName}"
                                             Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                         </StackPanel>
                                         <StackPanel>
