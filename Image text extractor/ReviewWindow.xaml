@@ -402,14 +402,14 @@
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Birth Date" />
-                                    <xctk:MaskedTextBox x:Name="_maskedTextBox"
+                                    <!--<xctk:MaskedTextBox x:Name="_maskedTextBox"
                                                         Mask="00/00/0000"
                                                         ValueDataType="{x:Type s:String}" 
-                                                        Value="{Binding CurrentPageData.PrimaryDecedent.BirthDate}"/>
+                                                        Value="{Binding CurrentPageData.PrimaryDecedent.BirthDate}"/>-->
 
-                                    <!--<TextBox  VerticalAlignment="Center" Margin="2,0,2,0"
+                                    <TextBox  VerticalAlignment="Center" Margin="2,0,2,0"
                                               Width="200" KeyDown="Textbox_KeyDown"
-                                            Text="{Binding CurrentPageData.PrimaryDecedent.BirthDate, StringFormat=MM/dd/yyyy}" />-->
+                                            Text="{Binding CurrentPageData.PrimaryDecedent.BirthDate, StringFormat=MM/dd/yyyy}" />
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Death Date" />
