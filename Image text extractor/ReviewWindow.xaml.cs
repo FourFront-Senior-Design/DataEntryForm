@@ -219,31 +219,6 @@ namespace Image_text_extractor
                 cb.IsDropDownOpen = true;
             }
         }
-
-        private void LocationCombox_LostFocus(object sender, EventArgs e)
-        {
-            ComboBox cb = (ComboBox)sender;
-            string input = cb.Text;
-
-            foreach (LocationData i in cb.Items)
-            {
-                if (i.Location.Equals(input))
-                {
-                    cb.SelectedItem = i;
-                    return;
-                }
-            }
-
-            if (!string.IsNullOrEmpty(input))
-            {
-                cb.Text = "";
-                MessageBox.Show("The text you have entered isn't an item in the list." +
-                    "\n\nSelect an item from the list, or enter text that matches one of the listed items.",
-                    "VA National Cemetery Inventory");
-                cb.IsDropDownOpen = true;
-            }
-        }
-
         private void Cemetery_LostFocus(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;

@@ -710,14 +710,6 @@ namespace Services
                 }
 
                 string[] intEntries = { "Wall", "Emblem1", "Emblem2" };
-                string[] dateEntries = { "BirthDate", "DeathDate",
-                                        "BirthDateS_D", "DeathDateS_D",
-                                        "BirthDateS_D_2", "DeathDateS_D_2",
-                                        "BirthDateS_D_3", "DeathDateS_D_3",
-                                        "BirthDateS_D_4", "DeathDateS_D_4",
-                                        "BirthDateS_D_5", "DeathDateS_D_5",
-                                        "BirthDateS_D_6", "DeathDateS_D_6" };
-
                 foreach(KeyValuePair<string, string> entry in headstoneData)
                 {
                     try
@@ -725,21 +717,14 @@ namespace Services
                         if (intEntries.Contains(entry.Key))
                         {
                             if (entry.Value == "")
-                                cmd.Parameters.AddWithValue("@" + entry.Key, 0);
+                                cmd.Parameters.AddWithValue("@" + entry.Key, null);
                             else
                                 cmd.Parameters.AddWithValue("@" + entry.Key, Convert.ToInt32(entry.Value));
-                        }
-                        else if (dateEntries.Contains(entry.Key))
-                        {
-                            if (entry.Value == "")
-                                cmd.Parameters.AddWithValue("@" + entry.Key, DateTime.MinValue);
-                            else
-                                cmd.Parameters.AddWithValue("@" + entry.Key, Convert.ToDateTime(entry.Value));
                         }
                         else
                         {
                             if (entry.Value == "")
-                                cmd.Parameters.AddWithValue("@" + entry.Key, "");
+                                cmd.Parameters.AddWithValue("@" + entry.Key, String.Empty);
                             else
                                 cmd.Parameters.AddWithValue("@" + entry.Key, entry.Value);
                         }
@@ -796,7 +781,7 @@ namespace Services
             dict.Add("Award6", headstone.PrimaryDecedent.AwardList[5]);
             dict.Add("Award7", headstone.PrimaryDecedent.AwardList[6]);
 
-            //dict.Add("Award_Custom", headstone.PrimaryDecedent.AwardCustom);
+            dict.Add("Awards_Custom", headstone.PrimaryDecedent.AwardCustom);
 
             dict.Add("War", headstone.PrimaryDecedent.WarList[0]);
             dict.Add("War2", headstone.PrimaryDecedent.WarList[1]);
@@ -806,7 +791,7 @@ namespace Services
             dict.Add("Branch", headstone.PrimaryDecedent.BranchList[0]);
             dict.Add("Branch2", headstone.PrimaryDecedent.BranchList[1]);
             dict.Add("Branch3", headstone.PrimaryDecedent.BranchList[2]);
-            dict.Add("Branch-Unit_CustomV", headstone.PrimaryDecedent.BranchUnitCustom);
+            //dict.Add("Branch-Unit_CustomV", headstone.PrimaryDecedent.BranchUnitCustom);
 
             dict.Add("BirthDate", headstone.PrimaryDecedent.BirthDate.ToString());
             dict.Add("DeathDate", headstone.PrimaryDecedent.DeathDate.ToString());
@@ -833,7 +818,7 @@ namespace Services
             dict.Add("Award5S_D", headstone.OthersDecedentList[0].AwardList[4]);
             dict.Add("Award6S_D", headstone.OthersDecedentList[0].AwardList[5]);
             dict.Add("Award7S_D", headstone.OthersDecedentList[0].AwardList[6]);
-            //dict.Add("Award_CustomS_D", headstone.OthersDecedentList[0].AwardCustom);
+            dict.Add("Awards_CustomS_D", headstone.OthersDecedentList[0].AwardCustom);
 
             dict.Add("WarS_D", headstone.OthersDecedentList[0].WarList[0]);
             dict.Add("War2S_D", headstone.OthersDecedentList[0].WarList[1]);
