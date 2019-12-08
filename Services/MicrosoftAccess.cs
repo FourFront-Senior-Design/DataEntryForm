@@ -717,7 +717,7 @@ namespace Services
                         if (intEntries.Contains(entry.Key))
                         {
                             if (entry.Value == "")
-                                cmd.Parameters.AddWithValue("@" + entry.Key, 0);
+                                cmd.Parameters.AddWithValue("@" + entry.Key, null);
                             else
                                 cmd.Parameters.AddWithValue("@" + entry.Key, Convert.ToInt32(entry.Value));
                         }
@@ -781,7 +781,7 @@ namespace Services
             dict.Add("Award6", headstone.PrimaryDecedent.AwardList[5]);
             dict.Add("Award7", headstone.PrimaryDecedent.AwardList[6]);
 
-            //dict.Add("Award_Custom", headstone.PrimaryDecedent.AwardCustom);
+            dict.Add("Awards_Custom", headstone.PrimaryDecedent.AwardCustom);
 
             dict.Add("War", headstone.PrimaryDecedent.WarList[0]);
             dict.Add("War2", headstone.PrimaryDecedent.WarList[1]);
@@ -818,7 +818,7 @@ namespace Services
             dict.Add("Award5S_D", headstone.OthersDecedentList[0].AwardList[4]);
             dict.Add("Award6S_D", headstone.OthersDecedentList[0].AwardList[5]);
             dict.Add("Award7S_D", headstone.OthersDecedentList[0].AwardList[6]);
-            //dict.Add("Award_CustomS_D", headstone.OthersDecedentList[0].AwardCustom);
+            dict.Add("Awards_CustomS_D", headstone.OthersDecedentList[0].AwardCustom);
 
             dict.Add("WarS_D", headstone.OthersDecedentList[0].WarList[0]);
             dict.Add("War2S_D", headstone.OthersDecedentList[0].WarList[1]);
