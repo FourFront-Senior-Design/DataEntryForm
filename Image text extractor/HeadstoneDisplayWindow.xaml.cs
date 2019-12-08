@@ -31,21 +31,13 @@ namespace Image_text_extractor
             if (!string.IsNullOrWhiteSpace(_viewModel.CurrentPageData.Image2FileName))
             {
                 backFaceImage.Source = new BitmapImage(new Uri(_viewModel.ImageSource2));
-                backFaceImage.Visibility = Visibility.Visible;
             }
-            else
-            {
-                backFaceImage.Visibility = Visibility.Collapsed;
-            }
-
-            this.Show();
         }
 
         protected override void OnClosing(CancelEventArgs e)
         {
             e.Cancel = true;
             base.OnClosing(e);
-
             this.Hide();
         }
 
