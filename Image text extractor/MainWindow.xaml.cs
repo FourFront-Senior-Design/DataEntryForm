@@ -16,6 +16,8 @@ namespace Image_text_extractor
             InitializeComponent();
             _viewModel = viewModel;
             DataContext = _viewModel;
+
+            _viewModel.FileLocation = Properties.Settings.Default.databaseFilePath;
         }
 
         public void ResetMainWindow()
@@ -55,6 +57,8 @@ namespace Image_text_extractor
             }
             else
             {
+                Properties.Settings.Default.databaseFilePath = _viewModel.FileLocation;
+                Properties.Settings.Default.Save();
                 _viewModel.Message = "Successfully uploaded " + countData.ToString() +
                                  " records from the Database";
                 _viewModel.EnableExtract = true;
