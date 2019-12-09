@@ -6,12 +6,11 @@ using ViewModelInterfaces;
 using System.Text.RegularExpressions;
 using System.ComponentModel;
 using System.Windows.Controls;
-using System.Reflection;
-using System.Windows.Data;
-using System.Globalization;
+using Xceed.Wpf.Toolkit;
 using System.Windows.Media.Imaging;
 using System.Collections.Generic;
 using System.Windows.Media;
+using MessageBox = System.Windows.MessageBox;
 
 namespace Image_text_extractor
 {
@@ -71,7 +70,7 @@ namespace Image_text_extractor
             }
             else
             {
-                frontFaceImage.Stretch = Stretch.None;
+                frontFaceImage.Stretch = Stretch.Fill;
             }
             BurialSectionField.Focus();
         }
@@ -396,6 +395,35 @@ namespace Image_text_extractor
         private void OpenImageClick(object sender, RoutedEventArgs e)
         {
             _displayWindow.Show();
+        }
+
+        private void MaskedTextBox_TextChanged(object sender, RoutedEventArgs e)
+        {
+            MaskedTextBox mtb = (MaskedTextBox)sender;
+            if(mtb.Value == null)
+            {
+                return;
+            }
+            Console.Write("Lost focus masked Textbox");
+            Console.WriteLine("Value: ", mtb.Value);
+            Console.WriteLine("Text: ", mtb.Text);
+            if (mtb.IsMaskCompleted == true)
+            {
+                Console.Write("Here1", mtb.Text);
+                mtb.Value = mtb.Text;
+            }
+            else if(mtb.Text == mtb.Mask || mtb.Value.ToString() == mtb.Mask
+                || string.IsNullOrEmpty(mtb.Text))
+            {
+                Console.Write("Here2");
+                mtb.Value = "";
+            }
+            else
+            {
+                mtb.Value = "";
+                MessageBox.Show("Date cannot be incomplete",
+                "VA National Cemetery Inventory");
+            }
         }
     }
 }

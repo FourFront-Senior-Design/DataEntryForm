@@ -730,8 +730,8 @@ namespace Services
                 catch (Exception e)
                 {
                     Console.WriteLine("Error writing to the database:");
-                    Console.WriteLine(e);
-                    Console.WriteLine(sqlQuery);
+                    Console.WriteLine(e.Message);
+                    Console.WriteLine(cmd.CommandText);
                 }
             }
         }
