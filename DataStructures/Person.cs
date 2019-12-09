@@ -46,8 +46,8 @@ namespace DataStructures
                 BranchList.Count == 0 &&
                 BranchUnitCustom == "" &&
                 BranchUnitCustom == "" &&
-                BirthDate == "" &&
-                DeathDate == "" &&
+                //BirthDate == "" &&
+                //DeathDate == "" &&
                 Inscription == "")
             {
                 return false;
