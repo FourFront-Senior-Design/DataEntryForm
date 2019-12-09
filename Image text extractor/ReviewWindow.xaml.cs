@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Windows.Media;
 using MessageBox = System.Windows.MessageBox;
 
+
 namespace Image_text_extractor
 {
     public partial class ReviewWindow : Window

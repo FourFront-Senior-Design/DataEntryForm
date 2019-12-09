@@ -314,10 +314,10 @@
 
                 <Grid Grid.Column="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition x:Name="firstImage" Width="auto"/>
                         <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
                     <Image x:Name="frontFaceImage" Grid.Column="1" HorizontalAlignment="Right"/>
