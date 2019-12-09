@@ -110,9 +110,20 @@ namespace ViewModels
 
             PageIndex++;
 
-            CurrentPageData.CemeteryName = _prevCemeteryName;
-            CurrentPageData.BurialSectionNumber = _prevSectionNumber;
-            CurrentPageData.MarkerType = _prevMarkerType;
+            if (string.IsNullOrEmpty(CurrentPageData.CemeteryName))
+            {
+                CurrentPageData.CemeteryName = _prevCemeteryName;
+            }
+
+            if (string.IsNullOrEmpty(CurrentPageData.BurialSectionNumber))
+            {
+                CurrentPageData.BurialSectionNumber = _prevSectionNumber;
+            }
+
+            if (string.IsNullOrEmpty(CurrentPageData.MarkerType))
+            {
+                CurrentPageData.MarkerType = _prevMarkerType;
+            }
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentPageData)));
 
