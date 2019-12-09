@@ -110,9 +110,11 @@ namespace ViewModels
 
             PageIndex++;
 
-            _currentPageData.CemeteryName = _prevCemeteryName;
-            _currentPageData.BurialSectionNumber = _prevSectionNumber;
-            _currentPageData.MarkerType = _prevCemeteryName;
+            CurrentPageData.CemeteryName = _prevCemeteryName;
+            CurrentPageData.BurialSectionNumber = _prevSectionNumber;
+            CurrentPageData.MarkerType = _prevMarkerType;
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentPageData)));
 
             Trace.WriteLine("Next click");
             Trace.WriteLine(CurrentPageData.PrimaryDecedent.LastName);
