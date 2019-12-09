@@ -71,7 +71,7 @@ namespace Image_text_extractor
             }
             else
             {
-                frontFaceImage.Stretch = Stretch.Fill;
+                frontFaceImage.Stretch = Stretch.None;
             }
             BurialSectionField.Focus();
         }

@@ -68,7 +68,7 @@ namespace Services
                 TotalItems = GetTotalRecords();
                 CemeteryNames = GetCemeteryData();
                 EmblemNames = GetEmblemData();
-                LocationNames = GetLocationData();
+                //LocationNames = GetLocationData();
                 BranchNames = GetBranchData();
                 AwardNames = GetAwardData();
                 WarNames = GetWarData();
