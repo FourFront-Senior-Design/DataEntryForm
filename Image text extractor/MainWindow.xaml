@@ -90,6 +90,13 @@
                 FontSize="18"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"/>
+
+            <Label
+                Content="{Binding Copyright, Mode=OneWay}"                
+                FontSize="12"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
+                />
         </Grid>
 
     </Grid>

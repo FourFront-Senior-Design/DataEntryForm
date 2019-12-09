@@ -194,7 +194,6 @@ namespace Image_text_extractor
                 _displayWindow.Close();
                 if (isBack == false)
                 {
-
                     Application.Current.Shutdown();
                 }
             }
