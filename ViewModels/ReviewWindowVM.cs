@@ -256,5 +256,6 @@ namespace ViewModels
                 _database.SetHeadstone(_currentPageIndex, _currentPageData);
             }
         }
+        
     }
 }

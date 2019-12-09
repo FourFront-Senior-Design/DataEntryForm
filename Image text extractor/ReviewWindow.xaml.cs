@@ -6,11 +6,12 @@ using ViewModelInterfaces;
 using System.Text.RegularExpressions;
 using System.ComponentModel;
 using System.Windows.Controls;
-using System.Reflection;
-using System.Windows.Data;
-using System.Globalization;
+using Xceed.Wpf.Toolkit;
 using System.Windows.Media.Imaging;
 using System.Collections.Generic;
+using System.Windows.Media;
+using MessageBox = System.Windows.MessageBox;
+
 
 namespace Image_text_extractor
 {
@@ -67,6 +68,10 @@ namespace Image_text_extractor
             if (!string.IsNullOrWhiteSpace(_viewModel.CurrentPageData.Image2FileName))
             {
                 backFaceImage.Source = new BitmapImage(new Uri(_viewModel.ImageSource2));
+            }
+            else
+            {
+                frontFaceImage.Stretch = Stretch.None;
             }
             BurialSectionField.Focus();
         }
@@ -159,6 +164,7 @@ namespace Image_text_extractor
                 return;
             }
             isBack = true;
+            _viewModel.SaveRecord();
             MoveToMainPage?.Invoke(this, new EventArgs());
         }
 
@@ -187,24 +193,22 @@ namespace Image_text_extractor
 
         private void WindowClosing(object sender, CancelEventArgs e)
         {
-            _viewModel.SaveRecord();
-
-            if (System.Windows.MessageBox.Show("Are you sure you want to close the form?" +
-                "\n\nNote: All changes will be saved.", "Confirm",
-                MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if(isBack == false)
             {
-                _displayWindow.Close();
-                if (isBack == false)
+                if (System.Windows.MessageBox.Show("Are you sure you want to close the form?" +
+                "\n\nNote: Your changes are not saved. Click \"Save & Go to Menu\" to save.", "Confirm",
+                MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
+                    _displayWindow.Close();
                     Application.Current.Shutdown();
                 }
-            }
-            else
-            {
-                e.Cancel = true;
+                else
+                {
+                    e.Cancel = true;
+                }
             }
         }
-
+        
         private void Textbox_KeyDown(object sender, KeyEventArgs e)
         {
             if((Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)) && Keyboard.IsKeyDown(Key.U))
@@ -392,6 +396,35 @@ namespace Image_text_extractor
         private void OpenImageClick(object sender, RoutedEventArgs e)
         {
             _displayWindow.Show();
+        }
+
+        private void MaskedTextBox_TextChanged(object sender, RoutedEventArgs e)
+        {
+            MaskedTextBox mtb = (MaskedTextBox)sender;
+            if(mtb.Value == null)
+            {
+                return;
+            }
+            Console.Write("Lost focus masked Textbox");
+            Console.WriteLine("Value: ", mtb.Value);
+            Console.WriteLine("Text: ", mtb.Text);
+            if (mtb.IsMaskCompleted == true)
+            {
+                Console.Write("Here1", mtb.Text);
+                mtb.Value = mtb.Text;
+            }
+            else if(mtb.Text == mtb.Mask || mtb.Value.ToString() == mtb.Mask
+                || string.IsNullOrEmpty(mtb.Text))
+            {
+                Console.Write("Here2");
+                mtb.Value = "";
+            }
+            else
+            {
+                mtb.Value = "";
+                MessageBox.Show("Date cannot be incomplete",
+                "VA National Cemetery Inventory");
+            }
         }
     }
 }

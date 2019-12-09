@@ -39,7 +39,6 @@ namespace Services
 
             try
             {
-
                 Regex reg = new Regex(@".*_be.accdb");
 
                 var Dbfiles = Directory.GetFiles(sectionFilePath)
@@ -74,8 +73,9 @@ namespace Services
 
                 return true;
             }
-            catch
+            catch(Exception e)
             {
+                Console.WriteLine(e);
                 return false;
             }
         }
@@ -113,7 +113,6 @@ namespace Services
             Headstone headstone = new Headstone();
             
             var dataRow = GetDataRow(sqlQuery);
-
 
             headstone.SequenceID = dataRow[(int)MasterTableCols.SequenceID].ToString();
             headstone.PrimaryKey = dataRow[(int)MasterTableCols.PrimaryKey].ToString();
@@ -621,6 +620,7 @@ namespace Services
                     throw e;
                 }
 
+                
                 reader = cmd.ExecuteReader();
 
                 while (reader.Read())
@@ -730,8 +730,8 @@ namespace Services
                 catch (Exception e)
                 {
                     Console.WriteLine("Error writing to the database:");
-                    Console.WriteLine(e);
-                    Console.WriteLine(sqlQuery);
+                    Console.WriteLine(e.Message);
+                    Console.WriteLine(cmd.CommandText);
                 }
             }
         }

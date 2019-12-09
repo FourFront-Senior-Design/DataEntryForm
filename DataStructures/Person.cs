@@ -8,7 +8,7 @@ namespace DataStructures
 {
     public class Person
     {
-        public string FirstName{ get; set; }
+        public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
         public string Suffix { get; set; }
@@ -33,55 +33,58 @@ namespace DataStructures
 
         public bool containsData()
         {
-            bool rankCount = false;
-            bool awardCount = false;
-            bool warCount = false;
-            bool branchCount = false;
-
-            foreach (string rank in RankList)
-            {
-                if (!String.IsNullOrEmpty(rank))
-                    rankCount = true;
-            }
-
-            foreach (string award in AwardList)
-            {
-                if (!String.IsNullOrEmpty(award))
-                    awardCount = true;
-            }
-
-            foreach (string war in WarList)
-            {
-                if (!String.IsNullOrEmpty(war))
-                    warCount = true;
-            }
-
-            foreach (string branch in BranchList)
-            {
-                if (!String.IsNullOrEmpty(branch))
-                    branchCount = true;
-            }
-
             if (String.IsNullOrEmpty(FirstName) &&
                 String.IsNullOrEmpty(MiddleName) &&
                 String.IsNullOrEmpty(LastName) &&
                 String.IsNullOrEmpty(Suffix) &&
                 String.IsNullOrEmpty(Location) &&
-                rankCount == false &&
-                awardCount == false &&
                 String.IsNullOrEmpty(AwardCustom) &&
-                warCount == false &&
-                branchCount == false &&
                 String.IsNullOrEmpty(BranchUnitCustom) &&
                 String.IsNullOrEmpty(BranchUnitCustom) &&
                 String.IsNullOrEmpty(BirthDate) &&
                 String.IsNullOrEmpty(DeathDate) &&
                 String.IsNullOrEmpty(Inscription))
             {
-                return false;
+
+            }
+            else
+            {
+                return true;
+            }
+            
+            foreach (string rank in RankList)
+            {
+                if(!string.IsNullOrEmpty(rank))
+                {
+                    return true;
+                }
             }
 
-            return true;
+            foreach (string award in AwardList)
+            {
+                if(!string.IsNullOrEmpty(award))
+                {
+                    return true;
+                }
+            }
+
+            foreach (string branch in BranchList)
+            {
+                if(!string.IsNullOrEmpty(branch))
+                {
+                    return true;
+                }
+            }
+
+            foreach (string war in WarList)
+            {
+                if(!string.IsNullOrEmpty(war))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public void clearPerson()
