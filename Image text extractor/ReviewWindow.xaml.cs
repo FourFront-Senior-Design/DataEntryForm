@@ -11,7 +11,6 @@ using System.Windows.Data;
 using System.Globalization;
 using System.Windows.Media.Imaging;
 using System.Collections.Generic;
-using System.Windows.Media;
 
 namespace Image_text_extractor
 {
@@ -68,10 +67,6 @@ namespace Image_text_extractor
             if (!string.IsNullOrWhiteSpace(_viewModel.CurrentPageData.Image2FileName))
             {
                 backFaceImage.Source = new BitmapImage(new Uri(_viewModel.ImageSource2));
-            }
-            else
-            {
-                frontFaceImage.Stretch = Stretch.None;
             }
             BurialSectionField.Focus();
         }
