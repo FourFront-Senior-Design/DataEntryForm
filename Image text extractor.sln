@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29519.87
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2050
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageTextExtractor", "Image text extractor\ImageTextExtractor.csproj", "{054A964B-37D2-4473-AE1C-A385A1D78168}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceTests", "ServiceTests\ServiceTests.csproj", "{C60ACF7F-6D2F-4423-84C3-AD29F8EEFDCD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{0C493421-EBE7-4915-8BDD-23D2E456C9E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewModelsTests", "ViewModelsTest\ViewModelsTests.csproj", "{C2512A5C-2CDE-4E47-8537-DCBEDC87C766}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,6 +93,14 @@ Global
 		{0C493421-EBE7-4915-8BDD-23D2E456C9E3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0C493421-EBE7-4915-8BDD-23D2E456C9E3}.Release|x64.ActiveCfg = Release|x64
 		{0C493421-EBE7-4915-8BDD-23D2E456C9E3}.Release|x64.Build.0 = Release|x64
+		{C2512A5C-2CDE-4E47-8537-DCBEDC87C766}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2512A5C-2CDE-4E47-8537-DCBEDC87C766}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2512A5C-2CDE-4E47-8537-DCBEDC87C766}.Debug|x64.ActiveCfg = Debug|x64
+		{C2512A5C-2CDE-4E47-8537-DCBEDC87C766}.Debug|x64.Build.0 = Debug|x64
+		{C2512A5C-2CDE-4E47-8537-DCBEDC87C766}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2512A5C-2CDE-4E47-8537-DCBEDC87C766}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2512A5C-2CDE-4E47-8537-DCBEDC87C766}.Release|x64.ActiveCfg = Release|Any CPU
+		{C2512A5C-2CDE-4E47-8537-DCBEDC87C766}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

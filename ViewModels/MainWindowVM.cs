@@ -10,6 +10,14 @@ namespace ViewModels
         private string _fileLocation;
         private string _message;
         private bool _enableExtract = false;
+
+        public string Copyright
+        {
+            get
+            {
+                return "Senior Design Data Extraction Project" + "\u00a9" + "2019. Version 1.0";
+            }
+        }
         
         public string Message
         {

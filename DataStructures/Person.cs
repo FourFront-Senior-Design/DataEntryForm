@@ -33,17 +33,17 @@ namespace DataStructures
 
         public bool containsData()
         {
-            if (string.IsNullOrEmpty(FirstName) &&
-                string.IsNullOrEmpty(MiddleName) &&
-                string.IsNullOrEmpty(LastName) &&
-                string.IsNullOrEmpty(Suffix) &&
-                string.IsNullOrEmpty(Location) &&
-                string.IsNullOrEmpty(AwardCustom) &&
-                string.IsNullOrEmpty(BranchUnitCustom) &&
-                string.IsNullOrEmpty(BranchUnitCustom) &&
-                string.IsNullOrEmpty(BirthDate) &&
-                string.IsNullOrEmpty(DeathDate) &&
-                string.IsNullOrEmpty(Inscription))
+            if (String.IsNullOrEmpty(FirstName) &&
+                String.IsNullOrEmpty(MiddleName) &&
+                String.IsNullOrEmpty(LastName) &&
+                String.IsNullOrEmpty(Suffix) &&
+                String.IsNullOrEmpty(Location) &&
+                String.IsNullOrEmpty(AwardCustom) &&
+                String.IsNullOrEmpty(BranchUnitCustom) &&
+                String.IsNullOrEmpty(BranchUnitCustom) &&
+                String.IsNullOrEmpty(BirthDate) &&
+                String.IsNullOrEmpty(DeathDate) &&
+                String.IsNullOrEmpty(Inscription))
             {
 
             }
@@ -85,6 +85,26 @@ namespace DataStructures
             }
 
             return false;
+        }
+
+        public void clearPerson()
+        {
+            FirstName = "";
+            MiddleName = "";
+            LastName = "";
+            Suffix = "";
+            Location = "";
+            RankList.Clear();
+            AwardList.Clear();
+            AwardList.Clear();
+            AwardCustom = "";
+            WarList.Clear();
+            BranchList.Clear();
+            BranchUnitCustom = "";
+            BranchUnitCustom = "";
+            BirthDate = "";
+            DeathDate = "";
+            Inscription = "";
         }
     }
 }

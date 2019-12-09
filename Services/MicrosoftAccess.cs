@@ -83,7 +83,7 @@ namespace Services
 
         private int GetTotalRecords()
         {
-            string sqlQuery = "SELECT COUNT(AccessUniqueID) FROM Master";
+            string sqlQuery = "SELECT COUNT(SeqNum) FROM Master";
             OleDbCommand cmd;
             OleDbDataReader reader;
 
@@ -110,7 +110,7 @@ namespace Services
 
         public Headstone GetHeadstone(int index)
         {
-            string sqlQuery = "SELECT * FROM Master WHERE AccessUniqueID = " + index.ToString();
+            string sqlQuery = "SELECT * FROM Master WHERE SeqNum = '" + index.ToString()+"'";
             Headstone headstone = new Headstone();
             
             var dataRow = GetDataRow(sqlQuery);
@@ -159,11 +159,19 @@ namespace Services
                     throw e;
                 }
 
-                reader = cmd.ExecuteReader();
-                reader.Read();
+                try
+                {
+                    reader = cmd.ExecuteReader();
+                    reader.Read();
 
-                dataRow = new object[reader.FieldCount];
-                reader.GetValues(dataRow);
+                    dataRow = new object[reader.FieldCount];
+                    reader.GetValues(dataRow);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
             }
 
             return dataRow;
@@ -205,8 +213,8 @@ namespace Services
 
             primaryPerson.BranchUnitCustom = dataRow[(int)MasterTableCols.Branch_Unit_CustomV].ToString();
 
-            primaryPerson.BirthDate = dataRow[(int)MasterTableCols.DeathDate].ToString();
-            primaryPerson.DeathDate = dataRow[(int)MasterTableCols.BirthDate].ToString();
+            primaryPerson.BirthDate = dataRow[(int)MasterTableCols.BirthDate].ToString();
+            primaryPerson.DeathDate = dataRow[(int)MasterTableCols.DeathDate].ToString();
 
             primaryPerson.Inscription = dataRow[(int)MasterTableCols.Inscription].ToString();
 
@@ -672,7 +680,7 @@ namespace Services
                 "', [Branch-Unit_CustomS_D] = '" + headstone.OthersDecedentList[0].BranchUnitCustom + "'";
 
             // finalize update statement
-            sqlQuery += @" WHERE AccessUniqueID = " + index + @";";
+            sqlQuery += @" WHERE SeqNum = '" + index + @"';";
 
             OleDbCommand cmd;
             using (OleDbConnection connection = new OleDbConnection(_connectionString)) // using to ensure connection is closed when we are done
