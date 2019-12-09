@@ -191,7 +191,7 @@
                     <Button Height="20" FontSize="12"
                             Grid.Column="5" Click="BackClick">
                         <TextBlock TextWrapping="Wrap" TextAlignment="Center">
-                            Back to Main Menu
+                            Save &amp; Go to Menu
                         </TextBlock>
                     </Button>
                 </Grid>

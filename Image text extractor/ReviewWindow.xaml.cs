@@ -159,6 +159,7 @@ namespace Image_text_extractor
                 return;
             }
             isBack = true;
+            _viewModel.SaveRecord();
             MoveToMainPage?.Invoke(this, new EventArgs());
         }
 
@@ -187,24 +188,22 @@ namespace Image_text_extractor
 
         private void WindowClosing(object sender, CancelEventArgs e)
         {
-            _viewModel.SaveRecord();
-
-            if (System.Windows.MessageBox.Show("Are you sure you want to close the form?" +
-                "\n\nNote: All changes will be saved.", "Confirm",
-                MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if(isBack == false)
             {
-                _displayWindow.Close();
-                if (isBack == false)
+                if (System.Windows.MessageBox.Show("Are you sure you want to close the form?" +
+                "\n\nNote: Your changes are not saved. Click \"Save & Go to Menu\" to save.", "Confirm",
+                MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
+                    _displayWindow.Close();
                     Application.Current.Shutdown();
                 }
-            }
-            else
-            {
-                e.Cancel = true;
+                else
+                {
+                    e.Cancel = true;
+                }
             }
         }
-
+        
         private void Textbox_KeyDown(object sender, KeyEventArgs e)
         {
             if((Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)) && Keyboard.IsKeyDown(Key.U))
