@@ -19,7 +19,7 @@ namespace ServiceTests
         { 
             MicrosoftAccess databaseService = new MicrosoftAccess();
             
-            databaseService.InitDBConnection(@"C:\Users\7405148\Desktop\Sha\2019_Fall\Senior_design\Database");
+            databaseService.InitDBConnection(@"C:\Users\7309977\Desktop\Section0000P");
 
 
             Headstone headstone = databaseService.GetHeadstone(1);

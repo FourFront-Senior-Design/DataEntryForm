@@ -39,7 +39,6 @@ namespace Services
 
             try
             {
-
                 Regex reg = new Regex(@".*_be.accdb");
 
                 var Dbfiles = Directory.GetFiles(sectionFilePath)
@@ -53,9 +52,11 @@ namespace Services
                 using (OleDbConnection connection = new OleDbConnection(_connectionString))
                 // using to ensure connection is closed when we are done
                 {
+
+                    connection.Open();
                     try
                     {
-                        connection.Open(); // try to open the connection
+                        ; // try to open the connection
                     }
                     catch (Exception e)
                     {
@@ -113,7 +114,6 @@ namespace Services
             Headstone headstone = new Headstone();
             
             var dataRow = GetDataRow(sqlQuery);
-
 
             headstone.SequenceID = dataRow[(int)MasterTableCols.SequenceID].ToString();
             headstone.PrimaryKey = dataRow[(int)MasterTableCols.PrimaryKey].ToString();
