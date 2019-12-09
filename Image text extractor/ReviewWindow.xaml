@@ -354,16 +354,13 @@
                             <StackPanel Orientation="Horizontal">
                                 <StackPanel>
                                     <Label Content="Location" />
-                                    <!--<ComboBox Text="{Binding CurrentPageData.PrimaryDecedent.Location}" 
+                                    <ComboBox Text="{Binding CurrentPageData.PrimaryDecedent.Location}" 
                                             Margin="2,0,0,2" Width="300" Padding="1" 
                                             HorizontalAlignment="Stretch" VerticalAlignment="Center"
                                             TextSearch.TextPath="Location" IsTextSearchEnabled="True"
                                             ItemTemplate="{StaticResource locationCmbTemplate}"
                                             ItemsSource="{Binding GetLocationData}">
-                                    </ComboBox>-->
-                                    <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.Location}" 
-                                            Margin="2,0,0,2" Width="300" Padding="1" 
-                                            HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                                    </ComboBox>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Rank" />
@@ -608,15 +605,12 @@
                             <StackPanel Orientation="Horizontal">
                                 <StackPanel>
                                     <Label Content="Location" />
-                                    <!--<ComboBox Text="{Binding CurrentPageData.OthersDecedentList[0].Location}"
+                                    <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[0].Location}"
                                             Margin="2,0,0,2" Width="300" Padding="1" 
                                             HorizontalAlignment="Stretch" VerticalAlignment="Center"
                                             TextSearch.TextPath="Location" IsTextSearchEnabled="True"
                                             ItemTemplate="{StaticResource locationCmbTemplate}"
-                                            ItemsSource="{Binding GetLocationData}"/>-->
-                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].Location}"
-                                            Margin="2,0,0,2" Width="300" Padding="1" 
-                                            HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                                            ItemsSource="{Binding GetLocationData}"/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Rank" />
@@ -864,15 +858,12 @@
                                     </StackPanel>
                                     <StackPanel>
                                         <Label Content="Location" />
-                                        <!--<ComboBox Text="{Binding CurrentPageData.OthersDecedentList[1].Location}"
+                                        <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[1].Location}"
                                           Margin="2,0,0,2" Width="700" Padding="1"
                                           HorizontalAlignment="Left" VerticalAlignment="Center" 
                                           TextSearch.TextPath="Location" IsTextSearchEnabled="True"
                                           ItemTemplate="{StaticResource locationCmbTemplate}"
-                                          ItemsSource="{Binding GetLocationData}"/>-->
-                                        <TextBox Text="{Binding CurrentPageData.OthersDecedentList[1].Location}"
-                                                 Margin="2,0,0,2" Width="700" Padding="1"
-                                                 HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                          ItemsSource="{Binding GetLocationData}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <StackPanel>
@@ -960,15 +951,12 @@
                                     </StackPanel>
                                     <StackPanel>
                                         <Label Content="Location" />
-                                        <!--<ComboBox Text="{Binding CurrentPageData.OthersDecedentList[2].Location}"
+                                        <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[2].Location}"
                                           Margin="2,0,0,2" Width="700" Padding="1"
                                           HorizontalAlignment="Left" VerticalAlignment="Center" 
                                           TextSearch.TextPath="Location" IsTextSearchEnabled="True"
                                           ItemTemplate="{StaticResource locationCmbTemplate}"
-                                          ItemsSource="{Binding GetLocationData}"/>-->
-                                        <TextBox Text="{Binding CurrentPageData.OthersDecedentList[2].Location}"
-                                          Margin="2,0,0,2" Width="700" Padding="1"
-                                          HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                          ItemsSource="{Binding GetLocationData}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <StackPanel>
@@ -1056,15 +1044,12 @@
                                     </StackPanel>
                                     <StackPanel>
                                         <Label Content="Location" />
-                                        <!--<ComboBox Text="{Binding CurrentPageData.OthersDecedentList[3].Location}"
+                                        <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[3].Location}"
                                           Margin="2,0,0,2" Width="700" Padding="1"
                                           HorizontalAlignment="Left" VerticalAlignment="Center" 
                                           TextSearch.TextPath="Location" IsTextSearchEnabled="True"
                                           ItemTemplate="{StaticResource locationCmbTemplate}"
-                                          ItemsSource="{Binding GetLocationData}"/>-->
-                                        <TextBox Text="{Binding CurrentPageData.OthersDecedentList[3].Location}"
-                                          Margin="2,0,0,2" Width="700" Padding="1"
-                                          HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                          ItemsSource="{Binding GetLocationData}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <StackPanel>
@@ -1152,15 +1137,12 @@
                                     </StackPanel>
                                     <StackPanel>
                                         <Label Content="Location" />
-                                        <!--<ComboBox Text="{Binding CurrentPageData.OthersDecedentList[4].Location}"
+                                        <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[4].Location}"
                                           Margin="2,0,0,2" Width="700" Padding="1"
                                           HorizontalAlignment="Left" VerticalAlignment="Center" 
                                           TextSearch.TextPath="Location" IsTextSearchEnabled="True"
                                           ItemTemplate="{StaticResource locationCmbTemplate}"
-                                          ItemsSource="{Binding GetLocationData}"/>-->
-                                        <TextBox Text="{Binding CurrentPageData.OthersDecedentList[4].Location}"
-                                          Margin="2,0,0,2" Width="700" Padding="1"
-                                          HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                          ItemsSource="{Binding GetLocationData}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <StackPanel>
@@ -1207,15 +1189,12 @@
                                     </StackPanel>
                                     <StackPanel>
                                         <Label Content="Location" />
-                                        <!--<ComboBox Text="{Binding CurrentPageData.OthersDecedentList[5].Location}"
+                                        <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[5].Location}"
                                         Margin="2,0,0,2" Width="700" Padding="1"
                                         HorizontalAlignment="Left" VerticalAlignment="Center"                                          
                                         TextSearch.TextPath="Location" IsTextSearchEnabled="True"
                                         ItemTemplate="{StaticResource locationCmbTemplate}"
-                                        ItemsSource="{Binding GetLocationData}"/>-->
-                                        <TextBox Text="{Binding CurrentPageData.OthersDecedentList[5].Location}"
-                                            Margin="2,0,0,2" Width="700" Padding="1"
-                                            HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                        ItemsSource="{Binding GetLocationData}"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <StackPanel>
