@@ -17,7 +17,7 @@ namespace Image_text_extractor
             _viewModel = viewModel;
             DataContext = _viewModel;
 
-            _viewModel.FileLocation = Properties.Settings.Default.databaseFilePath;
+            ResetMainWindow();
         }
 
         public void ResetMainWindow()
@@ -25,6 +25,7 @@ namespace Image_text_extractor
             _viewModel.EnableExtract = false;
             _viewModel.FileLocation = "";
             _viewModel.Message = "";
+            _viewModel.FileLocation = Properties.Settings.Default.databaseFilePath;
         }
 
         private void BrowseClick(object sender, RoutedEventArgs e)

@@ -10,6 +10,7 @@ using System.Reflection;
 using System.Windows.Data;
 using System.Globalization;
 using System.Windows.Media.Imaging;
+using System.Collections.Generic;
 
 namespace Image_text_extractor
 {
@@ -67,6 +68,7 @@ namespace Image_text_extractor
             {
                 backFaceImage.Source = new BitmapImage(new Uri(_viewModel.ImageSource2));
             }
+            BurialSectionField.Focus();
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -88,101 +90,25 @@ namespace Image_text_extractor
         private bool _validateMandatoryInfoExists()
         {
             bool missing = false;
-            if(string.IsNullOrEmpty(_viewModel.CurrentPageData.GavestoneNumber) ||
-                string.IsNullOrWhiteSpace(_viewModel.CurrentPageData.GavestoneNumber))
-            {
-                gravesiteNum.BorderBrush = System.Windows.Media.Brushes.Red;
-                missing = true;
-            }
-            else
-            {
-                gravesiteNum.ClearValue(Border.BorderBrushProperty);
-            }
+            List<bool> filledInformation = _viewModel.CheckMandatoryFields();
+            List<TextBox> mandatoryField = new List<TextBox>() {
+                gravesiteNum, primaryLastName, secondaryLastName,
+                name3LastName, name4LastName, name5LastName, name6LastName,
+                name7LastName };
 
-            if (_viewModel.CurrentPageData.PrimaryDecedent.containsData() && (
-                string.IsNullOrEmpty(_viewModel.CurrentPageData.PrimaryDecedent.LastName) ||
-                string.IsNullOrWhiteSpace(_viewModel.CurrentPageData.PrimaryDecedent.LastName)))
+            for(int i = 0; i < mandatoryField.Count; i++)
             {
-                primaryLastName.BorderBrush = System.Windows.Media.Brushes.Red;
-                missing = true;
+                if (filledInformation[i] == false)
+                {
+                    mandatoryField[i].BorderBrush = System.Windows.Media.Brushes.Red;
+                    missing = true;
+                }
+                else
+                {
+                    mandatoryField[i].ClearValue(Border.BorderBrushProperty);
+                }
             }
-            else
-            {
-                primaryLastName.ClearValue(Border.BorderBrushProperty);
-            }
-
-            if (_viewModel.CurrentPageData.OthersDecedentList[0].containsData() && (
-                string.IsNullOrEmpty(_viewModel.CurrentPageData.OthersDecedentList[0].LastName) ||
-                string.IsNullOrWhiteSpace(_viewModel.CurrentPageData.OthersDecedentList[0].LastName)))
-            {
-                secondaryLastName.BorderBrush = System.Windows.Media.Brushes.Red;
-                missing = true;
-            }
-            else
-            {
-                secondaryLastName.ClearValue(Border.BorderBrushProperty);
-            }
-
-            if (_viewModel.CurrentPageData.OthersDecedentList[1].containsData() && (
-                string.IsNullOrEmpty(_viewModel.CurrentPageData.OthersDecedentList[1].LastName) ||
-                string.IsNullOrWhiteSpace(_viewModel.CurrentPageData.OthersDecedentList[1].LastName)))
-            {
-                name3LastName.BorderBrush = System.Windows.Media.Brushes.Red;
-                missing = true;
-            }
-            else
-            {
-                name3LastName.ClearValue(Border.BorderBrushProperty);
-            }
-
-            if (_viewModel.CurrentPageData.OthersDecedentList[2].containsData() && (
-                string.IsNullOrEmpty(_viewModel.CurrentPageData.OthersDecedentList[2].LastName) ||
-                string.IsNullOrWhiteSpace(_viewModel.CurrentPageData.OthersDecedentList[2].LastName)))
-            {
-                name4LastName.BorderBrush = System.Windows.Media.Brushes.Red;
-                missing = true;
-            }
-            else
-            {
-                name4LastName.ClearValue(Border.BorderBrushProperty);
-            }
-
-            if (_viewModel.CurrentPageData.OthersDecedentList[3].containsData() && (
-                string.IsNullOrEmpty(_viewModel.CurrentPageData.OthersDecedentList[3].LastName) ||
-                string.IsNullOrWhiteSpace(_viewModel.CurrentPageData.OthersDecedentList[3].LastName)))
-            {
-                name5LastName.BorderBrush = System.Windows.Media.Brushes.Red;
-                missing = true;
-            }
-            else
-            {
-                name5LastName.ClearValue(Border.BorderBrushProperty);
-            }
-
-            if (_viewModel.CurrentPageData.OthersDecedentList[4].containsData() && (
-                string.IsNullOrEmpty(_viewModel.CurrentPageData.OthersDecedentList[4].LastName) ||
-                string.IsNullOrWhiteSpace(_viewModel.CurrentPageData.OthersDecedentList[4].LastName)))
-            {
-                name6LastName.BorderBrush = System.Windows.Media.Brushes.Red;
-                missing = true;
-            }
-            else
-            {
-                name6LastName.ClearValue(Border.BorderBrushProperty);
-            }
-
-            if (_viewModel.CurrentPageData.OthersDecedentList[5].containsData() && (
-                string.IsNullOrEmpty(_viewModel.CurrentPageData.OthersDecedentList[5].LastName) ||
-                string.IsNullOrWhiteSpace(_viewModel.CurrentPageData.OthersDecedentList[5].LastName)))
-            {
-                name7LastName.BorderBrush = System.Windows.Media.Brushes.Red;
-                missing = true;
-            }
-            else
-            {
-                name7LastName.ClearValue(Border.BorderBrushProperty);
-            }
-
+            
             if (missing == true)
             {
                 MessageBox.Show("Enter Mandatory Information", "Error", MessageBoxButton.OK);
@@ -193,16 +119,19 @@ namespace Image_text_extractor
 
         private void GoToRecordClick(object sender, RoutedEventArgs e)
         {
-            if(!_validateMandatoryInfoExists() || (string.IsNullOrEmpty(GoToRecordTextBox.Text) 
-                || string.IsNullOrWhiteSpace(GoToRecordTextBox.Text)))
+            string input = goToRecordTb.Text;
+            goToRecordTb.Text = "";
+
+            if (!_validateMandatoryInfoExists())
             {
-                GoToRecordTextBox.Text = "";
                 return;
             }
 
-            _viewModel.PageIndex = System.Convert.ToInt32(GoToRecordTextBox.Text);
-            GoToRecordTextBox.Text = "";
-            BurialSectionField.Focus();
+            if(!_viewModel.GoToRecord(input))
+            {
+                MessageBox.Show("Invalid Record Number", "Error", MessageBoxButton.OK);
+                return;
+            }
         }
 
         private void FirstRecordClick(object sender, RoutedEventArgs e)
@@ -211,8 +140,7 @@ namespace Image_text_extractor
             {
                 return;
             }
-            _viewModel.PageIndex = 1;
-            BurialSectionField.Focus();
+            _viewModel.FirstRecord();
         }
 
         private void LastRecordClick(object sender, RoutedEventArgs e)
@@ -221,8 +149,7 @@ namespace Image_text_extractor
             {
                 return;
             }
-            _viewModel.PageIndex = _viewModel.GetDatabaseCount;
-            BurialSectionField.Focus();
+            _viewModel.LastRecord();
         }
 
         private void BackClick(object sender, RoutedEventArgs e)
@@ -231,7 +158,6 @@ namespace Image_text_extractor
             {
                 return;
             }
-            
             isBack = true;
             MoveToMainPage?.Invoke(this, new EventArgs());
         }
@@ -243,7 +169,6 @@ namespace Image_text_extractor
                 return;
             }
             _viewModel.NextRecord();
-            BurialSectionField.Focus();
         }
 
         private void PreviousClick(object sender, RoutedEventArgs e)
@@ -253,7 +178,6 @@ namespace Image_text_extractor
                 return;
             }
             _viewModel.PreviousRecord();
-            BurialSectionField.Focus();
         }
 
         public void SetImagesToReview()
@@ -326,10 +250,12 @@ namespace Image_text_extractor
                 cb.IsDropDownOpen = true;
             }
         }
+
         private void Cemetery_LostFocus(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
             string input = cb.Text;
+            
 
             foreach (CemeteryNameData i in cb.Items)
             {

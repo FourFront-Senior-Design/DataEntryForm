@@ -96,7 +96,7 @@
         </Grid.ColumnDefinitions>
 
         <Border Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="1">
-            <Grid Grid.Row="0">
+            <Grid Grid.Row="0" Height="29" VerticalAlignment="Bottom">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1.5*"/>
                     <ColumnDefinition Width="3*"/>
@@ -138,7 +138,7 @@
                             <ColumnDefinition Width="1*"/>
                             <ColumnDefinition Width="1.2*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBox Grid.Column="0" Name="GoToRecordTextBox" CharacterCasing="Upper" 
+                        <TextBox x:Name="goToRecordTb" Grid.Column="0" CharacterCasing="Upper" 
                                      FontSize="14" Height="20" Margin="2"/>
                         <Button Height="20" FontSize="12" Margin="0,0,3,0"
                             Grid.Column="1" Click="GoToRecordClick">

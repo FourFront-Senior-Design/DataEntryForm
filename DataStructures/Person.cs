@@ -55,5 +55,25 @@ namespace DataStructures
 
             return true;
         }
+
+        public void clearPerson()
+        {
+            FirstName = "";
+            MiddleName = "";
+            LastName = "";
+            Suffix = "";
+            Location = "";
+            RankList.Clear();
+            AwardList.Clear();
+            AwardList.Clear();
+            AwardCustom = "";
+            WarList.Clear();
+            BranchList.Clear();
+            BranchUnitCustom = "";
+            BranchUnitCustom = "";
+            BirthDate = "";
+            DeathDate = "";
+            Inscription = "";
+        }
     }
 }
