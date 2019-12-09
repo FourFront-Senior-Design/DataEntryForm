@@ -315,7 +315,7 @@
                 <Grid Grid.Column="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition x:Name="firstImage" Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
@@ -324,7 +324,7 @@
                     <Image x:Name="backFaceImage" Grid.Column="2" HorizontalAlignment="Center"/>
                 </Grid>
 
-                <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
+                    <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
 
                     <Border BorderBrush="Black" BorderThickness="1">
                         <StackPanel>

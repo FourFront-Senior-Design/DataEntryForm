@@ -17,7 +17,10 @@ namespace ViewModels
         private int _currentPageIndex;
         private Headstone _currentPageData;
         private IDatabaseService _database;
-        
+        private string _prevCemeteryName = "";
+        private string _prevSectionNumber = "";
+        private string _prevMarkerType = "";
+
         public Headstone CurrentPageData
         {
             get
@@ -101,8 +104,18 @@ namespace ViewModels
                 return;
             }
 
+            _prevCemeteryName = _currentPageData.CemeteryName;
+            _prevSectionNumber = _currentPageData.BurialSectionNumber;
+            _prevMarkerType = _currentPageData.MarkerType;
+
             PageIndex++;
-            
+
+            CurrentPageData.CemeteryName = _prevCemeteryName;
+            CurrentPageData.BurialSectionNumber = _prevSectionNumber;
+            CurrentPageData.MarkerType = _prevMarkerType;
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentPageData)));
+
             Trace.WriteLine("Next click");
             Trace.WriteLine(CurrentPageData.PrimaryDecedent.LastName);
         }

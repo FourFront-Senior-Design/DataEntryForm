@@ -5,6 +5,7 @@ using ServicesInterfaces;
 using Services;
 using ViewModelInterfaces;
 using System.Collections.Generic;
+using DataStructures;
 
 namespace ViewModelsTest
 {
@@ -105,40 +106,43 @@ namespace ViewModelsTest
             string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
             database.InitDBConnection(sectionPath);
             IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
+            reviewWindow.PageIndex = 1;
+            Headstone save = reviewWindow.CurrentPageData;
 
             //Gravestone number
             reviewWindow.CurrentPageData.GavestoneNumber = "";
             List<bool> filledInfo = reviewWindow.CheckMandatoryFields();
             Assert.IsTrue(filledInfo[0] == false);
-            //reviewWindow.CurrentPageData.GavestoneNumber = "12";
-            //filledInfo = reviewWindow.CheckMandatoryFields();
-            //Assert.IsTrue(filledInfo[0] == true);
+            reviewWindow.CurrentPageData.GavestoneNumber = "12";
+            filledInfo = reviewWindow.CheckMandatoryFields();
+            Assert.IsTrue(filledInfo[0] == true);
 
             ////Primary Name
-            //reviewWindow.CurrentPageData.PrimaryDecedent.FirstName = "ABC";
-            //reviewWindow.CurrentPageData.PrimaryDecedent.LastName = "";
-            //filledInfo = reviewWindow.CheckMandatoryFields();
-            //Assert.IsTrue(filledInfo[0] == false); 
-            //reviewWindow.CurrentPageData.PrimaryDecedent.LastName = "LAST NAME";
-            //filledInfo = reviewWindow.CheckMandatoryFields();
-            //Assert.IsTrue(filledInfo[0] == true);
-            //reviewWindow.CurrentPageData.PrimaryDecedent.clearPerson();
-            //Assert.IsTrue(filledInfo[0] == true);
+            reviewWindow.CurrentPageData.PrimaryDecedent.FirstName = "ABC";
+            reviewWindow.CurrentPageData.PrimaryDecedent.LastName = "";
+            filledInfo = reviewWindow.CheckMandatoryFields();
+            Assert.IsTrue(filledInfo[1] == false);
+            reviewWindow.CurrentPageData.PrimaryDecedent.LastName = "LAST NAME";
+            filledInfo = reviewWindow.CheckMandatoryFields();
+            Assert.IsTrue(filledInfo[1] == true);
+            reviewWindow.CurrentPageData.PrimaryDecedent.clearPerson();
+            Assert.IsTrue(filledInfo[1] == true);
 
             ////Other Decedents
-            //for(int i=0; i<reviewWindow.CurrentPageData.OthersDecedentList.Count; i++)
-            //{
-            //    reviewWindow.CurrentPageData.OthersDecedentList[i].FirstName = "ABC";
-            //    reviewWindow.CurrentPageData.OthersDecedentList[i].LastName = "";
-            //    filledInfo = reviewWindow.CheckMandatoryFields();
-            //    Assert.IsTrue(filledInfo[i] == false);
-            //    reviewWindow.CurrentPageData.OthersDecedentList[0].LastName = "LAST NAME";
-            //    filledInfo = reviewWindow.CheckMandatoryFields();
-            //    Assert.IsTrue(filledInfo[i] == true);
-            //    reviewWindow.CurrentPageData.OthersDecedentList[0].clearPerson();
-            //    Assert.IsTrue(filledInfo[i] == true);
-            //}
+            for (int i = 0; i < 2; i++)
+            {
+                reviewWindow.CurrentPageData.OthersDecedentList[i].FirstName = "ABC";
+                reviewWindow.CurrentPageData.OthersDecedentList[i].LastName = "";
+                filledInfo = reviewWindow.CheckMandatoryFields();
+                Assert.IsTrue(filledInfo[i+2] == false);
+                reviewWindow.CurrentPageData.OthersDecedentList[i].LastName = "LAST NAME";
+                filledInfo = reviewWindow.CheckMandatoryFields();
+                Assert.IsTrue(filledInfo[i+2] == true);
+                reviewWindow.CurrentPageData.OthersDecedentList[i].clearPerson();
+                Assert.IsTrue(filledInfo[i+2] == true);
+            }
 
+            reviewWindow.CurrentPageData = save;
         }
     }
 }

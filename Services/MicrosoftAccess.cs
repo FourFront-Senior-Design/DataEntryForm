@@ -52,11 +52,9 @@ namespace Services
                 using (OleDbConnection connection = new OleDbConnection(_connectionString))
                 // using to ensure connection is closed when we are done
                 {
-
-                    connection.Open();
                     try
                     {
-                        ; // try to open the connection
+                        connection.Open(); // try to open the connection
                     }
                     catch (Exception e)
                     {
@@ -75,8 +73,9 @@ namespace Services
 
                 return true;
             }
-            catch
+            catch(Exception e)
             {
+                Console.WriteLine(e);
                 return false;
             }
         }
@@ -621,6 +620,7 @@ namespace Services
                     throw e;
                 }
 
+                
                 reader = cmd.ExecuteReader();
 
                 while (reader.Read())
