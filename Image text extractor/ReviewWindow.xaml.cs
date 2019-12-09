@@ -187,11 +187,12 @@ namespace Image_text_extractor
 
         private void WindowClosing(object sender, CancelEventArgs e)
         {
+            _viewModel.SaveRecord();
+
             if (System.Windows.MessageBox.Show("Are you sure you want to close the form?" +
                 "\n\nNote: All changes will be saved.", "Confirm",
                 MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                _viewModel.SaveRecord();
                 _displayWindow.Close();
                 if (isBack == false)
                 {

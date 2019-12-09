@@ -205,8 +205,8 @@ namespace Services
 
             primaryPerson.BranchUnitCustom = dataRow[(int)MasterTableCols.Branch_Unit_CustomV].ToString();
 
-            primaryPerson.BirthDate = dataRow[(int)MasterTableCols.DeathDate].ToString();
-            primaryPerson.DeathDate = dataRow[(int)MasterTableCols.BirthDate].ToString();
+            primaryPerson.BirthDate = dataRow[(int)MasterTableCols.BirthDate].ToString();
+            primaryPerson.DeathDate = dataRow[(int)MasterTableCols.DeathDate].ToString();
 
             primaryPerson.Inscription = dataRow[(int)MasterTableCols.Inscription].ToString();
 
