@@ -33,22 +33,50 @@ namespace DataStructures
 
         public bool containsData()
         {
-            if (FirstName == "" &&
-                MiddleName == "" &&
-                LastName == "" &&
-                Suffix == "" &&
-                Location == "" &&
-                RankList.Count == 0 &&
-                AwardList.Count == 0 &&
-                AwardList.Count == 0 &&
-                AwardCustom == "" &&
-                WarList.Count == 0 &&
-                BranchList.Count == 0 &&
-                BranchUnitCustom == "" &&
-                BranchUnitCustom == "" &&
-                //BirthDate == "" &&
-                //DeathDate == "" &&
-                Inscription == "")
+            bool rankCount = false;
+            bool awardCount = false;
+            bool warCount = false;
+            bool branchCount = false;
+
+            foreach (string rank in RankList)
+            {
+                if (!String.IsNullOrEmpty(rank))
+                    rankCount = true;
+            }
+
+            foreach (string award in AwardList)
+            {
+                if (!String.IsNullOrEmpty(award))
+                    awardCount = true;
+            }
+
+            foreach (string war in WarList)
+            {
+                if (!String.IsNullOrEmpty(war))
+                    warCount = true;
+            }
+
+            foreach (string branch in BranchList)
+            {
+                if (!String.IsNullOrEmpty(branch))
+                    branchCount = true;
+            }
+
+            if (String.IsNullOrEmpty(FirstName) &&
+                String.IsNullOrEmpty(MiddleName) &&
+                String.IsNullOrEmpty(LastName) &&
+                String.IsNullOrEmpty(Suffix) &&
+                String.IsNullOrEmpty(Location) &&
+                rankCount == false &&
+                awardCount == false &&
+                String.IsNullOrEmpty(AwardCustom) &&
+                warCount == false &&
+                branchCount == false &&
+                String.IsNullOrEmpty(BranchUnitCustom) &&
+                String.IsNullOrEmpty(BranchUnitCustom) &&
+                String.IsNullOrEmpty(BirthDate) &&
+                String.IsNullOrEmpty(DeathDate) &&
+                String.IsNullOrEmpty(Inscription))
             {
                 return false;
             }
