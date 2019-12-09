@@ -213,12 +213,12 @@ namespace ViewModels
                 true  // descedent 6 last name
             };
 
-            if (_currentPageData.GavestoneNumber == "")
+            if (String.IsNullOrEmpty(_currentPageData.GavestoneNumber))
             {
                 isValidList[0] = false;
             }
 
-            if (_currentPageData.PrimaryDecedent.LastName == "")
+            if (String.IsNullOrEmpty(_currentPageData.PrimaryDecedent.LastName))
             {
                 isValidList[1] = false;
             }
@@ -227,7 +227,7 @@ namespace ViewModels
             foreach (Person person in _currentPageData.OthersDecedentList)
             {
                 // A person with contents is valid iff they have a last name
-                if (person.containsData() && person.LastName == "")
+                if (person.containsData() && String.IsNullOrEmpty(person.LastName))
                 {
                     isValidList[personIndex] = false;
                 }
@@ -236,6 +236,14 @@ namespace ViewModels
             }
 
             return isValidList;
+        }
+
+        public void SaveRecord()
+        {
+            if (_currentPageIndex != 0)
+            {
+                _database.SetHeadstone(_currentPageIndex, _currentPageData);
+            }
         }
     }
 }
