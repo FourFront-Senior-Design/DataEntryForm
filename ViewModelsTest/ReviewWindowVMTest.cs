@@ -13,7 +13,7 @@ namespace ViewModelsTest
     public class ReviewWindowVMTest
     {
         [TestMethod]
-        public void testFirstRecord()
+        public void FirstRecord()
         {
             IDatabaseService database = new MicrosoftAccess();
             string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
@@ -25,7 +25,7 @@ namespace ViewModelsTest
         }
 
         [TestMethod]
-        public void testLastRecord()
+        public void LastRecord()
         {
             IDatabaseService database = new MicrosoftAccess();
             string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
@@ -37,7 +37,7 @@ namespace ViewModelsTest
         }
 
         [TestMethod]
-        public void testGoToRecord_NegativeInput()
+        public void GoToRecord_NegativeInput()
         {
             IDatabaseService database = new MicrosoftAccess();
             string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
@@ -49,7 +49,7 @@ namespace ViewModelsTest
         }
 
         [TestMethod]
-        public void testGoToRecord_ZeroRecordNumberInput()
+        public void GoToRecord_ZeroRecordNumberInput()
         {
             IDatabaseService database = new MicrosoftAccess();
             string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
@@ -61,7 +61,7 @@ namespace ViewModelsTest
         }
 
         [TestMethod]
-        public void testGoToRecord_LastRecordNumberInput()
+        public void GoToRecord_LastRecordNumberInput()
         {
             IDatabaseService database = new MicrosoftAccess();
             string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
@@ -74,7 +74,7 @@ namespace ViewModelsTest
         }
 
         [TestMethod]
-        public void testGoToRecord_MoreThanNumberOfRecordsInput()
+        public void GoToRecord_MoreThanTotalRecordsInput()
         {
             IDatabaseService database = new MicrosoftAccess();
             string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
@@ -87,7 +87,7 @@ namespace ViewModelsTest
         }
 
         [TestMethod]
-        public void testGoToRecord_lettersInInput()
+        public void GoToRecord_lettersInInput()
         {
             IDatabaseService database = new MicrosoftAccess();
             string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
@@ -99,7 +99,7 @@ namespace ViewModelsTest
         }
 
         [TestMethod]
-        public void testGoToRecord_EmptyInput()
+        public void GoToRecord_EmptyInput()
         {
             IDatabaseService database = new MicrosoftAccess();
             string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
@@ -112,7 +112,7 @@ namespace ViewModelsTest
         }
 
         [TestMethod]
-        public void testGoToRecord_FirstRecordInput()
+        public void GoToRecord_FirstRecordInput()
         {
             IDatabaseService database = new MicrosoftAccess();
             string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
@@ -124,7 +124,7 @@ namespace ViewModelsTest
         }
         
         [TestMethod]
-        public void testNextRecord_LastRecordBehavior()
+        public void NextRecord_LastRecord()
         {
             IDatabaseService database = new MicrosoftAccess();
             string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
@@ -137,7 +137,7 @@ namespace ViewModelsTest
         }
 
         [TestMethod]
-        public void testNextRecord_AnyRecord()
+        public void NextRecord_AnyRecord()
         {
             IDatabaseService database = new MicrosoftAccess();
             string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
@@ -150,7 +150,7 @@ namespace ViewModelsTest
         }
 
         [TestMethod]
-        public void testNextRecord_SaveCemeteryName_NextEmpty()
+        public void NextRecord_SaveCemeteryName_NextEmpty()
         {
             IDatabaseService database = new MicrosoftAccess();
             string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
@@ -169,7 +169,7 @@ namespace ViewModelsTest
         }
 
         [TestMethod]
-        public void testNextRecord_SaveCemeteryName_NextFilled()
+        public void NextRecord_SaveCemeteryName_NextFilled()
         {
             IDatabaseService database = new MicrosoftAccess();
             string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
@@ -188,7 +188,7 @@ namespace ViewModelsTest
         }
 
         [TestMethod]
-        public void testNextRecord_SaveSectionNumber()
+        public void NextRecord_SaveSectionNumber()
         {
             IDatabaseService database = new MicrosoftAccess();
             string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
@@ -207,7 +207,7 @@ namespace ViewModelsTest
         }
 
         [TestMethod]
-        public void testNextRecord_SaveSectionNumber_NextFilled()
+        public void NextRecord_SaveSectionNumber_NextFilled()
         {
             IDatabaseService database = new MicrosoftAccess();
             string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
@@ -226,7 +226,7 @@ namespace ViewModelsTest
         }
 
         [TestMethod]
-        public void testNextRecord_SaveMarkerType()
+        public void NextRecord_SaveMarkerType()
         {
             IDatabaseService database = new MicrosoftAccess();
             string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
@@ -245,7 +245,7 @@ namespace ViewModelsTest
         }
 
         [TestMethod]
-        public void testNextRecord_SaveMarkerType_NextFilled()
+        public void NextRecord_SaveMarkerType_NextFilled()
         {
             IDatabaseService database = new MicrosoftAccess();
             string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
@@ -264,7 +264,7 @@ namespace ViewModelsTest
         }
 
         [TestMethod]
-        public void testNextRecord_SaveMarkerType_SomeFilled()
+        public void NextRecord_SaveMarkerType_SomeFilled()
         {
             IDatabaseService database = new MicrosoftAccess();
             string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
@@ -286,7 +286,7 @@ namespace ViewModelsTest
         }
 
         [TestMethod]
-        public void testPreviousRecord_FirstRecord()
+        public void PreviousRecord_FirstRecord()
         {
             IDatabaseService database = new MicrosoftAccess();
             string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
@@ -299,7 +299,7 @@ namespace ViewModelsTest
         }
 
         [TestMethod]
-        public void testPreviousRecord_AnyRecord()
+        public void PreviousRecord_AnyRecord()
         {
             IDatabaseService database = new MicrosoftAccess();
             string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
@@ -312,7 +312,7 @@ namespace ViewModelsTest
         }
 
         [TestMethod]
-        public void testMandatoryInfo_GravestoneNumber()
+        public void MandatoryInfo_GravestoneNumber()
         {
             IDatabaseService database = new MicrosoftAccess();
             string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
@@ -333,7 +333,7 @@ namespace ViewModelsTest
         }
 
         [TestMethod]
-        public void testMandatoryInfo_PrimaryName()
+        public void MandatoryInfo_PrimaryName()
         {
             IDatabaseService database = new MicrosoftAccess();
             string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
@@ -359,7 +359,7 @@ namespace ViewModelsTest
         }
 
         [TestMethod]
-        public void testMandatoryInfo_OthersDecedentList()
+        public void MandatoryInfo_OthersDecedentList()
         {
             IDatabaseService database = new MicrosoftAccess();
             string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
@@ -368,7 +368,7 @@ namespace ViewModelsTest
             reviewWindow.PageIndex = 1;
             Headstone save = reviewWindow.CurrentPageData;
             
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < reviewWindow.CurrentPageData.OthersDecedentList.Count; i++)
             {
                 reviewWindow.CurrentPageData.OthersDecedentList[i].FirstName = "ABC";
                 reviewWindow.CurrentPageData.OthersDecedentList[i].LastName = "";
