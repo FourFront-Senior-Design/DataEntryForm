@@ -191,6 +191,7 @@ namespace Image_text_extractor
                 "\n\nNote: All changes will be saved.", "Confirm",
                 MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
+                _viewModel.SaveRecord();
                 _displayWindow.Close();
                 if (isBack == false)
                 {

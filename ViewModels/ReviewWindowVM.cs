@@ -237,5 +237,13 @@ namespace ViewModels
 
             return isValidList;
         }
+
+        public void SaveRecord()
+        {
+            if (_currentPageIndex != 0)
+            {
+                _database.SetHeadstone(_currentPageIndex, _currentPageData);
+            }
+        }
     }
 }
