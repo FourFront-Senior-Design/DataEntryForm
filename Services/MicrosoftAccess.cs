@@ -645,6 +645,35 @@ namespace Services
             return LocationNames;
         }
 
+        private string getCemeteryKey(string cemeteryName)
+        {
+            OleDbCommand cmd;
+            OleDbDataReader reader;
+            string key = "";
+
+            string sqlQuery = "SELECT KeyCode From CemeteryNames Where CemeteryName = '" + cemeteryName + "';";
+
+            using (OleDbConnection connection = new OleDbConnection(_connectionString))
+            {
+                try
+                {
+                    cmd = new OleDbCommand(sqlQuery, connection);
+                    connection.Open();
+                    reader = cmd.ExecuteReader();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Could Not Query for Cemetery KeyCode");
+                    throw e;
+                }
+
+                if (reader.Read())
+                    key = reader.GetString(0);
+            }
+
+            return key;
+        }
+
         private List<EmblemData> GetEmblemImages(List<EmblemData> EmblemNames)
         {
             EmblemNames[0].Photo = "";
@@ -733,6 +762,7 @@ namespace Services
             Dictionary<string, string> headstoneData = new Dictionary<string, string>();
 
             SetHeader(ref headstoneData, ref headstone);
+            SetPrimaryKey(ref headstoneData, ref headstone);
             SetPrimaryPerson(ref headstoneData, ref headstone);
             SetFirstPerson(ref headstoneData, ref headstone);
             SetSecondPerson(ref headstoneData, ref headstone);
@@ -819,6 +849,16 @@ namespace Services
             dict.Add("MarkerType", headstone.MarkerType);
             dict.Add("Emblem1", headstone.Emblem1);
             dict.Add("Emblem2", headstone.Emblem2);
+        }
+
+        private void SetPrimaryKey(ref Dictionary<string, string> dict, ref Headstone headstone)
+        {
+            string CemeteryKey = getCemeteryKey(headstone.CemeteryName);
+
+            string PrimaryKey = CemeteryKey + "-" + headstone.BurialSectionNumber +
+                "-" + headstone.RowNum + "-" + headstone.GavestoneNumber;
+
+            dict.Add("PrimaryKey", PrimaryKey);
         }
 
         private void SetPrimaryPerson(ref Dictionary<string, string> dict, ref Headstone headstone)
