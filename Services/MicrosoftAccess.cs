@@ -64,6 +64,9 @@ namespace Services
                 }
 
                 TotalItems = GetTotalRecords();
+
+                setSeqNum( TotalItems );
+
                 CemeteryNames = GetCemeteryData();
                 EmblemNames = GetEmblemData();
                 LocationNames = GetLocationData();
@@ -82,7 +85,8 @@ namespace Services
 
         private int GetTotalRecords()
         {
-            string sqlQuery = "SELECT COUNT(SeqNum) FROM Master";
+            string sqlQuery = "SELECT COUNT(AccessUniqueID) FROM Master";
+            //string sqlQuery = "SELECT COUNT(AccessUniqueID) FROM Master";
             OleDbCommand cmd;
             OleDbDataReader reader;
 
@@ -95,7 +99,7 @@ namespace Services
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Error accsessing Database");
+                    Console.WriteLine("Error accessing Database");
                     throw e;
                 }
 
@@ -176,7 +180,6 @@ namespace Services
             return dataRow;
         }
 
-        
         private Person GetPrimaryPerson(object[] dataRow)
         {
             Person primaryPerson = new Person();
@@ -642,7 +645,36 @@ namespace Services
             return LocationNames;
         }
 
-       private List<EmblemData> GetEmblemImages(List<EmblemData> EmblemNames)
+        private string getCemeteryKey(string cemeteryName)
+        {
+            OleDbCommand cmd;
+            OleDbDataReader reader;
+            string key = "";
+
+            string sqlQuery = "SELECT KeyCode From CemeteryNames Where CemeteryName = '" + cemeteryName + "';";
+
+            using (OleDbConnection connection = new OleDbConnection(_connectionString))
+            {
+                try
+                {
+                    cmd = new OleDbCommand(sqlQuery, connection);
+                    connection.Open();
+                    reader = cmd.ExecuteReader();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Could Not Query for Cemetery KeyCode");
+                    throw e;
+                }
+
+                if (reader.Read())
+                    key = reader.GetString(0);
+            }
+
+            return key;
+        }
+
+        private List<EmblemData> GetEmblemImages(List<EmblemData> EmblemNames)
         {
             EmblemNames[0].Photo = "";
 
@@ -654,12 +686,83 @@ namespace Services
             return EmblemNames;
         }
 
-       public void SetHeadstone(int index, Headstone headstone)
+        private void setSeqNum(int count)
+        {
+            string sqlQuery = "";
+            List<Int32> accessUniqueIDs = new List<Int32>();
+            OleDbCommand cmd;
+            OleDbDataReader reader;
+
+            using (OleDbConnection connection = new OleDbConnection(_connectionString)) // using to ensure connection is closed when we are done
+            {
+                try
+                {
+                    connection.Open(); // try to open the connection
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error Accessing Database");
+                    throw e;
+                }
+
+                try//See if SeqNum has already been filled, If yes return
+                {
+                    sqlQuery = "SELECT SeqNum FROM Master Where SeqNum = '" + count.ToString() + "';";
+                    cmd = new OleDbCommand(sqlQuery, connection);
+                    reader = cmd.ExecuteReader();
+                    return;
+                }
+                catch{ }
+
+                try//Try to execute query for Sequence IDs
+                {
+                    sqlQuery = "SELECT AccessUniqueID FROM Master;";
+                    cmd = new OleDbCommand(sqlQuery, connection);
+                    reader = cmd.ExecuteReader();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error Querying for AccessUniqueIDs");
+                    throw e;
+                }
+
+                //Add AccessUniqueIDs to accessUniqueIDs List for future use
+                while (reader.Read())
+                {
+                    accessUniqueIDs.Add(reader.GetInt32(0));
+                }
+
+                reader.Close();
+
+                //Update SeqNum table with values equal to i in order of AccessUniqueIDs
+                for (int i = 1; i <= count; i++)
+                {
+                    sqlQuery = "UPDATE Master Set SeqNum = " + i +
+                        " WHERE AccessUniqueID = " + accessUniqueIDs[i - 1] + ";";
+                    try
+                    {
+                        cmd = new OleDbCommand(sqlQuery, connection);
+                        cmd.ExecuteNonQuery(); // do the update
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Error writing SeqNum to the database:");
+                        Console.WriteLine(e.Message);
+                        Console.WriteLine(cmd.CommandText);
+                    }
+                }
+
+                connection.Close();
+            }
+        }
+
+        public void SetHeadstone(int index, Headstone headstone)
         {
             // For each field in headstone that has content, update the database
             Dictionary<string, string> headstoneData = new Dictionary<string, string>();
 
             SetHeader(ref headstoneData, ref headstone);
+            SetPrimaryKey(ref headstoneData, ref headstone);
             SetPrimaryPerson(ref headstoneData, ref headstone);
             SetFirstPerson(ref headstoneData, ref headstone);
             SetSecondPerson(ref headstoneData, ref headstone);
@@ -746,6 +849,16 @@ namespace Services
             dict.Add("MarkerType", headstone.MarkerType);
             dict.Add("Emblem1", headstone.Emblem1);
             dict.Add("Emblem2", headstone.Emblem2);
+        }
+
+        private void SetPrimaryKey(ref Dictionary<string, string> dict, ref Headstone headstone)
+        {
+            string CemeteryKey = getCemeteryKey(headstone.CemeteryName);
+
+            string PrimaryKey = CemeteryKey + "-" + headstone.BurialSectionNumber +
+                "-" + headstone.RowNum + "-" + headstone.GavestoneNumber;
+
+            dict.Add("PrimaryKey", PrimaryKey);
         }
 
         private void SetPrimaryPerson(ref Dictionary<string, string> dict, ref Headstone headstone)
