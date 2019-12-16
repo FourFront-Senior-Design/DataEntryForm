@@ -1,10 +1,4 @@
 ﻿using ServicesInterfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
 using ViewModelInterfaces;
 using System.ComponentModel;
 
@@ -12,44 +6,71 @@ namespace ViewModels
 {
     public class MainWindowVM : IMainWindowVM, INotifyPropertyChanged
     {
-        IImageLoader _imageLoader;
-        IImageProcessor _imageProcessor;
-        List<string> _images;
-        private string fileLocation;
+        private IDatabaseService _database;
+        private string _fileLocation;
+        private string _message;
+        private bool _enableExtract = false;
+
+        public string Copyright
+        {
+            get
+            {
+                return "Senior Design Data Extraction Project" + "\u00a9" + "2019. Version 1.0";
+            }
+        }
+        
+        public string Message
+        {
+            get
+            {
+                return _message;
+            }
+            set
+            {
+                _message = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Message)));
+            }
+        }
 
         public string FileLocation
         {
             get
             {
-                return fileLocation;
+                return _fileLocation;
             }
             set
             {
-                fileLocation = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(fileLocation)));
+                _fileLocation = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(FileLocation)));
+            }
+        }
+
+        public bool EnableExtract
+        {
+            get
+            {
+                return _enableExtract;
+            }
+            set
+            {
+                _enableExtract = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(EnableExtract)));
             }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public bool LoadImages()
+        public int LoadData()
         {
-            _images = _imageLoader.GetImages(FileLocation);
-            return _images.Count() != 0;
+            if (_database.InitDBConnection(_fileLocation) == false)
+                return -1;
+            return _database.TotalItems;
         }
-
-        public bool ProcessImages()
+      
+        public MainWindowVM(IDatabaseService database)
         {
-            if (_images.Count() == 0)
-                return false;
-
-            return _imageProcessor.ProcessImages(_images);
-        }
-
-        public MainWindowVM(IImageLoader imageLoader, IImageProcessor imageProcessor)
-        {
-            _imageLoader = imageLoader;
-            _imageProcessor = imageProcessor;
+            _database = database;
         }
     }
 }
+

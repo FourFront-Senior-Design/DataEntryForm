@@ -8,21 +8,38 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    public class FileDatabase : IDatabase
+    public class FileDatabase : IDatabaseService
     {
-        public Headstone GetHeadstone(int index)
+        public string SectionFilePath => throw new NotImplementedException();
+
+        int IDatabaseService.TotalItems => throw new NotImplementedException();
+
+        public List<CemeteryNameData> CemeteryNames => throw new NotImplementedException();
+
+        public List<EmblemData> EmblemNames => throw new NotImplementedException();
+
+        public List<LocationData> LocationNames => throw new NotImplementedException();
+
+        public List<BranchData> BranchNames => throw new NotImplementedException();
+
+        public List<WarData> WarNames => throw new NotImplementedException();
+
+        public List<AwardData> AwardNames => throw new NotImplementedException();
+
+        Headstone IDatabaseService.GetHeadstone(int index)
         {
             throw new NotImplementedException();
         }
 
-        public void InitDatabase(string FileName)
+        bool IDatabaseService.InitDBConnection(string sectionFilePath)
         {
             throw new NotImplementedException();
         }
 
-        public void SetHeadstone(int index, Headstone headstoneData)
+        void IDatabaseService.SetHeadstone(int index, Headstone headstone)
         {
             throw new NotImplementedException();
         }
+       
     }
 }

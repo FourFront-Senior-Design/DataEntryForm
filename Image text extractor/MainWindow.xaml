@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="FourFront" Height="450" Width="800" Background="#FFE4E4E4">
+        Title="FourFront - Data Entry Form" Height="450" Width="800" Background="#FFE4E4E4">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.2*"/>
@@ -15,24 +15,41 @@
         <Grid Grid.Row="1">
             <StackPanel>
                 <Label
-                    Content="Image Text Extractor"
+                    Content="Data Entry Form"
                     FontSize="26"
                     FontWeight="Bold"
                     Padding="20"
-                    HorizontalAlignment="Center"/>
+                    HorizontalAlignment="Center"
+                    Margin="7"/>
                 <Label
-                    Content="Enter the location of the images"
+                    Content="Enter the section path"
                     FontSize="20"
                     HorizontalAlignment="Center"
                     Margin="7"/>
-                <TextBox 
-                    x:Name="locationBox"
-                    Text="{Binding FileLocation}"
-                    Background="White"
-                    FontSize="18"
-                    Padding="4"
-                    HorizontalAlignment="Center"
-                    Width="400"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2.5*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox 
+                            Grid.Column="0"
+                            Text="{Binding FileLocation}"
+                            Background="White"
+                            FontSize="18"
+                            HorizontalAlignment="Stretch"
+                            Padding="4"
+                            TextChanged="OnTextChanged"
+                            Margin="100, 0, 0, 0"/>
+                    <Button
+                        Content="Browse"
+                        Grid.Column="1"
+                        FontSize="18"
+                        Margin="20,0,0,0"
+                        Width="100"
+                        HorizontalAlignment="Left"
+                        Click="BrowseClick"
+                        Padding="4"/>
+                </Grid>
             </StackPanel>
         </Grid>
 
@@ -40,24 +57,24 @@
             <StackPanel 
                 Orientation="Horizontal" 
                 HorizontalAlignment="Center"
-                VerticalAlignment="Top"
-                Margin="10">
+                VerticalAlignment="Top">
 
                 <Button 
-                    Content="Load Images" 
+                    Content="Load Data" 
                     Height="45" 
                     Width="130" 
                     FontSize="18"
                     Margin="10"
-                    Click="LoadImagesClick" />
+                    Click="LoadDataClick" />
 
                 <Button 
-                    Content="Extract" 
+                    Content="Review" 
                     Height="45" 
                     Width="130" 
-                    FontSize="18" 
+                    FontSize="18"
                     Margin="10"
-                    Click="ExtractClick"/>
+                    Click="ReviewClick"
+                    IsEnabled="{Binding EnableExtract}" />
 
                 <Button 
                     Content="Exit" 
@@ -67,6 +84,19 @@
                     Margin="10"
                     Click="ExitClick" />
             </StackPanel>
+            <Label
+                Content="{Binding Message}"
+                Foreground="Red"
+                FontSize="18"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"/>
+
+            <Label
+                Content="{Binding Copyright, Mode=OneWay}"                
+                FontSize="12"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
+                />
         </Grid>
 
     </Grid>

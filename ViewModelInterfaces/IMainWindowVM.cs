@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ViewModelInterfaces
+﻿namespace ViewModelInterfaces
 {
     public interface IMainWindowVM
     {
+        bool EnableExtract { get; set; }
         string FileLocation { get; set; }
-        bool LoadImages();
-        bool ProcessImages();
+        string Message { get; set; }
+        string Copyright { get; }
+        int LoadData();
     }
 }

@@ -7,55 +7,80 @@ namespace Image_text_extractor
 {
     public partial class MainWindow : Window
     {
-        public event EventHandler MoveToResultsPage;
+        public event EventHandler MoveToReviewPage;
 
         IMainWindowVM _viewModel;
-
+        
         public MainWindow(IMainWindowVM viewModel)
         {
             InitializeComponent();
             _viewModel = viewModel;
             DataContext = _viewModel;
+
+            ResetMainWindow();
         }
 
-        private void LoadImagesClick(object sender, RoutedEventArgs e)
+        public void ResetMainWindow()
         {
+            _viewModel.EnableExtract = false;
+            _viewModel.FileLocation = "";
+            _viewModel.Message = "";
+            _viewModel.FileLocation = Properties.Settings.Default.databaseFilePath;
+        }
+
+        private void BrowseClick(object sender, RoutedEventArgs e)
+        {
+            _viewModel.Message = "";
             var dialog = new System.Windows.Forms.FolderBrowserDialog();
             dialog.ShowDialog();
 
-            _viewModel.FileLocation = dialog.SelectedPath;
-
-            Trace.WriteLine("Printing...");
-            Trace.WriteLine(_viewModel.FileLocation);
-
-            if (_viewModel.LoadImages() == false)  //Make this false 
+            string selectedPath = dialog.SelectedPath;
+            if(selectedPath != string.Empty)
             {
-                System.Windows.MessageBox.Show("No images found", "Alert",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-            } else
-            {
-                System.Windows.MessageBox.Show("Successful", "Alert",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
+                _viewModel.FileLocation = selectedPath;
             }
         }
 
+        private void LoadDataClick(object sender, RoutedEventArgs e)
+        {
+            Trace.WriteLine("Printing...");
+            Trace.WriteLine(_viewModel.FileLocation);
+
+            int countData = _viewModel.LoadData();
+
+            if(countData == -1)
+            {
+                _viewModel.Message = "Invalid Path. Try Again.";
+            }
+            else if (countData == 0)  
+            {
+                _viewModel.Message = "No database found. Try Again.";
+            }
+            else
+            {
+                Properties.Settings.Default.databaseFilePath = _viewModel.FileLocation;
+                Properties.Settings.Default.Save();
+                _viewModel.Message = "Successfully uploaded " + countData.ToString() +
+                                 " records from the Database";
+                _viewModel.EnableExtract = true;
+            }
+        }
+
+        private void ReviewClick(object sender, RoutedEventArgs e)
+        {
+            MoveToReviewPage?.Invoke(this, new EventArgs());
+        }
+
+        private void OnTextChanged(object sender, RoutedEventArgs e)
+        {
+            _viewModel.EnableExtract = false;
+            _viewModel.Message = "";
+        }
+        
         private void ExitClick(object sender, RoutedEventArgs e)
         {
             this.Close();
             Application.Current.Shutdown();
-        }
-
-        private void ExtractClick(object sender, RoutedEventArgs e)
-        {
-            if (_viewModel.ProcessImages())
-            {
-                MoveToResultsPage?.Invoke(this, new EventArgs());
-            }
-            else
-            {
-                System.Windows.MessageBox.Show("Unable to extract images. Try again.", "Alert",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-            }
         }
     }
 }
