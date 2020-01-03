@@ -1,0 +1,692 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{054A964B-37D2-4473-AE1C-A385A1D78168}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Data_Entry_Form</RootNamespace>
+    <AssemblyName>DataEntryForm</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=3.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.3.0.0\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=3.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.3.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.6.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=3.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.6.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=3.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.6.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=3.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.6.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=3.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.6.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="HeadstoneDisplayWindow.xaml.cs">
+      <DependentUpon>HeadstoneDisplayWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ReviewWindow.xaml.cs">
+      <DependentUpon>ReviewWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="HeadstoneDisplayWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="ReviewWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="TestDatabases\Section0000P\ReferencedImages\Thumbs.db" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{0C493421-EBE7-4915-8BDD-23D2E456C9E3}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataStructures\DataStructures.csproj">
+      <Project>{AA71ED64-9E35-496B-BFD0-60D04D17318D}</Project>
+      <Name>DataStructures</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServicesInterfaces\ServicesInterfaces.csproj">
+      <Project>{F0341CE9-6A65-4055-A6D8-757B6D9BD937}</Project>
+      <Name>ServicesInterfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\Services.csproj">
+      <Project>{2D9FEEC2-3218-4755-8FD9-233CEB7B636D}</Project>
+      <Name>Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ViewModelInterfaces\ViewModelInterfaces.csproj">
+      <Project>{F65A0368-09C8-4986-AD75-6956049C7B28}</Project>
+      <Name>ViewModelInterfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ViewModels\ViewModels.csproj">
+      <Project>{9754EA98-88F9-44F4-8EA9-B818F37D01F2}</Project>
+      <Name>ViewModels</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Emblems\emb-01.jpg" />
+    <Resource Include="Emblems\emb-02.jpg" />
+    <Resource Include="Emblems\emb-03.jpg" />
+    <Resource Include="Emblems\emb-04.jpg" />
+    <Resource Include="Emblems\emb-05.jpg" />
+    <Resource Include="Emblems\emb-06.jpg" />
+    <Resource Include="Emblems\emb-07.jpg" />
+    <Resource Include="Emblems\emb-08.jpg" />
+    <Resource Include="Emblems\emb-09.jpg" />
+    <Resource Include="Emblems\emb-10.jpg" />
+    <Resource Include="Emblems\emb-11.jpg" />
+    <Resource Include="Emblems\emb-12.jpg" />
+    <Resource Include="Emblems\emb-13.jpg" />
+    <Resource Include="Emblems\emb-14.jpg" />
+    <Resource Include="Emblems\emb-15.jpg" />
+    <Resource Include="Emblems\emb-16.jpg" />
+    <Resource Include="Emblems\emb-17.jpg" />
+    <Resource Include="Emblems\emb-18.jpg" />
+    <Resource Include="Emblems\emb-19.jpg" />
+    <Resource Include="Emblems\emb-20.jpg" />
+    <Resource Include="Emblems\emb-21.jpg" />
+    <Resource Include="Emblems\emb-22.jpg" />
+    <Resource Include="Emblems\emb-23.jpg" />
+    <Resource Include="Emblems\emb-24.jpg" />
+    <Resource Include="Emblems\emb-25.jpg" />
+    <Resource Include="Emblems\emb-26.jpg" />
+    <Resource Include="Emblems\emb-27.jpg" />
+    <Resource Include="Emblems\emb-28.jpg" />
+    <Resource Include="Emblems\emb-29.jpg" />
+    <Resource Include="Emblems\emb-30.jpg" />
+    <Resource Include="Emblems\emb-31.jpg" />
+    <Resource Include="Emblems\emb-32.jpg" />
+    <Resource Include="Emblems\emb-33.jpg" />
+    <Resource Include="Emblems\emb-34.jpg" />
+    <Resource Include="Emblems\emb-35.jpg" />
+    <Resource Include="Emblems\emb-36.jpg" />
+    <Resource Include="Emblems\emb-37.jpg" />
+    <Resource Include="Emblems\emb-38.jpg" />
+    <Resource Include="Emblems\emb-39.jpg" />
+    <Resource Include="Emblems\emb-40.jpg" />
+    <Resource Include="Emblems\emb-41.jpg" />
+    <Resource Include="Emblems\emb-42.jpg" />
+    <Resource Include="Emblems\emb-43.jpg" />
+    <Resource Include="Emblems\emb-44.jpg" />
+    <Resource Include="Emblems\emb-45.jpg" />
+    <Resource Include="Emblems\emb-46.jpg" />
+    <Resource Include="Emblems\emb-47.jpg" />
+    <Resource Include="Emblems\emb-48.jpg" />
+    <Resource Include="Emblems\emb-49.jpg" />
+    <Resource Include="Emblems\emb-51.jpg" />
+    <Resource Include="Emblems\emb-52.jpg" />
+    <Resource Include="Emblems\emb-53.jpg" />
+    <Resource Include="Emblems\emb-54.jpg" />
+    <Resource Include="Emblems\emb-55.jpg" />
+    <Resource Include="Emblems\emb-56.jpg" />
+    <Resource Include="Emblems\emb-57.jpg" />
+    <Resource Include="Emblems\emb-58.jpg" />
+    <Resource Include="Emblems\emb-59.jpg" />
+    <Resource Include="Emblems\emb-60.jpg" />
+    <Resource Include="Emblems\emb-61.jpg" />
+    <Resource Include="Emblems\emb-62.jpg" />
+    <Resource Include="Emblems\emb-63.jpg" />
+    <Resource Include="Emblems\emb-64.jpg" />
+    <Resource Include="Emblems\emb-65.jpg" />
+    <Resource Include="Emblems\emb-66.jpg" />
+    <Resource Include="Emblems\emb-67.jpg" />
+    <Resource Include="Emblems\emb-68.jpg" />
+    <Resource Include="Emblems\emb-69.jpg" />
+    <Resource Include="Emblems\emb-70.jpg" />
+    <Resource Include="Emblems\emb-71.jpg" />
+    <Resource Include="Emblems\emb-72.jpg" />
+    <Resource Include="Emblems\emb-73.jpg" />
+    <Resource Include="Emblems\emb-74.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TestDatabases\Section0000P\FRNC_SectionP_be.accdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestDatabases\Section0000P\FRNC_SectionP_fe.accdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-37-27_464.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-37-35_465.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-37-42_465.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-37-50_467.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-38-10_468.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-38-17_469.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-38-24_470.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-38-31_471.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-38-38_472.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-38-47_473.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-38-54_474.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-39-04_475.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-39-14_476.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-39-22_477.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-39-32_478.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-39-39_479.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-39-46_480.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-39-53_481.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-40-01_482.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-40-09_483.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-40-16_484.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-40-23_485.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-40-31_486.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-40-38_487.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-40-44_488.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-40-51_489.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-40-59_490.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-41-06_491.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-41-15_492.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-41-24_493.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-41-32_494.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-41-40_495.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-41-47_496.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-41-53_497.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-42-00_498.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-42-12_499.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-42-21_499.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-42-28_501.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-42-42_502.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-42-48_503.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-42-55_504.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-43-02_505.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-43-10_505.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-43-19_507.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-43-37_507.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-43-45_509.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-44-15_510.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-44-22_511.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-44-30_512.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-44-38_513.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-44-45_514.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-44-53_515.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-45-01_516.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-45-08_517.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-45-16_518.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-45-24_519.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-45-31_520.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-45-39_521.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-45-45_522.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-45-53_523.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-46-01_524.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-46-08_525.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-46-16_526.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-46-24_527.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-46-31_528.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-46-38_529.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-46-45_530.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-46-53_531.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-46-59_532.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-47-06_533.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-47-13_533.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-47-34_535.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-47-42_535.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-47-49_537.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-48-04_538.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-48-12_539.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-48-20_540.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-48-28_541.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-48-43_541.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-48-51_543.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-49-19_543.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-49-25_545.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-49-42_546.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-49-49_547.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-49-57_548.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-50-05_549.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-50-13_550.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-50-21_551.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-50-28_551.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-50-35_552.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-51-16_553.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-51-23_555.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-51-43_556.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-51-50_557.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-51-57_558.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-52-04_559.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-52-10_560.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-52-18_561.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-52-25_562.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-52-33_563.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-52-40_564.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-52-47_565.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-52-58_566.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-53-06_567.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-53-14_000.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-53-20_569.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-53-33_570.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-53-39_571.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-53-46_572.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-53-54_573.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-54-02_574.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-54-09_575.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-54-16_576.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-54-24_577.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-54-32_578.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-54-39_579.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-54-45_580.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-54-52_581.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-55-00_582.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-55-07_583.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-55-13_584.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-55-20_585.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-55-28_586.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-55-35_587.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-55-42_588.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-55-47_589.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-55-55_590.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-56-04_591.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-56-10_592.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-56-18_593.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-56-27_594.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-56-34_595.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-56-42_596.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-56-49_597.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-56-56_598.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-57-05_599.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-57-13_600.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-57-20_601.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-57-27_602.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-57-35_603.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-57-43_604.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-57-50_605.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-58-00_606.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-58-09_607.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-58-18_608.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-58-26_609.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-58-36_609.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-58-44_611.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-58-58_612.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-59-04_613.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-59-12_614.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-59-20_615.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-59-27_616.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-59-34_617.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-59-42_618.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-59-50_619.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_13-59-56_620.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-00-05_621.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-00-11_622.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-00-19_623.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-00-25_624.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-00-33_625.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-00-40_626.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-00-47_627.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-00-55_628.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-01-03_629.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-01-09_630.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-01-17_631.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-01-24_632.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-01-31_633.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-01-38_634.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-01-45_635.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-01-56_635.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-02-03_637.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-02-17_638.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-02-24_639.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-02-32_640.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-02-40_641.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-02-46_642.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-02-53_643.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-03-00_644.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-03-07_645.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-03-15_646.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-03-21_647.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-03-30_648.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-03-38_649.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-03-45_650.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-03-53_651.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-04-00_652.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-04-07_653.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-04-14_653.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-04-20_655.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-04-35_656.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-04-42_657.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-04-51_658.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-04-58_659.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-05-09_660.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-05-18_661.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-05-40_663.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-05-47_664.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-06-05_666.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-06-12_667.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-06-19_668.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-06-26_669.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-06-34_670.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-06-41_671.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-06-48_672.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-06-55_673.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-07-03_674.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-07-11_675.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-07-18_676.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-07-25_677.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-07-33_678.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-07-40_679.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-07-47_680.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-07-55_681.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-08-01_682.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-08-08_683.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-08-15_684.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-08-22_685.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-08-30_686.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-08-37_687.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-08-46_688.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-08-55_689.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-09-01_690.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-09-10_691.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-09-17_691.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-09-29_692.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-09-42_693.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-09-53_695.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-10-17_695.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-10-26_697.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-10-52_698.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-10-59_699.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-11-06_700.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-11-14_701.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-11-21_702.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-11-28_703.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-11-36_704.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-11-44_705.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-11-52_706.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-12-00_707.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-12-08_708.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-12-16_709.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-12-29_709.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-12-36_711.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-12-53_711.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-13-00_713.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-13-17_713.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-13-25_715.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-13-36_715.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-13-46_717.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-14-03_718.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-14-11_719.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-14-19_720.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-14-27_721.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-14-37_722.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-14-45_723.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-14-52_724.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-14-59_725.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-15-07_726.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-15-15_727.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-15-22_728.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-15-28_729.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-15-36_730.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-15-43_731.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-15-50_732.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-15-58_733.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-16-05_734.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-16-12_735.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-16-21_736.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-16-28_737.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-16-37_738.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-16-46_739.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-16-54_740.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-17-01_741.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-17-08_742.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-17-15_743.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-17-24_744.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-17-32_745.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-17-39_746.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-17-46_747.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-17-54_748.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-18-02_749.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-18-09_750.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-18-17_751.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-18-25_752.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-18-32_753.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-18-40_754.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-18-48_755.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-18-56_756.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-19-04_757.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-19-12_758.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-19-19_759.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-19-33_759.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-19-51_761.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-20-14_762.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-20-21_763.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-20-28_764.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-20-35_765.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-20-42_766.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-20-49_767.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-20-57_768.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-21-04_769.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-21-15_769.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-21-22_771.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-21-36_772.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-21-43_773.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-21-51_774.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-21-57_775.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-22-05_776.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-22-12_777.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-22-20_778.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-22-28_779.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-22-35_780.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-22-43_781.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-22-51_782.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-22-58_783.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-23-06_784.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-23-14_785.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-23-21_786.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-23-30_787.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-23-37_787.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-23-44_789.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-24-15_790.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-24-23_791.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-24-30_792.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-24-38_793.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-24-52_793.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-25-00_795.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-25-15_796.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-25-23_797.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-25-30_798.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-25-37_799.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-25-45_800.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-25-52_801.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-25-59_802.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-26-07_803.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-26-14_804.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-26-20_805.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-26-27_806.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-26-34_807.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-26-41_808.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-26-49_809.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-26-55_810.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-27-04_811.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-27-10_812.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-27-18_813.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-27-25_814.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-27-36_815.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-27-42_816.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-27-51_817.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-27-58_818.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-28-06_819.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-28-13_820.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-28-21_821.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-28-28_822.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-28-35_823.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-28-44_824.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-28-50_825.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-28-57_826.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-29-03_827.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-29-10_828.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-29-17_829.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-29-25_830.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-29-34_831.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-29-41_832.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-29-49_833.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-29-55_834.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-30-02_835.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-30-09_836.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-30-18_837.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-30-25_838.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-30-32_839.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-30-39_840.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-30-48_841.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-30-57_842.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-31-05_843.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-31-12_844.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-31-21_845.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-31-28_846.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-31-36_847.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-31-43_848.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-31-52_849.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-32-00_850.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-32-07_851.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-32-15_852.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-32-23_853.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-32-30_854.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-32-37_855.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-32-48_856.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-32-56_857.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-33-05_858.jpg" />
+    <Resource Include="TestDatabases\Section0000P\ReferencedImages\2019-06-28_14-33-15_858.jpg" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
