@@ -35,50 +35,79 @@ namespace Services
         {
             SectionFilePath = sectionFilePath;
 
-            try
+            //try
+            //{
+            //    Regex reg = new Regex(@".*_be.accdb");
+
+            //    var Dbfiles = Directory.GetFiles(sectionFilePath)
+            //        .Where(path => reg.IsMatch(path))
+            //        .ToList();
+
+            //    // set the connection string
+            //    _connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Dbfiles[0];
+
+            //    // create the db connection
+            //    using (OleDbConnection connection = new OleDbConnection(_connectionString))
+            //    // using to ensure connection is closed when we are done
+            //    {
+            //        try
+            //        {
+            //            connection.Open(); // try to open the connection
+            //        }
+            //        catch (Exception e)
+            //        {
+            //            Console.WriteLine(e);
+            //            return false;
+            //        }
+            //    }
+
+            //    TotalItems = GetTotalRecords();
+
+            //    setSeqNum( TotalItems );
+
+            //    CemeteryNames = GetCemeteryData();
+            //    EmblemNames = GetEmblemData();
+            //    LocationNames = GetLocationData();
+            //    BranchNames = GetBranchData();
+            //    AwardNames = GetAwardData();
+            //    WarNames = GetWarData();
+
+            //    return true;
+            //}
+            //catch(Exception e)
+            //{
+            //    Console.WriteLine(e);
+            //    return false;
+            //}
+
+            Regex reg = new Regex(@".*_be.accdb");
+
+            var Dbfiles = Directory.GetFiles(sectionFilePath)
+                .Where(path => reg.IsMatch(path))
+                .ToList();
+
+            // set the connection string
+            _connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Dbfiles[0];
+
+            // create the db connection
+            using (OleDbConnection connection = new OleDbConnection(_connectionString))
+            // using to ensure connection is closed when we are done
             {
-                Regex reg = new Regex(@".*_be.accdb");
-
-                var Dbfiles = Directory.GetFiles(sectionFilePath)
-                    .Where(path => reg.IsMatch(path))
-                    .ToList();
-
-                // set the connection string
-                _connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Dbfiles[0];
-
-                // create the db connection
-                using (OleDbConnection connection = new OleDbConnection(_connectionString))
-                // using to ensure connection is closed when we are done
-                {
-                    try
-                    {
-                        connection.Open(); // try to open the connection
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                        return false;
-                    }
-                }
-
-                TotalItems = GetTotalRecords();
-
-                setSeqNum( TotalItems );
-
-                CemeteryNames = GetCemeteryData();
-                EmblemNames = GetEmblemData();
-                LocationNames = GetLocationData();
-                BranchNames = GetBranchData();
-                AwardNames = GetAwardData();
-                WarNames = GetWarData();
-
-                return true;
+                 connection.Open(); // try to open the connection
             }
-            catch(Exception e)
-            {
-                Console.WriteLine(e);
-                return false;
-            }
+
+            TotalItems = GetTotalRecords();
+
+            setSeqNum(TotalItems);
+
+            CemeteryNames = GetCemeteryData();
+            EmblemNames = GetEmblemData();
+            LocationNames = GetLocationData();
+            BranchNames = GetBranchData();
+            AwardNames = GetAwardData();
+            WarNames = GetWarData();
+
+            return true;
         }
 
         private int GetTotalRecords()
