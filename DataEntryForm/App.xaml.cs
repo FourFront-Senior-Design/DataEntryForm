@@ -4,6 +4,7 @@ using ServicesInterfaces;
 using System;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Threading;
 using ViewModelInterfaces;
 using ViewModels;
 
@@ -34,6 +35,7 @@ namespace Data_Entry_Form
 
             _mainWindow = _serviceProvider.GetService<MainWindow>();
             _mainWindow.MoveToReviewPage += MainWindow_MoveToReviewPage;
+            DispatcherUnhandledException += App_DispatcherUnhandledException;
 
             _mainWindow.Show();
         }
@@ -58,6 +60,12 @@ namespace Data_Entry_Form
                 _mainWindow.ResetMainWindow();
                 _mainWindow.Show();
             }
+        }
+
+        void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show(e.Exception.Message);
+            e.Handled = true;
         }
     }
 }

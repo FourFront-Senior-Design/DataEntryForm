@@ -11,13 +11,13 @@ namespace IntegrationTests
     [TestClass]
     public class IntegrationTests
     {
-        private string exePath = Directory.GetCurrentDirectory() + "\\..\\..\\..\\..\\";
-        
+        private static string exePath = Directory.GetCurrentDirectory() + "\\..\\..\\..\\..\\";
+        private string sectionPath = Path.Combine(exePath, "TestDatabases\\Section0000P");
+
         [TestMethod]
         public void TestMethod1()
         {
             IDatabaseService database = new MicrosoftAccess();
-            string sectionPath = Path.Combine(exePath, "TestDatabases\\Section0000P");
             database.InitDBConnection(sectionPath);
             IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
             reviewWindow.PageIndex = 3;
