@@ -7,9 +7,7 @@ using System.Data;
 using System.Data.OleDb;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Services
 {
@@ -37,50 +35,79 @@ namespace Services
         {
             SectionFilePath = sectionFilePath;
 
-            try
+            //try
+            //{
+            //    Regex reg = new Regex(@".*_be.accdb");
+
+            //    var Dbfiles = Directory.GetFiles(sectionFilePath)
+            //        .Where(path => reg.IsMatch(path))
+            //        .ToList();
+
+            //    // set the connection string
+            //    _connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Dbfiles[0];
+
+            //    // create the db connection
+            //    using (OleDbConnection connection = new OleDbConnection(_connectionString))
+            //    // using to ensure connection is closed when we are done
+            //    {
+            //        try
+            //        {
+            //            connection.Open(); // try to open the connection
+            //        }
+            //        catch (Exception e)
+            //        {
+            //            Console.WriteLine(e);
+            //            return false;
+            //        }
+            //    }
+
+            //    TotalItems = GetTotalRecords();
+
+            //    setSeqNum( TotalItems );
+
+            //    CemeteryNames = GetCemeteryData();
+            //    EmblemNames = GetEmblemData();
+            //    LocationNames = GetLocationData();
+            //    BranchNames = GetBranchData();
+            //    AwardNames = GetAwardData();
+            //    WarNames = GetWarData();
+
+            //    return true;
+            //}
+            //catch(Exception e)
+            //{
+            //    Console.WriteLine(e);
+            //    return false;
+            //}
+
+            Regex reg = new Regex(@".*_be.accdb");
+
+            var Dbfiles = Directory.GetFiles(sectionFilePath)
+                .Where(path => reg.IsMatch(path))
+                .ToList();
+
+            // set the connection string
+            _connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Dbfiles[0];
+
+            // create the db connection
+            using (OleDbConnection connection = new OleDbConnection(_connectionString))
+            // using to ensure connection is closed when we are done
             {
-                Regex reg = new Regex(@".*_be.accdb");
-
-                var Dbfiles = Directory.GetFiles(sectionFilePath)
-                    .Where(path => reg.IsMatch(path))
-                    .ToList();
-
-                // set the connection string
-                _connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Dbfiles[0];
-
-                // create the db connection
-                using (OleDbConnection connection = new OleDbConnection(_connectionString))
-                // using to ensure connection is closed when we are done
-                {
-                    try
-                    {
-                        connection.Open(); // try to open the connection
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                        return false;
-                    }
-                }
-
-                TotalItems = GetTotalRecords();
-
-                setSeqNum( TotalItems );
-
-                CemeteryNames = GetCemeteryData();
-                EmblemNames = GetEmblemData();
-                LocationNames = GetLocationData();
-                BranchNames = GetBranchData();
-                AwardNames = GetAwardData();
-                WarNames = GetWarData();
-
-                return true;
+                 connection.Open(); // try to open the connection
             }
-            catch(Exception e)
-            {
-                Console.WriteLine(e);
-                return false;
-            }
+
+            TotalItems = GetTotalRecords();
+
+            setSeqNum(TotalItems);
+
+            CemeteryNames = GetCemeteryData();
+            EmblemNames = GetEmblemData();
+            LocationNames = GetLocationData();
+            BranchNames = GetBranchData();
+            AwardNames = GetAwardData();
+            WarNames = GetWarData();
+
+            return true;
         }
 
         private int GetTotalRecords()
@@ -647,31 +674,14 @@ namespace Services
 
         private string getCemeteryKey(string cemeteryName)
         {
-            OleDbCommand cmd;
-            OleDbDataReader reader;
-            string key = "";
-
-            string sqlQuery = "SELECT KeyCode From CemeteryNames Where CemeteryName = '" + cemeteryName + "';";
-
-            using (OleDbConnection connection = new OleDbConnection(_connectionString))
+            foreach(CemeteryNameData cemetery in CemeteryNames)
             {
-                try
+                if(cemetery.CemeteryName == cemeteryName)
                 {
-                    cmd = new OleDbCommand(sqlQuery, connection);
-                    connection.Open();
-                    reader = cmd.ExecuteReader();
+                    return cemetery.KeyName;
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Could Not Query for Cemetery KeyCode");
-                    throw e;
-                }
-
-                if (reader.Read())
-                    key = reader.GetString(0);
             }
-
-            return key;
+            return "";
         }
 
         private List<EmblemData> GetEmblemImages(List<EmblemData> EmblemNames)
