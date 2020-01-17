@@ -30,6 +30,8 @@ steps:
 
 - task: VSTest@2
   inputs:
+    testAssemblyVer2: '**\bin\**\*Tests.dll'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+    diagnosticsEnabled: true
     codeCoverageEnabled: true
