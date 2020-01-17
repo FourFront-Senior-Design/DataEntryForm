@@ -31,7 +31,8 @@ steps:
 - task: VSTest@2
   inputs:
     testAssemblyVer2: |
-      "**\IntegrationTests\bin\x64\Release\IntegrationTests.dll"
+      '**\IntegrationTests\bin\x64\Release\IntegrationTests.dll'
+    searchFolder: 'D:\a\1\s'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
     diagnosticsEnabled: true
