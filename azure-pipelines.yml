@@ -31,8 +31,7 @@ steps:
 - task: VSTest@2
   inputs:
     testAssemblyVer2: |
-      "**/bin/x64/Release/IntegrationTests.dll"
-      "**/bin/x64/Release/ViewModelsTest.dll"
+      "**\IntegrationTests\bin\x64\Release\IntegrationTests.dll"
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
     diagnosticsEnabled: true
