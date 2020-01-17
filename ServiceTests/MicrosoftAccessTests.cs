@@ -18,14 +18,6 @@ namespace ServiceTests
         private string sectionPath = Path.Combine(exePath, "TestDatabases\\Section0000P");
         private Headstone testHeadstone = new Headstone();
 
-        private TestContext testContextInstance;
-
-        public TestContext TestContext
-        {
-            get { return testContextInstance; }
-            set { testContextInstance = value; }
-        }
-
         public MicrosoftAccessTests()
         {
             testHeadstone.CemeteryName = "FT. RICHARDSON NATIONAL CEMETERY";
