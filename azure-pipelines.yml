@@ -30,6 +30,9 @@ steps:
 
 - task: VSTest@2
   inputs:
+    testAssemblyVer2: |
+      "**\integrationtests.dll"
+      "**\viewmodelstest.dll"
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
     diagnosticsEnabled: true
