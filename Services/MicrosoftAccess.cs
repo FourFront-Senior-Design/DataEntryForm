@@ -674,31 +674,14 @@ namespace Services
 
         private string getCemeteryKey(string cemeteryName)
         {
-            OleDbCommand cmd;
-            OleDbDataReader reader;
-            string key = "";
-
-            string sqlQuery = "SELECT KeyCode From CemeteryNames Where CemeteryName = '" + cemeteryName + "';";
-
-            using (OleDbConnection connection = new OleDbConnection(_connectionString))
+            foreach(CemeteryNameData cemetery in CemeteryNames)
             {
-                try
+                if(cemetery.CemeteryName == cemeteryName)
                 {
-                    cmd = new OleDbCommand(sqlQuery, connection);
-                    connection.Open();
-                    reader = cmd.ExecuteReader();
+                    return cemetery.KeyName;
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Could Not Query for Cemetery KeyCode");
-                    throw e;
-                }
-
-                if (reader.Read())
-                    key = reader.GetString(0);
             }
-
-            return key;
+            return "";
         }
 
         private List<EmblemData> GetEmblemImages(List<EmblemData> EmblemNames)
