@@ -36,6 +36,11 @@ steps:
 
 - task: VSTest@2
   inputs:
+    testAssemblyVer2: |
+      **\$(buildConfiguration)\IntegrationTests.dll
+      **\$(buildConfiguration)\ViewModelsTest.dll
+      !**\obj\** 
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+    diagnosticsEnabled: true
     codeCoverageEnabled: true
