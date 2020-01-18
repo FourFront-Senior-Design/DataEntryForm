@@ -5,6 +5,12 @@
 
 trigger:
 - master
+- development
+- development/*
+
+pr:
+- master
+- development
 - development/*
 
 pool:
