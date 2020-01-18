@@ -133,7 +133,7 @@ namespace IntegrationTests
         [TestMethod]
         public void SaveOnPageChange()
         {
-            IDatabaseService database = new MicrosoftAccess();
+            IDatabaseService database = new MockDatabase();
             database.InitDBConnection(sectionPath);
             IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
             reviewWindow.PageIndex = 1;
