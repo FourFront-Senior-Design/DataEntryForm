@@ -33,6 +33,7 @@ steps:
     testAssemblyVer2: |
       **\$(buildConfiguration)\IntegrationTests.dll
       **\$(buildConfiguration)\ViewModelsTest.dll
+      !**\obj\** 
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
     diagnosticsEnabled: true
