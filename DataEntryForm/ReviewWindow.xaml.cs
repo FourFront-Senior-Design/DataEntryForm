@@ -213,7 +213,7 @@ namespace Data_Entry_Form
             {
                 System.Diagnostics.Trace.WriteLine("Detected Alt+U");
                 TextBox tb = (TextBox)sender;
-                tb.Text = "UNKNOWN";
+                tb.Text = "UNKNOWN ";
                 tb.CaretIndex = tb.Text.Length;
             }
             
@@ -221,7 +221,15 @@ namespace Data_Entry_Form
             {
                 System.Diagnostics.Trace.WriteLine("Detected Alt+I");
                 TextBox tb = (TextBox)sender;
-                tb.Text = "ILLEGIBLE";
+                tb.Text = "ILLEGIBLE ";
+                tb.CaretIndex = tb.Text.Length;
+            }
+
+            if ((Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)) && Keyboard.IsKeyDown(Key.B))
+            {
+                System.Diagnostics.Trace.WriteLine("Detected Alt+B");
+                TextBox tb = (TextBox)sender;
+                tb.Text = "BLANK ";
                 tb.CaretIndex = tb.Text.Length;
             }
         }
