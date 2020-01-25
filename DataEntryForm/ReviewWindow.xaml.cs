@@ -228,8 +228,10 @@ namespace Data_Entry_Form
             if ((Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)) && Keyboard.IsKeyDown(Key.B))
             {
                 System.Diagnostics.Trace.WriteLine("Detected Alt+B");
+                primaryFirstName.Text = "BLANK";
+                primaryMiddleName.Text = "BLANK";
+                primaryLastName.Text = "BLANK";
                 TextBox tb = (TextBox)sender;
-                tb.Text = "BLANK ";
                 tb.CaretIndex = tb.Text.Length;
             }
         }

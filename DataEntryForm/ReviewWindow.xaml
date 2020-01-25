@@ -351,12 +351,14 @@
                                 <StackPanel>
                                     <Label Content="Name: First" />
                                     <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.FirstName}" 
-                                         Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
+                                         Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"
+                                             x:Name="primaryFirstName"/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Middle" />
                                     <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.MiddleName}" 
-                                         Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
+                                         Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"
+                                             x:Name="primaryMiddleName"/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Last" />
