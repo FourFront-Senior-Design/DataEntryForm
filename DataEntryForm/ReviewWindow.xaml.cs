@@ -213,7 +213,7 @@ namespace Data_Entry_Form
             {
                 System.Diagnostics.Trace.WriteLine("Detected Alt+U");
                 TextBox tb = (TextBox)sender;
-                tb.Text = "UNKNOWN";
+                tb.Text = "UNKNOWN ";
                 tb.CaretIndex = tb.Text.Length;
             }
             
@@ -221,7 +221,17 @@ namespace Data_Entry_Form
             {
                 System.Diagnostics.Trace.WriteLine("Detected Alt+I");
                 TextBox tb = (TextBox)sender;
-                tb.Text = "ILLEGIBLE";
+                tb.Text = "ILLEGIBLE ";
+                tb.CaretIndex = tb.Text.Length;
+            }
+
+            if ((Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)) && Keyboard.IsKeyDown(Key.B))
+            {
+                System.Diagnostics.Trace.WriteLine("Detected Alt+B");
+                primaryFirstName.Text = "BLANK";
+                primaryMiddleName.Text = "BLANK";
+                primaryLastName.Text = "BLANK";
+                TextBox tb = (TextBox)sender;
                 tb.CaretIndex = tb.Text.Length;
             }
         }
@@ -396,6 +406,49 @@ namespace Data_Entry_Form
         private void OpenImageClick(object sender, RoutedEventArgs e)
         {
             _displayWindow.Show();
+        }
+
+        private void EmblemCombox_TextChanged(object sender, RoutedEventArgs e)
+        {
+            List<int> codes = new List<int>();
+            for(int i=0; i<_viewModel.GetEmblemData.Count; i++)
+            {
+                codes.Add(Convert.ToInt32(_viewModel.GetEmblemData[i].Code));
+            }
+
+            try
+            {
+                int index1 = codes.IndexOf(Convert.ToInt32(emb1.Text));
+
+                if (index1 != -1)
+                {
+                    String source1 = _viewModel.GetEmblemData[index1].Photo;
+                    emb1_selected.Source = new BitmapImage(new Uri(source1, UriKind.Relative));
+                    Console.WriteLine(emb1_selected.Source);
+                    Console.WriteLine(emb1.SelectedIndex);
+                }
+            }
+            catch
+            {
+                emb1_selected.Source = new BitmapImage();
+            }
+
+
+            try
+            {
+                int index2 = codes.IndexOf(Convert.ToInt32(emb2.Text));
+                if (index2 != -1)
+                {
+                    String source2 = _viewModel.GetEmblemData[index2].Photo;
+                    emb2_selected.Source = new BitmapImage(new Uri(source2, UriKind.Relative));
+                    Console.WriteLine(emb2_selected.Source);
+                    Console.WriteLine(emb2.SelectedIndex);
+                }
+            }
+            catch
+            {
+                emb2_selected.Source = new BitmapImage();
+            }
         }
     }
 }

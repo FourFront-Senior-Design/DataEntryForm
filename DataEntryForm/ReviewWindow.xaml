@@ -254,7 +254,7 @@
                 </Grid>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="361"/>
+                        <ColumnDefinition/>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
@@ -268,20 +268,38 @@
                         <ComboBoxItem Content="Section Monument"></ComboBoxItem>
                         <ComboBoxItem Content="Temprory Marker"></ComboBoxItem>
                     </ComboBox>
-                    <Label Grid.Column="1"  Content="Emblem 1"  VerticalAlignment="Center"/>
-                    <ComboBox Grid.Column="1" Margin="80,10,10,10" Padding="1" 
+                    <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"  Content="Emblem 1"  VerticalAlignment="Center"/>
+                        <ComboBox Grid.Column="0" Margin="80,10,10,10" Padding="1" 
                               HorizontalAlignment="Stretch" ItemsSource="{Binding GetEmblemData}"
                               ItemTemplate="{StaticResource emblemCmbTemplate}" IsEditable="True"
                               Text="{Binding CurrentPageData.Emblem1}" LostFocus="EmblemCombox_LostFocus"
                               TextSearch.TextPath="Code" IsTextSearchEnabled="True"
-                              VerticalAlignment="Center"/>
-                    <Label Grid.Column="2" Content="Emblem 2"  VerticalAlignment="Center"/>
-                    <ComboBox Grid.Column="2"  Margin="90,10,0,10" Padding="1" 
+                              VerticalAlignment="Center" x:Name="emb1" 
+                              TextBoxBase.TextChanged="EmblemCombox_TextChanged"/>
+                        <Image Grid.Column="1" Width="30" Height="30" Stretch="Fill" x:Name="emb1_selected"
+                       VerticalAlignment="Center" Margin="2,0,15,0"/>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="Emblem 2"  VerticalAlignment="Center"/>
+                        <ComboBox Grid.Column="0"  Margin="90,10,0,10" Padding="1" 
                               HorizontalAlignment="Stretch" ItemsSource="{Binding GetEmblemData}"
                               ItemTemplate="{StaticResource emblemCmbTemplate}" IsEditable="True"
                               Text="{Binding CurrentPageData.Emblem2}"  LostFocus="EmblemCombox_LostFocus"
                               TextSearch.TextPath="Code" IsTextSearchEnabled="True"
-                              VerticalAlignment="Center"/>
+                              VerticalAlignment="Center" x:Name="emb2"
+                              TextBoxBase.TextChanged="EmblemCombox_TextChanged"/>
+                        <Image Grid.Column="1" Width="30" Height="30" Stretch="Fill" x:Name="emb2_selected"
+                       VerticalAlignment="Center" Margin="2,0,15,0"/>
+                    </Grid>
                 </Grid>
             </Grid>
         </Border>
@@ -333,12 +351,14 @@
                                 <StackPanel>
                                     <Label Content="Name: First" />
                                     <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.FirstName}" 
-                                         Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
+                                         Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"
+                                             x:Name="primaryFirstName"/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Middle" />
                                     <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.MiddleName}" 
-                                         Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
+                                         Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"
+                                             x:Name="primaryMiddleName"/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Last" />
