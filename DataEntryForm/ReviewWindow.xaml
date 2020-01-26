@@ -94,16 +94,16 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.3*"/>
+            <ColumnDefinition Width="0.2*"/>
             <ColumnDefinition Width="10*"/>
-            <ColumnDefinition Width="0.3*"/>
+            <ColumnDefinition Width="0.2*"/>
         </Grid.ColumnDefinitions>
 
         <Border Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="1">
             <Grid Grid.Row="0" Height="29" VerticalAlignment="Bottom">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1.5*"/>
-                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="1.5*"/>
                     <ColumnDefinition Width="4*"/>
                 </Grid.ColumnDefinitions>
@@ -127,7 +127,7 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="0.75*"/>
                         </Grid.ColumnDefinitions>
                         <TextBox  Text="{Binding CurrentPageData.SequenceID}" IsEnabled="True"
                                   IsReadOnly="True" CharacterCasing="Upper" FontSize="14" Width="auto" Height="20" Margin="2"/>
@@ -157,6 +157,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0.6*"/>
                         <ColumnDefinition Width="0.6*"/>
+                        <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
@@ -192,8 +193,35 @@
                             Open Image
                         </TextBlock>
                     </Button>
+                    <Button Grid.Column="5" Height="20" FontSize="12" 
+                            Content="Help" Click="HelpClick">
+                        <Button.ContextMenu>
+                            <ContextMenu x:Name="HelpMenu">
+                                <MenuItem Header="Previous Record" InputGestureText="Ctrl + PageUp"/>
+                                <MenuItem Header="Next Record" InputGestureText="Ctrl + PageDown"/>
+                                <Separator />
+                                <MenuItem Header="Previous Field" InputGestureText="Shift + Tab"/>
+                                <MenuItem Header="Next Field" InputGestureText="Tab or Enter"/>
+                                <Separator />
+                                <MenuItem Header="Enter ILLEGIBLE" InputGestureText="Alt + I"/>
+                                <MenuItem Header="Enter UNKNOWN" InputGestureText="Alt + U"/>
+                                <MenuItem Header="Enter BLANK" InputGestureText="Alt + B"/>
+                                <Separator />
+                                <MenuItem Header="Check or uncheck checkbox" InputGestureText="Space"/>
+                                <MenuItem Header="Drop down a dropdown menu" InputGestureText="Alt + Down_arrow"/>
+                                <Separator />
+                                <MenuItem Header="_Copy" InputGestureText="Ctrl + C"/>
+                                <MenuItem Header="Cut" InputGestureText="Ctrl + X"/>
+                                <MenuItem Header="Paste" InputGestureText="Ctrl + V"/>
+                                <MenuItem Header="Select textfield" InputGestureText="Ctrl + A"/>
+                                <Separator/>
+                                <MenuItem Header="Help Menu" InputGestureText="Ctrl + H"/>
+                                <MenuItem Header="Close Help Menu" InputGestureText="Esc"/>
+                            </ContextMenu>
+                        </Button.ContextMenu>
+                    </Button>
                     <Button Height="20" FontSize="12"
-                            Grid.Column="5" Click="BackClick">
+                            Grid.Column="6" Click="BackClick">
                         <TextBlock TextWrapping="Wrap" TextAlignment="Center">
                             Save &amp; Go to Menu
                         </TextBlock>
@@ -303,7 +331,7 @@
                 </Grid>
             </Grid>
         </Border>
-      
+
 
         <Border Grid.Row="3" Grid.Column="1" BorderBrush="Black" BorderThickness="1">
             <Grid>
@@ -342,7 +370,7 @@
                     <Image x:Name="backFaceImage" Grid.Column="2" HorizontalAlignment="Center"/>
                 </Grid>
 
-                    <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
+                <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
 
                     <Border BorderBrush="Black" BorderThickness="1">
                         <StackPanel>

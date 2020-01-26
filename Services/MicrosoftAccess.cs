@@ -464,6 +464,7 @@ namespace Services
                 }
             }
 
+            CemetaryData = CemetaryData.OrderBy(x => x.CemeteryName).ToList();
             return CemetaryData;
         }
 
@@ -506,6 +507,7 @@ namespace Services
                 }
             }
 
+            AwardNames = AwardNames.OrderBy(x => x.Code).ToList();
             return AwardNames;
         }
 
@@ -548,6 +550,7 @@ namespace Services
                 connection.Close();
             }
 
+            BranchNames = BranchNames.OrderBy(x => x.Code).ToList();
             return BranchNames;
         }
 
@@ -589,6 +592,7 @@ namespace Services
                 connection.Close();
             }
 
+            WarNames = WarNames.OrderBy(x => x.Code).ToList();
             return WarNames;
         }
 
@@ -678,6 +682,7 @@ namespace Services
                 connection.Close();
             }
 
+            LocationNames = LocationNames.OrderBy(x => x.Location).ToList();
             return LocationNames;
         }
 
