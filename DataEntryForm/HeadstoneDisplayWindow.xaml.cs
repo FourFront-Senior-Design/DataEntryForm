@@ -30,6 +30,10 @@ namespace Data_Entry_Form
             {
                 backFaceImage.Source = new BitmapImage(new Uri(_viewModel.ImageSource2));
             }
+            else
+            {
+                backFaceImage.Source = null;
+            }
         }
 
         protected override void OnClosing(CancelEventArgs e)

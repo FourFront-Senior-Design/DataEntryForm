@@ -6,17 +6,25 @@
         xmlns:local="clr-namespace:Data_Entry_Form"
         mc:Ignorable="d"
         Title="Headstone Display" Height="450" Width="800">
-    
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+
+    <ScrollViewer VerticalScrollBarVisibility="Hidden" 
+                  HorizontalScrollBarVisibility="Hidden">
         
-        <Image x:Name="frontFaceImage" Grid.Column="1" HorizontalAlignment="Center"/>
-        <Image x:Name="backFaceImage" Grid.Column="2" HorizontalAlignment="Center"/>
-    </Grid>
-    
+        <local:ZoomBorder x:Name="border" ClipToBounds="True" Background="Gray" Width="auto">
+            <StackPanel Orientation="Horizontal">
+                <Image x:Name="frontFaceImage">
+                    <Image.LayoutTransform>
+                        <ScaleTransform />
+                    </Image.LayoutTransform>
+                </Image>
+                <Image x:Name="backFaceImage">
+                    <Image.LayoutTransform>
+                        <ScaleTransform />
+                    </Image.LayoutTransform>
+                </Image>
+            </StackPanel>
+        </local:ZoomBorder>
+    </ScrollViewer>
+
+
 </Window>
