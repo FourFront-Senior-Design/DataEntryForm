@@ -54,7 +54,13 @@ namespace Data_Entry_Form
                     _viewModel.NextRecord();
                     BurialSectionField.Focus();
                 }
-                
+
+                if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.H))
+                {
+                    Console.WriteLine("Detected Ctrl + H");
+                    HelpMenu.IsOpen = !HelpMenu.IsOpen;
+                }
+
             }), true);
             isBack = false;
         }
@@ -182,6 +188,11 @@ namespace Data_Entry_Form
                 return;
             }
             _viewModel.PreviousRecord();
+        }
+
+        private void HelpClick(object sender, RoutedEventArgs e)
+        {
+            HelpMenu.IsOpen = !HelpMenu.IsOpen;
         }
 
         public void SetImagesToReview()
