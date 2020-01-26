@@ -69,7 +69,7 @@ namespace Data_Entry_Form
             }
             else
             {
-                frontFaceImage.Stretch = Stretch.None;
+                backFaceImage.Source = null;
             }
             BurialSectionField.Focus();
         }

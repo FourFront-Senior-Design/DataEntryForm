@@ -122,6 +122,7 @@
     <Compile Include="HeadstoneDisplayWindow.xaml.cs">
       <DependentUpon>HeadstoneDisplayWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ZoomBorder.cs" />
     <Compile Include="ReviewWindow.xaml.cs">
       <DependentUpon>ReviewWindow.xaml</DependentUpon>
     </Compile>
