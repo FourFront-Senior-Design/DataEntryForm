@@ -159,19 +159,19 @@ namespace ServiceTests
             databaseService.InitDBConnection(sectionPath);
             
             List<CemeteryNameData> Cemeterynames = databaseService.CemeteryNames;
-            Assert.IsTrue(Cemeterynames.Count != 0);
+            Assert.IsTrue(Cemeterynames.Count == 85);
 
             List<AwardData> Awardnames = databaseService.AwardNames;
-            Assert.IsTrue(Awardnames.Count != 0);
+            Assert.IsTrue(Awardnames.Count == 64);
 
             List<BranchData> Branchnames = databaseService.BranchNames;
-            Assert.IsTrue(Branchnames.Count != 0);
+            Assert.IsTrue(Branchnames.Count == 80);
 
             List<EmblemData> Emblemnames = databaseService.EmblemNames;
-            Assert.IsTrue(Emblemnames.Count != 0);
+            Assert.IsTrue(Emblemnames.Count == 70);
 
             List<LocationData> Locationnames = databaseService.LocationNames;
-            Assert.IsTrue(Locationnames.Count != 0);
+            Assert.IsTrue(Locationnames.Count == 237);
         }
 
         [TestMethod]

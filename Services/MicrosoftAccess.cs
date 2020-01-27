@@ -89,8 +89,9 @@ namespace Services
             }
             catch (Exception e)
             {
-                var errorMessage = $"Error Accessing MS Access Database this is likly due to a mismatch in database drivers\n" +
-                    $"Please ensure you have the latest Microsoft Access Database Engine by going to this link:https://www.microsoft.com/en-us/download/details.aspx?id=54920 \n" +
+                var errorMessage = $"Error Accessing MS Access Database this is likely due to a mismatch in database drivers\n" +
+                    $"Please ensure you have the Microsoft Access Database Engine (x64) 2010 Redistributable" +
+                    $" by going to this link:https://www.microsoft.com/en-us/download/details.aspx?id=54920 " +
                     $"and selecting the x64 bit version.";
                 ThrowAndLogArgumentException(errorMessage);
             }
