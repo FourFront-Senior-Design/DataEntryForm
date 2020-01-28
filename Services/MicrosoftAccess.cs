@@ -1,5 +1,6 @@
 ﻿using Common;
 using DataStructures;
+using NLog;
 using ServicesInterfaces;
 using System;
 using System.Collections.Generic;
@@ -7,9 +8,7 @@ using System.Data;
 using System.Data.OleDb;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Services
 {
@@ -33,54 +32,70 @@ namespace Services
 
         public string SectionFilePath { get; private set; } = string.Empty;
 
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         public bool InitDBConnection(string sectionFilePath)
         {
             SectionFilePath = sectionFilePath;
 
+
+            GetAccessFilePath();
+            TestFileAccess();
+
+            TotalItems = GetTotalRecords();
+            setSeqNum(TotalItems);
+
+            CemeteryNames = GetCemeteryData();
+            EmblemNames = GetEmblemData();
+            LocationNames = GetLocationData();
+            BranchNames = GetBranchData();
+            AwardNames = GetAwardData();
+            WarNames = GetWarData();
+
+            return true;
+        }
+
+        private void GetAccessFilePath()
+        {
+
+            Regex reg = new Regex(@".*_be.accdb");
+
             try
             {
-                Regex reg = new Regex(@".*_be.accdb");
-
-                var Dbfiles = Directory.GetFiles(sectionFilePath)
-                    .Where(path => reg.IsMatch(path))
-                    .ToList();
+                var Dbfiles = Directory.GetFiles(SectionFilePath)
+                                        .Where(path => reg.IsMatch(path))
+                                        .ToList();
 
                 // set the connection string
                 _connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Dbfiles[0];
+            }
+            catch (Exception e)
+            {
+                var errorMessage = $"Error Accessing MS Access File with path: {SectionFilePath}";
+                ThrowAndLogArgumentException(errorMessage);
+            }
+        }
 
+        private void TestFileAccess()
+        {
+            try
+            {
                 // create the db connection
                 using (OleDbConnection connection = new OleDbConnection(_connectionString))
                 // using to ensure connection is closed when we are done
                 {
-                    try
-                    {
-                        connection.Open(); // try to open the connection
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                        return false;
-                    }
+                    connection.Open(); // try to open the connection
                 }
-
-                TotalItems = GetTotalRecords();
-
-                setSeqNum( TotalItems );
-
-                CemeteryNames = GetCemeteryData();
-                EmblemNames = GetEmblemData();
-                LocationNames = GetLocationData();
-                BranchNames = GetBranchData();
-                AwardNames = GetAwardData();
-                WarNames = GetWarData();
-
-                return true;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                Console.WriteLine(e);
-                return false;
+                var errorMessage = $"Error Accessing MS Access Database this is likely due to a mismatch in database drivers\n" +
+                    $"Please ensure you have the Microsoft Access Database Engine (x64) 2010 Redistributable" +
+                    $" by going to this link:https://www.microsoft.com/en-us/download/details.aspx?id=54920 " +
+                    $"and selecting the x64 bit version.";
+                ThrowAndLogArgumentException(errorMessage);
             }
+
         }
 
         private int GetTotalRecords()
@@ -89,6 +104,7 @@ namespace Services
             //string sqlQuery = "SELECT COUNT(AccessUniqueID) FROM Master";
             OleDbCommand cmd;
             OleDbDataReader reader;
+            int totalRecords = 0;
 
             using (OleDbConnection connection = new OleDbConnection(_connectionString)) // using to ensure connection is closed when we are done
             {
@@ -96,50 +112,72 @@ namespace Services
                 {
                     cmd = new OleDbCommand(sqlQuery, connection);
                     connection.Open(); // try to open the connection
+                    reader = cmd.ExecuteReader();
+                    reader.Read();
+                    totalRecords = reader.GetInt32(0);
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Error accessing Database");
-                    throw e;
+                    ThrowAndLogArgumentException("Error getting total record count", e);
                 }
-
-                reader = cmd.ExecuteReader();
-                reader.Read();
-
-                return reader.GetInt32(0);
             }
 
+            return totalRecords;
         }
 
         public Headstone GetHeadstone(int index)
         {
-            string sqlQuery = "SELECT * FROM Master WHERE SeqNum = '" + index.ToString()+"'";
+            string sqlQuery = "SELECT * FROM Master WHERE SeqNum = '" + index.ToString() + "'";
             Headstone headstone = new Headstone();
-            
-            var dataRow = GetDataRow(sqlQuery);
 
-            headstone.SequenceID = dataRow[(int)MasterTableCols.SequenceID].ToString();
-            headstone.PrimaryKey = dataRow[(int)MasterTableCols.PrimaryKey].ToString();
-            headstone.CemeteryName = dataRow[(int)MasterTableCols.CemeteryName].ToString();
-            headstone.BurialSectionNumber = dataRow[(int)MasterTableCols.BurialSectionNumber].ToString();
-            headstone.WallID = dataRow[(int)MasterTableCols.Wall].ToString();
-            headstone.RowNum = dataRow[(int)MasterTableCols.RowNumber].ToString();
-            headstone.GavestoneNumber = dataRow[(int)MasterTableCols.GravesiteNumber].ToString();
-            headstone.MarkerType = dataRow[(int)MasterTableCols.MarkerType].ToString();
-            headstone.Emblem1 = dataRow[(int)MasterTableCols.Emblem1].ToString();
-            headstone.Emblem2 = dataRow[(int)MasterTableCols.Emblem2].ToString();
+            try
+            {
+                var dataRow = GetDataRow(sqlQuery);
+                headstone.SequenceID = dataRow[(int)MasterTableCols.SequenceID].ToString();
+                headstone.PrimaryKey = dataRow[(int)MasterTableCols.PrimaryKey].ToString();
+                headstone.CemeteryName = dataRow[(int)MasterTableCols.CemeteryName].ToString();
+                headstone.BurialSectionNumber = dataRow[(int)MasterTableCols.BurialSectionNumber].ToString();
+                headstone.WallID = dataRow[(int)MasterTableCols.Wall].ToString();
+                headstone.RowNum = dataRow[(int)MasterTableCols.RowNumber].ToString();
+                headstone.GavestoneNumber = dataRow[(int)MasterTableCols.GravesiteNumber].ToString();
+                headstone.MarkerType = dataRow[(int)MasterTableCols.MarkerType].ToString();
+                headstone.Emblem1 = dataRow[(int)MasterTableCols.Emblem1].ToString();
+                headstone.Emblem2 = dataRow[(int)MasterTableCols.Emblem2].ToString();
 
-            headstone.PrimaryDecedent = GetPrimaryPerson(dataRow);
+                headstone.PrimaryDecedent = GetPrimaryPerson(dataRow);
 
-            headstone.OthersDecedentList = GetAddtionalDecedents(dataRow);
+                headstone.OthersDecedentList = GetAddtionalDecedents(dataRow);
 
-            headstone.Image1FilePath = dataRow[(int)MasterTableCols.FrontFilename].ToString();
-            headstone.Image2FilePath = dataRow[(int)MasterTableCols.BackFilename].ToString();
+                headstone.Image1FilePath = dataRow[(int)MasterTableCols.FrontFilename].ToString();
+                headstone.Image2FilePath = dataRow[(int)MasterTableCols.BackFilename].ToString();
 
-            headstone.Image1FileName = Path.GetFileName(headstone.Image1FilePath);
-            headstone.Image2FileName = Path.GetFileName(headstone.Image2FilePath);
+                headstone.Image1FileName = Path.GetFileName(headstone.Image1FilePath);
+                headstone.Image2FileName = Path.GetFileName(headstone.Image2FilePath);
+            }
+            catch (Exception e)
+            {
+
+                ThrowAndLogArgumentException($"Error getting headstone with Sequence Number: ${index.ToString()}", e);
+            }
+
+
+
 
             return headstone;
+        }
+
+        private void ThrowAndLogArgumentException(string errorMessage, Exception innerException = null)
+        {
+            if (innerException == null)
+            {
+                logger.Log(LogLevel.Error, errorMessage);
+                throw new ArgumentException(errorMessage, innerException);
+            }
+            else
+            {
+                logger.Log(LogLevel.Error, errorMessage);
+                throw new ArgumentException(errorMessage);
+            }
         }
 
         private object[] GetDataRow(string sqlQuery)
@@ -147,7 +185,7 @@ namespace Services
             OleDbCommand cmd;
             OleDbDataReader reader;
             object[] dataRow;
-            
+
 
             using (OleDbConnection connection = new OleDbConnection(_connectionString)) // using to ensure connection is closed when we are done
             {
@@ -400,35 +438,34 @@ namespace Services
 
             using (OleDbConnection connection = new OleDbConnection(_connectionString))
             {
+                cmd = new OleDbCommand(sqlQuery, connection);
+                connection.Open();
+
                 try
                 {
-                    cmd = new OleDbCommand(sqlQuery, connection);
-                    connection.Open();
+                    reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        CemeteryNameData data = new CemeteryNameData();
+
+                        data.ID = reader.GetInt32(0);
+                        data.CemeteryName = reader.GetString(1).ToUpper();
+                        data.KeyName = reader.GetString(2).ToUpper();
+
+                        CemetaryData.Add(data);
+                    }
+                    reader.Close();
+                    connection.Close();
+
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Error accsessing Database");
-                    throw e;
+                    ThrowAndLogArgumentException("Error getting cemetery data", e);
                 }
-
-                reader = cmd.ExecuteReader();
-
-                while(reader.Read())
-                {
-                    CemeteryNameData data = new CemeteryNameData();
-
-                    data.ID = reader.GetInt32(0);
-                    data.CemeteryName = reader.GetString(1).ToUpper();
-                    data.KeyName = reader.GetString(2).ToUpper();
-
-                    CemetaryData.Add(data);
-                }
-
-
-                reader.Close();
-                connection.Close();
             }
 
+            CemetaryData = CemetaryData.OrderBy(x => x.CemeteryName).ToList();
             return CemetaryData;
         }
 
@@ -442,34 +479,36 @@ namespace Services
 
             using (OleDbConnection connection = new OleDbConnection(_connectionString))
             {
+
+                cmd = new OleDbCommand(sqlQuery, connection);
+                connection.Open();
+
                 try
                 {
-                    cmd = new OleDbCommand(sqlQuery, connection);
-                    connection.Open();
+                    reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        AwardData data = new AwardData();
+
+                        data.Code = reader.GetString(0).ToUpper();
+                        data.Award = reader.GetString(1).ToUpper();
+
+                        AwardNames.Add(data);
+                    }
+
+
+                    reader.Close();
+                    connection.Close();
+
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Error accsessing Database");
-                    throw e;
+                    ThrowAndLogArgumentException("Error getting award data", e);
                 }
-
-                reader = cmd.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    AwardData data = new AwardData();
-
-                    data.Code = reader.GetString(0).ToUpper();
-                    data.Award = reader.GetString(1).ToUpper();
-
-                    AwardNames.Add(data);
-                }
-
-
-                reader.Close();
-                connection.Close();
             }
 
+            AwardNames = AwardNames.OrderBy(x => x.Code).ToList();
             return AwardNames;
         }
 
@@ -512,6 +551,7 @@ namespace Services
                 connection.Close();
             }
 
+            BranchNames = BranchNames.OrderBy(x => x.Code).ToList();
             return BranchNames;
         }
 
@@ -553,6 +593,7 @@ namespace Services
                 connection.Close();
             }
 
+            WarNames = WarNames.OrderBy(x => x.Code).ToList();
             return WarNames;
         }
 
@@ -623,7 +664,7 @@ namespace Services
                     throw e;
                 }
 
-                
+
                 reader = cmd.ExecuteReader();
 
                 while (reader.Read())
@@ -642,36 +683,20 @@ namespace Services
                 connection.Close();
             }
 
+            LocationNames = LocationNames.OrderBy(x => x.Location).ToList();
             return LocationNames;
         }
 
         private string getCemeteryKey(string cemeteryName)
         {
-            OleDbCommand cmd;
-            OleDbDataReader reader;
-            string key = "";
-
-            string sqlQuery = "SELECT KeyCode From CemeteryNames Where CemeteryName = '" + cemeteryName + "';";
-
-            using (OleDbConnection connection = new OleDbConnection(_connectionString))
+            foreach (CemeteryNameData cemetery in CemeteryNames)
             {
-                try
+                if (cemetery.CemeteryName == cemeteryName)
                 {
-                    cmd = new OleDbCommand(sqlQuery, connection);
-                    connection.Open();
-                    reader = cmd.ExecuteReader();
+                    return cemetery.KeyName;
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Could Not Query for Cemetery KeyCode");
-                    throw e;
-                }
-
-                if (reader.Read())
-                    key = reader.GetString(0);
             }
-
-            return key;
+            return "";
         }
 
         private List<EmblemData> GetEmblemImages(List<EmblemData> EmblemNames)
@@ -712,7 +737,7 @@ namespace Services
                     reader = cmd.ExecuteReader();
                     return;
                 }
-                catch{ }
+                catch { }
 
                 try//Try to execute query for Sequence IDs
                 {
@@ -800,7 +825,7 @@ namespace Services
                 }
 
                 string[] intEntries = { "Wall", "Emblem1", "Emblem2" };
-                foreach(KeyValuePair<string, string> entry in headstoneData)
+                foreach (KeyValuePair<string, string> entry in headstoneData)
                 {
                     try
                     {

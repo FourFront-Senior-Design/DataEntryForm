@@ -1,22 +1,23 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ViewModels;
 using ServicesInterfaces;
 using Services;
 using ViewModelInterfaces;
 using System.Collections.Generic;
 using DataStructures;
+using System.IO;
 
 namespace ViewModelsTest
 {
     [TestClass]
     public class ReviewWindowVMTest
     {
+        private string sectionPath = "";
+
         [TestMethod]
         public void FirstRecord()
         {
-            IDatabaseService database = new MicrosoftAccess();
-            string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
+            IDatabaseService database = new MockDatabase();
             database.InitDBConnection(sectionPath);
             IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
 
@@ -27,8 +28,7 @@ namespace ViewModelsTest
         [TestMethod]
         public void LastRecord()
         {
-            IDatabaseService database = new MicrosoftAccess();
-            string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
+            IDatabaseService database = new MockDatabase();
             database.InitDBConnection(sectionPath);
             IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
 
@@ -39,8 +39,7 @@ namespace ViewModelsTest
         [TestMethod]
         public void GoToRecord_NegativeInput()
         {
-            IDatabaseService database = new MicrosoftAccess();
-            string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
+            IDatabaseService database = new MockDatabase();
             database.InitDBConnection(sectionPath);
             IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
             reviewWindow.PageIndex = 1;
@@ -51,8 +50,7 @@ namespace ViewModelsTest
         [TestMethod]
         public void GoToRecord_ZeroRecordNumberInput()
         {
-            IDatabaseService database = new MicrosoftAccess();
-            string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
+            IDatabaseService database = new MockDatabase();
             database.InitDBConnection(sectionPath);
             IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
             reviewWindow.PageIndex = 1;
@@ -63,8 +61,7 @@ namespace ViewModelsTest
         [TestMethod]
         public void GoToRecord_LastRecordNumberInput()
         {
-            IDatabaseService database = new MicrosoftAccess();
-            string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
+            IDatabaseService database = new MockDatabase();
             database.InitDBConnection(sectionPath);
             IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
             reviewWindow.PageIndex = 1;
@@ -76,8 +73,7 @@ namespace ViewModelsTest
         [TestMethod]
         public void GoToRecord_MoreThanTotalRecordsInput()
         {
-            IDatabaseService database = new MicrosoftAccess();
-            string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
+            IDatabaseService database = new MockDatabase();
             database.InitDBConnection(sectionPath);
             IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
             reviewWindow.PageIndex = 1;
@@ -89,8 +85,7 @@ namespace ViewModelsTest
         [TestMethod]
         public void GoToRecord_lettersInInput()
         {
-            IDatabaseService database = new MicrosoftAccess();
-            string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
+            IDatabaseService database = new MockDatabase();
             database.InitDBConnection(sectionPath);
             IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
             reviewWindow.PageIndex = 1;
@@ -101,8 +96,7 @@ namespace ViewModelsTest
         [TestMethod]
         public void GoToRecord_EmptyInput()
         {
-            IDatabaseService database = new MicrosoftAccess();
-            string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
+            IDatabaseService database = new MockDatabase();
             database.InitDBConnection(sectionPath);
             IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
             reviewWindow.PageIndex = 1;
@@ -114,8 +108,7 @@ namespace ViewModelsTest
         [TestMethod]
         public void GoToRecord_FirstRecordInput()
         {
-            IDatabaseService database = new MicrosoftAccess();
-            string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
+            IDatabaseService database = new MockDatabase();
             database.InitDBConnection(sectionPath);
             IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
             reviewWindow.PageIndex = 1;
@@ -126,8 +119,7 @@ namespace ViewModelsTest
         [TestMethod]
         public void NextRecord_LastRecord()
         {
-            IDatabaseService database = new MicrosoftAccess();
-            string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
+            IDatabaseService database = new MockDatabase();
             database.InitDBConnection(sectionPath);
             IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
 
@@ -139,8 +131,7 @@ namespace ViewModelsTest
         [TestMethod]
         public void NextRecord_AnyRecord()
         {
-            IDatabaseService database = new MicrosoftAccess();
-            string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
+            IDatabaseService database = new MockDatabase();
             database.InitDBConnection(sectionPath);
             IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
             
@@ -152,8 +143,7 @@ namespace ViewModelsTest
         [TestMethod]
         public void NextRecord_SaveCemeteryName_NextEmpty()
         {
-            IDatabaseService database = new MicrosoftAccess();
-            string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
+            IDatabaseService database = new MockDatabase();
             database.InitDBConnection(sectionPath);
             IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
             reviewWindow.PageIndex = 1;
@@ -171,8 +161,7 @@ namespace ViewModelsTest
         [TestMethod]
         public void NextRecord_SaveCemeteryName_NextFilled()
         {
-            IDatabaseService database = new MicrosoftAccess();
-            string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
+            IDatabaseService database = new MockDatabase();
             database.InitDBConnection(sectionPath);
             IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
             reviewWindow.PageIndex = 1;
@@ -190,8 +179,7 @@ namespace ViewModelsTest
         [TestMethod]
         public void NextRecord_SaveSectionNumber()
         {
-            IDatabaseService database = new MicrosoftAccess();
-            string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
+            IDatabaseService database = new MockDatabase();
             database.InitDBConnection(sectionPath);
             IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
             reviewWindow.PageIndex = 1;
@@ -209,8 +197,7 @@ namespace ViewModelsTest
         [TestMethod]
         public void NextRecord_SaveSectionNumber_NextFilled()
         {
-            IDatabaseService database = new MicrosoftAccess();
-            string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
+            IDatabaseService database = new MockDatabase();
             database.InitDBConnection(sectionPath);
             IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
             reviewWindow.PageIndex = 1;
@@ -228,8 +215,7 @@ namespace ViewModelsTest
         [TestMethod]
         public void NextRecord_SaveMarkerType()
         {
-            IDatabaseService database = new MicrosoftAccess();
-            string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
+            IDatabaseService database = new MockDatabase();
             database.InitDBConnection(sectionPath);
             IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
             reviewWindow.PageIndex = 1;
@@ -247,8 +233,7 @@ namespace ViewModelsTest
         [TestMethod]
         public void NextRecord_SaveMarkerType_NextFilled()
         {
-            IDatabaseService database = new MicrosoftAccess();
-            string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
+            IDatabaseService database = new MockDatabase();
             database.InitDBConnection(sectionPath);
             IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
             reviewWindow.PageIndex = 1;
@@ -266,8 +251,7 @@ namespace ViewModelsTest
         [TestMethod]
         public void NextRecord_SaveMarkerType_SomeFilled()
         {
-            IDatabaseService database = new MicrosoftAccess();
-            string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
+            IDatabaseService database = new MockDatabase();
             database.InitDBConnection(sectionPath);
             IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
             reviewWindow.PageIndex = 1;
@@ -288,8 +272,7 @@ namespace ViewModelsTest
         [TestMethod]
         public void PreviousRecord_FirstRecord()
         {
-            IDatabaseService database = new MicrosoftAccess();
-            string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
+            IDatabaseService database = new MockDatabase();
             database.InitDBConnection(sectionPath);
             IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
 
@@ -301,8 +284,7 @@ namespace ViewModelsTest
         [TestMethod]
         public void PreviousRecord_AnyRecord()
         {
-            IDatabaseService database = new MicrosoftAccess();
-            string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
+            IDatabaseService database = new MockDatabase();
             database.InitDBConnection(sectionPath);
             IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
 
@@ -314,8 +296,7 @@ namespace ViewModelsTest
         [TestMethod]
         public void MandatoryInfo_GravestoneNumber()
         {
-            IDatabaseService database = new MicrosoftAccess();
-            string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
+            IDatabaseService database = new MockDatabase();
             database.InitDBConnection(sectionPath);
             IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
             reviewWindow.PageIndex = 1;
@@ -335,8 +316,7 @@ namespace ViewModelsTest
         [TestMethod]
         public void MandatoryInfo_PrimaryName()
         {
-            IDatabaseService database = new MicrosoftAccess();
-            string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
+            IDatabaseService database = new MockDatabase();
             database.InitDBConnection(sectionPath);
             IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
             reviewWindow.PageIndex = 1;
@@ -361,8 +341,7 @@ namespace ViewModelsTest
         [TestMethod]
         public void MandatoryInfo_OthersDecedentList()
         {
-            IDatabaseService database = new MicrosoftAccess();
-            string sectionPath = @"C:\Users\7405148\Desktop\Section0000P";
+            IDatabaseService database = new MockDatabase();
             database.InitDBConnection(sectionPath);
             IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
             reviewWindow.PageIndex = 1;

@@ -165,7 +165,7 @@ namespace ViewModels
             try
             {
                 int page = Convert.ToInt32(text);
-                Console.WriteLine("page", page, text);
+                if (page < 1) return false;
                 PageIndex = page;
                 return true;
             }

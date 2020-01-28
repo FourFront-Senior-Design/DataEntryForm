@@ -1,0 +1,30 @@
+﻿<Window x:Class="Data_Entry_Form.HeadstoneDisplayWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Data_Entry_Form"
+        mc:Ignorable="d"
+        Title="Headstone Display" Height="450" Width="800">
+
+    <ScrollViewer VerticalScrollBarVisibility="Hidden" 
+                  HorizontalScrollBarVisibility="Hidden">
+        
+        <local:ZoomBorder x:Name="border" ClipToBounds="True" Background="Gray" Width="auto">
+            <StackPanel Orientation="Horizontal">
+                <Image x:Name="frontFaceImage">
+                    <Image.LayoutTransform>
+                        <ScaleTransform />
+                    </Image.LayoutTransform>
+                </Image>
+                <Image x:Name="backFaceImage">
+                    <Image.LayoutTransform>
+                        <ScaleTransform />
+                    </Image.LayoutTransform>
+                </Image>
+            </StackPanel>
+        </local:ZoomBorder>
+    </ScrollViewer>
+
+
+</Window>
