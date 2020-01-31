@@ -16,6 +16,8 @@ namespace Services
     {
         private string _connectionString;
 
+        private List<string> SequenceIDs { get; set; }
+
         public int TotalItems { get; private set; }
 
         public List<CemeteryNameData> CemeteryNames { get; private set; }
@@ -43,7 +45,6 @@ namespace Services
             TestFileAccess();
 
             TotalItems = GetTotalRecords();
-            setSeqNum(TotalItems);
 
             CemeteryNames = GetCemeteryData();
             EmblemNames = GetEmblemData();
@@ -51,6 +52,7 @@ namespace Services
             BranchNames = GetBranchData();
             AwardNames = GetAwardData();
             WarNames = GetWarData();
+            SequenceIDs = GetSequenceIDs();
 
             return true;
         }
@@ -100,8 +102,7 @@ namespace Services
 
         private int GetTotalRecords()
         {
-            string sqlQuery = "SELECT COUNT(AccessUniqueID) FROM Master";
-            //string sqlQuery = "SELECT COUNT(AccessUniqueID) FROM Master";
+            string sqlQuery = "SELECT COUNT(SequenceID) FROM Master";
             OleDbCommand cmd;
             OleDbDataReader reader;
             int totalRecords = 0;
@@ -127,7 +128,7 @@ namespace Services
 
         public Headstone GetHeadstone(int index)
         {
-            string sqlQuery = "SELECT * FROM Master WHERE SeqNum = '" + index.ToString() + "'";
+            string sqlQuery = "SELECT * FROM Master WHERE SequenceID = \"" + SequenceIDs[index - 1] + "\"";
             Headstone headstone = new Headstone();
 
             try
@@ -148,6 +149,7 @@ namespace Services
 
                 headstone.OthersDecedentList = GetAddtionalDecedents(dataRow);
 
+                Console.WriteLine((int)MasterTableCols.FrontFilename);
                 headstone.Image1FilePath = dataRow[(int)MasterTableCols.FrontFilename].ToString();
                 headstone.Image2FilePath = dataRow[(int)MasterTableCols.BackFilename].ToString();
 
@@ -157,12 +159,9 @@ namespace Services
             catch (Exception e)
             {
 
-                ThrowAndLogArgumentException($"Error getting headstone with Sequence Number: ${index.ToString()}", e);
+                ThrowAndLogArgumentException($"Error getting headstone with SequenceID at ${index.ToString()}", e);
             }
-
-
-
-
+            
             return headstone;
         }
 
@@ -711,18 +710,18 @@ namespace Services
             return EmblemNames;
         }
 
-        private void setSeqNum(int count)
+        private List<string> GetSequenceIDs()
         {
-            string sqlQuery = "";
-            List<Int32> accessUniqueIDs = new List<Int32>();
-            OleDbCommand cmd;
-            OleDbDataReader reader;
+            List<string> sequenceIDs = new List<string>();
 
-            using (OleDbConnection connection = new OleDbConnection(_connectionString)) // using to ensure connection is closed when we are done
+            using (OleDbConnection connection = new OleDbConnection(_connectionString))
             {
+                OleDbCommand cmd;
+                OleDbDataReader reader;
+
                 try
                 {
-                    connection.Open(); // try to open the connection
+                    connection.Open();
                 }
                 catch (Exception e)
                 {
@@ -730,55 +729,27 @@ namespace Services
                     throw e;
                 }
 
-                try//See if SeqNum has already been filled, If yes return
+                try
                 {
-                    sqlQuery = "SELECT SeqNum FROM Master Where SeqNum = '" + count.ToString() + "';";
-                    cmd = new OleDbCommand(sqlQuery, connection);
-                    reader = cmd.ExecuteReader();
-                    return;
-                }
-                catch { }
-
-                try//Try to execute query for Sequence IDs
-                {
-                    sqlQuery = "SELECT AccessUniqueID FROM Master;";
+                    string sqlQuery = "SELECT SequenceID FROM Master;";
                     cmd = new OleDbCommand(sqlQuery, connection);
                     reader = cmd.ExecuteReader();
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Error Querying for AccessUniqueIDs");
+                    Console.WriteLine("Error Querying for SequenceIDs");
                     throw e;
                 }
 
-                //Add AccessUniqueIDs to accessUniqueIDs List for future use
                 while (reader.Read())
                 {
-                    accessUniqueIDs.Add(reader.GetInt32(0));
+                    sequenceIDs.Add(reader.GetString(0));
                 }
 
                 reader.Close();
-
-                //Update SeqNum table with values equal to i in order of AccessUniqueIDs
-                for (int i = 1; i <= count; i++)
-                {
-                    sqlQuery = "UPDATE Master Set SeqNum = " + i +
-                        " WHERE AccessUniqueID = " + accessUniqueIDs[i - 1] + ";";
-                    try
-                    {
-                        cmd = new OleDbCommand(sqlQuery, connection);
-                        cmd.ExecuteNonQuery(); // do the update
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine("Error writing SeqNum to the database:");
-                        Console.WriteLine(e.Message);
-                        Console.WriteLine(cmd.CommandText);
-                    }
-                }
-
-                connection.Close();
             }
+            sequenceIDs.Sort();
+            return sequenceIDs;
         }
 
         public void SetHeadstone(int index, Headstone headstone)
@@ -808,7 +779,8 @@ namespace Services
                 "', [Branch-Unit_CustomS_D] = '" + headstone.OthersDecedentList[0].BranchUnitCustom + "'";
 
             // finalize update statement
-            sqlQuery += @" WHERE SeqNum = '" + index + @"';";
+            //sqlQuery += @" WHERE SequenceID = '" + sequenceID[index] + @"';";
+            sqlQuery += @" WHERE SequenceID = '" + SequenceIDs[index-1] + "';";
 
             OleDbCommand cmd;
             using (OleDbConnection connection = new OleDbConnection(_connectionString)) // using to ensure connection is closed when we are done
