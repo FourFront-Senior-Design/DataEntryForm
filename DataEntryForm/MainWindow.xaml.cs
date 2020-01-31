@@ -23,9 +23,12 @@ namespace Data_Entry_Form
         public void ResetMainWindow()
         {
             _viewModel.EnableExtract = false;
-            _viewModel.FileLocation = "";
             _viewModel.Message = "";
             _viewModel.FileLocation = Properties.Settings.Default.databaseFilePath;
+            sectionPath.Focus();
+            sectionPath.Select(_viewModel.FileLocation.Length, 0);
+            Trace.WriteLine(_viewModel.FileLocation);
+            Trace.WriteLine(_viewModel.FileLocation.Length);
         }
 
         private void BrowseClick(object sender, RoutedEventArgs e)
@@ -39,6 +42,9 @@ namespace Data_Entry_Form
             {
                 _viewModel.FileLocation = selectedPath;
             }
+            sectionPath.Focus();
+            sectionPath.Select(_viewModel.FileLocation.Length, 0);
+            Trace.WriteLine(sectionPath.CaretIndex);
         }
 
         private void LoadDataClick(object sender, RoutedEventArgs e)
@@ -64,6 +70,8 @@ namespace Data_Entry_Form
                                  " records from the Database";
                 _viewModel.EnableExtract = true;
             }
+            sectionPath.Focus();
+            sectionPath.Select(_viewModel.FileLocation.Length, 0);
         }
 
         private void ReviewClick(object sender, RoutedEventArgs e)
