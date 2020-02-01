@@ -161,7 +161,7 @@ namespace Services
 
                 ThrowAndLogArgumentException($"Error getting headstone with SequenceID at ${index.ToString()}", e);
             }
-            
+
             return headstone;
         }
 
@@ -743,7 +743,17 @@ namespace Services
 
                 while (reader.Read())
                 {
-                    sequenceIDs.Add(reader.GetString(0));
+
+                    var value = reader.GetValue(0);
+                    var valType = value.GetType();
+                    if (valType == typeof(string))
+                    {
+                        sequenceIDs.Add(value as string);
+                    }
+                    else
+                    {
+                        throw new ArgumentException($"Invalid or Empty Sequence ID");
+                    }
                 }
 
                 reader.Close();
@@ -780,7 +790,7 @@ namespace Services
 
             // finalize update statement
             //sqlQuery += @" WHERE SequenceID = '" + sequenceID[index] + @"';";
-            sqlQuery += @" WHERE SequenceID = '" + SequenceIDs[index-1] + "';";
+            sqlQuery += @" WHERE SequenceID = '" + SequenceIDs[index - 1] + "';";
 
             OleDbCommand cmd;
             using (OleDbConnection connection = new OleDbConnection(_connectionString)) // using to ensure connection is closed when we are done

@@ -72,10 +72,13 @@ namespace Data_Entry_Form
             if (!string.IsNullOrWhiteSpace(_viewModel.CurrentPageData.Image2FileName))
             {
                 backFaceImage.Source = new BitmapImage(new Uri(_viewModel.ImageSource2));
+                frontFaceImage.SetValue(Grid.ColumnSpanProperty, 1);
+
             }
             else
             {
                 backFaceImage.Source = null;
+                frontFaceImage.SetValue(Grid.ColumnSpanProperty, 2);
             }
             BurialSectionField.Focus();
         }
