@@ -61,8 +61,17 @@ namespace Data_Entry_Form
                     HelpMenu.IsOpen = !HelpMenu.IsOpen;
                 }
 
+                if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) &&
+                Keyboard.IsKeyDown(Key.J) && Keyboard.IsKeyDown(Key.K) & Keyboard.IsKeyDown(Key.L))
+                {
+                    Console.WriteLine("Detected Alt + JKL");
+                    _viewModel.NextRecord();
+                    BurialSectionField.Focus();
+                }
+
             }), true);
             isBack = false;
+
         }
 
         private void viewModel_HeadstoneChanged(object sender, EventArgs e)
@@ -249,6 +258,15 @@ namespace Data_Entry_Form
                 primaryLastName.Text = "BLANK";
                 TextBox tb = (TextBox)sender;
                 tb.CaretIndex = tb.Text.Length;
+            }
+
+            //if ((Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)) && Keyboard.IsKeyDown(Key.X))
+            if (e.Key == Key.X && (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)))
+            {
+                System.Diagnostics.Trace.WriteLine("Detected CTRL+X");
+                TextBox tb = (TextBox)sender;
+                tb.SelectAll();
+                tb.Cut();
             }
         }
 
