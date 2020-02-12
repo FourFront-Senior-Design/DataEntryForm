@@ -15,7 +15,7 @@ namespace ServiceTests
     public class MicrosoftAccessTests
     {
         private static string exePath = Directory.GetCurrentDirectory() + "\\..\\..\\..\\..\\";
-        private string sectionPath = Path.Combine(exePath, "TestDatabases\\Section0000P");
+        private string sectionPath = Path.Combine(exePath, "TestDatabases\\Section0000P_UprightMakerTypes");
         private Headstone testHeadstone = new Headstone();
 
         public MicrosoftAccessTests()
