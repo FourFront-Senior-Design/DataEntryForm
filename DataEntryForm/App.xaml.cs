@@ -38,7 +38,7 @@ namespace Data_Entry_Form
 
             _mainWindow = _serviceProvider.GetService<MainWindow>();
             _mainWindow.MoveToReviewPage += MainWindow_MoveToReviewPage;
-            //DispatcherUnhandledException += App_DispatcherUnhandledException;
+            DispatcherUnhandledException += App_DispatcherUnhandledException;
 
 
 
@@ -98,8 +98,8 @@ namespace Data_Entry_Form
 
         void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            //MessageBox.Show(e.Exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            //e.Handled = true;
+            MessageBox.Show(e.Exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            e.Handled = true;
         }
     }
 }

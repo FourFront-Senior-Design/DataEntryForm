@@ -227,16 +227,18 @@ namespace Data_Entry_Form
             {
                 System.Diagnostics.Trace.WriteLine("Detected Alt+U");
                 TextBox tb = (TextBox)sender;
-                tb.Text = "UNKNOWN ";
-                tb.CaretIndex = tb.Text.Length;
+                int pos = tb.CaretIndex;
+                tb.Text = tb.Text.Insert(pos, "UNKNOWN");
+                tb.CaretIndex = pos + "UNKNOWN".Length;
             }
             
             if ((Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)) && Keyboard.IsKeyDown(Key.I))
             {
                 System.Diagnostics.Trace.WriteLine("Detected Alt+I");
                 TextBox tb = (TextBox)sender;
-                tb.Text = "ILLEGIBLE ";
-                tb.CaretIndex = tb.Text.Length;
+                int pos = tb.CaretIndex;
+                tb.Text = tb.Text.Insert(pos, "ILLEGIBLE");
+                tb.CaretIndex = pos + "ILLEGIBLE".Length;
             }
 
             if ((Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)) && Keyboard.IsKeyDown(Key.B))
