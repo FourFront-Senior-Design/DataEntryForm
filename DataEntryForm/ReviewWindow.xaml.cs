@@ -107,6 +107,9 @@ namespace Data_Entry_Form
                 gravesiteNum, primaryLastName, secondaryLastName,
                 name3LastName, name4LastName, name5LastName, name6LastName,
                 name7LastName };
+            List<ComboBox> mandatoryBoxField = new List<ComboBox>() {
+                
+            }
 
             for(int i = 0; i < mandatoryField.Count; i++)
             {

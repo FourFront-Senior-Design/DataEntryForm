@@ -227,7 +227,13 @@ namespace ViewModels
         {
             List<bool> isValidList = new List<bool>()
             {
+                true, // cemetery Name
+                true, // burial Section
+                true, // wall ID
+                true, // row Number
                 true, // gravesite number
+                true, // Marker Type
+                true, // emblem 1
                 true, // primary last name
                 true, // descedent 1 last name
                 true, // descedent 2 last name
@@ -237,14 +243,44 @@ namespace ViewModels
                 true  // descedent 6 last name
             };
 
-            if (String.IsNullOrEmpty(_currentPageData.GavestoneNumber))
+            if (String.IsNullOrEmpty(_currentPageData.CemeteryName))
             {
                 isValidList[0] = false;
             }
 
-            if (String.IsNullOrEmpty(_currentPageData.PrimaryDecedent.LastName))
+            if (String.IsNullOrEmpty(_currentPageData.BurialSectionNumber))
             {
                 isValidList[1] = false;
+            }
+
+            if (String.IsNullOrEmpty(_currentPageData.WallID))
+            {
+                isValidList[2] = false;
+            }
+
+            if (String.IsNullOrEmpty(_currentPageData.RowNum))
+            {
+                isValidList[3] = false;
+            }
+
+            if (String.IsNullOrEmpty(_currentPageData.GavestoneNumber))
+            {
+                isValidList[4] = false;
+            }
+
+            if (String.IsNullOrEmpty(_currentPageData.MarkerType))
+            {
+                isValidList[5] = false;
+            }
+
+            if (String.IsNullOrEmpty(_currentPageData.Emblem1))
+            {
+                isValidList[6] = false;
+            }
+
+            if (String.IsNullOrEmpty(_currentPageData.PrimaryDecedent.LastName))
+            {
+                isValidList[7] = false;
             }
 
             int personIndex = 2;
