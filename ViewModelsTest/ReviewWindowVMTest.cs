@@ -304,11 +304,11 @@ namespace ViewModelsTest
             
             reviewWindow.CurrentPageData.GavestoneNumber = "";
             List<bool> filledInfo = reviewWindow.CheckMandatoryFields();
-            Assert.IsTrue(filledInfo[0] == false);
+            Assert.IsTrue(filledInfo[4] == false);
 
             reviewWindow.CurrentPageData.GavestoneNumber = "12";
             filledInfo = reviewWindow.CheckMandatoryFields();
-            Assert.IsTrue(filledInfo[0] == true);
+            Assert.IsTrue(filledInfo[4] == true);
 
             reviewWindow.CurrentPageData = save;
         }
@@ -326,14 +326,14 @@ namespace ViewModelsTest
             reviewWindow.CurrentPageData.PrimaryDecedent.FirstName = "ABC";
             reviewWindow.CurrentPageData.PrimaryDecedent.LastName = "";
             List<bool>  filledInfo = reviewWindow.CheckMandatoryFields();
-            Assert.IsTrue(filledInfo[1] == false);
+            Assert.IsTrue(filledInfo[7] == false);
 
             reviewWindow.CurrentPageData.PrimaryDecedent.LastName = "LAST NAME";
             filledInfo = reviewWindow.CheckMandatoryFields();
-            Assert.IsTrue(filledInfo[1] == true);
+            Assert.IsTrue(filledInfo[7] == true);
 
             reviewWindow.CurrentPageData.PrimaryDecedent.clearPerson();
-            Assert.IsTrue(filledInfo[1] == true);
+            Assert.IsTrue(filledInfo[7] == true);
 
             reviewWindow.CurrentPageData = save;
         }
