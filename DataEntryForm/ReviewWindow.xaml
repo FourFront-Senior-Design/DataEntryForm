@@ -458,14 +458,16 @@
                                     <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" 
                                                         Mask="00/00/0000"
                                                         Margin="2,0,2,0" Width="200"  KeyDown="Textbox_KeyDown"
-                                                        Value="{Binding CurrentPageData.PrimaryDecedent.BirthDate}"/>
+                                                        Value="{Binding CurrentPageData.PrimaryDecedent.BirthDate}"
+                                                        NullValue=""/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Death Date" />
                                     <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" 
                                                         Mask="00/00/0000"
                                                         Margin="2,0,2,0"  Width="200" KeyDown="Textbox_KeyDown"
-                                                        Value="{Binding CurrentPageData.PrimaryDecedent.DeathDate}"/>
+                                                        Value="{Binding CurrentPageData.PrimaryDecedent.DeathDate}"
+                                                        NullValue=""/>
                                 </StackPanel>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
@@ -709,7 +711,8 @@
                                                         Value="{Binding CurrentPageData.OthersDecedentList[0].BirthDate}"
                                                         Margin="2,0,2,0" 
                                                         Width="200" 
-                                                        KeyDown="Textbox_KeyDown"/>
+                                                        KeyDown="Textbox_KeyDown"
+                                                        NullValue=""/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Death Date" />
@@ -718,7 +721,8 @@
                                                         Value="{Binding CurrentPageData.OthersDecedentList[0].DeathDate}"
                                                         Margin="2,0,2,0" 
                                                         Width="200" 
-                                                        KeyDown="Textbox_KeyDown"/>
+                                                        KeyDown="Textbox_KeyDown"
+                                                        NullValue=""/>
                                 </StackPanel>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
@@ -945,13 +949,15 @@
                                             <Label Content="Birth Date" />
                                             <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000"
                                                                 Value="{Binding CurrentPageData.OthersDecedentList[1].BirthDate}"
-                                                                Margin="2,0,2,0" Width="245" KeyDown="Textbox_KeyDown"/>
+                                                                Margin="2,0,2,0" Width="245" KeyDown="Textbox_KeyDown"
+                                                                NullValue=""/>
                                         </StackPanel>
                                         <StackPanel>
                                             <Label Content="Death Date" />
                                             <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000" 
                                                                 Value="{Binding CurrentPageData.OthersDecedentList[1].DeathDate}"
-                                                                Margin="2,0,2,0"  Width="250" KeyDown="Textbox_KeyDown"/>
+                                                                Margin="2,0,2,0"  Width="250" KeyDown="Textbox_KeyDown"
+                                                                NullValue=""/>
                                         </StackPanel>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
@@ -1038,13 +1044,15 @@
                                             <Label Content="Birth Date" />
                                             <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000" 
                                                                 Value="{Binding CurrentPageData.OthersDecedentList[2].BirthDate}"
-                                                                Margin="2,0,2,0" Width="245" KeyDown="Textbox_KeyDown"/>
+                                                                Margin="2,0,2,0" Width="245" KeyDown="Textbox_KeyDown"
+                                                                NullValue=""/>
                                         </StackPanel>
                                         <StackPanel>
                                             <Label Content="Death Date" />
                                             <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000" 
                                                                 Value="{Binding CurrentPageData.OthersDecedentList[2].DeathDate}"
-                                                                Margin="2,0,2,0"  Width="250" KeyDown="Textbox_KeyDown"/>
+                                                                Margin="2,0,2,0"  Width="250" KeyDown="Textbox_KeyDown"
+                                                                NullValue=""/>
                                         </StackPanel>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
@@ -1131,13 +1139,15 @@
                                             <Label Content="Birth Date" />
                                             <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000" 
                                                                 Value="{Binding CurrentPageData.OthersDecedentList[3].BirthDate}"
-                                                                Margin="2,0,2,0"  Width="245" KeyDown="Textbox_KeyDown"/>
+                                                                Margin="2,0,2,0"  Width="245" KeyDown="Textbox_KeyDown"
+                                                                NullValue=""/>
                                         </StackPanel>
                                         <StackPanel>
                                             <Label Content="Death Date" />
                                             <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000" 
                                                                 Value="{Binding CurrentPageData.OthersDecedentList[3].DeathDate}"
-                                                                Margin="2,0,2,0"  Width="250" KeyDown="Textbox_KeyDown"/>
+                                                                Margin="2,0,2,0"  Width="250" KeyDown="Textbox_KeyDown"
+                                                                NullValue=""/>
                                         </StackPanel>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
@@ -1199,13 +1209,15 @@
                                             <Label Content="Birth Date" />
                                             <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000" 
                                                                 Value="{Binding CurrentPageData.OthersDecedentList[4].BirthDate}"
-                                                                Margin="2,0,2,0"  Width="345" KeyDown="Textbox_KeyDown"/>
+                                                                Margin="2,0,2,0"  Width="345" KeyDown="Textbox_KeyDown"
+                                                                NullValue=""/>
                                         </StackPanel>
                                         <StackPanel>
                                             <Label Content="Death Date" />
                                             <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000" 
                                                                 Value="{Binding CurrentPageData.OthersDecedentList[4].DeathDate}"
-                                                                Margin="2,0,2,50"  Width="350" KeyDown="Textbox_KeyDown"/>
+                                                                Margin="2,0,2,50"  Width="350" KeyDown="Textbox_KeyDown"
+                                                                NullValue=""/>
                                         </StackPanel>
                                     </StackPanel>
                                 </StackPanel>
@@ -1251,13 +1263,15 @@
                                             <Label Content="Birth Date" />
                                             <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000" 
                                                                 Value="{Binding CurrentPageData.OthersDecedentList[5].BirthDate}"
-                                                                Margin="2,0,2,0"  Width="345" KeyDown="Textbox_KeyDown"/>
+                                                                Margin="2,0,2,0"  Width="345" KeyDown="Textbox_KeyDown"
+                                                                NullValue=""/>
                                         </StackPanel>
                                         <StackPanel>
                                             <Label Content="Death Date" />
                                             <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000" 
                                                                 Value="{Binding CurrentPageData.OthersDecedentList[5].DeathDate}"
-                                                                Margin="2,0,2,50"  Width="350" KeyDown="Textbox_KeyDown"/>
+                                                                Margin="2,0,2,50"  Width="350" KeyDown="Textbox_KeyDown"
+                                                                NullValue=""/>
                                         </StackPanel>
                                     </StackPanel>
                                 </StackPanel>
