@@ -103,12 +103,31 @@ namespace Data_Entry_Form
         {
             bool missing = false;
             List<bool> filledInformation = _viewModel.CheckMandatoryFields();
-            List<TextBox> mandatoryField = new List<TextBox>() {
+            List<ComboBox> maskedMandatoryFields = new List<ComboBox>()
+            {
+                cemeteryName, markerType, emb1
+            };
+
+            List<TextBox> mandatoryField = new List<TextBox>() { 
+                BurialSectionField, wallID, rowNum, 
                 gravesiteNum, primaryLastName, secondaryLastName,
                 name3LastName, name4LastName, name5LastName, name6LastName,
-                name7LastName };
+                name7LastName, };
 
-            for(int i = 0; i < mandatoryField.Count; i++)
+            for (int i = 0; i < maskedMandatoryFields.Count; i++)
+            {
+                if (filledInformation[i] == false)
+                {
+                    maskedMandatoryFields[i].BorderBrush = System.Windows.Media.Brushes.Red;
+                    missing = true;
+                }
+                else
+                {
+                    maskedMandatoryFields[i].ClearValue(Border.BorderBrushProperty);
+                }
+            }
+
+            for (int i = 0; i < mandatoryField.Count; i++)
             {
                 if (filledInformation[i] == false)
                 {

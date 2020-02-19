@@ -258,7 +258,7 @@
                         <ColumnDefinition Width="541*"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Content="Cemetry Name"  VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,8"/>
-                    <ComboBox Grid.Column="0" Text="{Binding CurrentPageData.CemeteryName}"
+                    <ComboBox Grid.Column="0" Text="{Binding CurrentPageData.CemeteryName}" x:Name="cemeteryName"
                               HorizontalAlignment="Stretch" ItemsSource="{Binding GetCemeteryNames}"
                               IsEditable="True" IsTextSearchEnabled="True" TextSearch.TextPath="CemeteryName" 
                               ItemTemplate="{StaticResource cemeteryNamesCmbTemplate}" LostFocus="Cemetery_LostFocus"
@@ -274,9 +274,9 @@
                         <ColumnDefinition Width="282*"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Content="Wall ID #"  VerticalAlignment="Center" Margin="0,8"/>
-                    <TextBox  Grid.Column="0" Text="{Binding CurrentPageData.WallID}" Margin="100,10,10,10" Padding="2"/>
+                    <TextBox  Grid.Column="0" Text="{Binding CurrentPageData.WallID}" x:Name="wallID" Margin="100,10,10,10" Padding="2"/>
                     <Label Grid.Column="1"  Content="Row #" VerticalAlignment="Center" Margin="0,8"/>
-                    <TextBox Grid.Column="1" Text="{Binding CurrentPageData.RowNum}" Margin="80,10,10,10" Padding="2"/>
+                    <TextBox Grid.Column="1" Text="{Binding CurrentPageData.RowNum}" x:Name="rowNum" Margin="80,10,10,10" Padding="2"/>
                     <Label Grid.Column="2" Content="Gravesite #"  VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,8"/>
                     <TextBox x:Name="gravesiteNum" Grid.Column="3" Text="{Binding CurrentPageData.GavestoneNumber}" Margin="11,10,0,10" Padding="2"/>
                 </Grid>
@@ -287,7 +287,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Content="Marker Type"  VerticalAlignment="Center"/>
-                    <ComboBox Grid.Column="0" Text="{Binding CurrentPageData.MarkerType}" Margin="100,10,10,10" 
+                    <ComboBox Grid.Column="0" Text="{Binding CurrentPageData.MarkerType}" x:Name="markerType" Margin="100,10,10,10" 
                               Padding="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" 
                               IsEditable="True" IsTextSearchEnabled="True" LostFocus="MarkerCombox_LostFocus">
                         <ComboBoxItem Content="Upright Headstone"></ComboBoxItem>

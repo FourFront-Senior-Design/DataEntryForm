@@ -314,86 +314,6 @@ namespace ViewModelsTest
         }
 
         [TestMethod]
-        public void MandatoryInfo_BurialSection()
-        {
-            IDatabaseService database = new MockDatabase();
-            database.InitDBConnection(sectionPath);
-            IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
-            reviewWindow.PageIndex = 1;
-            Headstone save = reviewWindow.CurrentPageData;
-
-            reviewWindow.CurrentPageData.BurialSectionNumber = "";
-            List<bool> filledInfo = reviewWindow.CheckMandatoryFields();
-            Assert.IsTrue(filledInfo[1] == false);
-
-            reviewWindow.CurrentPageData.BurialSectionNumber = "12";
-            filledInfo = reviewWindow.CheckMandatoryFields();
-            Assert.IsTrue(filledInfo[1] == true);
-
-            reviewWindow.CurrentPageData = save;
-        }
-
-        [TestMethod]
-        public void MandatoryInfo_WallID()
-        {
-            IDatabaseService database = new MockDatabase();
-            database.InitDBConnection(sectionPath);
-            IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
-            reviewWindow.PageIndex = 1;
-            Headstone save = reviewWindow.CurrentPageData;
-
-            reviewWindow.CurrentPageData.WallID = "";
-            List<bool> filledInfo = reviewWindow.CheckMandatoryFields();
-            Assert.IsTrue(filledInfo[2] == false);
-
-            reviewWindow.CurrentPageData.WallID = "A";
-            filledInfo = reviewWindow.CheckMandatoryFields();
-            Assert.IsTrue(filledInfo[2] == true);
-
-            reviewWindow.CurrentPageData = save;
-        }
-
-        [TestMethod]
-        public void MandatoryInfo_RowNumber()
-        {
-            IDatabaseService database = new MockDatabase();
-            database.InitDBConnection(sectionPath);
-            IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
-            reviewWindow.PageIndex = 1;
-            Headstone save = reviewWindow.CurrentPageData;
-
-            reviewWindow.CurrentPageData.RowNum = "";
-            List<bool> filledInfo = reviewWindow.CheckMandatoryFields();
-            Assert.IsTrue(filledInfo[3] == false);
-
-            reviewWindow.CurrentPageData.RowNum = "12";
-            filledInfo = reviewWindow.CheckMandatoryFields();
-            Assert.IsTrue(filledInfo[3] == true);
-
-            reviewWindow.CurrentPageData = save;
-        }
-
-        [TestMethod]
-        public void MandatoryInfo_GravestoneNumber()
-        {
-            IDatabaseService database = new MockDatabase();
-            database.InitDBConnection(sectionPath);
-            IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
-            reviewWindow.PageIndex = 1;
-            Headstone save = reviewWindow.CurrentPageData;
-            
-            reviewWindow.CurrentPageData.GavestoneNumber = "";
-            List<bool> filledInfo = reviewWindow.CheckMandatoryFields();
-            Assert.IsTrue(filledInfo[4] == false);
-
-            reviewWindow.CurrentPageData.GavestoneNumber = "12";
-            filledInfo = reviewWindow.CheckMandatoryFields();
-            Assert.IsTrue(filledInfo[4] == true);
-
-            reviewWindow.CurrentPageData = save;
-        }
-
-        [TestMethod]
         public void MandatoryInfo_MarkerType()
         {
             IDatabaseService database = new MockDatabase();
@@ -404,11 +324,11 @@ namespace ViewModelsTest
 
             reviewWindow.CurrentPageData.MarkerType = "";
             List<bool> filledInfo = reviewWindow.CheckMandatoryFields();
-            Assert.IsTrue(filledInfo[5] == false);
+            Assert.IsTrue(filledInfo[1] == false);
 
             reviewWindow.CurrentPageData.MarkerType = "Upright";
             filledInfo = reviewWindow.CheckMandatoryFields();
-            Assert.IsTrue(filledInfo[5] == true);
+            Assert.IsTrue(filledInfo[1] == true);
 
             reviewWindow.CurrentPageData = save;
         }
@@ -424,9 +344,89 @@ namespace ViewModelsTest
 
             reviewWindow.CurrentPageData.Emblem1 = "";
             List<bool> filledInfo = reviewWindow.CheckMandatoryFields();
-            Assert.IsTrue(filledInfo[6] == false);
+            Assert.IsTrue(filledInfo[2] == false);
 
             reviewWindow.CurrentPageData.Emblem1 = "01";
+            filledInfo = reviewWindow.CheckMandatoryFields();
+            Assert.IsTrue(filledInfo[2] == true);
+
+            reviewWindow.CurrentPageData = save;
+        }
+
+        [TestMethod]
+        public void MandatoryInfo_BurialSection()
+        {
+            IDatabaseService database = new MockDatabase();
+            database.InitDBConnection(sectionPath);
+            IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
+            reviewWindow.PageIndex = 1;
+            Headstone save = reviewWindow.CurrentPageData;
+
+            reviewWindow.CurrentPageData.BurialSectionNumber = "";
+            List<bool> filledInfo = reviewWindow.CheckMandatoryFields();
+            Assert.IsTrue(filledInfo[3] == false);
+
+            reviewWindow.CurrentPageData.BurialSectionNumber = "12";
+            filledInfo = reviewWindow.CheckMandatoryFields();
+            Assert.IsTrue(filledInfo[3] == true);
+
+            reviewWindow.CurrentPageData = save;
+        }
+
+        [TestMethod]
+        public void MandatoryInfo_WallID()
+        {
+            IDatabaseService database = new MockDatabase();
+            database.InitDBConnection(sectionPath);
+            IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
+            reviewWindow.PageIndex = 1;
+            Headstone save = reviewWindow.CurrentPageData;
+
+            reviewWindow.CurrentPageData.WallID = "";
+            List<bool> filledInfo = reviewWindow.CheckMandatoryFields();
+            Assert.IsTrue(filledInfo[4] == false);
+
+            reviewWindow.CurrentPageData.WallID = "A";
+            filledInfo = reviewWindow.CheckMandatoryFields();
+            Assert.IsTrue(filledInfo[4] == true);
+
+            reviewWindow.CurrentPageData = save;
+        }
+
+        [TestMethod]
+        public void MandatoryInfo_RowNumber()
+        {
+            IDatabaseService database = new MockDatabase();
+            database.InitDBConnection(sectionPath);
+            IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
+            reviewWindow.PageIndex = 1;
+            Headstone save = reviewWindow.CurrentPageData;
+
+            reviewWindow.CurrentPageData.RowNum = "";
+            List<bool> filledInfo = reviewWindow.CheckMandatoryFields();
+            Assert.IsTrue(filledInfo[5] == false);
+
+            reviewWindow.CurrentPageData.RowNum = "12";
+            filledInfo = reviewWindow.CheckMandatoryFields();
+            Assert.IsTrue(filledInfo[5] == true);
+
+            reviewWindow.CurrentPageData = save;
+        }
+
+        [TestMethod]
+        public void MandatoryInfo_GravestoneNumber()
+        {
+            IDatabaseService database = new MockDatabase();
+            database.InitDBConnection(sectionPath);
+            IReviewWindowVM reviewWindow = new ReviewWindowVM(database);
+            reviewWindow.PageIndex = 1;
+            Headstone save = reviewWindow.CurrentPageData;
+
+            reviewWindow.CurrentPageData.GavestoneNumber = "";
+            List<bool> filledInfo = reviewWindow.CheckMandatoryFields();
+            Assert.IsTrue(filledInfo[6] == false);
+
+            reviewWindow.CurrentPageData.GavestoneNumber = "12";
             filledInfo = reviewWindow.CheckMandatoryFields();
             Assert.IsTrue(filledInfo[6] == true);
 
