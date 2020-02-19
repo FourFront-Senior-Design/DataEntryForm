@@ -306,5 +306,9 @@ namespace ViewModels
             }
         }
         
+        public void CloseDatabase()
+        {
+            _database.Close();
+        }
     }
 }

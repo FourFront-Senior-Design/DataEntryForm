@@ -107,9 +107,10 @@ namespace Data_Entry_Form
                 gravesiteNum, primaryLastName, secondaryLastName,
                 name3LastName, name4LastName, name5LastName, name6LastName,
                 name7LastName };
-            List<ComboBox> mandatoryBoxField = new List<ComboBox>() {
-                
-            }
+            List<ComboBox> mandatoryBoxField = new List<ComboBox>()
+            {
+
+            };
 
             for(int i = 0; i < mandatoryField.Count; i++)
             {
@@ -175,6 +176,7 @@ namespace Data_Entry_Form
             }
             isBack = true;
             _viewModel.SaveRecord();
+            _viewModel.CloseDatabase();
             MoveToMainPage?.Invoke(this, new EventArgs());
         }
 
@@ -215,6 +217,7 @@ namespace Data_Entry_Form
                 MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     _displayWindow.Close();
+                    _viewModel.CloseDatabase();
                     Application.Current.Shutdown();
                 }
                 else

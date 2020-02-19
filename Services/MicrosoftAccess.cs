@@ -15,6 +15,7 @@ namespace Services
     public class MicrosoftAccess : IDatabaseService
     {
         private string _connectionString;
+        private OleDbConnection _connection;
 
         private List<string> SequenceIDs { get; set; }
 
@@ -39,10 +40,20 @@ namespace Services
         public bool InitDBConnection(string sectionFilePath)
         {
             SectionFilePath = sectionFilePath;
-
-
+            
             GetAccessFilePath();
             TestFileAccess();
+
+            // using to ensure connection is closed when we are done
+            _connection = new OleDbConnection(_connectionString);
+            try
+            {
+                _connection.Open(); // try to open the connection
+            }
+            catch (Exception e)
+            {
+                ThrowAndLogArgumentException("Error accessing the MS Access Database", e);
+            }
 
             TotalItems = GetTotalRecords();
 
@@ -107,20 +118,16 @@ namespace Services
             OleDbDataReader reader;
             int totalRecords = 0;
 
-            using (OleDbConnection connection = new OleDbConnection(_connectionString)) // using to ensure connection is closed when we are done
+             try
             {
-                try
-                {
-                    cmd = new OleDbCommand(sqlQuery, connection);
-                    connection.Open(); // try to open the connection
-                    reader = cmd.ExecuteReader();
-                    reader.Read();
-                    totalRecords = reader.GetInt32(0);
-                }
-                catch (Exception e)
-                {
-                    ThrowAndLogArgumentException("Error getting total record count", e);
-                }
+                cmd = new OleDbCommand(sqlQuery, _connection);
+                reader = cmd.ExecuteReader();
+                reader.Read();
+                totalRecords = reader.GetInt32(0);
+            }
+            catch (Exception e)
+            {
+                ThrowAndLogArgumentException("Error getting total record count", e);
             }
 
             return totalRecords;
@@ -183,35 +190,20 @@ namespace Services
         {
             OleDbCommand cmd;
             OleDbDataReader reader;
-            object[] dataRow;
-
-
-            using (OleDbConnection connection = new OleDbConnection(_connectionString)) // using to ensure connection is closed when we are done
+            object[] dataRow = null;
+            
+            try
             {
-                try
-                {
-                    cmd = new OleDbCommand(sqlQuery, connection);
-                    connection.Open(); // try to open the connection
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Error accsessing Database");
-                    throw e;
-                }
+                cmd = new OleDbCommand(sqlQuery, _connection);
+                reader = cmd.ExecuteReader();
+                reader.Read();
 
-                try
-                {
-                    reader = cmd.ExecuteReader();
-                    reader.Read();
-
-                    dataRow = new object[reader.FieldCount];
-                    reader.GetValues(dataRow);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    throw;
-                }
+                dataRow = new object[reader.FieldCount];
+                reader.GetValues(dataRow);
+            }
+            catch (Exception e)
+            {
+                ThrowAndLogArgumentException("Error getting the record row data", e);
             }
 
             return dataRow;
@@ -434,34 +426,28 @@ namespace Services
             OleDbDataReader reader;
 
             string sqlQuery = "SELECT * FROM CemeteryNames";
+            cmd = new OleDbCommand(sqlQuery, _connection);
 
-            using (OleDbConnection connection = new OleDbConnection(_connectionString))
+            try
             {
-                cmd = new OleDbCommand(sqlQuery, connection);
-                connection.Open();
+                reader = cmd.ExecuteReader();
 
-                try
+                while (reader.Read())
                 {
-                    reader = cmd.ExecuteReader();
+                    CemeteryNameData data = new CemeteryNameData();
 
-                    while (reader.Read())
-                    {
-                        CemeteryNameData data = new CemeteryNameData();
+                    data.ID = reader.GetInt32(0);
+                    data.CemeteryName = reader.GetString(1).ToUpper();
+                    data.KeyName = reader.GetString(2).ToUpper();
 
-                        data.ID = reader.GetInt32(0);
-                        data.CemeteryName = reader.GetString(1).ToUpper();
-                        data.KeyName = reader.GetString(2).ToUpper();
-
-                        CemetaryData.Add(data);
-                    }
-                    reader.Close();
-                    connection.Close();
-
+                    CemetaryData.Add(data);
                 }
-                catch (Exception e)
-                {
-                    ThrowAndLogArgumentException("Error getting cemetery data", e);
-                }
+                reader.Close();
+
+            }
+            catch (Exception e)
+            {
+                ThrowAndLogArgumentException("Error getting cemetery data", e);
             }
 
             CemetaryData = CemetaryData.OrderBy(x => x.CemeteryName).ToList();
@@ -476,35 +462,27 @@ namespace Services
 
             string sqlQuery = "SELECT CODE, AWARD FROM AwardList";
 
-            using (OleDbConnection connection = new OleDbConnection(_connectionString))
+            try
             {
+                cmd = new OleDbCommand(sqlQuery, _connection);
+                reader = cmd.ExecuteReader();
 
-                cmd = new OleDbCommand(sqlQuery, connection);
-                connection.Open();
-
-                try
+                while (reader.Read())
                 {
-                    reader = cmd.ExecuteReader();
+                    AwardData data = new AwardData();
 
-                    while (reader.Read())
-                    {
-                        AwardData data = new AwardData();
+                    data.Code = reader.GetString(0).ToUpper();
+                    data.Award = reader.GetString(1).ToUpper();
 
-                        data.Code = reader.GetString(0).ToUpper();
-                        data.Award = reader.GetString(1).ToUpper();
-
-                        AwardNames.Add(data);
-                    }
-
-
-                    reader.Close();
-                    connection.Close();
-
+                    AwardNames.Add(data);
                 }
-                catch (Exception e)
-                {
-                    ThrowAndLogArgumentException("Error getting award data", e);
-                }
+                
+                reader.Close();
+
+            }
+            catch (Exception e)
+            {
+                ThrowAndLogArgumentException("Error getting award data", e);
             }
 
             AwardNames = AwardNames.OrderBy(x => x.Code).ToList();
@@ -519,21 +497,10 @@ namespace Services
 
             string sqlQuery = "SELECT Code, [Branch of Service], [Short Description] FROM BranchList";
 
-            using (OleDbConnection connection = new OleDbConnection(_connectionString))
+            try
             {
-                try
-                {
-                    cmd = new OleDbCommand(sqlQuery, connection);
-                    connection.Open();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Error accsessing Database");
-                    throw e;
-                }
-
+                cmd = new OleDbCommand(sqlQuery, _connection);
                 reader = cmd.ExecuteReader();
-
                 while (reader.Read())
                 {
                     BranchData data = new BranchData();
@@ -545,9 +512,11 @@ namespace Services
                     BranchNames.Add(data);
                 }
 
-
                 reader.Close();
-                connection.Close();
+            }
+            catch (Exception e)
+            {
+                ThrowAndLogArgumentException("Error getting branchList data", e);
             }
 
             BranchNames = BranchNames.OrderBy(x => x.Code).ToList();
@@ -562,19 +531,9 @@ namespace Services
 
             string sqlQuery = "SELECT Code, [Short Description] FROM WarList";
 
-            using (OleDbConnection connection = new OleDbConnection(_connectionString))
+            try
             {
-                try
-                {
-                    cmd = new OleDbCommand(sqlQuery, connection);
-                    connection.Open();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Error accsessing Database");
-                    throw e;
-                }
-
+                cmd = new OleDbCommand(sqlQuery, _connection);
                 reader = cmd.ExecuteReader();
 
                 while (reader.Read())
@@ -587,11 +546,13 @@ namespace Services
                     WarNames.Add(data);
                 }
 
-
                 reader.Close();
-                connection.Close();
             }
-
+            catch (Exception e)
+            {
+                ThrowAndLogArgumentException("Error getting warList data", e);
+            }
+            
             WarNames = WarNames.OrderBy(x => x.Code).ToList();
             return WarNames;
         }
@@ -604,20 +565,9 @@ namespace Services
             OleDbDataReader reader;
 
             string sqlQuery = "SELECT CODE, Emblem FROM EmblemList";
-
-            using (OleDbConnection connection = new OleDbConnection(_connectionString))
+            try
             {
-                try
-                {
-                    cmd = new OleDbCommand(sqlQuery, connection);
-                    connection.Open();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Error accsessing Database");
-                    throw e;
-                }
-
+                cmd = new OleDbCommand(sqlQuery, _connection);
                 reader = cmd.ExecuteReader();
 
                 while (reader.Read())
@@ -634,7 +584,10 @@ namespace Services
                 }
 
                 reader.Close();
-                connection.Close();
+            }
+            catch (Exception e)
+            {
+                ThrowAndLogArgumentException("Error getting emblemList data", e);
             }
 
             EmblemNames = GetEmblemImages(EmblemNames);
@@ -649,21 +602,9 @@ namespace Services
             OleDbDataReader reader;
 
             string sqlQuery = "SELECT ID, LocationAbbrev, Location FROM LocationList";
-
-            using (OleDbConnection connection = new OleDbConnection(_connectionString))
+            try
             {
-                try
-                {
-                    cmd = new OleDbCommand(sqlQuery, connection);
-                    connection.Open();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Error accsessing Database");
-                    throw e;
-                }
-
-
+                cmd = new OleDbCommand(sqlQuery, _connection);
                 reader = cmd.ExecuteReader();
 
                 while (reader.Read())
@@ -677,11 +618,13 @@ namespace Services
                     LocationNames.Add(data);
                 }
 
-
                 reader.Close();
-                connection.Close();
             }
-
+            catch (Exception e)
+            {
+                ThrowAndLogArgumentException("Error getting locationList data", e);
+            }
+            
             LocationNames = LocationNames.OrderBy(x => x.Location).ToList();
             return LocationNames;
         }
@@ -713,51 +656,37 @@ namespace Services
         private List<string> GetSequenceIDs()
         {
             List<string> sequenceIDs = new List<string>();
-
-            using (OleDbConnection connection = new OleDbConnection(_connectionString))
+            OleDbCommand cmd;
+            OleDbDataReader reader;
+            
+            try
             {
-                OleDbCommand cmd;
-                OleDbDataReader reader;
-
-                try
-                {
-                    connection.Open();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Error Accessing Database");
-                    throw e;
-                }
-
-                try
-                {
-                    string sqlQuery = "SELECT SequenceID FROM Master;";
-                    cmd = new OleDbCommand(sqlQuery, connection);
-                    reader = cmd.ExecuteReader();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Error Querying for SequenceIDs");
-                    throw e;
-                }
-
-                while (reader.Read())
-                {
-
-                    var value = reader.GetValue(0);
-                    var valType = value.GetType();
-                    if (valType == typeof(string))
-                    {
-                        sequenceIDs.Add(value as string);
-                    }
-                    else
-                    {
-                        throw new ArgumentException($"Invalid or Empty Sequence ID");
-                    }
-                }
-
-                reader.Close();
+                string sqlQuery = "SELECT SequenceID FROM Master;";
+                cmd = new OleDbCommand(sqlQuery, _connection);
+                reader = cmd.ExecuteReader();
             }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error Querying for SequenceIDs");
+                throw e;
+            }
+
+            while (reader.Read())
+            {
+
+                var value = reader.GetValue(0);
+                var valType = value.GetType();
+                if (valType == typeof(string))
+                {
+                    sequenceIDs.Add(value as string);
+                }
+                else
+                {
+                    throw new ArgumentException($"Invalid or Empty Sequence ID");
+                }
+            }
+
+            reader.Close();
             sequenceIDs.Sort();
             return sequenceIDs;
         }
@@ -792,57 +721,44 @@ namespace Services
             //sqlQuery += @" WHERE SequenceID = '" + sequenceID[index] + @"';";
             sqlQuery += @" WHERE SequenceID = '" + SequenceIDs[index - 1] + "';";
 
-            OleDbCommand cmd;
-            using (OleDbConnection connection = new OleDbConnection(_connectionString)) // using to ensure connection is closed when we are done
+            OleDbCommand cmd = new OleDbCommand(sqlQuery, _connection);
+
+            string[] intEntries = { "Wall", "Emblem1", "Emblem2" };
+            foreach (KeyValuePair<string, string> entry in headstoneData)
             {
                 try
                 {
-                    cmd = new OleDbCommand(sqlQuery, connection);
-                    connection.Open(); // try to open the connection
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine("Error accessing Database");
-                    throw e;
-                }
-
-                string[] intEntries = { "Wall", "Emblem1", "Emblem2" };
-                foreach (KeyValuePair<string, string> entry in headstoneData)
-                {
-                    try
+                    if (intEntries.Contains(entry.Key))
                     {
-                        if (intEntries.Contains(entry.Key))
-                        {
-                            if (entry.Value == "")
-                                cmd.Parameters.AddWithValue("@" + entry.Key, OleDbType.Integer).Value = DBNull.Value;
-                            else
-                                cmd.Parameters.AddWithValue("@" + entry.Key, Convert.ToInt32(entry.Value));
-                        }
+                        if (entry.Value == "")
+                            cmd.Parameters.AddWithValue("@" + entry.Key, OleDbType.Integer).Value = DBNull.Value;
                         else
-                        {
-                            if (entry.Value == "")
-                                cmd.Parameters.AddWithValue("@" + entry.Key, OleDbType.VarChar).Value = DBNull.Value;
-                            else
-                                cmd.Parameters.AddWithValue("@" + entry.Key, entry.Value);
-                        }
+                            cmd.Parameters.AddWithValue("@" + entry.Key, Convert.ToInt32(entry.Value));
                     }
-                    catch (Exception e)
+                    else
                     {
-                        Console.WriteLine("Error with: " + entry.Key + " = " + entry.Value);
-                        Console.WriteLine(e);
+                        if (entry.Value == "")
+                            cmd.Parameters.AddWithValue("@" + entry.Key, OleDbType.VarChar).Value = DBNull.Value;
+                        else
+                            cmd.Parameters.AddWithValue("@" + entry.Key, entry.Value);
                     }
-                }
-
-                try
-                {
-                    cmd.ExecuteNonQuery(); // do the update
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine("Error writing to the database:");
-                    Console.WriteLine(e.Message);
-                    Console.WriteLine(cmd.CommandText);
+                    Console.WriteLine("Error with: " + entry.Key + " = " + entry.Value);
+                    Console.WriteLine(e);
                 }
+            }
+
+            try
+            {
+                cmd.ExecuteNonQuery(); // do the update
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error writing to the database:");
+                Console.WriteLine(e.Message);
+                Console.WriteLine(cmd.CommandText);
             }
         }
 
@@ -1020,6 +936,11 @@ namespace Services
 
             dict.Add("BirthDateS_D_6", headstone.OthersDecedentList[5].BirthDate);
             dict.Add("DeathDateS_D_6", headstone.OthersDecedentList[5].DeathDate);
+        }
+
+        public void Close()
+        {
+            _connection.Close();
         }
     }
 }
