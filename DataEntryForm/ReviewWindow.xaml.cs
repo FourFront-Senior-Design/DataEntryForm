@@ -103,9 +103,9 @@ namespace Data_Entry_Form
         {
             bool missing = false;
             List<bool> filledInformation = _viewModel.CheckMandatoryFields();
-            List<ComboBox> maskedMandatoryFields = new List<ComboBox>()
+            List<Border> maskedMandatoryFields = new List<Border>()
             {
-                cemeteryName, markerType, emb1
+                cemeteryName, markerType, emb1Border
             };
 
             List<TextBox> mandatoryField = new List<TextBox>() { 
@@ -120,6 +120,7 @@ namespace Data_Entry_Form
                 {
                     maskedMandatoryFields[i].BorderBrush = System.Windows.Media.Brushes.Red;
                     missing = true;
+                    Console.WriteLine(maskedMandatoryFields[i].BorderBrush);
                 }
                 else
                 {
@@ -127,16 +128,16 @@ namespace Data_Entry_Form
                 }
             }
 
-            for (int i = 0; i < mandatoryField.Count; i++)
+            for (int i = maskedMandatoryFields.Count; i < filledInformation.Count; i++)
             {
                 if (filledInformation[i] == false)
                 {
-                    mandatoryField[i].BorderBrush = System.Windows.Media.Brushes.Red;
+                    mandatoryField[i - maskedMandatoryFields.Count].BorderBrush = System.Windows.Media.Brushes.Red;
                     missing = true;
                 }
                 else
                 {
-                    mandatoryField[i].ClearValue(Border.BorderBrushProperty);
+                    mandatoryField[i - maskedMandatoryFields.Count].ClearValue(Border.BorderBrushProperty);
                 }
             }
             

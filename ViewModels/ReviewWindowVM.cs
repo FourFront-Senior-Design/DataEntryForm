@@ -228,12 +228,12 @@ namespace ViewModels
             List<bool> isValidList = new List<bool>()
             {
                 true, // cemetery Name
+                true, // Marker Type
+                true, // emblem 1
                 true, // burial Section
                 true, // wall ID
                 true, // row Number
                 true, // gravesite number
-                true, // Marker Type
-                true, // emblem 1
                 true, // primary last name
                 true, // descedent 1 last name
                 true, // descedent 2 last name
