@@ -283,7 +283,7 @@ namespace ViewModels
                 isValidList[7] = false;
             }
 
-            int personIndex = 2;
+            int personIndex = 8;
             foreach (Person person in _currentPageData.OthersDecedentList)
             {
                 // A person with contents is valid iff they have a last name
