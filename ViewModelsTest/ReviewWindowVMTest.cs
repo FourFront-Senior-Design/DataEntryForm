@@ -472,12 +472,12 @@ namespace ViewModelsTest
                 reviewWindow.CurrentPageData.OthersDecedentList[i].FirstName = "ABC";
                 reviewWindow.CurrentPageData.OthersDecedentList[i].LastName = "";
                 List<bool> filledInfo = reviewWindow.CheckMandatoryFields();
-                Assert.IsTrue(filledInfo[i + 2] == false);
+                Assert.IsTrue(filledInfo[i + 8] == false);
                 reviewWindow.CurrentPageData.OthersDecedentList[i].LastName = "LAST NAME";
                 filledInfo = reviewWindow.CheckMandatoryFields();
-                Assert.IsTrue(filledInfo[i + 2] == true);
+                Assert.IsTrue(filledInfo[i + 8] == true);
                 reviewWindow.CurrentPageData.OthersDecedentList[i].clearPerson();
-                Assert.IsTrue(filledInfo[i + 2] == true);
+                Assert.IsTrue(filledInfo[i + 8] == true);
             }
 
             reviewWindow.CurrentPageData = save;
