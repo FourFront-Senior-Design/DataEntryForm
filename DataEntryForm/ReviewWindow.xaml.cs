@@ -41,8 +41,8 @@ namespace Data_Entry_Form
                     {
                         return;
                     }
-                    _viewModel.PreviousRecord();
                     BurialSectionField.Focus();
+                    _viewModel.PreviousRecord();
                 }
 
                 if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.PageDown))
@@ -51,8 +51,9 @@ namespace Data_Entry_Form
                     {
                         return;
                     }
-                    _viewModel.NextRecord();
+                    Console.WriteLine(_viewModel.CurrentPageData.PrimaryDecedent.LastName);
                     BurialSectionField.Focus();
+                    _viewModel.NextRecord();
                 }
 
                 if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.H))
@@ -192,6 +193,7 @@ namespace Data_Entry_Form
             }
             isBack = true;
             _viewModel.SaveRecord();
+            _viewModel.CloseDatabase();
             MoveToMainPage?.Invoke(this, new EventArgs());
         }
 
@@ -232,6 +234,7 @@ namespace Data_Entry_Form
                 MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     _displayWindow.Close();
+                    _viewModel.CloseDatabase();
                     Application.Current.Shutdown();
                 }
                 else
