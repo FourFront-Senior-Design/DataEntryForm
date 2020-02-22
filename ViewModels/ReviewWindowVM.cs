@@ -227,6 +227,12 @@ namespace ViewModels
         {
             List<bool> isValidList = new List<bool>()
             {
+                true, // cemetery Name
+                true, // Marker Type
+                true, // emblem 1
+                true, // burial Section
+                true, // wall ID
+                true, // row Number
                 true, // gravesite number
                 true, // primary last name
                 true, // descedent 1 last name
@@ -237,17 +243,47 @@ namespace ViewModels
                 true  // descedent 6 last name
             };
 
-            if (String.IsNullOrEmpty(_currentPageData.GavestoneNumber))
+            if (String.IsNullOrEmpty(_currentPageData.CemeteryName))
             {
                 isValidList[0] = false;
             }
 
-            if (String.IsNullOrEmpty(_currentPageData.PrimaryDecedent.LastName))
+            if (String.IsNullOrEmpty(_currentPageData.MarkerType))
             {
                 isValidList[1] = false;
             }
 
-            int personIndex = 2;
+            if (String.IsNullOrEmpty(_currentPageData.Emblem1))
+            {
+                isValidList[2] = false;
+            }
+
+            if (String.IsNullOrEmpty(_currentPageData.BurialSectionNumber))
+            {
+                isValidList[3] = false;
+            }
+
+            if (String.IsNullOrEmpty(_currentPageData.WallID))
+            {
+                isValidList[4] = false;
+            }
+
+            if (String.IsNullOrEmpty(_currentPageData.RowNum))
+            {
+                isValidList[5] = false;
+            }
+
+            if (String.IsNullOrEmpty(_currentPageData.GavestoneNumber))
+            {
+                isValidList[6] = false;
+            }
+
+            if (String.IsNullOrEmpty(_currentPageData.PrimaryDecedent.LastName))
+            {
+                isValidList[7] = false;
+            }
+
+            int personIndex = 8;
             foreach (Person person in _currentPageData.OthersDecedentList)
             {
                 // A person with contents is valid iff they have a last name
@@ -270,5 +306,9 @@ namespace ViewModels
             }
         }
         
+        public void CloseDatabase()
+        {
+            _database.Close();
+        }
     }
 }

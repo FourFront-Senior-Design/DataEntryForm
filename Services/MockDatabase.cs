@@ -33,6 +33,8 @@ namespace Services
             return sampleRecords[index];
         }
 
+        public void Close() { }
+
         public bool InitDBConnection(string sectionFilePath)
         {
             TotalItems = 10;
