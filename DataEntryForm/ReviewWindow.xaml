@@ -258,11 +258,22 @@
                         <ColumnDefinition Width="541*"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Content="Cemetry Name"  VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,8"/>
-                    <ComboBox Grid.Column="0" Text="{Binding CurrentPageData.CemeteryName}"
-                              HorizontalAlignment="Stretch" ItemsSource="{Binding GetCemeteryNames}"
-                              IsEditable="True" IsTextSearchEnabled="True" TextSearch.TextPath="CemeteryName" 
-                              ItemTemplate="{StaticResource cemeteryNamesCmbTemplate}" LostFocus="Cemetery_LostFocus"
-                              VerticalAlignment="Center" Margin="120,9,50,11" Padding="1" Grid.ColumnSpan="2"/>
+                    <Border BorderThickness="1" Grid.Column="0"                                   
+                            VerticalAlignment="Center" 
+                            Margin="120,9,50,11" 
+                            Padding="1" 
+                            Grid.ColumnSpan="2"
+                            x:Name="cemeteryName">
+                        <ComboBox Text="{Binding CurrentPageData.CemeteryName}"
+                                  HorizontalAlignment="Stretch"
+                                  ItemsSource="{Binding GetCemeteryNames}"
+                                  IsEditable="True" 
+                                  IsTextSearchEnabled="True" 
+                                  TextSearch.TextPath="CemeteryName" 
+                                  ItemTemplate="{StaticResource cemeteryNamesCmbTemplate}" 
+                                  LostFocus="Cemetery_LostFocus"/>
+                    </Border>
+                    
                     <Label Grid.Column="2" Content="Burial Section #" VerticalAlignment="Center" Margin="0,8"/>
                     <TextBox x:Name="BurialSectionField" Grid.Column="2" Text="{Binding CurrentPageData.BurialSectionNumber}" Margin="120,10,0,10" Padding="2"/>
                 </Grid>
@@ -274,9 +285,9 @@
                         <ColumnDefinition Width="282*"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Content="Wall ID #"  VerticalAlignment="Center" Margin="0,8"/>
-                    <TextBox  Grid.Column="0" Text="{Binding CurrentPageData.WallID}" Margin="100,10,10,10" Padding="2"/>
+                    <TextBox  Grid.Column="0" Text="{Binding CurrentPageData.WallID}" x:Name="wallID" Margin="100,10,10,10" Padding="2"/>
                     <Label Grid.Column="1"  Content="Row #" VerticalAlignment="Center" Margin="0,8"/>
-                    <TextBox Grid.Column="1" Text="{Binding CurrentPageData.RowNum}" Margin="80,10,10,10" Padding="2"/>
+                    <TextBox Grid.Column="1" Text="{Binding CurrentPageData.RowNum}" x:Name="rowNum" Margin="80,10,10,10" Padding="2"/>
                     <Label Grid.Column="2" Content="Gravesite #"  VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,8"/>
                     <TextBox x:Name="gravesiteNum" Grid.Column="3" Text="{Binding CurrentPageData.GavestoneNumber}" Margin="11,10,0,10" Padding="2"/>
                 </Grid>
@@ -287,28 +298,48 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0" Content="Marker Type"  VerticalAlignment="Center"/>
-                    <ComboBox Grid.Column="0" Text="{Binding CurrentPageData.MarkerType}" Margin="100,10,10,10" 
-                              Padding="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" 
-                              IsEditable="True" IsTextSearchEnabled="True" LostFocus="MarkerCombox_LostFocus">
-                        <ComboBoxItem Content="Upright Headstone"></ComboBoxItem>
-                        <ComboBoxItem Content="Flat Marker"></ComboBoxItem>
-                        <ComboBoxItem Content="Niche Cover"></ComboBoxItem>
-                        <ComboBoxItem Content="Section Monument"></ComboBoxItem>
-                        <ComboBoxItem Content="Temprory Marker"></ComboBoxItem>
-                    </ComboBox>
+                    <Border BorderThickness="1" 
+                            Grid.Column="0" 
+                            VerticalAlignment="Center" 
+                            Margin="100,10,10,10" 
+                            Padding="2" 
+                            x:Name="markerType">
+                        <ComboBox Text="{Binding CurrentPageData.MarkerType}" 
+                                  HorizontalAlignment="Stretch"  
+                                  IsEditable="True" 
+                                  IsTextSearchEnabled="True" 
+                                  LostFocus="MarkerCombox_LostFocus">
+                            <ComboBoxItem Content="Upright Headstone"></ComboBoxItem>
+                            <ComboBoxItem Content="Flat Marker"></ComboBoxItem>
+                            <ComboBoxItem Content="Niche Cover"></ComboBoxItem>
+                            <ComboBoxItem Content="Section Monument"></ComboBoxItem>
+                            <ComboBoxItem Content="Temprory Marker"></ComboBoxItem>
+                        </ComboBox>
+                    </Border>
                     <Grid Grid.Column="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="3*"/>
                             <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0"  Content="Emblem 1"  VerticalAlignment="Center"/>
-                        <ComboBox Grid.Column="0" Margin="80,10,10,10" Padding="1" 
-                              HorizontalAlignment="Stretch" ItemsSource="{Binding GetEmblemData}"
-                              ItemTemplate="{StaticResource emblemCmbTemplate}" IsEditable="True"
-                              Text="{Binding CurrentPageData.Emblem1}" LostFocus="EmblemCombox_LostFocus"
-                              TextSearch.TextPath="Code" IsTextSearchEnabled="True"
-                              VerticalAlignment="Center" x:Name="emb1" 
-                              TextBoxBase.TextChanged="EmblemCombox_TextChanged"/>
+                        <Border BorderThickness="1"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Stretch"
+                                Margin="80,10,10,10"
+                                Padding="1"
+                                x:Name="emb1Border">
+                            <ComboBox  
+                                      ItemsSource="{Binding GetEmblemData}"
+                                      ItemTemplate="{StaticResource emblemCmbTemplate}" 
+                                      IsEditable="True"
+                                      x:Name="emb1"
+                                      Text="{Binding CurrentPageData.Emblem1}" 
+                                      LostFocus="EmblemCombox_LostFocus"
+                                      TextSearch.TextPath="Code" 
+                                      IsTextSearchEnabled="True"
+                                      TextBoxBase.TextChanged="EmblemCombox_TextChanged"/>
+                        </Border>
                         <Image Grid.Column="1" Width="30" Height="30" Stretch="Fill" x:Name="emb1_selected"
                        VerticalAlignment="Center" Margin="2,0,15,0"/>
                     </Grid>

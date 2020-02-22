@@ -28,5 +28,6 @@ namespace ViewModelInterfaces
         void LastRecord();
         bool GoToRecord(string input);
         void SaveRecord();
+        void CloseDatabase();
     }
 }

@@ -41,8 +41,8 @@ namespace Data_Entry_Form
                     {
                         return;
                     }
-                    _viewModel.PreviousRecord();
                     BurialSectionField.Focus();
+                    _viewModel.PreviousRecord();
                 }
 
                 if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.PageDown))
@@ -51,8 +51,9 @@ namespace Data_Entry_Form
                     {
                         return;
                     }
-                    _viewModel.NextRecord();
+                    Console.WriteLine(_viewModel.CurrentPageData.PrimaryDecedent.LastName);
                     BurialSectionField.Focus();
+                    _viewModel.NextRecord();
                 }
 
                 if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.H))
@@ -103,21 +104,41 @@ namespace Data_Entry_Form
         {
             bool missing = false;
             List<bool> filledInformation = _viewModel.CheckMandatoryFields();
-            List<TextBox> mandatoryField = new List<TextBox>() {
+            List<Border> maskedMandatoryFields = new List<Border>()
+            {
+                cemeteryName, markerType, emb1Border
+            };
+
+            List<TextBox> mandatoryField = new List<TextBox>() { 
+                BurialSectionField, wallID, rowNum, 
                 gravesiteNum, primaryLastName, secondaryLastName,
                 name3LastName, name4LastName, name5LastName, name6LastName,
-                name7LastName };
+                name7LastName, };
 
-            for(int i = 0; i < mandatoryField.Count; i++)
+            for (int i = 0; i < maskedMandatoryFields.Count; i++)
             {
                 if (filledInformation[i] == false)
                 {
-                    mandatoryField[i].BorderBrush = System.Windows.Media.Brushes.Red;
+                    maskedMandatoryFields[i].BorderBrush = System.Windows.Media.Brushes.Red;
+                    missing = true;
+                    Console.WriteLine(maskedMandatoryFields[i].BorderBrush);
+                }
+                else
+                {
+                    maskedMandatoryFields[i].ClearValue(Border.BorderBrushProperty);
+                }
+            }
+
+            for (int i = maskedMandatoryFields.Count; i < filledInformation.Count; i++)
+            {
+                if (filledInformation[i] == false)
+                {
+                    mandatoryField[i - maskedMandatoryFields.Count].BorderBrush = System.Windows.Media.Brushes.Red;
                     missing = true;
                 }
                 else
                 {
-                    mandatoryField[i].ClearValue(Border.BorderBrushProperty);
+                    mandatoryField[i - maskedMandatoryFields.Count].ClearValue(Border.BorderBrushProperty);
                 }
             }
             
@@ -172,6 +193,7 @@ namespace Data_Entry_Form
             }
             isBack = true;
             _viewModel.SaveRecord();
+            _viewModel.CloseDatabase();
             MoveToMainPage?.Invoke(this, new EventArgs());
         }
 
@@ -212,6 +234,7 @@ namespace Data_Entry_Form
                 MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     _displayWindow.Close();
+                    _viewModel.CloseDatabase();
                     Application.Current.Shutdown();
                 }
                 else
