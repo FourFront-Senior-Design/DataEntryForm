@@ -228,12 +228,12 @@ namespace ViewModels
             List<bool> isValidList = new List<bool>()
             {
                 true, // cemetery Name
+                true, // Marker Type
+                true, // emblem 1
                 true, // burial Section
                 true, // wall ID
                 true, // row Number
                 true, // gravesite number
-                true, // Marker Type
-                true, // emblem 1
                 true, // primary last name
                 true, // descedent 1 last name
                 true, // descedent 2 last name
@@ -248,32 +248,32 @@ namespace ViewModels
                 isValidList[0] = false;
             }
 
-            if (String.IsNullOrEmpty(_currentPageData.BurialSectionNumber))
+            if (String.IsNullOrEmpty(_currentPageData.MarkerType))
             {
                 isValidList[1] = false;
             }
 
-            if (String.IsNullOrEmpty(_currentPageData.WallID))
+            if (String.IsNullOrEmpty(_currentPageData.Emblem1))
             {
                 isValidList[2] = false;
             }
 
-            if (String.IsNullOrEmpty(_currentPageData.RowNum))
+            if (String.IsNullOrEmpty(_currentPageData.BurialSectionNumber))
             {
                 isValidList[3] = false;
             }
 
-            if (String.IsNullOrEmpty(_currentPageData.GavestoneNumber))
+            if (String.IsNullOrEmpty(_currentPageData.WallID))
             {
                 isValidList[4] = false;
             }
 
-            if (String.IsNullOrEmpty(_currentPageData.MarkerType))
+            if (String.IsNullOrEmpty(_currentPageData.RowNum))
             {
                 isValidList[5] = false;
             }
 
-            if (String.IsNullOrEmpty(_currentPageData.Emblem1))
+            if (String.IsNullOrEmpty(_currentPageData.GavestoneNumber))
             {
                 isValidList[6] = false;
             }
@@ -283,7 +283,7 @@ namespace ViewModels
                 isValidList[7] = false;
             }
 
-            int personIndex = 2;
+            int personIndex = 8;
             foreach (Person person in _currentPageData.OthersDecedentList)
             {
                 // A person with contents is valid iff they have a last name

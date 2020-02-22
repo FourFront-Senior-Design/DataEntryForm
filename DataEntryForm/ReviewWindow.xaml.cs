@@ -104,25 +104,41 @@ namespace Data_Entry_Form
         {
             bool missing = false;
             List<bool> filledInformation = _viewModel.CheckMandatoryFields();
-            List<TextBox> mandatoryField = new List<TextBox>() {
-                gravesiteNum, primaryLastName, secondaryLastName,
-                name3LastName, name4LastName, name5LastName, name6LastName,
-                name7LastName };
-            List<ComboBox> mandatoryBoxField = new List<ComboBox>()
+            List<Border> maskedMandatoryFields = new List<Border>()
             {
-
+                cemeteryName, markerType, emb1Border
             };
 
-            for(int i = 0; i < mandatoryField.Count; i++)
+            List<TextBox> mandatoryField = new List<TextBox>() { 
+                BurialSectionField, wallID, rowNum, 
+                gravesiteNum, primaryLastName, secondaryLastName,
+                name3LastName, name4LastName, name5LastName, name6LastName,
+                name7LastName, };
+
+            for (int i = 0; i < maskedMandatoryFields.Count; i++)
             {
                 if (filledInformation[i] == false)
                 {
-                    mandatoryField[i].BorderBrush = System.Windows.Media.Brushes.Red;
+                    maskedMandatoryFields[i].BorderBrush = System.Windows.Media.Brushes.Red;
+                    missing = true;
+                    Console.WriteLine(maskedMandatoryFields[i].BorderBrush);
+                }
+                else
+                {
+                    maskedMandatoryFields[i].ClearValue(Border.BorderBrushProperty);
+                }
+            }
+
+            for (int i = maskedMandatoryFields.Count; i < filledInformation.Count; i++)
+            {
+                if (filledInformation[i] == false)
+                {
+                    mandatoryField[i - maskedMandatoryFields.Count].BorderBrush = System.Windows.Media.Brushes.Red;
                     missing = true;
                 }
                 else
                 {
-                    mandatoryField[i].ClearValue(Border.BorderBrushProperty);
+                    mandatoryField[i - maskedMandatoryFields.Count].ClearValue(Border.BorderBrushProperty);
                 }
             }
             
