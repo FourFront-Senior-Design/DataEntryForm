@@ -6,7 +6,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:s="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d" Icon="FormIcon.ico"
-        Title="Review" WindowState="Maximized" Background="#FFE4E4E4" KeyDown="Window_KeyDown"
+        Title="Review (Version 1.4)" WindowState="Maximized" Background="#FFE4E4E4" KeyDown="Window_KeyDown"
         Closing="WindowClosing" d:DesignWidth="1158" d:DesignHeight="843">
 
     <Window.Resources>
@@ -403,254 +403,256 @@
 
                     <Border BorderBrush="Black" BorderThickness="1">
                         <StackPanel>
-                            <Label Margin="0,25,0,0" Content="PRIMARY" FontSize="17" FontWeight="Bold"/>
-                            <StackPanel Orientation="Horizontal">
-                                <StackPanel>
-                                    <Label Content="Name: First" />
-                                    <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.FirstName}" 
+                            <StackPanel Background="LightGray">
+                                <Label Margin="0,25,0,0" Content="PRIMARY" FontSize="17" FontWeight="Bold"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <StackPanel>
+                                        <Label Content="Name: First" />
+                                        <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.FirstName}" 
                                          Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"
                                              x:Name="primaryFirstName"/>
-                                </StackPanel>
-                                <StackPanel>
-                                    <Label Content="Middle" />
-                                    <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.MiddleName}" 
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <Label Content="Middle" />
+                                        <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.MiddleName}" 
                                          Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"
                                              x:Name="primaryMiddleName"/>
-                                </StackPanel>
-                                <StackPanel>
-                                    <Label Content="Last" />
-                                    <TextBox x:Name="primaryLastName" Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <Label Content="Last" />
+                                        <TextBox x:Name="primaryLastName" Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"
                                          Text="{Binding CurrentPageData.PrimaryDecedent.LastName}"/>
-                                </StackPanel>
-                                <StackPanel>
-                                    <Label Content="Suffix" />
-                                    <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.Suffix}" 
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <Label Content="Suffix" />
+                                        <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.Suffix}" 
                                          Margin="2,0,0,2"  Width="95" KeyDown="Textbox_KeyDown"/>
+                                    </StackPanel>
                                 </StackPanel>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <StackPanel>
-                                    <Label Content="Location" />
-                                    <ComboBox Text="{Binding CurrentPageData.PrimaryDecedent.Location}" 
+                                <StackPanel Orientation="Horizontal">
+                                    <StackPanel>
+                                        <Label Content="Location" />
+                                        <ComboBox Text="{Binding CurrentPageData.PrimaryDecedent.Location}" 
                                             Margin="2,0,0,2" Width="300" Padding="1" 
                                             HorizontalAlignment="Stretch" VerticalAlignment="Center"
                                             TextSearch.TextPath="Location" IsTextSearchEnabled="True"
                                             ItemTemplate="{StaticResource locationCmbTemplate}"
                                             ItemsSource="{Binding GetLocationData}">
-                                    </ComboBox>
-                                </StackPanel>
-                                <StackPanel>
-                                    <Label Content="Rank" />
-                                    <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.RankList[0]}"
+                                        </ComboBox>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <Label Content="Rank" />
+                                        <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.RankList[0]}"
                                              Padding="1"
                                              Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
-                                </StackPanel>
-                                <StackPanel>
-                                    <Label Content="Branch" />
-                                    <ComboBox Text="{Binding CurrentPageData.PrimaryDecedent.BranchList[0]}" 
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <Label Content="Branch" />
+                                        <ComboBox Text="{Binding CurrentPageData.PrimaryDecedent.BranchList[0]}" 
                                               Margin="2,0,0,2" Width="200" Padding="1" 
                                               HorizontalAlignment="Stretch" VerticalAlignment="Center" 
                                               ItemTemplate="{StaticResource branchCmbTemplate}"
                                               TextSearch.TextPath="Code" IsTextSearchEnabled="True"
                                               ItemsSource="{Binding GetBranchData}" LostFocus="Branch_LostFocus"/>
+                                    </StackPanel>
                                 </StackPanel>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <StackPanel>
-                                    <Label Content="Branch-Unit Custom" />
-                                    <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.BranchUnitCustom}"  
+                                <StackPanel Orientation="Horizontal">
+                                    <StackPanel>
+                                        <Label Content="Branch-Unit Custom" />
+                                        <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.BranchUnitCustom}"  
                                              Margin="2,0,0,2"  Width="702" KeyDown="Textbox_KeyDown"/>
+                                    </StackPanel>
                                 </StackPanel>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <StackPanel>
-                                    <Label Content="War" />
-                                    <ComboBox Text="{Binding CurrentPageData.PrimaryDecedent.WarList[0]}" 
+                                <StackPanel Orientation="Horizontal">
+                                    <StackPanel>
+                                        <Label Content="War" />
+                                        <ComboBox Text="{Binding CurrentPageData.PrimaryDecedent.WarList[0]}" 
                                               Margin="2,0,0,2" Width="100" Padding="1"
                                               HorizontalAlignment="Stretch" VerticalAlignment="Center" 
                                               ItemTemplate="{StaticResource warCmbTemplate}"
                                               TextSearch.TextPath="Code" IsTextSearchEnabled="True"
                                               ItemsSource="{Binding GetWarData}" LostFocus="War_LostFocus"/>
-                                </StackPanel>
-                                <StackPanel>
-                                    <Label Content="War 2" />
-                                    <ComboBox Text="{Binding CurrentPageData.PrimaryDecedent.WarList[1]}" 
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <Label Content="War 2" />
+                                        <ComboBox Text="{Binding CurrentPageData.PrimaryDecedent.WarList[1]}" 
                                               Margin="2,0,0,2" Width="100" Padding="1"
                                               HorizontalAlignment="Stretch" VerticalAlignment="Center" 
                                               ItemTemplate="{StaticResource warCmbTemplate}"
                                               TextSearch.TextPath="Code" IsTextSearchEnabled="True"
                                               ItemsSource="{Binding GetWarData}" LostFocus="War_LostFocus"/>
-                                </StackPanel>
-                                <StackPanel>
-                                    <Label Width="90"/>
-                                </StackPanel>
-                                <StackPanel>
-                                    <Label Content="Birth Date" />
-                                    <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" 
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <Label Width="90"/>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <Label Content="Birth Date" />
+                                        <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" 
                                                         Mask="00/00/0000"
                                                         Margin="2,0,2,0" Width="200"  KeyDown="Textbox_KeyDown"
                                                         Value="{Binding CurrentPageData.PrimaryDecedent.BirthDate}"
                                                         NullValue=""/>
-                                </StackPanel>
-                                <StackPanel>
-                                    <Label Content="Death Date" />
-                                    <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" 
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <Label Content="Death Date" />
+                                        <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" 
                                                         Mask="00/00/0000"
                                                         Margin="2,0,2,0"  Width="200" KeyDown="Textbox_KeyDown"
                                                         Value="{Binding CurrentPageData.PrimaryDecedent.DeathDate}"
                                                         NullValue=""/>
+                                    </StackPanel>
                                 </StackPanel>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <StackPanel>
-                                    <Label Content="Award" />
-                                    <ComboBox Text="{Binding CurrentPageData.PrimaryDecedent.AwardList[0]}" 
+                                <StackPanel Orientation="Horizontal">
+                                    <StackPanel>
+                                        <Label Content="Award" />
+                                        <ComboBox Text="{Binding CurrentPageData.PrimaryDecedent.AwardList[0]}" 
                                               Margin="2,0,0,2" Width="100" Padding="1"
                                               HorizontalAlignment="Stretch" VerticalAlignment="Center" 
                                               ItemTemplate="{StaticResource awardCmbTemplate}"
                                               TextSearch.TextPath="Code" IsTextSearchEnabled="True"
                                               ItemsSource="{Binding GetAwardData}" LostFocus="Award_LostFocus"/>
-                                </StackPanel>
-                                <StackPanel Grid.Column="1">
-                                    <Label Content="Award 2" />
-                                    <ComboBox Text="{Binding CurrentPageData.PrimaryDecedent.AwardList[1]}" 
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1">
+                                        <Label Content="Award 2" />
+                                        <ComboBox Text="{Binding CurrentPageData.PrimaryDecedent.AwardList[1]}" 
                                               Margin="2,0,0,2" Width="100" Padding="1" 
                                               HorizontalAlignment="Stretch" VerticalAlignment="Center" 
                                               ItemTemplate="{StaticResource awardCmbTemplate}"
                                               TextSearch.TextPath="Code" IsTextSearchEnabled="True"
                                               ItemsSource="{Binding GetAwardData}" LostFocus="Award_LostFocus"/>
-                                </StackPanel>
-                                <StackPanel>
-                                    <Label Width="90"/>
-                                </StackPanel>
-                                <StackPanel Grid.Column="3">
-                                    <Label Content="Awards Custom (Enter multiple w/ spaces between)" />
-                                    <TextBox KeyDown="Textbox_KeyDown"
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <Label Width="90"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="3">
+                                        <Label Content="Awards Custom (Enter multiple w/ spaces between)" />
+                                        <TextBox KeyDown="Textbox_KeyDown"
                                              Text="{Binding CurrentPageData.PrimaryDecedent.AwardCustom}" 
                                              Margin="2,0,2,0"  Width="405"/>
+                                    </StackPanel>
                                 </StackPanel>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <StackPanel>
-                                    <Label Content="Inscription" />
-                                    <TextBox KeyDown="Textbox_KeyDown"
+                                <StackPanel Orientation="Horizontal">
+                                    <StackPanel>
+                                        <Label Content="Inscription" />
+                                        <TextBox KeyDown="Textbox_KeyDown"
                                              Text="{Binding CurrentPageData.PrimaryDecedent.Inscription}"
                                              Margin="2,0,0,2"  Width="700">
-                                    </TextBox>
+                                        </TextBox>
+                                    </StackPanel>
                                 </StackPanel>
-                            </StackPanel>
 
-                            <StackPanel Margin="0,20,0,10">
-                                <StackPanel.Resources>
-                                    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-                                </StackPanel.Resources>
+                                <StackPanel Margin="0,20,0,10">
+                                    <StackPanel.Resources>
+                                        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+                                    </StackPanel.Resources>
 
-                                <CheckBox  Name="morePrimaryData"
+                                    <CheckBox  Name="morePrimaryData"
                                   Content="Add Additional Information for Primary"/>
 
-                                <StackPanel Orientation="Horizontal" 
+                                    <StackPanel Orientation="Horizontal" 
                                     Visibility="{Binding ElementName=morePrimaryData, Path=IsChecked, 
                                     Converter={StaticResource BooleanToVisibilityConverter}}">
-                                    <StackPanel>
-                                        <Label Content="War 3" />
-                                        <ComboBox  Text="{Binding CurrentPageData.PrimaryDecedent.WarList[2]}" 
+                                        <StackPanel>
+                                            <Label Content="War 3" />
+                                            <ComboBox  Text="{Binding CurrentPageData.PrimaryDecedent.WarList[2]}" 
                                                Margin="2,2,0,2" Width="100" Padding="1"
                                               HorizontalAlignment="Stretch" VerticalAlignment="Center" 
                                               ItemTemplate="{StaticResource warCmbTemplate}"
                                               TextSearch.TextPath="Code" IsTextSearchEnabled="True"
                                               ItemsSource="{Binding GetWarData}" LostFocus="War_LostFocus"/>
-                                    </StackPanel>
-                                    <StackPanel>
-                                        <Label Content="War 4" />
-                                        <ComboBox Text="{Binding CurrentPageData.PrimaryDecedent.WarList[3]}" 
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <Label Content="War 4" />
+                                            <ComboBox Text="{Binding CurrentPageData.PrimaryDecedent.WarList[3]}" 
                                               Margin="2,2,0,2" Width="100" Padding="1"
                                               HorizontalAlignment="Stretch" VerticalAlignment="Center" 
                                               ItemTemplate="{StaticResource warCmbTemplate}"
                                               TextSearch.TextPath="Code" IsTextSearchEnabled="True"
                                               ItemsSource="{Binding GetWarData}" LostFocus="War_LostFocus"/>
+                                        </StackPanel>
                                     </StackPanel>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" 
+                                    <StackPanel Orientation="Horizontal" 
                                     Visibility="{Binding ElementName=morePrimaryData, Path=IsChecked, 
                                     Converter={StaticResource BooleanToVisibilityConverter}}">
-                                    <StackPanel>
-                                        <Label Content="Award 3" />
-                                        <ComboBox Text="{Binding CurrentPageData.PrimaryDecedent.AwardList[2]}" 
+                                        <StackPanel>
+                                            <Label Content="Award 3" />
+                                            <ComboBox Text="{Binding CurrentPageData.PrimaryDecedent.AwardList[2]}" 
                                               Margin="2,0,0,2" Width="90" Padding="1"
                                               HorizontalAlignment="Stretch" VerticalAlignment="Center" 
                                               ItemTemplate="{StaticResource awardCmbTemplate}"
                                               TextSearch.TextPath="Code" IsTextSearchEnabled="True"
                                               ItemsSource="{Binding GetAwardData}" LostFocus="Award_LostFocus"/>
-                                    </StackPanel>
-                                    <StackPanel>
-                                        <Label Content="Award 4" />
-                                        <ComboBox Text="{Binding CurrentPageData.PrimaryDecedent.AwardList[3]}" 
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <Label Content="Award 4" />
+                                            <ComboBox Text="{Binding CurrentPageData.PrimaryDecedent.AwardList[3]}" 
                                               Margin="2,0,0,2" Width="90" Padding="1"
                                               HorizontalAlignment="Stretch" VerticalAlignment="Center" 
                                               ItemTemplate="{StaticResource awardCmbTemplate}"
                                               TextSearch.TextPath="Code" IsTextSearchEnabled="True"
                                               ItemsSource="{Binding GetAwardData}" LostFocus="Award_LostFocus"/>
-                                    </StackPanel>
-                                    <StackPanel>
-                                        <Label Content="Award 5" />
-                                        <ComboBox Text="{Binding CurrentPageData.PrimaryDecedent.AwardList[4]}"  
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <Label Content="Award 5" />
+                                            <ComboBox Text="{Binding CurrentPageData.PrimaryDecedent.AwardList[4]}"  
                                               Margin="2,0,0,2" Width="90" Padding="1"
                                               HorizontalAlignment="Stretch" VerticalAlignment="Center" 
                                               ItemTemplate="{StaticResource awardCmbTemplate}"
                                               TextSearch.TextPath="Code" IsTextSearchEnabled="True"
                                               ItemsSource="{Binding GetAwardData}" LostFocus="Award_LostFocus"/>
-                                    </StackPanel>
-                                    <StackPanel>
-                                        <Label Content="Award 6" />
-                                        <ComboBox Text="{Binding CurrentPageData.PrimaryDecedent.AwardList[5]}" 
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <Label Content="Award 6" />
+                                            <ComboBox Text="{Binding CurrentPageData.PrimaryDecedent.AwardList[5]}" 
                                               Margin="2,0,0,2" Width="90" Padding="1"
                                               HorizontalAlignment="Stretch" VerticalAlignment="Center" 
                                               ItemTemplate="{StaticResource awardCmbTemplate}"
                                               TextSearch.TextPath="Code" IsTextSearchEnabled="True"
                                               ItemsSource="{Binding GetAwardData}" LostFocus="Award_LostFocus"/>
-                                    </StackPanel>
-                                    <StackPanel>
-                                        <Label Content="Award 7" />
-                                        <ComboBox Text="{Binding CurrentPageData.PrimaryDecedent.AwardList[6]}" 
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <Label Content="Award 7" />
+                                            <ComboBox Text="{Binding CurrentPageData.PrimaryDecedent.AwardList[6]}" 
                                               Margin="2,0,0,2" Width="90" Padding="1"
                                               HorizontalAlignment="Stretch" VerticalAlignment="Center" 
                                               ItemTemplate="{StaticResource awardCmbTemplate}"
                                               TextSearch.TextPath="Code" IsTextSearchEnabled="True"
                                               ItemsSource="{Binding GetAwardData}" LostFocus="Award_LostFocus"/>
+                                        </StackPanel>
                                     </StackPanel>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" 
+                                    <StackPanel Orientation="Horizontal" 
                                     Visibility="{Binding ElementName=morePrimaryData, Path=IsChecked, 
                                     Converter={StaticResource BooleanToVisibilityConverter}}">
-                                    <StackPanel>
-                                        <Label Content="Rank 2" />
-                                        <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.RankList[1]}"  
+                                        <StackPanel>
+                                            <Label Content="Rank 2" />
+                                            <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.RankList[1]}"  
                                               Margin="2,0,0,2" Width="100" Padding="1"
                                               HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                    <StackPanel>
-                                        <Label Content="Branch 2" />
-                                        <ComboBox Text="{Binding CurrentPageData.PrimaryDecedent.BranchList[1]}"
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <Label Content="Branch 2" />
+                                            <ComboBox Text="{Binding CurrentPageData.PrimaryDecedent.BranchList[1]}"
                                               Margin="2,0,0,2" Width="100" Padding="1"
                                               HorizontalAlignment="Stretch" VerticalAlignment="Center" 
                                               ItemTemplate="{StaticResource branchCmbTemplate}"
                                               TextSearch.TextPath="Code" IsTextSearchEnabled="True"
                                               ItemsSource="{Binding GetBranchData}" LostFocus="Branch_LostFocus"/>
-                                    </StackPanel>
-                                    <StackPanel>
-                                        <Label Content="Rank 3" />
-                                        <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.RankList[2]}"
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <Label Content="Rank 3" />
+                                            <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.RankList[2]}"
                                               Margin="2,0,0,2" Width="100" Padding="1"
                                               HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                    <StackPanel>
-                                        <Label Content="Branch 3" />
-                                        <ComboBox  Text="{Binding CurrentPageData.PrimaryDecedent.BranchList[2]}"
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <Label Content="Branch 3" />
+                                            <ComboBox  Text="{Binding CurrentPageData.PrimaryDecedent.BranchList[2]}"
                                                Margin="2,0,0,2" Width="100" Padding="1"
                                               HorizontalAlignment="Stretch" VerticalAlignment="Center" 
                                               ItemTemplate="{StaticResource branchCmbTemplate}"
                                               TextSearch.TextPath="Code" IsTextSearchEnabled="True"
                                               ItemsSource="{Binding GetBranchData}" LostFocus="Branch_LostFocus"/>
+                                        </StackPanel>
                                     </StackPanel>
                                 </StackPanel>
                             </StackPanel>
@@ -909,105 +911,108 @@
                                 <StackPanel.Resources>
                                     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
                                 </StackPanel.Resources>
-                                <Label
-                                Margin="0,50,0,10"
-                                Content="ADDITIONAL NAMES"
-                                FontSize="17"
-                                FontWeight="Bold"/>
-                                <CheckBox FontSize="15" Name="Name3" Margin="5,10,0,0"
-                                 FontWeight="Bold" Content="3rd Name Listed"/>
+                                <StackPanel Background="LightGray">
+                                    <Label
+                                    Margin="0,50,0,10"
+                                    Content="ADDITIONAL NAMES"
+                                    FontSize="17"
+                                    FontWeight="Bold"/>
+                                    <CheckBox FontSize="15" Name="Name3" Margin="5,10,0,0"
+                                     FontWeight="Bold" Content="3rd Name Listed"/>
 
-                                <StackPanel Visibility="{Binding ElementName=Name3, Path=IsChecked, 
-                                    Converter={StaticResource BooleanToVisibilityConverter}}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <StackPanel>
-                                            <Label Content="Name: First" />
-                                            <TextBox Text="{Binding CurrentPageData.OthersDecedentList[1].FirstName}"
-                                             Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
+                                    <StackPanel Visibility="{Binding ElementName=Name3, Path=IsChecked, 
+                                        Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <StackPanel>
+                                                <Label Content="Name: First" />
+                                                <TextBox Text="{Binding CurrentPageData.OthersDecedentList[1].FirstName}"
+                                                 Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <Label Content="Middle" />
+                                                <TextBox Text="{Binding CurrentPageData.OthersDecedentList[1].MiddleName}"
+                                                 Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <Label Content="Last" />
+                                                <TextBox x:Name="name3LastName" Text="{Binding CurrentPageData.OthersDecedentList[1].LastName}"
+                                                 Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <Label Content="Suffix" />
+                                                <TextBox Text="{Binding CurrentPageData.OthersDecedentList[1].Suffix}"
+                                                 Margin="2,0,0,2"  Width="95" KeyDown="Textbox_KeyDown"/>
+                                            </StackPanel>
                                         </StackPanel>
                                         <StackPanel>
-                                            <Label Content="Middle" />
-                                            <TextBox Text="{Binding CurrentPageData.OthersDecedentList[1].MiddleName}"
-                                             Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
+                                            <Label Content="Location" />
+                                            <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[1].Location}"
+                                              Margin="2,0,0,2" Width="700" Padding="1"
+                                              HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                              TextSearch.TextPath="Location" IsTextSearchEnabled="True"
+                                              ItemTemplate="{StaticResource locationCmbTemplate}"
+                                              ItemsSource="{Binding GetLocationData}"/>
                                         </StackPanel>
-                                        <StackPanel>
-                                            <Label Content="Last" />
-                                            <TextBox x:Name="name3LastName" Text="{Binding CurrentPageData.OthersDecedentList[1].LastName}"
-                                             Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <StackPanel>
+                                                <Label Content="Rank" />
+                                                <TextBox Text="{Binding CurrentPageData.OthersDecedentList[1].RankList[0]}"
+                                                 Margin="2,0,0,2" Width="350" KeyDown="Textbox_KeyDown"/>
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <Label Content="Branch" />
+                                                <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[1].BranchList[0]}"
+                                                  Margin="2,0,0,2" Width="350" Padding="1"
+                                                  HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                                  ItemTemplate="{StaticResource branchCmbTemplate}"
+                                                  TextSearch.TextPath="Code" IsTextSearchEnabled="True"
+                                                  ItemsSource="{Binding GetBranchData}" LostFocus="Branch_LostFocus"/>
+                                            </StackPanel>
                                         </StackPanel>
-                                        <StackPanel>
-                                            <Label Content="Suffix" />
-                                            <TextBox Text="{Binding CurrentPageData.OthersDecedentList[1].Suffix}"
-                                             Margin="2,0,0,2"  Width="95" KeyDown="Textbox_KeyDown"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <StackPanel>
+                                                <Label Content="War" />
+                                                <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[1].WarList[0]}"
+                                                  Margin="2,0,0,2" Width="200" Padding="1"
+                                                  HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                                  ItemTemplate="{StaticResource warCmbTemplate}"
+                                                  TextSearch.TextPath="Code" IsTextSearchEnabled="True"
+                                                  ItemsSource="{Binding GetWarData}" LostFocus="War_LostFocus"/>
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <Label Content="Birth Date" />
+                                                <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000"
+                                                                    Value="{Binding CurrentPageData.OthersDecedentList[1].BirthDate}"
+                                                                    Margin="2,0,2,0" Width="245" KeyDown="Textbox_KeyDown"
+                                                                    NullValue=""/>
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <Label Content="Death Date" />
+                                                <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000" 
+                                                                    Value="{Binding CurrentPageData.OthersDecedentList[1].DeathDate}"
+                                                                    Margin="2,0,2,0"  Width="250" KeyDown="Textbox_KeyDown"
+                                                                    NullValue=""/>
+                                            </StackPanel>
                                         </StackPanel>
-                                    </StackPanel>
-                                    <StackPanel>
-                                        <Label Content="Location" />
-                                        <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[1].Location}"
-                                          Margin="2,0,0,2" Width="700" Padding="1"
-                                          HorizontalAlignment="Left" VerticalAlignment="Center" 
-                                          TextSearch.TextPath="Location" IsTextSearchEnabled="True"
-                                          ItemTemplate="{StaticResource locationCmbTemplate}"
-                                          ItemsSource="{Binding GetLocationData}"/>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <StackPanel>
-                                            <Label Content="Rank" />
-                                            <TextBox Text="{Binding CurrentPageData.OthersDecedentList[1].RankList[0]}"
-                                             Margin="2,0,0,2" Width="350" KeyDown="Textbox_KeyDown"/>
-                                        </StackPanel>
-                                        <StackPanel>
-                                            <Label Content="Branch" />
-                                            <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[1].BranchList[0]}"
-                                              Margin="2,0,0,2" Width="350" Padding="1"
-                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
-                                              ItemTemplate="{StaticResource branchCmbTemplate}"
-                                              TextSearch.TextPath="Code" IsTextSearchEnabled="True"
-                                              ItemsSource="{Binding GetBranchData}" LostFocus="Branch_LostFocus"/>
-                                        </StackPanel>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <StackPanel>
-                                            <Label Content="War" />
-                                            <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[1].WarList[0]}"
-                                              Margin="2,0,0,2" Width="200" Padding="1"
-                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
-                                              ItemTemplate="{StaticResource warCmbTemplate}"
-                                              TextSearch.TextPath="Code" IsTextSearchEnabled="True"
-                                              ItemsSource="{Binding GetWarData}" LostFocus="War_LostFocus"/>
-                                        </StackPanel>
-                                        <StackPanel>
-                                            <Label Content="Birth Date" />
-                                            <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000"
-                                                                Value="{Binding CurrentPageData.OthersDecedentList[1].BirthDate}"
-                                                                Margin="2,0,2,0" Width="245" KeyDown="Textbox_KeyDown"
-                                                                NullValue=""/>
-                                        </StackPanel>
-                                        <StackPanel>
-                                            <Label Content="Death Date" />
-                                            <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000" 
-                                                                Value="{Binding CurrentPageData.OthersDecedentList[1].DeathDate}"
-                                                                Margin="2,0,2,0"  Width="250" KeyDown="Textbox_KeyDown"
-                                                                NullValue=""/>
-                                        </StackPanel>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <StackPanel>
-                                            <Label Content="Award" />
-                                            <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[1].AwardList[0]}"
-                                              Margin="2,0,0,2" Width="120" Padding="1"
-                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
-                                              ItemTemplate="{StaticResource awardCmbTemplate}"
-                                              TextSearch.TextPath="Code" IsTextSearchEnabled="True"
-                                              ItemsSource="{Binding GetAwardData}" LostFocus="Award_LostFocus"/>
-                                        </StackPanel>
-                                        <StackPanel>
-                                            <Label Content="Inscription" />
-                                            <TextBox Text="{Binding CurrentPageData.OthersDecedentList[1].Inscription}"
-                                             Margin="2,0,0,50"  Width="580" KeyDown="Textbox_KeyDown"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <StackPanel>
+                                                <Label Content="Award" />
+                                                <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[1].AwardList[0]}"
+                                                  Margin="2,0,0,2" Width="120" Padding="1"
+                                                  HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                                  ItemTemplate="{StaticResource awardCmbTemplate}"
+                                                  TextSearch.TextPath="Code" IsTextSearchEnabled="True"
+                                                  ItemsSource="{Binding GetAwardData}" LostFocus="Award_LostFocus"/>
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <Label Content="Inscription" />
+                                                <TextBox Text="{Binding CurrentPageData.OthersDecedentList[1].Inscription}"
+                                                 Margin="2,0,0,50"  Width="580" KeyDown="Textbox_KeyDown"/>
+                                            </StackPanel>
                                         </StackPanel>
                                     </StackPanel>
                                 </StackPanel>
+
 
                                 <CheckBox FontSize="15" Name="Name4" Margin="5,10,0,0"
                                   FontWeight="Bold" Content="4th Name Listed"/>
@@ -1104,97 +1109,99 @@
                                     </StackPanel>
                                 </StackPanel>
 
-                                <CheckBox FontSize="15" Name="Name5" Margin="5,10,0,0"
-                                  FontWeight="Bold" Content="5th Name Listed"/>
+                                <StackPanel Background="LightGray">
+                                    <CheckBox FontSize="15" Name="Name5" Margin="5,10,0,0"
+                                      FontWeight="Bold" Content="5th Name Listed"/>
 
-                                <StackPanel Visibility="{Binding ElementName=Name5, Path=IsChecked, 
-                                    Converter={StaticResource BooleanToVisibilityConverter}}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <StackPanel>
-                                            <Label Content="Name: First" />
-                                            <TextBox Text="{Binding CurrentPageData.OthersDecedentList[3].FirstName}"
-                                             Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
+                                    <StackPanel Visibility="{Binding ElementName=Name5, Path=IsChecked, 
+                                        Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <StackPanel>
+                                                <Label Content="Name: First" />
+                                                <TextBox Text="{Binding CurrentPageData.OthersDecedentList[3].FirstName}"
+                                                 Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <Label Content="Middle" />
+                                                <TextBox Text="{Binding CurrentPageData.OthersDecedentList[3].MiddleName}"
+                                                 Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <Label Content="Last" />
+                                                <TextBox x:Name="name5LastName" Text="{Binding CurrentPageData.OthersDecedentList[3].LastName}"
+                                                 Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <Label Content="Suffix" />
+                                                <TextBox Text="{Binding CurrentPageData.OthersDecedentList[3].Suffix}"
+                                                 Margin="2,0,0,2"  Width="95" KeyDown="Textbox_KeyDown"/>
+                                            </StackPanel>
                                         </StackPanel>
                                         <StackPanel>
-                                            <Label Content="Middle" />
-                                            <TextBox Text="{Binding CurrentPageData.OthersDecedentList[3].MiddleName}"
-                                             Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
+                                            <Label Content="Location" />
+                                            <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[3].Location}"
+                                              Margin="2,0,0,2" Width="700" Padding="1"
+                                              HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                              TextSearch.TextPath="Location" IsTextSearchEnabled="True"
+                                              ItemTemplate="{StaticResource locationCmbTemplate}"
+                                              ItemsSource="{Binding GetLocationData}"/>
                                         </StackPanel>
-                                        <StackPanel>
-                                            <Label Content="Last" />
-                                            <TextBox x:Name="name5LastName" Text="{Binding CurrentPageData.OthersDecedentList[3].LastName}"
-                                             Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <StackPanel>
+                                                <Label Content="Rank" />
+                                                <TextBox Text="{Binding CurrentPageData.OthersDecedentList[3].RankList[0]}"
+                                                 Margin="2,0,0,2" Width="350" KeyDown="Textbox_KeyDown"/>
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <Label Content="Branch" />
+                                                <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[3].BranchList[0]}"
+                                                  Margin="2,0,0,2" Width="350" Padding="1"
+                                                  HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                                  ItemTemplate="{StaticResource branchCmbTemplate}"
+                                                  TextSearch.TextPath="Code" IsTextSearchEnabled="True"
+                                                  ItemsSource="{Binding GetBranchData}" LostFocus="Branch_LostFocus"/>
+                                            </StackPanel>
                                         </StackPanel>
-                                        <StackPanel>
-                                            <Label Content="Suffix" />
-                                            <TextBox Text="{Binding CurrentPageData.OthersDecedentList[3].Suffix}"
-                                             Margin="2,0,0,2"  Width="95" KeyDown="Textbox_KeyDown"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <StackPanel>
+                                                <Label Content="War" />
+                                                <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[3].WarList[0]}"
+                                                  Margin="2,0,0,2" Width="200" Padding="1"
+                                                  HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                                  ItemTemplate="{StaticResource warCmbTemplate}"
+                                                  TextSearch.TextPath="Code" IsTextSearchEnabled="True"
+                                                  ItemsSource="{Binding GetWarData}" LostFocus="War_LostFocus"/>
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <Label Content="Birth Date" />
+                                                <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000" 
+                                                                    Value="{Binding CurrentPageData.OthersDecedentList[3].BirthDate}"
+                                                                    Margin="2,0,2,0"  Width="245" KeyDown="Textbox_KeyDown"
+                                                                    NullValue=""/>
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <Label Content="Death Date" />
+                                                <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000" 
+                                                                    Value="{Binding CurrentPageData.OthersDecedentList[3].DeathDate}"
+                                                                    Margin="2,0,2,0"  Width="250" KeyDown="Textbox_KeyDown"
+                                                                    NullValue=""/>
+                                            </StackPanel>
                                         </StackPanel>
-                                    </StackPanel>
-                                    <StackPanel>
-                                        <Label Content="Location" />
-                                        <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[3].Location}"
-                                          Margin="2,0,0,2" Width="700" Padding="1"
-                                          HorizontalAlignment="Left" VerticalAlignment="Center" 
-                                          TextSearch.TextPath="Location" IsTextSearchEnabled="True"
-                                          ItemTemplate="{StaticResource locationCmbTemplate}"
-                                          ItemsSource="{Binding GetLocationData}"/>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <StackPanel>
-                                            <Label Content="Rank" />
-                                            <TextBox Text="{Binding CurrentPageData.OthersDecedentList[3].RankList[0]}"
-                                             Margin="2,0,0,2" Width="350" KeyDown="Textbox_KeyDown"/>
-                                        </StackPanel>
-                                        <StackPanel>
-                                            <Label Content="Branch" />
-                                            <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[3].BranchList[0]}"
-                                              Margin="2,0,0,2" Width="350" Padding="1"
-                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
-                                              ItemTemplate="{StaticResource branchCmbTemplate}"
-                                              TextSearch.TextPath="Code" IsTextSearchEnabled="True"
-                                              ItemsSource="{Binding GetBranchData}" LostFocus="Branch_LostFocus"/>
-                                        </StackPanel>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <StackPanel>
-                                            <Label Content="War" />
-                                            <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[3].WarList[0]}"
-                                              Margin="2,0,0,2" Width="200" Padding="1"
-                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
-                                              ItemTemplate="{StaticResource warCmbTemplate}"
-                                              TextSearch.TextPath="Code" IsTextSearchEnabled="True"
-                                              ItemsSource="{Binding GetWarData}" LostFocus="War_LostFocus"/>
-                                        </StackPanel>
-                                        <StackPanel>
-                                            <Label Content="Birth Date" />
-                                            <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000" 
-                                                                Value="{Binding CurrentPageData.OthersDecedentList[3].BirthDate}"
-                                                                Margin="2,0,2,0"  Width="245" KeyDown="Textbox_KeyDown"
-                                                                NullValue=""/>
-                                        </StackPanel>
-                                        <StackPanel>
-                                            <Label Content="Death Date" />
-                                            <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000" 
-                                                                Value="{Binding CurrentPageData.OthersDecedentList[3].DeathDate}"
-                                                                Margin="2,0,2,0"  Width="250" KeyDown="Textbox_KeyDown"
-                                                                NullValue=""/>
-                                        </StackPanel>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <StackPanel>
-                                            <Label Content="Award" />
-                                            <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[3].AwardList[0]}"
-                                              Margin="2,0,0,2" Width="120" Padding="1"
-                                              HorizontalAlignment="Stretch" VerticalAlignment="Center" 
-                                              ItemTemplate="{StaticResource awardCmbTemplate}"
-                                              TextSearch.TextPath="Code" IsTextSearchEnabled="True"
-                                              ItemsSource="{Binding GetAwardData}" LostFocus="Award_LostFocus"/>
-                                        </StackPanel>
-                                        <StackPanel>
-                                            <Label Content="Inscription" />
-                                            <TextBox Text="{Binding CurrentPageData.OthersDecedentList[3].Inscription}"
-                                             Margin="2,0,0,50"  Width="580" KeyDown="Textbox_KeyDown"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <StackPanel>
+                                                <Label Content="Award" />
+                                                <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[3].AwardList[0]}"
+                                                  Margin="2,0,0,2" Width="120" Padding="1"
+                                                  HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                                  ItemTemplate="{StaticResource awardCmbTemplate}"
+                                                  TextSearch.TextPath="Code" IsTextSearchEnabled="True"
+                                                  ItemsSource="{Binding GetAwardData}" LostFocus="Award_LostFocus"/>
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <Label Content="Inscription" />
+                                                <TextBox Text="{Binding CurrentPageData.OthersDecedentList[3].Inscription}"
+                                                 Margin="2,0,0,50"  Width="580" KeyDown="Textbox_KeyDown"/>
+                                            </StackPanel>
                                         </StackPanel>
                                     </StackPanel>
                                 </StackPanel>
@@ -1253,63 +1260,64 @@
                                     </StackPanel>
                                 </StackPanel>
 
-                                <CheckBox FontSize="15" Name="Name7" Margin="5,10,0,0"
-                                  FontWeight="Bold" Content="7th Name Listed"/>
+                                <StackPanel Background="LightGray">
+                                    <CheckBox FontSize="15" Name="Name7" Margin="5,10,0,0"
+                                      FontWeight="Bold" Content="7th Name Listed"/>
 
-                                <StackPanel Visibility="{Binding ElementName=Name7, Path=IsChecked, 
-                                Converter={StaticResource BooleanToVisibilityConverter}}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <StackPanel>
-                                            <Label Content="Name: First" />
-                                            <TextBox Text="{Binding CurrentPageData.OthersDecedentList[5].FirstName}"
-                                            Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
+                                    <StackPanel Visibility="{Binding ElementName=Name7, Path=IsChecked, 
+                                    Converter={StaticResource BooleanToVisibilityConverter}}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <StackPanel>
+                                                <Label Content="Name: First" />
+                                                <TextBox Text="{Binding CurrentPageData.OthersDecedentList[5].FirstName}"
+                                                Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <Label Content="Middle" />
+                                                <TextBox Text="{Binding CurrentPageData.OthersDecedentList[5].MiddleName}"
+                                                Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <Label Content="Last" />
+                                                <TextBox x:Name="name7LastName" Text="{Binding CurrentPageData.OthersDecedentList[5].LastName}"
+                                                Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <Label Content="Suffix" />
+                                                <TextBox Text="{Binding CurrentPageData.OthersDecedentList[5].Suffix}"
+                                                Margin="2,0,0,2"  Width="95" KeyDown="Textbox_KeyDown"/>
+                                            </StackPanel>
                                         </StackPanel>
                                         <StackPanel>
-                                            <Label Content="Middle" />
-                                            <TextBox Text="{Binding CurrentPageData.OthersDecedentList[5].MiddleName}"
-                                            Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
+                                            <Label Content="Location" />
+                                            <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[5].Location}"
+                                            Margin="2,0,0,2" Width="700" Padding="1"
+                                            HorizontalAlignment="Left" VerticalAlignment="Center"                                          
+                                            TextSearch.TextPath="Location" IsTextSearchEnabled="True"
+                                            ItemTemplate="{StaticResource locationCmbTemplate}"
+                                            ItemsSource="{Binding GetLocationData}"/>
                                         </StackPanel>
-                                        <StackPanel>
-                                            <Label Content="Last" />
-                                            <TextBox x:Name="name7LastName" Text="{Binding CurrentPageData.OthersDecedentList[5].LastName}"
-                                            Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
-                                        </StackPanel>
-                                        <StackPanel>
-                                            <Label Content="Suffix" />
-                                            <TextBox Text="{Binding CurrentPageData.OthersDecedentList[5].Suffix}"
-                                            Margin="2,0,0,2"  Width="95" KeyDown="Textbox_KeyDown"/>
-                                        </StackPanel>
-                                    </StackPanel>
-                                    <StackPanel>
-                                        <Label Content="Location" />
-                                        <ComboBox Text="{Binding CurrentPageData.OthersDecedentList[5].Location}"
-                                        Margin="2,0,0,2" Width="700" Padding="1"
-                                        HorizontalAlignment="Left" VerticalAlignment="Center"                                          
-                                        TextSearch.TextPath="Location" IsTextSearchEnabled="True"
-                                        ItemTemplate="{StaticResource locationCmbTemplate}"
-                                        ItemsSource="{Binding GetLocationData}"/>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <StackPanel>
-                                            <Label Content="Birth Date" />
-                                            <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000" 
-                                                                Value="{Binding CurrentPageData.OthersDecedentList[5].BirthDate}"
-                                                                Margin="2,0,2,0"  Width="345" KeyDown="Textbox_KeyDown"
-                                                                NullValue=""/>
-                                        </StackPanel>
-                                        <StackPanel>
-                                            <Label Content="Death Date" />
-                                            <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000" 
-                                                                Value="{Binding CurrentPageData.OthersDecedentList[5].DeathDate}"
-                                                                Margin="2,0,2,50"  Width="350" KeyDown="Textbox_KeyDown"
-                                                                NullValue=""/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <StackPanel>
+                                                <Label Content="Birth Date" />
+                                                <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000" 
+                                                                    Value="{Binding CurrentPageData.OthersDecedentList[5].BirthDate}"
+                                                                    Margin="2,0,2,0"  Width="345" KeyDown="Textbox_KeyDown"
+                                                                    NullValue=""/>
+                                            </StackPanel>
+                                            <StackPanel>
+                                                <Label Content="Death Date" />
+                                                <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000" 
+                                                                    Value="{Binding CurrentPageData.OthersDecedentList[5].DeathDate}"
+                                                                    Margin="2,0,2,50"  Width="350" KeyDown="Textbox_KeyDown"
+                                                                    NullValue=""/>
+                                            </StackPanel>
                                         </StackPanel>
                                     </StackPanel>
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
                     </Border>
-
                 </ScrollViewer>
             </Grid>
         </Border>

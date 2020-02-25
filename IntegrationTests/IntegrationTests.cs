@@ -35,8 +35,8 @@ namespace IntegrationTests
             primary.Suffix = "P_Suffix";
             primary.Location = "P_Location";
             primary.BranchUnitCustom = "P_BranchUnitCustom";
-            primary.BirthDate = "P_BirthDate";
-            primary.DeathDate = "P_DeathDate";
+            primary.BirthDate = "O5/02/2020";
+            primary.DeathDate = "O5/02/2020";
             primary.Inscription = "P_Inscription";
             primary.AwardCustom = "P_AwardCustom";
             primary.AwardList = new List<string> { "P_A1", "P_A2", "P_A3", "P_A4", "P_A5", "P_A6", "P_A7" };
@@ -54,8 +54,8 @@ namespace IntegrationTests
             secondary.Suffix = "S_Suffix";
             secondary.Location = "S_Location";
             secondary.BranchUnitCustom = "S_BranchUnitCustom";
-            secondary.BirthDate = "S_BirthDate";
-            secondary.DeathDate = "S_DeathDate";
+            secondary.BirthDate = "O5/02/2020";
+            secondary.DeathDate = "O5/02/2020";
             secondary.Inscription = "S_Inscription";
             secondary.AwardCustom = "S_AwardCustom";
             secondary.AwardList = new List<string> { "S_A1", "S_A2", "S_A3", "S_A4", "S_A5", "S_A6", "S_A7" };
@@ -70,8 +70,8 @@ namespace IntegrationTests
             other1.LastName = "O1_Last";
             other1.Suffix = "O1_Suffix";
             other1.Location = "O1_Location";
-            other1.BirthDate = "O1_BirthDate";
-            other1.DeathDate = "O1_DeathDate";
+            other1.BirthDate = "O5/02/2020";
+            other1.DeathDate = "O5/02/2020";
             other1.Inscription = "O1_Inscription";
             other1.AwardList = new List<string> { "O1_A1" };
             other1.WarList = new List<string> { "O1_W1" };
@@ -85,8 +85,8 @@ namespace IntegrationTests
             other2.LastName = "O2_Last";
             other2.Suffix = "O2_Suffix";
             other2.Location = "O2_Location";
-            other2.BirthDate = "O2_BirthDate";
-            other2.DeathDate = "O2_DeathDate";
+            other2.BirthDate = "O5/02/2020";
+            other2.DeathDate = "O5/02/2020";
             other2.Inscription = "O2_Inscription";
             other2.AwardList = new List<string> { "O2_A2" };
             other2.WarList = new List<string> { "O2_W2" };
@@ -100,8 +100,8 @@ namespace IntegrationTests
             other3.LastName = "O3_Last";
             other3.Suffix = "O3_Suffix";
             other3.Location = "O3_Location";
-            other3.BirthDate = "O3_BirthDate";
-            other3.DeathDate = "O3_DeathDate";
+            other3.BirthDate = "O5/02/2020";
+            other3.DeathDate = "O5/02/2020";
             other3.Inscription = "O3_Inscription";
             other3.AwardList = new List<string> { "O3_A3" };
             other3.WarList = new List<string> { "O3_W3" };
@@ -115,8 +115,8 @@ namespace IntegrationTests
             other4.LastName = "O4_Last";
             other4.Suffix = "O4_Suffix";
             other4.Location = "O4_Location";
-            other4.BirthDate = "O4_BirthDate";
-            other4.DeathDate = "O4_DeathDate";
+            other4.BirthDate = "O5/02/2020";
+            other4.DeathDate = "O5/02/2020";
             testHeadstone.OthersDecedentList.Add(other4);
 
             Person other5 = new Person();
@@ -125,8 +125,8 @@ namespace IntegrationTests
             other5.LastName = "O5_Last";
             other5.Suffix = "O5_Suffix";
             other5.Location = "O5_Location";
-            other5.BirthDate = "O5_BirthDate";
-            other5.DeathDate = "O5_DeathDate";
+            other5.BirthDate = "O5/02/2020";
+            other5.DeathDate = "O5/02/2020";
             testHeadstone.OthersDecedentList.Add(other5);
         }
 

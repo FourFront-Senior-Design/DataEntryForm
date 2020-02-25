@@ -15,7 +15,7 @@ namespace ViewModels
         {
             get
             {
-                return "Senior Design Data Extraction Project" + "\u00a9" + "2019. Version 1.3";
+                return "Senior Design Data Extraction Project" + "\u00a9" + "2019. Version 1.4";
             }
         }
         

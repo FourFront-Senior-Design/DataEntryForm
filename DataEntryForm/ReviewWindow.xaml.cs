@@ -37,22 +37,41 @@ namespace Data_Entry_Form
             {
                 if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.PageUp))
                 {
+                    primaryFirstName.Focus();
                     if (!_validateMandatoryInfoExists())
                     {
+                        if (ee.Source is TextBox)
+                        {
+                            TextBox tb = (TextBox)ee.Source;
+                            tb.Focus();
+                        }
+                        else if (ee.Source is ComboBox)
+                        {
+                            ComboBox cb = (ComboBox)ee.Source;
+                            cb.Focus();
+                        }
                         return;
                     }
-                    BurialSectionField.Focus();
                     _viewModel.PreviousRecord();
                 }
 
                 if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.PageDown))
                 {
+                    primaryFirstName.Focus();
                     if (!_validateMandatoryInfoExists())
                     {
+                        if (ee.Source is TextBox)
+                        {
+                            TextBox tb = (TextBox)ee.Source;
+                            tb.Focus();
+                        }
+                        else if (ee.Source is ComboBox)
+                        {
+                            ComboBox cb = (ComboBox)ee.Source;
+                            cb.Focus();
+                        }
                         return;
                     }
-                    Console.WriteLine(_viewModel.CurrentPageData.PrimaryDecedent.LastName);
-                    BurialSectionField.Focus();
                     _viewModel.NextRecord();
                 }
 
@@ -140,14 +159,15 @@ namespace Data_Entry_Form
 
             for (int i = maskedMandatoryFields.Count; i < filledInformation.Count; i++)
             {
+                int index = i - maskedMandatoryFields.Count;
                 if (filledInformation[i] == false)
                 {
-                    mandatoryField[i - maskedMandatoryFields.Count].BorderBrush = System.Windows.Media.Brushes.Red;
+                    mandatoryField[index].BorderBrush = System.Windows.Media.Brushes.Red;
                     missing = true;
                 }
                 else
                 {
-                    mandatoryField[i - maskedMandatoryFields.Count].ClearValue(Border.BorderBrushProperty);
+                    mandatoryField[index].ClearValue(Border.BorderBrushProperty);
                 }
             }
             
@@ -284,13 +304,13 @@ namespace Data_Entry_Form
             }
 
             //if ((Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)) && Keyboard.IsKeyDown(Key.X))
-            if (e.Key == Key.X && (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)))
-            {
-                System.Diagnostics.Trace.WriteLine("Detected CTRL+X");
-                TextBox tb = (TextBox)sender;
-                tb.SelectAll();
-                tb.Cut();
-            }
+            //if (e.Key == Key.X && (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)))
+            //{
+            //    System.Diagnostics.Trace.WriteLine("Detected ALT+X");
+            //    TextBox tb = (TextBox)sender;
+            //    tb.SelectAll();
+            //    tb.Cut();
+            //}
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
