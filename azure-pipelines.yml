@@ -39,6 +39,7 @@ steps:
     testAssemblyVer2: |
       **\$(buildConfiguration)\IntegrationTests.dll
       **\$(buildConfiguration)\ViewModelsTest.dll
+      **\$(buildConfiguration)\DataStructuresTests.dll
       !**\obj\** 
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
