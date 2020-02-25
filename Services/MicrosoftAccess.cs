@@ -219,28 +219,28 @@ namespace Services
             primaryPerson.Suffix = dataRow[(int)MasterTableCols.Suffix].ToString();
             primaryPerson.Location = dataRow[(int)MasterTableCols.Location].ToString();
 
-            primaryPerson.RankList.Add(dataRow[(int)MasterTableCols.Rank].ToString());
-            primaryPerson.RankList.Add(dataRow[(int)MasterTableCols.Rank2].ToString());
-            primaryPerson.RankList.Add(dataRow[(int)MasterTableCols.Rank3].ToString());
+            primaryPerson.AddRank(dataRow[(int)MasterTableCols.Rank].ToString());
+            primaryPerson.AddRank(dataRow[(int)MasterTableCols.Rank2].ToString());
+            primaryPerson.AddRank(dataRow[(int)MasterTableCols.Rank3].ToString());
 
-            primaryPerson.AwardList.Add(dataRow[(int)MasterTableCols.Award].ToString());
-            primaryPerson.AwardList.Add(dataRow[(int)MasterTableCols.Award2].ToString());
-            primaryPerson.AwardList.Add(dataRow[(int)MasterTableCols.Award3].ToString());
-            primaryPerson.AwardList.Add(dataRow[(int)MasterTableCols.Award4].ToString());
-            primaryPerson.AwardList.Add(dataRow[(int)MasterTableCols.Award5].ToString());
-            primaryPerson.AwardList.Add(dataRow[(int)MasterTableCols.Award6].ToString());
-            primaryPerson.AwardList.Add(dataRow[(int)MasterTableCols.Award7].ToString());
+            primaryPerson.AddAward(dataRow[(int)MasterTableCols.Award].ToString());
+            primaryPerson.AddAward(dataRow[(int)MasterTableCols.Award2].ToString());
+            primaryPerson.AddAward(dataRow[(int)MasterTableCols.Award3].ToString());
+            primaryPerson.AddAward(dataRow[(int)MasterTableCols.Award4].ToString());
+            primaryPerson.AddAward(dataRow[(int)MasterTableCols.Award5].ToString());
+            primaryPerson.AddAward(dataRow[(int)MasterTableCols.Award6].ToString());
+            primaryPerson.AddAward(dataRow[(int)MasterTableCols.Award7].ToString());
 
             primaryPerson.AwardCustom = dataRow[(int)MasterTableCols.Awards_Custom].ToString();
 
-            primaryPerson.WarList.Add(dataRow[(int)MasterTableCols.War].ToString());
-            primaryPerson.WarList.Add(dataRow[(int)MasterTableCols.War2].ToString());
-            primaryPerson.WarList.Add(dataRow[(int)MasterTableCols.War3].ToString());
-            primaryPerson.WarList.Add(dataRow[(int)MasterTableCols.War4].ToString());
+            primaryPerson.AddWar(dataRow[(int)MasterTableCols.War].ToString());
+            primaryPerson.AddWar(dataRow[(int)MasterTableCols.War2].ToString());
+            primaryPerson.AddWar(dataRow[(int)MasterTableCols.War3].ToString());
+            primaryPerson.AddWar(dataRow[(int)MasterTableCols.War4].ToString());
 
-            primaryPerson.BranchList.Add(dataRow[(int)MasterTableCols.Branch].ToString());
-            primaryPerson.BranchList.Add(dataRow[(int)MasterTableCols.Branch2].ToString());
-            primaryPerson.BranchList.Add(dataRow[(int)MasterTableCols.Branch3].ToString());
+            primaryPerson.AddBranch(dataRow[(int)MasterTableCols.Branch].ToString());
+            primaryPerson.AddBranch(dataRow[(int)MasterTableCols.Branch2].ToString());
+            primaryPerson.AddBranch(dataRow[(int)MasterTableCols.Branch3].ToString());
 
             primaryPerson.BranchUnitCustom = dataRow[(int)MasterTableCols.Branch_Unit_CustomV].ToString();
 
@@ -275,28 +275,28 @@ namespace Services
             secondPerson.Suffix = dataRow[(int)MasterTableCols.SuffixS_D].ToString();
             secondPerson.Location = dataRow[(int)MasterTableCols.LocationS_D].ToString();
 
-            secondPerson.RankList.Add(dataRow[(int)MasterTableCols.RankS_D].ToString());
-            secondPerson.RankList.Add(dataRow[(int)MasterTableCols.Rank2S_D].ToString());
-            secondPerson.RankList.Add(dataRow[(int)MasterTableCols.Rank3S_D].ToString());
+            secondPerson.AddRank(dataRow[(int)MasterTableCols.RankS_D].ToString());
+            secondPerson.AddRank(dataRow[(int)MasterTableCols.Rank2S_D].ToString());
+            secondPerson.AddRank(dataRow[(int)MasterTableCols.Rank3S_D].ToString());
 
-            secondPerson.AwardList.Add(dataRow[(int)MasterTableCols.AwardS_D].ToString());
-            secondPerson.AwardList.Add(dataRow[(int)MasterTableCols.Award2S_D].ToString());
-            secondPerson.AwardList.Add(dataRow[(int)MasterTableCols.Award3S_D].ToString());
-            secondPerson.AwardList.Add(dataRow[(int)MasterTableCols.Award4S_D].ToString());
-            secondPerson.AwardList.Add(dataRow[(int)MasterTableCols.Award5S_D].ToString());
-            secondPerson.AwardList.Add(dataRow[(int)MasterTableCols.Award6S_D].ToString());
-            secondPerson.AwardList.Add(dataRow[(int)MasterTableCols.Award7S_D].ToString());
+            secondPerson.AddAward(dataRow[(int)MasterTableCols.AwardS_D].ToString());
+            secondPerson.AddAward(dataRow[(int)MasterTableCols.Award2S_D].ToString());
+            secondPerson.AddAward(dataRow[(int)MasterTableCols.Award3S_D].ToString());
+            secondPerson.AddAward(dataRow[(int)MasterTableCols.Award4S_D].ToString());
+            secondPerson.AddAward(dataRow[(int)MasterTableCols.Award5S_D].ToString());
+            secondPerson.AddAward(dataRow[(int)MasterTableCols.Award6S_D].ToString());
+            secondPerson.AddAward(dataRow[(int)MasterTableCols.Award7S_D].ToString());
 
             secondPerson.AwardCustom = dataRow[(int)MasterTableCols.Awards_CustomS_D].ToString();
 
-            secondPerson.WarList.Add(dataRow[(int)MasterTableCols.WarS_D].ToString());
-            secondPerson.WarList.Add(dataRow[(int)MasterTableCols.War2S_D].ToString());
-            secondPerson.WarList.Add(dataRow[(int)MasterTableCols.War3S_D].ToString());
-            secondPerson.WarList.Add(dataRow[(int)MasterTableCols.War4S_D].ToString());
+            secondPerson.AddWar(dataRow[(int)MasterTableCols.WarS_D].ToString());
+            secondPerson.AddWar(dataRow[(int)MasterTableCols.War2S_D].ToString());
+            secondPerson.AddWar(dataRow[(int)MasterTableCols.War3S_D].ToString());
+            secondPerson.AddWar(dataRow[(int)MasterTableCols.War4S_D].ToString());
 
-            secondPerson.BranchList.Add(dataRow[(int)MasterTableCols.BranchS_D].ToString());
-            secondPerson.BranchList.Add(dataRow[(int)MasterTableCols.Branch2S_D].ToString());
-            secondPerson.BranchList.Add(dataRow[(int)MasterTableCols.Branch3S_D].ToString());
+            secondPerson.AddBranch(dataRow[(int)MasterTableCols.BranchS_D].ToString());
+            secondPerson.AddBranch(dataRow[(int)MasterTableCols.Branch2S_D].ToString());
+            secondPerson.AddBranch(dataRow[(int)MasterTableCols.Branch3S_D].ToString());
 
             secondPerson.BranchUnitCustom = dataRow[(int)MasterTableCols.Branch_Unit_CustomS_D].ToString();
 
@@ -318,13 +318,13 @@ namespace Services
             thirdPerson.Suffix = dataRow[(int)MasterTableCols.SuffixS_D_2].ToString();
             thirdPerson.Location = dataRow[(int)MasterTableCols.LocationS_D_2].ToString();
 
-            thirdPerson.RankList.Add(dataRow[(int)MasterTableCols.RankS_D_2].ToString());
+            thirdPerson.AddRank(dataRow[(int)MasterTableCols.RankS_D_2].ToString());
 
-            thirdPerson.AwardList.Add(dataRow[(int)MasterTableCols.AwardS_D_2].ToString());
+            thirdPerson.AddAward(dataRow[(int)MasterTableCols.AwardS_D_2].ToString());
 
-            thirdPerson.WarList.Add(dataRow[(int)MasterTableCols.WarS_D_2].ToString());
+            thirdPerson.AddWar(dataRow[(int)MasterTableCols.WarS_D_2].ToString());
 
-            thirdPerson.BranchList.Add(dataRow[(int)MasterTableCols.BranchS_D_2].ToString());
+            thirdPerson.AddBranch(dataRow[(int)MasterTableCols.BranchS_D_2].ToString());
 
             thirdPerson.BirthDate = dataRow[(int)MasterTableCols.BirthDateS_D_2].ToString();
             thirdPerson.DeathDate = dataRow[(int)MasterTableCols.DeathDateS_D_2].ToString();
@@ -344,13 +344,13 @@ namespace Services
             forthPerson.Suffix = dataRow[(int)MasterTableCols.SuffixS_D_3].ToString();
             forthPerson.Location = dataRow[(int)MasterTableCols.LocationS_D_3].ToString();
 
-            forthPerson.RankList.Add(dataRow[(int)MasterTableCols.RankS_D_3].ToString());
+            forthPerson.AddRank(dataRow[(int)MasterTableCols.RankS_D_3].ToString());
 
-            forthPerson.AwardList.Add(dataRow[(int)MasterTableCols.AwardS_D_3].ToString());
+            forthPerson.AddAward(dataRow[(int)MasterTableCols.AwardS_D_3].ToString());
 
-            forthPerson.WarList.Add(dataRow[(int)MasterTableCols.WarS_D_3].ToString());
+            forthPerson.AddWar(dataRow[(int)MasterTableCols.WarS_D_3].ToString());
 
-            forthPerson.BranchList.Add(dataRow[(int)MasterTableCols.BranchS_D_3].ToString());
+            forthPerson.AddBranch(dataRow[(int)MasterTableCols.BranchS_D_3].ToString());
 
             forthPerson.BirthDate = dataRow[(int)MasterTableCols.BirthDateS_D_3].ToString();
             forthPerson.DeathDate = dataRow[(int)MasterTableCols.DeathDateS_D_3].ToString();
@@ -370,13 +370,13 @@ namespace Services
             fithPerson.Suffix = dataRow[(int)MasterTableCols.SuffixS_D_4].ToString();
             fithPerson.Location = dataRow[(int)MasterTableCols.LocationS_D_4].ToString();
 
-            fithPerson.RankList.Add(dataRow[(int)MasterTableCols.RankS_D_4].ToString());
+            fithPerson.AddRank(dataRow[(int)MasterTableCols.RankS_D_4].ToString());
 
-            fithPerson.AwardList.Add(dataRow[(int)MasterTableCols.AwardS_D_4].ToString());
+            fithPerson.AddAward(dataRow[(int)MasterTableCols.AwardS_D_4].ToString());
 
-            fithPerson.WarList.Add(dataRow[(int)MasterTableCols.WarS_D_4].ToString());
+            fithPerson.AddWar(dataRow[(int)MasterTableCols.WarS_D_4].ToString());
 
-            fithPerson.BranchList.Add(dataRow[(int)MasterTableCols.BranchS_D_4].ToString());
+            fithPerson.AddBranch(dataRow[(int)MasterTableCols.BranchS_D_4].ToString());
 
             fithPerson.BirthDate = dataRow[(int)MasterTableCols.BirthDateS_D_4].ToString();
             fithPerson.DeathDate = dataRow[(int)MasterTableCols.DeathDateS_D_4].ToString();
@@ -723,7 +723,7 @@ namespace Services
 
             OleDbCommand cmd = new OleDbCommand(sqlQuery, _connection);
 
-            string[] intEntries = { "Wall", "Emblem1", "Emblem2" };
+            string[] intEntries = { "Emblem1", "Emblem2" };
             foreach (KeyValuePair<string, string> entry in headstoneData)
             {
                 try
