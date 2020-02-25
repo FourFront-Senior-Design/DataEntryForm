@@ -37,22 +37,42 @@ namespace Data_Entry_Form
             {
                 if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.PageUp))
                 {
+                    primaryFirstName.Focus();
                     if (!_validateMandatoryInfoExists())
                     {
+                        if (ee.Source is TextBox)
+                        {
+                            TextBox tb = (TextBox)ee.Source;
+                            tb.Focus();
+                        }
+                        else if (ee.Source is ComboBox)
+                        {
+                            ComboBox cb = (ComboBox)ee.Source;
+                            cb.Focus();
+                        }
                         return;
                     }
                     _viewModel.PreviousRecord();
-                    BurialSectionField.Focus();
                 }
 
                 if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.PageDown))
                 {
+                    primaryFirstName.Focus();
                     if (!_validateMandatoryInfoExists())
                     {
+                        if (ee.Source is TextBox)
+                        {
+                            TextBox tb = (TextBox)ee.Source;
+                            tb.Focus();
+                        }
+                        else if (ee.Source is ComboBox)
+                        {
+                            ComboBox cb = (ComboBox)ee.Source;
+                            cb.Focus();
+                        }
                         return;
                     }
                     _viewModel.NextRecord();
-                    BurialSectionField.Focus();
                 }
 
                 if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.H))
@@ -61,8 +81,17 @@ namespace Data_Entry_Form
                     HelpMenu.IsOpen = !HelpMenu.IsOpen;
                 }
 
+                if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) &&
+                Keyboard.IsKeyDown(Key.J) && Keyboard.IsKeyDown(Key.K) & Keyboard.IsKeyDown(Key.L))
+                {
+                    Console.WriteLine("Detected Alt + JKL");
+                    _viewModel.NextRecord();
+                    BurialSectionField.Focus();
+                }
+
             }), true);
             isBack = false;
+
         }
 
         private void viewModel_HeadstoneChanged(object sender, EventArgs e)
@@ -103,21 +132,42 @@ namespace Data_Entry_Form
         {
             bool missing = false;
             List<bool> filledInformation = _viewModel.CheckMandatoryFields();
-            List<TextBox> mandatoryField = new List<TextBox>() {
+            List<Border> maskedMandatoryFields = new List<Border>()
+            {
+                cemeteryName, markerType, emb1Border
+            };
+
+            List<TextBox> mandatoryField = new List<TextBox>() { 
+                BurialSectionField, wallID, rowNum, 
                 gravesiteNum, primaryLastName, secondaryLastName,
                 name3LastName, name4LastName, name5LastName, name6LastName,
-                name7LastName };
+                name7LastName, };
 
-            for(int i = 0; i < mandatoryField.Count; i++)
+            for (int i = 0; i < maskedMandatoryFields.Count; i++)
             {
                 if (filledInformation[i] == false)
                 {
-                    mandatoryField[i].BorderBrush = System.Windows.Media.Brushes.Red;
+                    maskedMandatoryFields[i].BorderBrush = System.Windows.Media.Brushes.Red;
+                    missing = true;
+                    Console.WriteLine(maskedMandatoryFields[i].BorderBrush);
+                }
+                else
+                {
+                    maskedMandatoryFields[i].ClearValue(Border.BorderBrushProperty);
+                }
+            }
+
+            for (int i = maskedMandatoryFields.Count; i < filledInformation.Count; i++)
+            {
+                int index = i - maskedMandatoryFields.Count;
+                if (filledInformation[i] == false)
+                {
+                    mandatoryField[index].BorderBrush = System.Windows.Media.Brushes.Red;
                     missing = true;
                 }
                 else
                 {
-                    mandatoryField[i].ClearValue(Border.BorderBrushProperty);
+                    mandatoryField[index].ClearValue(Border.BorderBrushProperty);
                 }
             }
             
@@ -172,6 +222,7 @@ namespace Data_Entry_Form
             }
             isBack = true;
             _viewModel.SaveRecord();
+            _viewModel.CloseDatabase();
             MoveToMainPage?.Invoke(this, new EventArgs());
         }
 
@@ -212,6 +263,7 @@ namespace Data_Entry_Form
                 MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     _displayWindow.Close();
+                    _viewModel.CloseDatabase();
                     Application.Current.Shutdown();
                 }
                 else
@@ -250,6 +302,15 @@ namespace Data_Entry_Form
                 TextBox tb = (TextBox)sender;
                 tb.CaretIndex = tb.Text.Length;
             }
+
+            //if ((Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)) && Keyboard.IsKeyDown(Key.X))
+            //if (e.Key == Key.X && (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)))
+            //{
+            //    System.Diagnostics.Trace.WriteLine("Detected ALT+X");
+            //    TextBox tb = (TextBox)sender;
+            //    tb.SelectAll();
+            //    tb.Cut();
+            //}
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
