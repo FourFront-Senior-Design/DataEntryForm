@@ -6,7 +6,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:s="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d" Icon="FormIcon.ico"
-        Title="Review (Version 1.4)" WindowState="Maximized" Background="#FFE4E4E4" KeyDown="Window_KeyDown"
+        Title="Review (Version 1.4)" WindowState="Maximized" Background="#FFE4E4E4" 
         Closing="WindowClosing" d:DesignWidth="1158" d:DesignHeight="843">
 
     <Window.Resources>
@@ -221,7 +221,7 @@
                         </Button.ContextMenu>
                     </Button>
                     <Button Height="20" FontSize="12"
-                            Grid.Column="6" Click="BackClick">
+                            Grid.Column="6" Click="ReturnToMainWindow">
                         <TextBlock TextWrapping="Wrap" TextAlignment="Center">
                             Save &amp; Go to Menu
                         </TextBlock>
