@@ -38,20 +38,7 @@ namespace Data_Entry_Form
                 if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.PageUp))
                 {
                     primaryFirstName.Focus();
-                    if (!_validateMandatoryInfoExists())
-                    {
-                        if (ee.Source is TextBox)
-                        {
-                            TextBox tb = (TextBox)ee.Source;
-                            tb.Focus();
-                        }
-                        else if (ee.Source is ComboBox)
-                        {
-                            ComboBox cb = (ComboBox)ee.Source;
-                            cb.Focus();
-                        }
-                        return;
-                    }
+                    
                     _viewModel.PreviousRecord();
                 }
 
@@ -237,10 +224,6 @@ namespace Data_Entry_Form
 
         private void PreviousClick(object sender, RoutedEventArgs e)
         {
-            if (!_validateMandatoryInfoExists())
-            {
-                return;
-            }
             _viewModel.PreviousRecord();
         }
 
