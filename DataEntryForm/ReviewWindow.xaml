@@ -292,8 +292,8 @@
                     <Label  Content="Row #" VerticalAlignment="Center" Grid.Column="1" Margin="0,8,110,8" Height="29"/>
                     <TextBox Text="{Binding CurrentPageData.RowNum}" x:Name="rowNum" Margin="60,8,0,8" Padding="2" Grid.Column="1"/>
                     <Label Grid.Column="2"  Content="Prev Gravesite #'s" VerticalAlignment="Center" Height="29" Margin="10,8,0,8"/>
-                    <TextBox Text="{Binding CurrentPageData.Prev2GravesiteNum}" Grid.Column="3" Margin="0,8,2,8" Padding="2" IsReadOnly="True" Background="LightGray"/>
-                    <TextBox Text="{Binding CurrentPageData.Prev1GravesiteNum}" Grid.Column="4" Margin="2,8,5,8" Padding="2" IsReadOnly="True" Background="LightGray"/>
+                    <TextBox Text="{Binding CurrentPageData.Prev2GravesiteNum}" Grid.Column="3" Margin="0,8,2,8" Padding="2" IsReadOnly="True" Background="LightGray" IsEnabled="False" />
+                    <TextBox Text="{Binding CurrentPageData.Prev1GravesiteNum}" Grid.Column="4" Margin="2,8,5,8" Padding="2" IsReadOnly="True" Background="LightGray" IsEnabled="False"/>
                     <Label Grid.Column="5" Content="Gravesite #"  VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,8" Height="29"/>
                     <TextBox x:Name="gravesiteNum" Grid.Column="5" Text="{Binding CurrentPageData.GavestoneNumber}" Margin="91,10,0,10" Padding="2" Grid.ColumnSpan="2"/>
                 </Grid>
