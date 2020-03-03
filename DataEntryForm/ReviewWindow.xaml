@@ -273,23 +273,29 @@
                                   ItemTemplate="{StaticResource cemeteryNamesCmbTemplate}" 
                                   LostFocus="Cemetery_LostFocus"/>
                     </Border>
-                    
+
                     <Label Grid.Column="2" Content="Burial Section #" VerticalAlignment="Center" Margin="0,8"/>
                     <TextBox x:Name="BurialSectionField" Grid.Column="2" Text="{Binding CurrentPageData.BurialSectionNumber}" Margin="120,10,0,10" Padding="2"/>
                 </Grid>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="361*"/>
-                        <ColumnDefinition Width="361*"/>
-                        <ColumnDefinition Width="79*"/>
-                        <ColumnDefinition Width="282*"/>
+                        <ColumnDefinition Width="242*"/>
+                        <ColumnDefinition Width="173*"/>
+                        <ColumnDefinition Width="121*"/>
+                        <ColumnDefinition Width="160*"/>
+                        <ColumnDefinition Width="160*"/>
+                        <ColumnDefinition Width="120*"/>
+                        <ColumnDefinition Width="128*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Content="Wall ID #"  VerticalAlignment="Center" Margin="0,8"/>
-                    <TextBox  Grid.Column="0" Text="{Binding CurrentPageData.WallID}" x:Name="wallID" Margin="100,10,10,10" Padding="2"/>
-                    <Label Grid.Column="1"  Content="Row #" VerticalAlignment="Center" Margin="0,8"/>
-                    <TextBox Grid.Column="1" Text="{Binding CurrentPageData.RowNum}" x:Name="rowNum" Margin="80,10,10,10" Padding="2"/>
-                    <Label Grid.Column="2" Content="Gravesite #"  VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,8"/>
-                    <TextBox x:Name="gravesiteNum" Grid.Column="3" Text="{Binding CurrentPageData.GavestoneNumber}" Margin="11,10,0,10" Padding="2"/>
+                    <Label Grid.Column="0" Content="Wall ID #"  VerticalAlignment="Center" Margin="0,8,104,8" Height="29"/>
+                    <TextBox  Grid.Column="0" Text="{Binding CurrentPageData.WallID}" x:Name="wallID" Margin="80,8,10,8" Padding="2"/>
+                    <Label  Content="Row #" VerticalAlignment="Center" Grid.Column="1" Margin="0,8,110,8" Height="29"/>
+                    <TextBox Text="{Binding CurrentPageData.RowNum}" x:Name="rowNum" Margin="60,8,0,8" Padding="2" Grid.Column="1"/>
+                    <Label Grid.Column="2"  Content="Prev Gravesite #'s" VerticalAlignment="Center" Height="29" Margin="10,8,0,8"/>
+                    <TextBox Text="{Binding CurrentPageData.Prev2GravesiteNum}" Grid.Column="3" Margin="0,8,2,8" Padding="2" IsReadOnly="True" Background="LightGray"/>
+                    <TextBox Text="{Binding CurrentPageData.Prev1GravesiteNum}" Grid.Column="4" Margin="2,8,5,8" Padding="2" IsReadOnly="True" Background="LightGray"/>
+                    <Label Grid.Column="5" Content="Gravesite #"  VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,8" Height="29"/>
+                    <TextBox x:Name="gravesiteNum" Grid.Column="5" Text="{Binding CurrentPageData.GavestoneNumber}" Margin="91,10,0,10" Padding="2" Grid.ColumnSpan="2"/>
                 </Grid>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
@@ -318,15 +324,16 @@
                     </Border>
                     <Grid Grid.Column="1">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*"/>
-                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="138*"/>
+                            <ColumnDefinition Width="35*"/>
+                            <ColumnDefinition Width="11*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0"  Content="Emblem 1"  VerticalAlignment="Center"/>
+                        <Label Grid.Column="0"  Content="Emblem 1"  VerticalAlignment="Center" Margin="0,11"/>
                         <Border BorderThickness="1"
                                 Grid.Column="0"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Stretch"
-                                Margin="80,10,10,10"
+                                Margin="80,11,10,11"
                                 Padding="1"
                                 x:Name="emb1Border">
                             <ComboBox  
@@ -341,7 +348,7 @@
                                       TextBoxBase.TextChanged="EmblemCombox_TextChanged"/>
                         </Border>
                         <Image Grid.Column="1" Width="30" Height="30" Stretch="Fill" x:Name="emb1_selected"
-                       VerticalAlignment="Center" Margin="2,0,15,0"/>
+                       VerticalAlignment="Center" Margin="24,10,16,11"/>
                     </Grid>
                     <Grid Grid.Column="2">
                         <Grid.ColumnDefinitions>

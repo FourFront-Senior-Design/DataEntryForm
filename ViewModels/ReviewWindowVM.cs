@@ -20,6 +20,8 @@ namespace ViewModels
         private string _prevCemeteryName = "";
         private string _prevSectionNumber = "";
         private string _prevMarkerType = "";
+        private string _prev1GravesiteNum = "";
+        private string _prev2GravesiteNum = "";
 
         public Headstone CurrentPageData
         {
@@ -97,6 +99,12 @@ namespace ViewModels
             Trace.WriteLine(CurrentPageData.PrimaryDecedent.LastName);
         }
 
+        public void updatePrevGravesiteNums()
+        {
+            CurrentPageData.Prev1GravesiteNum = _prev1GravesiteNum;
+            CurrentPageData.Prev2GravesiteNum = _prev2GravesiteNum;
+        }
+
         public void NextRecord()
         {
             if (PageIndex == _database.TotalItems)
@@ -107,8 +115,12 @@ namespace ViewModels
             _prevCemeteryName = _currentPageData.CemeteryName;
             _prevSectionNumber = _currentPageData.BurialSectionNumber;
             _prevMarkerType = _currentPageData.MarkerType;
+            _prev1GravesiteNum = _currentPageData.GavestoneNumber;
+            _prev2GravesiteNum = _currentPageData.Prev1GravesiteNum;
 
             PageIndex++;
+
+            updatePrevGravesiteNums();
 
             if (string.IsNullOrEmpty(CurrentPageData.CemeteryName))
             {
@@ -139,13 +151,15 @@ namespace ViewModels
             }
 
             PageIndex--;
-            
+
+
             Trace.WriteLine("Previous click: ");
             Trace.WriteLine(CurrentPageData.PrimaryDecedent.LastName);
         }
 
         public void FirstRecord()
         {
+
             PageIndex = 1;
 
             Trace.WriteLine("First Record click: ");
@@ -154,6 +168,7 @@ namespace ViewModels
 
         public void LastRecord()
         {
+
             PageIndex = _database.TotalItems;
 
             Trace.WriteLine("Last Record click: ");
