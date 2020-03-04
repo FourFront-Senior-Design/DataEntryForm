@@ -406,7 +406,7 @@
                     <Image x:Name="backFaceImage" Grid.Column="1"/>
                 </Grid>
 
-                <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
+                <ScrollViewer x:Name="ScrollBar" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
 
                     <Border BorderBrush="Black" BorderThickness="1">
                         <StackPanel>
