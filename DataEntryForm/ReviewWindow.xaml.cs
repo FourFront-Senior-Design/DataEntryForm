@@ -47,6 +47,8 @@ namespace Data_Entry_Form
                 {
                     return;
                 }
+
+                closeAdditionalInfoCheckBoxes();
                 _viewModel.PreviousRecord();
             }
 
@@ -57,6 +59,7 @@ namespace Data_Entry_Form
                 {
                     return;
                 }
+                closeAdditionalInfoCheckBoxes();
                 _viewModel.NextRecord();
             }
 
@@ -179,12 +182,16 @@ namespace Data_Entry_Form
             string input = goToRecordTb.Text;
             goToRecordTb.Text = "";
 
+            primaryFirstName.Focus();
+
             if (!_validateMandatoryInfoExists())
             {
                 return;
             }
 
-            if(!_viewModel.GoToRecord(input))
+            closeAdditionalInfoCheckBoxes();
+
+            if (!_viewModel.GoToRecord(input))
             {
                 MessageBox.Show("Invalid Record Number", "Error", MessageBoxButton.OK);
                 return;
@@ -193,19 +200,27 @@ namespace Data_Entry_Form
 
         private void FirstRecordClick(object sender, RoutedEventArgs e)
         {
+            primaryFirstName.Focus();
+
             if (!_validateMandatoryInfoExists())
             {
                 return;
             }
+
+            closeAdditionalInfoCheckBoxes();
             _viewModel.FirstRecord();
         }
 
         private void LastRecordClick(object sender, RoutedEventArgs e)
         {
+            primaryFirstName.Focus();
+
             if (!_validateMandatoryInfoExists())
             {
                 return;
             }
+
+            closeAdditionalInfoCheckBoxes();
             _viewModel.LastRecord();
         }
 
@@ -223,19 +238,28 @@ namespace Data_Entry_Form
 
         private void NextClick(object sender, RoutedEventArgs e)
         {
+            primaryFirstName.Focus();
+
             if (!_validateMandatoryInfoExists())
             {
                 return;
             }
+
+            closeAdditionalInfoCheckBoxes();
             _viewModel.NextRecord();
         }
 
         private void PreviousClick(object sender, RoutedEventArgs e)
         {
+            primaryFirstName.Focus();
+
+
             if (!_validateMandatoryInfoExists())
             {
                 return;
             }
+
+            closeAdditionalInfoCheckBoxes();
             _viewModel.PreviousRecord();
         }
 
@@ -247,6 +271,17 @@ namespace Data_Entry_Form
         public void SetImagesToReview()
         {
             _viewModel.SetRecordsToReview();
+        }
+
+        private void closeAdditionalInfoCheckBoxes()
+        {
+            morePrimaryData.IsChecked = false;
+            moreSecondaryData.IsChecked = false;
+            Name3.IsChecked = false;
+            Name4.IsChecked = false;
+            Name5.IsChecked = false;
+            Name6.IsChecked = false;
+            Name7.IsChecked = false;
         }
 
         private void WindowClosing(object sender, CancelEventArgs e)
