@@ -184,6 +184,8 @@ namespace Data_Entry_Form
             string input = goToRecordTb.Text;
             goToRecordTb.Text = "";
 
+            primaryFirstName.Focus();
+
             if (!_validateMandatoryInfoExists())
             {
                 return;
@@ -198,6 +200,8 @@ namespace Data_Entry_Form
 
         private void FirstRecordClick(object sender, RoutedEventArgs e)
         {
+            primaryFirstName.Focus();
+
             if (!_validateMandatoryInfoExists())
             {
                 return;
@@ -207,6 +211,8 @@ namespace Data_Entry_Form
 
         private void LastRecordClick(object sender, RoutedEventArgs e)
         {
+            primaryFirstName.Focus();
+
             if (!_validateMandatoryInfoExists())
             {
                 return;
@@ -228,6 +234,8 @@ namespace Data_Entry_Form
 
         private void NextClick(object sender, RoutedEventArgs e)
         {
+            primaryFirstName.Focus();
+
             if (!_validateMandatoryInfoExists())
             {
                 return;
@@ -237,6 +245,8 @@ namespace Data_Entry_Form
 
         private void PreviousClick(object sender, RoutedEventArgs e)
         {
+            primaryFirstName.Focus();
+
             if (!_validateMandatoryInfoExists())
             {
                 return;
