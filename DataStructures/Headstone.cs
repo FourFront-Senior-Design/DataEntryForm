@@ -14,6 +14,9 @@ namespace DataStructures
         private string _emblem1;
         private string _emblem2;
 
+        private string _prev1GravesiteNum;
+        private string _prev2GravesiteNum;
+
         public string SequenceID { get; set; }
         public string PrimaryKey { get; set; }
 
@@ -79,6 +82,34 @@ namespace DataStructures
                 }
                 
                 _gravestoneNumber = makeValid(value);
+            }
+        }
+
+        public string Prev1GravesiteNum
+        {
+            get { return _prev1GravesiteNum; }
+            set
+            {
+                if (value == null)
+                {
+                    return;
+                }
+
+                _prev1GravesiteNum = makeValid(value);
+            }
+        }
+
+        public string Prev2GravesiteNum
+        {
+            get { return _prev2GravesiteNum; }
+            set
+            {
+                if (value == null)
+                {
+                    return;
+                }
+
+                _prev2GravesiteNum = makeValid(value);
             }
         }
 
@@ -167,6 +198,8 @@ namespace DataStructures
             MarkerType = "";
             Emblem1 = "0";
             Emblem2 = "0";
+            Prev1GravesiteNum = "";
+            Prev2GravesiteNum = "";
         }
     }
 
