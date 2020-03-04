@@ -2,10 +2,14 @@
 {
     public interface IMainWindowVM
     {
-        bool EnableExtract { get; set; }
-        string FileLocation { get; set; }
-        string Message { get; set; }
+        bool ReviewButtonEnabled { get;  }
+        string Message { get; }
         string Copyright { get; }
-        int LoadData();
+        string Title { get; }
+        string FileLocation { get; set; }
+
+        void SetFilePath(string path);
+        bool LoadData();
+        void ResetWindow();
     }
 }
