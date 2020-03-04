@@ -247,6 +247,7 @@ namespace Data_Entry_Form
         {
             primaryFirstName.Focus();
 
+
             if (!_validateMandatoryInfoExists())
             {
                 return;
@@ -262,6 +263,17 @@ namespace Data_Entry_Form
         public void SetImagesToReview()
         {
             _viewModel.SetRecordsToReview();
+        }
+
+        private void closeAdditionalInfoCheckBoxes()
+        {
+            morePrimaryData.IsChecked = false;
+            moreSecondaryData.IsChecked = false;
+            Name3.IsChecked = false;
+            Name4.IsChecked = false;
+            Name5.IsChecked = false;
+            Name6.IsChecked = false;
+            Name7.IsChecked = false;
         }
 
         private void WindowClosing(object sender, CancelEventArgs e)
