@@ -47,7 +47,8 @@ namespace Data_Entry_Form
                 {
                     return;
                 }
-
+                
+                clearMandatoryFieldBorders();
                 closeAdditionalInfoCheckBoxes();
                 _viewModel.PreviousRecord();
             }
@@ -251,14 +252,7 @@ namespace Data_Entry_Form
 
         private void PreviousClick(object sender, RoutedEventArgs e)
         {
-            primaryFirstName.Focus();
-
-
-            if (!_validateMandatoryInfoExists())
-            {
-                return;
-            }
-
+            clearMandatoryFieldBorders();
             closeAdditionalInfoCheckBoxes();
             _viewModel.PreviousRecord();
         }
