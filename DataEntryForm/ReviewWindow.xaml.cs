@@ -52,6 +52,9 @@ namespace Data_Entry_Form
                         }
                         return;
                     }
+
+                    closeAdditionalInfoCheckBoxes();
+
                     _viewModel.PreviousRecord();
                 }
 
@@ -72,6 +75,9 @@ namespace Data_Entry_Form
                         }
                         return;
                     }
+
+                    closeAdditionalInfoCheckBoxes();
+
                     _viewModel.NextRecord();
                 }
 
@@ -191,7 +197,9 @@ namespace Data_Entry_Form
                 return;
             }
 
-            if(!_viewModel.GoToRecord(input))
+            closeAdditionalInfoCheckBoxes();
+
+            if (!_viewModel.GoToRecord(input))
             {
                 MessageBox.Show("Invalid Record Number", "Error", MessageBoxButton.OK);
                 return;
@@ -206,6 +214,8 @@ namespace Data_Entry_Form
             {
                 return;
             }
+
+            closeAdditionalInfoCheckBoxes();
             _viewModel.FirstRecord();
         }
 
@@ -217,6 +227,8 @@ namespace Data_Entry_Form
             {
                 return;
             }
+
+            closeAdditionalInfoCheckBoxes();
             _viewModel.LastRecord();
         }
 
@@ -240,6 +252,8 @@ namespace Data_Entry_Form
             {
                 return;
             }
+
+            closeAdditionalInfoCheckBoxes();
             _viewModel.NextRecord();
         }
 
@@ -252,6 +266,8 @@ namespace Data_Entry_Form
             {
                 return;
             }
+
+            closeAdditionalInfoCheckBoxes();
             _viewModel.PreviousRecord();
         }
 
