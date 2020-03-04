@@ -40,19 +40,15 @@ namespace Data_Entry_Form
 
         private void ReviewWindow_KeyDown(object sender, KeyEventArgs ee)
         {
+            //Previous 
             if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.PageUp))
             {
                 updateFocusField(ee);
-                if (!_validateMandatoryInfoExists())
-                {
-                    return;
-                }
-                
-                clearMandatoryFieldBorders();
-                closeAdditionalInfoCheckBoxes();
+                pageReset();
                 _viewModel.PreviousRecord();
             }
 
+            //Next
             else if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.PageDown))
             {
                 updateFocusField(ee);
@@ -60,7 +56,8 @@ namespace Data_Entry_Form
                 {
                     return;
                 }
-                closeAdditionalInfoCheckBoxes();
+
+                pageReset();
                 _viewModel.NextRecord();
             }
 
@@ -178,21 +175,51 @@ namespace Data_Entry_Form
             return true;
         }
 
+        private void clearMandatoryFieldBorders()
+        {
+            List<Border> maskedMandatoryFields = new List<Border>()
+            {
+                cemeteryName, markerType, emb1Border
+            };
+
+            List<TextBox> mandatoryField = new List<TextBox>() {
+                BurialSectionField, wallID, rowNum,
+                gravesiteNum, primaryLastName, secondaryLastName,
+                name3LastName, name4LastName, name5LastName, name6LastName,
+                name7LastName, };
+
+            for (int i = 0; i < maskedMandatoryFields.Count; i++)
+            {
+                maskedMandatoryFields[i].ClearValue(Border.BorderBrushProperty);
+            }
+
+            for (int i = 0; i < mandatoryField.Count; i++)
+            {
+                mandatoryField[i].ClearValue(Border.BorderBrushProperty);
+            }
+        }
+
         private void GoToRecordClick(object sender, RoutedEventArgs e)
         {
             string input = goToRecordTb.Text;
             goToRecordTb.Text = "";
 
-            primaryFirstName.Focus();
-
-            if (!_validateMandatoryInfoExists())
+            try
             {
-                return;
+                int page = Convert.ToInt32(input);
+
+                if (page >= _viewModel.PageIndex && !_validateMandatoryInfoExists())
+                {
+                    return;
+                }
+
+                if(_viewModel.GoToRecord(input) == false)
+                {
+                    MessageBox.Show("Invalid Record Number", "Error", MessageBoxButton.OK);
+                }
+                pageReset();
             }
-
-            closeAdditionalInfoCheckBoxes();
-
-            if (!_viewModel.GoToRecord(input))
+            catch
             {
                 MessageBox.Show("Invalid Record Number", "Error", MessageBoxButton.OK);
                 return;
@@ -201,27 +228,18 @@ namespace Data_Entry_Form
 
         private void FirstRecordClick(object sender, RoutedEventArgs e)
         {
-            primaryFirstName.Focus();
-
-            if (!_validateMandatoryInfoExists())
-            {
-                return;
-            }
-
-            closeAdditionalInfoCheckBoxes();
+            pageReset();
             _viewModel.FirstRecord();
         }
 
         private void LastRecordClick(object sender, RoutedEventArgs e)
         {
-            primaryFirstName.Focus();
-
             if (!_validateMandatoryInfoExists())
             {
                 return;
             }
 
-            closeAdditionalInfoCheckBoxes();
+            pageReset();
             _viewModel.LastRecord();
         }
 
@@ -239,22 +257,34 @@ namespace Data_Entry_Form
 
         private void NextClick(object sender, RoutedEventArgs e)
         {
-            primaryFirstName.Focus();
-
             if (!_validateMandatoryInfoExists())
             {
                 return;
             }
 
-            closeAdditionalInfoCheckBoxes();
+            pageReset();
             _viewModel.NextRecord();
         }
 
         private void PreviousClick(object sender, RoutedEventArgs e)
         {
-            clearMandatoryFieldBorders();
-            closeAdditionalInfoCheckBoxes();
+            pageReset();
             _viewModel.PreviousRecord();
+        }
+
+        private void pageReset()
+        {
+            ScrollBar.ScrollToTop();
+
+            morePrimaryData.IsChecked = false;
+            moreSecondaryData.IsChecked = false;
+            Name3.IsChecked = false;
+            Name4.IsChecked = false;
+            Name5.IsChecked = false;
+            Name6.IsChecked = false;
+            Name7.IsChecked = false;
+
+            clearMandatoryFieldBorders();
         }
 
         private void HelpClick(object sender, RoutedEventArgs e)
@@ -265,17 +295,6 @@ namespace Data_Entry_Form
         public void SetImagesToReview()
         {
             _viewModel.SetRecordsToReview();
-        }
-
-        private void closeAdditionalInfoCheckBoxes()
-        {
-            morePrimaryData.IsChecked = false;
-            moreSecondaryData.IsChecked = false;
-            Name3.IsChecked = false;
-            Name4.IsChecked = false;
-            Name5.IsChecked = false;
-            Name6.IsChecked = false;
-            Name7.IsChecked = false;
         }
 
         private void WindowClosing(object sender, CancelEventArgs e)
