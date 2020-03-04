@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DataStructures
 {
@@ -137,7 +138,7 @@ namespace DataStructures
                 value = makeValid(value);
                 if (isNumber(value) == false)
                 {
-                    _emblem1 = "0";
+                    _emblem1 = "";
                     return;
                 }
                 _emblem1 = value;
@@ -156,7 +157,7 @@ namespace DataStructures
                 value = makeValid(value);
                 if(isNumber(value) == false)
                 {
-                    _emblem2 = "0";
+                    _emblem2 = "";
                     return;
                 }
                 _emblem2 = value;
