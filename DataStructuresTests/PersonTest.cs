@@ -34,6 +34,23 @@ namespace DataStructuresTests
             Assert.IsTrue(primary.Equals(clear));
 
         }
+
+        [TestMethod]
+        public void TestDatePerson()
+        {
+            Person primary = new Person();
+
+            primary.DeathDate = "00/00/1898";
+            Assert.IsTrue(primary.DeathDate == "00/00/1898");
+
+
+            primary.BirthDate = "00/10/1898";
+            Assert.IsTrue(primary.BirthDate == "00/10/1898");
+
+
+            primary.BirthDate = "01/10/1898";
+            Assert.IsTrue(primary.BirthDate == "01/10/1898");
+        }
     }
 }
 

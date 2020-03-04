@@ -230,16 +230,7 @@ namespace DataStructures
                     return;
                 }
 
-                value = makeValid(value);
-                DateTime d = DateTime.MinValue;
-                if (DateTime.TryParse(value, out d))
-                {
-                    _birthDate = value;
-                }
-                else
-                {
-                    _birthDate = "";
-                }
+                _birthDate = makeValid(value);
             }
         }
 
@@ -252,16 +243,7 @@ namespace DataStructures
                     return;
                 }
 
-                value = makeValid(value);
-                DateTime d = DateTime.MinValue;
-                if (DateTime.TryParse(value, out d))
-                {
-                    _deathDate = value;
-                }
-                else
-                {
-                    _deathDate = "";
-                }
+                _deathDate = makeValid(value);
             }
         }
 
@@ -349,7 +331,6 @@ namespace DataStructures
 
             return false;
         }
-        
 
         public void clearPerson()
         {
