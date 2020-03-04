@@ -107,7 +107,7 @@ namespace DataStructures
                 value = makeValid(value);
                 if (isNumber(value) == false)
                 {
-                    _emblem1 = "0";
+                    _emblem1 = "";
                     return;
                 }
                 _emblem1 = value;
@@ -126,7 +126,7 @@ namespace DataStructures
                 value = makeValid(value);
                 if(isNumber(value) == false)
                 {
-                    _emblem2 = "0";
+                    _emblem2 = "";
                     return;
                 }
                 _emblem2 = value;
@@ -167,62 +167,6 @@ namespace DataStructures
             MarkerType = "";
             Emblem1 = "0";
             Emblem2 = "0";
-        }
-
-        public List<string> getEmptyMandatoryFields()
-        {
-            List<string> emptyFields = new List<string>();
-
-            if (String.IsNullOrEmpty(CemeteryName))
-            {
-                emptyFields.Add(nameof(CemeteryName));
-            }
-
-            if (String.IsNullOrEmpty(MarkerType))
-            {
-                emptyFields.Add(nameof(MarkerType));
-            }
-
-            if (String.IsNullOrEmpty(Emblem1))
-            {
-                emptyFields.Add(nameof(Emblem1));
-            }
-
-            if (String.IsNullOrEmpty(BurialSectionNumber))
-            {
-                emptyFields.Add(nameof(BurialSectionNumber));
-            }
-
-            if (String.IsNullOrEmpty(WallID))
-            {
-                emptyFields.Add(nameof(WallID));
-            }
-
-            if (String.IsNullOrEmpty(RowNum))
-            {
-                emptyFields.Add(nameof(RowNum));
-            }
-
-            if (String.IsNullOrEmpty(GavestoneNumber))
-            {
-                emptyFields.Add(nameof(GavestoneNumber));
-            }
-
-            if (String.IsNullOrEmpty(PrimaryDecedent.LastName))
-            {
-                emptyFields.Add(nameof(PrimaryDecedent.LastName));
-            }
-            
-            foreach (Person person in OthersDecedentList)
-            {
-                // A person with contents is valid iff they have a last name
-                if (person.containsData() && String.IsNullOrEmpty(person.LastName))
-                {
-                    emptyFields.Add(nameof(person));
-                }
-            }
-
-            return emptyFields;
         }
     }
 
