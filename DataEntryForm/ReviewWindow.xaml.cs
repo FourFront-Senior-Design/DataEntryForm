@@ -8,7 +8,6 @@ using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Collections.Generic;
-using System.Windows.Media;
 using MessageBox = System.Windows.MessageBox;
 
 namespace Data_Entry_Form
@@ -29,58 +28,85 @@ namespace Data_Entry_Form
             _viewModel = viewModel;
             DataContext = _viewModel;
 
+            isBack = false;
+
             _displayWindow = new HeadstoneDisplayWindow(_viewModel);
 
             _viewModel.HeadstoneChanged += viewModel_HeadstoneChanged;
+            
+            this.PreviewKeyDown += ReviewWindow_KeyDown;
 
-            AddHandler(KeyDownEvent, new KeyEventHandler((ss, ee) =>
+        }
+
+        private void ReviewWindow_KeyDown(object sender, KeyEventArgs ee)
+        {
+            if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.PageUp))
             {
-                if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.PageUp))
+                updateFocusField(ee);
+                if (!_validateMandatoryInfoExists())
                 {
-                    primaryFirstName.Focus();
-                    
-                    clearMandatoryFieldBorders();
+                    return;
+                }
+                
+                clearMandatoryFieldBorders();
+                closeAdditionalInfoCheckBoxes();
+                _viewModel.PreviousRecord();
+            }
 
-                    _viewModel.PreviousRecord();
+            else if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.PageDown))
+            {
+                updateFocusField(ee);
+                if (!_validateMandatoryInfoExists())
+                {
+                    return;
+                }
+                closeAdditionalInfoCheckBoxes();
+                _viewModel.NextRecord();
+            }
+
+            else if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.H))
+            {
+                Console.WriteLine("Detected Ctrl + H");
+                HelpMenu.IsOpen = !HelpMenu.IsOpen;
+            }
+
+            //Skip mandatory info
+            else if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) &&
+            Keyboard.IsKeyDown(Key.J) && Keyboard.IsKeyDown(Key.K) & Keyboard.IsKeyDown(Key.L))
+            {
+                Console.WriteLine("Detected Alt + JKL");
+                _viewModel.NextRecord();
+                BurialSectionField.Focus();
+            }
+
+            else if (ee.Key == Key.Enter)
+            {
+                TraversalRequest tRequest = new TraversalRequest(FocusNavigationDirection.Next);
+                UIElement keyboardFocus = Keyboard.FocusedElement as UIElement;
+
+                if (keyboardFocus != null)
+                {
+                    keyboardFocus.MoveFocus(tRequest);
                 }
 
-                if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.PageDown))
-                {
-                    primaryFirstName.Focus();
-                    if (!_validateMandatoryInfoExists())
-                    {
-                        if (ee.Source is TextBox)
-                        {
-                            TextBox tb = (TextBox)ee.Source;
-                            tb.Focus();
-                        }
-                        else if (ee.Source is ComboBox)
-                        {
-                            ComboBox cb = (ComboBox)ee.Source;
-                            cb.Focus();
-                        }
-                        return;
-                    }
-                    _viewModel.NextRecord();
-                }
+                ee.Handled = true;
+            }
+        }
 
-                if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.H))
-                {
-                    Console.WriteLine("Detected Ctrl + H");
-                    HelpMenu.IsOpen = !HelpMenu.IsOpen;
-                }
-
-                if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) &&
-                Keyboard.IsKeyDown(Key.J) && Keyboard.IsKeyDown(Key.K) & Keyboard.IsKeyDown(Key.L))
-                {
-                    Console.WriteLine("Detected Alt + JKL");
-                    _viewModel.NextRecord();
-                    BurialSectionField.Focus();
-                }
-
-            }), true);
-            isBack = false;
-
+        private void updateFocusField(KeyEventArgs ee)
+        {
+            if (ee.Source is TextBox)
+            {
+                TextBox tb = (TextBox)ee.Source;
+                tb.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+                tb.Focus();
+            }
+            else if (ee.Source is ComboBox)
+            {
+                ComboBox cb = (ComboBox)ee.Source;
+                cb.GetBindingExpression(ComboBox.TextProperty).UpdateSource();
+                cb.Focus();
+            }
         }
 
         private void viewModel_HeadstoneChanged(object sender, EventArgs e)
@@ -99,46 +125,6 @@ namespace Data_Entry_Form
                 frontFaceImage.SetValue(Grid.ColumnSpanProperty, 2);
             }
             BurialSectionField.Focus();
-        }
-
-        private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                TraversalRequest tRequest = new TraversalRequest(FocusNavigationDirection.Next);
-                UIElement keyboardFocus = Keyboard.FocusedElement as UIElement;
-
-                if (keyboardFocus != null)
-                {
-                    keyboardFocus.MoveFocus(tRequest);
-                }
-
-                e.Handled = true;
-            }
-        }
-
-        private void clearMandatoryFieldBorders()
-        {
-            List<Border> maskedMandatoryFields = new List<Border>()
-            {
-                cemeteryName, markerType, emb1Border
-            };
-
-            List<TextBox> mandatoryField = new List<TextBox>() {
-                BurialSectionField, wallID, rowNum,
-                gravesiteNum, primaryLastName, secondaryLastName,
-                name3LastName, name4LastName, name5LastName, name6LastName,
-                name7LastName, };
-
-            for (int i = 0; i < maskedMandatoryFields.Count; i++)
-            {
-                maskedMandatoryFields[i].ClearValue(Border.BorderBrushProperty);
-            }
-
-            for (int i = 0; i < mandatoryField.Count; i++)
-            {
-                mandatoryField[i].ClearValue(Border.BorderBrushProperty);
-            }
         }
 
         private bool _validateMandatoryInfoExists()
@@ -197,12 +183,16 @@ namespace Data_Entry_Form
             string input = goToRecordTb.Text;
             goToRecordTb.Text = "";
 
+            primaryFirstName.Focus();
+
             if (!_validateMandatoryInfoExists())
             {
                 return;
             }
 
-            if(!_viewModel.GoToRecord(input))
+            closeAdditionalInfoCheckBoxes();
+
+            if (!_viewModel.GoToRecord(input))
             {
                 MessageBox.Show("Invalid Record Number", "Error", MessageBoxButton.OK);
                 return;
@@ -211,23 +201,31 @@ namespace Data_Entry_Form
 
         private void FirstRecordClick(object sender, RoutedEventArgs e)
         {
+            primaryFirstName.Focus();
+
             if (!_validateMandatoryInfoExists())
             {
                 return;
             }
+
+            closeAdditionalInfoCheckBoxes();
             _viewModel.FirstRecord();
         }
 
         private void LastRecordClick(object sender, RoutedEventArgs e)
         {
+            primaryFirstName.Focus();
+
             if (!_validateMandatoryInfoExists())
             {
                 return;
             }
+
+            closeAdditionalInfoCheckBoxes();
             _viewModel.LastRecord();
         }
 
-        private void BackClick(object sender, RoutedEventArgs e)
+        private void ReturnToMainWindow(object sender, RoutedEventArgs e)
         {
             if (!_validateMandatoryInfoExists())
             {
@@ -241,16 +239,21 @@ namespace Data_Entry_Form
 
         private void NextClick(object sender, RoutedEventArgs e)
         {
+            primaryFirstName.Focus();
+
             if (!_validateMandatoryInfoExists())
             {
                 return;
             }
+
+            closeAdditionalInfoCheckBoxes();
             _viewModel.NextRecord();
         }
 
         private void PreviousClick(object sender, RoutedEventArgs e)
         {
             clearMandatoryFieldBorders();
+            closeAdditionalInfoCheckBoxes();
             _viewModel.PreviousRecord();
         }
 
@@ -262,6 +265,17 @@ namespace Data_Entry_Form
         public void SetImagesToReview()
         {
             _viewModel.SetRecordsToReview();
+        }
+
+        private void closeAdditionalInfoCheckBoxes()
+        {
+            morePrimaryData.IsChecked = false;
+            moreSecondaryData.IsChecked = false;
+            Name3.IsChecked = false;
+            Name4.IsChecked = false;
+            Name5.IsChecked = false;
+            Name6.IsChecked = false;
+            Name7.IsChecked = false;
         }
 
         private void WindowClosing(object sender, CancelEventArgs e)
