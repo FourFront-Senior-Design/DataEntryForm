@@ -39,6 +39,8 @@ namespace Data_Entry_Form
                 {
                     primaryFirstName.Focus();
                     
+                    clearMandatoryFieldBorders();
+
                     _viewModel.PreviousRecord();
                 }
 
@@ -112,6 +114,30 @@ namespace Data_Entry_Form
                 }
 
                 e.Handled = true;
+            }
+        }
+
+        private void clearMandatoryFieldBorders()
+        {
+            List<Border> maskedMandatoryFields = new List<Border>()
+            {
+                cemeteryName, markerType, emb1Border
+            };
+
+            List<TextBox> mandatoryField = new List<TextBox>() {
+                BurialSectionField, wallID, rowNum,
+                gravesiteNum, primaryLastName, secondaryLastName,
+                name3LastName, name4LastName, name5LastName, name6LastName,
+                name7LastName, };
+
+            for (int i = 0; i < maskedMandatoryFields.Count; i++)
+            {
+                maskedMandatoryFields[i].ClearValue(Border.BorderBrushProperty);
+            }
+
+            for (int i = 0; i < mandatoryField.Count; i++)
+            {
+                mandatoryField[i].ClearValue(Border.BorderBrushProperty);
             }
         }
 
@@ -224,6 +250,7 @@ namespace Data_Entry_Form
 
         private void PreviousClick(object sender, RoutedEventArgs e)
         {
+            clearMandatoryFieldBorders();
             _viewModel.PreviousRecord();
         }
 
