@@ -34,7 +34,7 @@ namespace DataStructuresTests
             Assert.IsTrue(head.Emblem1 == "0");
 
             head.Emblem2 = "\ra\n";
-            Assert.IsTrue(head.Emblem2 == "0");
+            Assert.IsTrue(head.Emblem2 == "");
 
             head.Emblem2 = "\r10\n";
             Assert.IsTrue(head.Emblem2 == "10");
