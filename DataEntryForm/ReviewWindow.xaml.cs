@@ -33,8 +33,6 @@ namespace Data_Entry_Form
             _displayWindow = new HeadstoneDisplayWindow(_viewModel);
 
             _viewModel.HeadstoneChanged += viewModel_HeadstoneChanged;
-            
-            this.PreviewKeyDown += ReviewWindow_KeyDown;
         }
 
         private void ReviewWindow_KeyDown(object sender, KeyEventArgs ee)
@@ -88,6 +86,7 @@ namespace Data_Entry_Form
                 ee.Handled = true;
             }
         }
+
 
         private void updateFocusField(KeyEventArgs ee)
         {
@@ -569,6 +568,12 @@ namespace Data_Entry_Form
             {
                 emb2_selected.Source = new BitmapImage();
             }
+        }
+
+        private void TextBox_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            var textbox = (e.Source as TextBox);
+            if(textbox != null) textbox.SelectAll();
         }
     }
 }
