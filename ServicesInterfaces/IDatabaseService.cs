@@ -11,6 +11,8 @@ namespace ServicesInterfaces
 
         bool InitDBConnection(string sectionFilePath);
 
+        string GetGraveSiteNum(int index);
+
         void Close();
 
         int TotalItems { get; }

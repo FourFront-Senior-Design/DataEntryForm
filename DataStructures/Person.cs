@@ -332,6 +332,51 @@ namespace DataStructures
             return false;
         }
 
+        public bool containsExtraData()
+        {
+            for(int i=0; i<RankList.Count; i++)
+            {
+                if (i < 1) continue;
+
+                if (!string.IsNullOrEmpty(RankList[i]))
+                {
+                    return true;
+                }
+            }
+
+            for (int i=0; i<AwardList.Count; i++)
+            {
+                if (i < 2) continue;
+
+                if (!string.IsNullOrEmpty(AwardList[i]))
+                {
+                    return true;
+                }
+            }
+
+            for (int i=0; i<BranchList.Count; i++)
+            {
+                if (i < 1) continue;
+
+                if (!string.IsNullOrEmpty(BranchList[i]))
+                {
+                    return true;
+                }
+            }
+
+            for (int i = 0; i < WarList.Count; i++)
+            {
+                if (i < 2) continue;
+
+                if (!string.IsNullOrEmpty(WarList[i]))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public void clearPerson()
         {
             _firstName = "";

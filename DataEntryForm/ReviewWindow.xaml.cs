@@ -33,9 +33,6 @@ namespace Data_Entry_Form
             _displayWindow = new HeadstoneDisplayWindow(_viewModel);
 
             _viewModel.HeadstoneChanged += viewModel_HeadstoneChanged;
-            
-            this.PreviewKeyDown += ReviewWindow_KeyDown;
-
         }
 
         private void ReviewWindow_KeyDown(object sender, KeyEventArgs ee)
@@ -44,8 +41,8 @@ namespace Data_Entry_Form
             if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.PageUp))
             {
                 updateFocusField(ee);
-                pageReset();
                 _viewModel.PreviousRecord();
+                pageReset();
             }
 
             //Next
@@ -57,8 +54,8 @@ namespace Data_Entry_Form
                     return;
                 }
 
-                pageReset();
                 _viewModel.NextRecord();
+                pageReset();
             }
 
             else if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.H))
@@ -89,6 +86,7 @@ namespace Data_Entry_Form
                 ee.Handled = true;
             }
         }
+
 
         private void updateFocusField(KeyEventArgs ee)
         {
@@ -228,8 +226,8 @@ namespace Data_Entry_Form
 
         private void FirstRecordClick(object sender, RoutedEventArgs e)
         {
-            pageReset();
             _viewModel.FirstRecord();
+            pageReset();
         }
 
         private void LastRecordClick(object sender, RoutedEventArgs e)
@@ -239,8 +237,8 @@ namespace Data_Entry_Form
                 return;
             }
 
-            pageReset();
             _viewModel.LastRecord();
+            pageReset();
         }
 
         private void ReturnToMainWindow(object sender, RoutedEventArgs e)
@@ -262,27 +260,27 @@ namespace Data_Entry_Form
                 return;
             }
 
-            pageReset();
             _viewModel.NextRecord();
+            pageReset();
         }
 
         private void PreviousClick(object sender, RoutedEventArgs e)
         {
-            pageReset();
             _viewModel.PreviousRecord();
+            pageReset();
         }
 
         private void pageReset()
         {
             ScrollBar.ScrollToTop();
 
-            morePrimaryData.IsChecked = false;
-            moreSecondaryData.IsChecked = false;
-            Name3.IsChecked = false;
-            Name4.IsChecked = false;
-            Name5.IsChecked = false;
-            Name6.IsChecked = false;
-            Name7.IsChecked = false;
+            morePrimaryData.IsChecked = _viewModel.CurrentPageData.PrimaryDecedent.containsExtraData();
+            moreSecondaryData.IsChecked = _viewModel.CurrentPageData.OthersDecedentList[0].containsExtraData();
+            Name3.IsChecked = _viewModel.CurrentPageData.OthersDecedentList[1].containsData();
+            Name4.IsChecked = _viewModel.CurrentPageData.OthersDecedentList[2].containsData();
+            Name5.IsChecked = _viewModel.CurrentPageData.OthersDecedentList[3].containsData();
+            Name6.IsChecked = _viewModel.CurrentPageData.OthersDecedentList[4].containsData();
+            Name7.IsChecked = _viewModel.CurrentPageData.OthersDecedentList[5].containsData();
 
             clearMandatoryFieldBorders();
         }
@@ -295,6 +293,7 @@ namespace Data_Entry_Form
         public void SetImagesToReview()
         {
             _viewModel.SetRecordsToReview();
+            pageReset();
         }
 
         private void WindowClosing(object sender, CancelEventArgs e)
@@ -569,6 +568,12 @@ namespace Data_Entry_Form
             {
                 emb2_selected.Source = new BitmapImage();
             }
+        }
+
+        private void TextBox_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            var textbox = (e.Source as TextBox);
+            if(textbox != null) textbox.SelectAll();
         }
     }
 }
