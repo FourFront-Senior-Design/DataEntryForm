@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Collections.Generic;
 using MessageBox = System.Windows.MessageBox;
+using Xceed.Wpf.Toolkit;
 
 namespace Data_Entry_Form
 {
@@ -89,10 +90,15 @@ namespace Data_Entry_Form
             }
         }
 
-
         private void updateFocusField(KeyEventArgs ee)
         {
-            if (ee.Source is TextBox)
+            if(ee.Source is MaskedTextBox)
+            {
+                MaskedTextBox mtb = (MaskedTextBox)ee.Source;
+                mtb.GetBindingExpression(MaskedTextBox.ValueProperty).UpdateSource();
+                mtb.Focus();
+            }
+            else if (ee.Source is TextBox)
             {
                 TextBox tb = (TextBox)ee.Source;
                 tb.GetBindingExpression(TextBox.TextProperty).UpdateSource();
