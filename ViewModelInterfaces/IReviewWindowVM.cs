@@ -8,6 +8,7 @@ namespace ViewModelInterfaces
     {
         event EventHandler HeadstoneChanged;
 
+        string Title { get; }
         int PageIndex { get; set; }
         string ImageSource1 { get; }
         string ImageSource2 { get; }

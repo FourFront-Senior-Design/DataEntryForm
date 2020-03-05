@@ -53,7 +53,16 @@ namespace ViewModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PageIndex)));
             }
         }
-        
+
+        public string Title
+        {
+            get
+            {
+                string _version = System.Reflection.AssemblyName.GetAssemblyName("DataEntryForm.exe").Version.ToString();
+                return $"Review (Verison {_version})";
+            }
+        }
+
         private void displayHeadStone()
         {
             CurrentPageData = _database.GetHeadstone(_currentPageIndex);

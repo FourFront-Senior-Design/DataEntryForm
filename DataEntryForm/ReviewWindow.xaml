@@ -6,7 +6,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:s="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d" Icon="FormIcon.ico"
-        Title="Review (Version 1.4)" WindowState="Maximized" Background="#FFE4E4E4" 
+        Title="{Binding Title}" WindowState="Maximized" Background="#FFE4E4E4" 
         Closing="WindowClosing" d:DesignWidth="1158" d:DesignHeight="843">
 
     <Window.Resources>
