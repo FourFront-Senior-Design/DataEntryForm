@@ -165,7 +165,7 @@ namespace Services
 
         public string GetGraveSiteNum(int index)
         {
-            throw new NotImplementedException();
+            return "";
         }
     }
 }
