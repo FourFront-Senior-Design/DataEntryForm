@@ -942,5 +942,34 @@ namespace Services
         {
             _connection.Close();
         }
+
+        public string GetGraveSiteNum(int index)
+        {
+            if (index < 1)
+            {
+                return "";
+            }
+
+            string graveSiteNum = "";
+            OleDbCommand cmd;
+            OleDbDataReader reader;
+
+            string sqlQuery = "SELECT GravesiteNumber FROM Master " +
+                "WHERE SequenceID = \"" + SequenceIDs[index - 1] + "\"";
+            try
+            {
+                cmd = new OleDbCommand(sqlQuery, _connection);
+                reader = cmd.ExecuteReader();
+                reader.Read();
+
+                graveSiteNum = reader.GetString(0);
+                return graveSiteNum;
+            }
+            catch (Exception e)
+            {
+                ThrowAndLogArgumentException("Error getting the record row data", e);
+                return "";
+            }
+        }
     }
 }

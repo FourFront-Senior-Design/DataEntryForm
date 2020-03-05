@@ -162,5 +162,10 @@ namespace Services
         {
             sampleRecords[index] = headstone;
         }
+
+        public string GetGraveSiteNum(int index)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
