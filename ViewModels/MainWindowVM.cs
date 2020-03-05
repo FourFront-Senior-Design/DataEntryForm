@@ -18,6 +18,7 @@ namespace ViewModels
         {
             _database = database;
             _version = System.Reflection.AssemblyName.GetAssemblyName("DataEntryForm.exe").Version.ToString();
+            FileLocation = "";
             ResetWindow();
         }
 

@@ -33,6 +33,8 @@ namespace Data_Entry_Form
             _displayWindow = new HeadstoneDisplayWindow(_viewModel);
 
             _viewModel.HeadstoneChanged += viewModel_HeadstoneChanged;
+
+            this.PreviewKeyDown += ReviewWindow_KeyDown;
         }
 
         private void ReviewWindow_KeyDown(object sender, KeyEventArgs ee)
