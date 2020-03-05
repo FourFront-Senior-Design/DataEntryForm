@@ -293,5 +293,8 @@
   <ItemGroup>
     <Resource Include="FormIcon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Emblems\emb-empty.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DataStructures
 {
@@ -12,6 +13,9 @@ namespace DataStructures
         private string _markerType;
         private string _emblem1;
         private string _emblem2;
+
+        private string _prev1GravesiteNum;
+        private string _prev2GravesiteNum;
 
         public string SequenceID { get; set; }
         public string PrimaryKey { get; set; }
@@ -81,6 +85,34 @@ namespace DataStructures
             }
         }
 
+        public string Prev1GravesiteNum
+        {
+            get { return _prev1GravesiteNum; }
+            set
+            {
+                if (value == null)
+                {
+                    return;
+                }
+
+                _prev1GravesiteNum = makeValid(value);
+            }
+        }
+
+        public string Prev2GravesiteNum
+        {
+            get { return _prev2GravesiteNum; }
+            set
+            {
+                if (value == null)
+                {
+                    return;
+                }
+
+                _prev2GravesiteNum = makeValid(value);
+            }
+        }
+
         public string MarkerType {
             get { return _markerType; }
             set
@@ -106,7 +138,7 @@ namespace DataStructures
                 value = makeValid(value);
                 if (isNumber(value) == false)
                 {
-                    _emblem1 = "0";
+                    _emblem1 = "";
                     return;
                 }
                 _emblem1 = value;
@@ -125,7 +157,7 @@ namespace DataStructures
                 value = makeValid(value);
                 if(isNumber(value) == false)
                 {
-                    _emblem2 = "0";
+                    _emblem2 = "";
                     return;
                 }
                 _emblem2 = value;
@@ -166,6 +198,8 @@ namespace DataStructures
             MarkerType = "";
             Emblem1 = "0";
             Emblem2 = "0";
+            Prev1GravesiteNum = "";
+            Prev2GravesiteNum = "";
         }
     }
 

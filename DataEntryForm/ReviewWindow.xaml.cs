@@ -8,7 +8,6 @@ using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Collections.Generic;
-using System.Windows.Media;
 using MessageBox = System.Windows.MessageBox;
 
 namespace Data_Entry_Form
@@ -29,69 +28,82 @@ namespace Data_Entry_Form
             _viewModel = viewModel;
             DataContext = _viewModel;
 
+            isBack = false;
+
             _displayWindow = new HeadstoneDisplayWindow(_viewModel);
 
             _viewModel.HeadstoneChanged += viewModel_HeadstoneChanged;
 
-            AddHandler(KeyDownEvent, new KeyEventHandler((ss, ee) =>
+            this.PreviewKeyDown += ReviewWindow_KeyDown;
+        }
+
+        private void ReviewWindow_KeyDown(object sender, KeyEventArgs ee)
+        {
+            //Previous 
+            if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.PageUp))
             {
-                if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.PageUp))
+                updateFocusField(ee);
+                _viewModel.PreviousRecord();
+                pageReset();
+            }
+
+            //Next
+            else if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.PageDown))
+            {
+                updateFocusField(ee);
+                if (!_validateMandatoryInfoExists())
                 {
-                    primaryFirstName.Focus();
-                    if (!_validateMandatoryInfoExists())
-                    {
-                        if (ee.Source is TextBox)
-                        {
-                            TextBox tb = (TextBox)ee.Source;
-                            tb.Focus();
-                        }
-                        else if (ee.Source is ComboBox)
-                        {
-                            ComboBox cb = (ComboBox)ee.Source;
-                            cb.Focus();
-                        }
-                        return;
-                    }
-                    _viewModel.PreviousRecord();
+                    return;
                 }
 
-                if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.PageDown))
+                _viewModel.NextRecord();
+                pageReset();
+            }
+
+            else if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.H))
+            {
+                Console.WriteLine("Detected Ctrl + H");
+                HelpMenu.IsOpen = !HelpMenu.IsOpen;
+            }
+
+            //Skip mandatory info
+            else if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) &&
+            Keyboard.IsKeyDown(Key.J) && Keyboard.IsKeyDown(Key.K) & Keyboard.IsKeyDown(Key.L))
+            {
+                Console.WriteLine("Detected Alt + JKL");
+                _viewModel.NextRecord();
+                BurialSectionField.Focus();
+            }
+
+            else if (ee.Key == Key.Enter)
+            {
+                TraversalRequest tRequest = new TraversalRequest(FocusNavigationDirection.Next);
+                UIElement keyboardFocus = Keyboard.FocusedElement as UIElement;
+
+                if (keyboardFocus != null)
                 {
-                    primaryFirstName.Focus();
-                    if (!_validateMandatoryInfoExists())
-                    {
-                        if (ee.Source is TextBox)
-                        {
-                            TextBox tb = (TextBox)ee.Source;
-                            tb.Focus();
-                        }
-                        else if (ee.Source is ComboBox)
-                        {
-                            ComboBox cb = (ComboBox)ee.Source;
-                            cb.Focus();
-                        }
-                        return;
-                    }
-                    _viewModel.NextRecord();
+                    keyboardFocus.MoveFocus(tRequest);
                 }
 
-                if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.H))
-                {
-                    Console.WriteLine("Detected Ctrl + H");
-                    HelpMenu.IsOpen = !HelpMenu.IsOpen;
-                }
+                ee.Handled = true;
+            }
+        }
 
-                if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) &&
-                Keyboard.IsKeyDown(Key.J) && Keyboard.IsKeyDown(Key.K) & Keyboard.IsKeyDown(Key.L))
-                {
-                    Console.WriteLine("Detected Alt + JKL");
-                    _viewModel.NextRecord();
-                    BurialSectionField.Focus();
-                }
 
-            }), true);
-            isBack = false;
-
+        private void updateFocusField(KeyEventArgs ee)
+        {
+            if (ee.Source is TextBox)
+            {
+                TextBox tb = (TextBox)ee.Source;
+                tb.GetBindingExpression(TextBox.TextProperty).UpdateSource();
+                tb.Focus();
+            }
+            else if (ee.Source is ComboBox)
+            {
+                ComboBox cb = (ComboBox)ee.Source;
+                cb.GetBindingExpression(ComboBox.TextProperty).UpdateSource();
+                cb.Focus();
+            }
         }
 
         private void viewModel_HeadstoneChanged(object sender, EventArgs e)
@@ -110,22 +122,6 @@ namespace Data_Entry_Form
                 frontFaceImage.SetValue(Grid.ColumnSpanProperty, 2);
             }
             BurialSectionField.Focus();
-        }
-
-        private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                TraversalRequest tRequest = new TraversalRequest(FocusNavigationDirection.Next);
-                UIElement keyboardFocus = Keyboard.FocusedElement as UIElement;
-
-                if (keyboardFocus != null)
-                {
-                    keyboardFocus.MoveFocus(tRequest);
-                }
-
-                e.Handled = true;
-            }
         }
 
         private bool _validateMandatoryInfoExists()
@@ -179,17 +175,51 @@ namespace Data_Entry_Form
             return true;
         }
 
+        private void clearMandatoryFieldBorders()
+        {
+            List<Border> maskedMandatoryFields = new List<Border>()
+            {
+                cemeteryName, markerType, emb1Border
+            };
+
+            List<TextBox> mandatoryField = new List<TextBox>() {
+                BurialSectionField, wallID, rowNum,
+                gravesiteNum, primaryLastName, secondaryLastName,
+                name3LastName, name4LastName, name5LastName, name6LastName,
+                name7LastName, };
+
+            for (int i = 0; i < maskedMandatoryFields.Count; i++)
+            {
+                maskedMandatoryFields[i].ClearValue(Border.BorderBrushProperty);
+            }
+
+            for (int i = 0; i < mandatoryField.Count; i++)
+            {
+                mandatoryField[i].ClearValue(Border.BorderBrushProperty);
+            }
+        }
+
         private void GoToRecordClick(object sender, RoutedEventArgs e)
         {
             string input = goToRecordTb.Text;
             goToRecordTb.Text = "";
 
-            if (!_validateMandatoryInfoExists())
+            try
             {
-                return;
-            }
+                int page = Convert.ToInt32(input);
 
-            if(!_viewModel.GoToRecord(input))
+                if (page >= _viewModel.PageIndex && !_validateMandatoryInfoExists())
+                {
+                    return;
+                }
+
+                if(_viewModel.GoToRecord(input) == false)
+                {
+                    MessageBox.Show("Invalid Record Number", "Error", MessageBoxButton.OK);
+                }
+                pageReset();
+            }
+            catch
             {
                 MessageBox.Show("Invalid Record Number", "Error", MessageBoxButton.OK);
                 return;
@@ -198,11 +228,8 @@ namespace Data_Entry_Form
 
         private void FirstRecordClick(object sender, RoutedEventArgs e)
         {
-            if (!_validateMandatoryInfoExists())
-            {
-                return;
-            }
             _viewModel.FirstRecord();
+            pageReset();
         }
 
         private void LastRecordClick(object sender, RoutedEventArgs e)
@@ -211,10 +238,12 @@ namespace Data_Entry_Form
             {
                 return;
             }
+
             _viewModel.LastRecord();
+            pageReset();
         }
 
-        private void BackClick(object sender, RoutedEventArgs e)
+        private void ReturnToMainWindow(object sender, RoutedEventArgs e)
         {
             if (!_validateMandatoryInfoExists())
             {
@@ -232,16 +261,30 @@ namespace Data_Entry_Form
             {
                 return;
             }
+
             _viewModel.NextRecord();
+            pageReset();
         }
 
         private void PreviousClick(object sender, RoutedEventArgs e)
         {
-            if (!_validateMandatoryInfoExists())
-            {
-                return;
-            }
             _viewModel.PreviousRecord();
+            pageReset();
+        }
+
+        private void pageReset()
+        {
+            ScrollBar.ScrollToTop();
+
+            morePrimaryData.IsChecked = _viewModel.CurrentPageData.PrimaryDecedent.containsExtraData();
+            moreSecondaryData.IsChecked = _viewModel.CurrentPageData.OthersDecedentList[0].containsExtraData();
+            Name3.IsChecked = _viewModel.CurrentPageData.OthersDecedentList[1].containsData();
+            Name4.IsChecked = _viewModel.CurrentPageData.OthersDecedentList[2].containsData();
+            Name5.IsChecked = _viewModel.CurrentPageData.OthersDecedentList[3].containsData();
+            Name6.IsChecked = _viewModel.CurrentPageData.OthersDecedentList[4].containsData();
+            Name7.IsChecked = _viewModel.CurrentPageData.OthersDecedentList[5].containsData();
+
+            clearMandatoryFieldBorders();
         }
 
         private void HelpClick(object sender, RoutedEventArgs e)
@@ -252,6 +295,7 @@ namespace Data_Entry_Form
         public void SetImagesToReview()
         {
             _viewModel.SetRecordsToReview();
+            pageReset();
         }
 
         private void WindowClosing(object sender, CancelEventArgs e)
@@ -526,6 +570,12 @@ namespace Data_Entry_Form
             {
                 emb2_selected.Source = new BitmapImage();
             }
+        }
+
+        private void TextBox_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            var textbox = (e.Source as TextBox);
+            if(textbox != null) textbox.SelectAll();
         }
     }
 }

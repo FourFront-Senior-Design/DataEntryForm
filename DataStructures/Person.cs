@@ -230,16 +230,7 @@ namespace DataStructures
                     return;
                 }
 
-                value = makeValid(value);
-                DateTime d = DateTime.MinValue;
-                if (DateTime.TryParse(value, out d))
-                {
-                    _birthDate = value;
-                }
-                else
-                {
-                    _birthDate = "";
-                }
+                _birthDate = makeValid(value);
             }
         }
 
@@ -252,16 +243,7 @@ namespace DataStructures
                     return;
                 }
 
-                value = makeValid(value);
-                DateTime d = DateTime.MinValue;
-                if (DateTime.TryParse(value, out d))
-                {
-                    _deathDate = value;
-                }
-                else
-                {
-                    _deathDate = "";
-                }
+                _deathDate = makeValid(value);
             }
         }
 
@@ -342,6 +324,51 @@ namespace DataStructures
             foreach (string war in WarList)
             {
                 if(!string.IsNullOrEmpty(war))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool containsExtraData()
+        {
+            for(int i=0; i<RankList.Count; i++)
+            {
+                if (i < 1) continue;
+
+                if (!string.IsNullOrEmpty(RankList[i]))
+                {
+                    return true;
+                }
+            }
+
+            for (int i=0; i<AwardList.Count; i++)
+            {
+                if (i < 2) continue;
+
+                if (!string.IsNullOrEmpty(AwardList[i]))
+                {
+                    return true;
+                }
+            }
+
+            for (int i=0; i<BranchList.Count; i++)
+            {
+                if (i < 1) continue;
+
+                if (!string.IsNullOrEmpty(BranchList[i]))
+                {
+                    return true;
+                }
+            }
+
+            for (int i = 0; i < WarList.Count; i++)
+            {
+                if (i < 2) continue;
+
+                if (!string.IsNullOrEmpty(WarList[i]))
                 {
                     return true;
                 }

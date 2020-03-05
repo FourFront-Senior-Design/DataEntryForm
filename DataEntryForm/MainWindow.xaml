@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" Icon="FormIcon.ico"
-        Title="Data Entry Form (Version 1.4)" Height="450" Width="800" Background="#FFE4E4E4">
+        mc:Ignorable="d" Icon="FormIcon.ico" Title="{Binding Title}"
+        Height="450" Width="800" Background="#FFE4E4E4">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.2*"/>
@@ -75,7 +75,7 @@
                     FontSize="18"
                     Margin="10"
                     Click="ReviewClick"
-                    IsEnabled="{Binding EnableExtract}" />
+                    IsEnabled="{Binding ReviewButtonEnabled}" />
 
                 <Button 
                     Content="Exit" 

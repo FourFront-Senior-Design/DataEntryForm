@@ -6,7 +6,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:s="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d" Icon="FormIcon.ico"
-        Title="Review (Version 1.4)" WindowState="Maximized" Background="#FFE4E4E4" KeyDown="Window_KeyDown"
+        Title="{Binding Title}" WindowState="Maximized" Background="#FFE4E4E4" 
         Closing="WindowClosing" d:DesignWidth="1158" d:DesignHeight="843">
 
     <Window.Resources>
@@ -143,7 +143,7 @@
                             <ColumnDefinition Width="1.2*"/>
                         </Grid.ColumnDefinitions>
                         <TextBox x:Name="goToRecordTb" Grid.Column="0" CharacterCasing="Upper" 
-                                     FontSize="14" Height="20" Margin="2"/>
+                                     FontSize="14" Height="20" Margin="2" GotKeyboardFocus="TextBox_GotKeyboardFocus" />
                         <Button Height="20" FontSize="12" Margin="0,0,3,0"
                             Grid.Column="1" Click="GoToRecordClick">
                             <TextBlock TextWrapping="Wrap" TextAlignment="Center">
@@ -196,6 +196,7 @@
                     <Button Grid.Column="5" Height="20" FontSize="12" 
                             Content="Help" Click="HelpClick">
                         <Button.ContextMenu>
+                            <!--#region Help Menu-->
                             <ContextMenu x:Name="HelpMenu">
                                 <MenuItem Header="Previous Record" InputGestureText="Ctrl + PageUp"/>
                                 <MenuItem Header="Next Record" InputGestureText="Ctrl + PageDown"/>
@@ -218,10 +219,11 @@
                                 <MenuItem Header="Help Menu" InputGestureText="Ctrl + H"/>
                                 <MenuItem Header="Close Help Menu" InputGestureText="Esc"/>
                             </ContextMenu>
+                            <!--#endregion-->
                         </Button.ContextMenu>
                     </Button>
                     <Button Height="20" FontSize="12"
-                            Grid.Column="6" Click="BackClick">
+                            Grid.Column="6" Click="ReturnToMainWindow">
                         <TextBlock TextWrapping="Wrap" TextAlignment="Center">
                             Save &amp; Go to Menu
                         </TextBlock>
@@ -251,6 +253,7 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
+                
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="127*"/>
@@ -273,23 +276,37 @@
                                   ItemTemplate="{StaticResource cemeteryNamesCmbTemplate}" 
                                   LostFocus="Cemetery_LostFocus"/>
                     </Border>
-                    
+
                     <Label Grid.Column="2" Content="Burial Section #" VerticalAlignment="Center" Margin="0,8"/>
-                    <TextBox x:Name="BurialSectionField" Grid.Column="2" Text="{Binding CurrentPageData.BurialSectionNumber}" Margin="120,10,0,10" Padding="2"/>
+                    <TextBox x:Name="BurialSectionField" Grid.Column="2" Text="{Binding CurrentPageData.BurialSectionNumber}" 
+                             Margin="120,10,0,10" Padding="2" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
                 </Grid>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="361*"/>
-                        <ColumnDefinition Width="361*"/>
-                        <ColumnDefinition Width="79*"/>
-                        <ColumnDefinition Width="282*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="0.5*"/>
+                        <ColumnDefinition Width="0.5*"/>
+                        <ColumnDefinition Width="0.5*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Content="Wall ID #"  VerticalAlignment="Center" Margin="0,8"/>
-                    <TextBox  Grid.Column="0" Text="{Binding CurrentPageData.WallID}" x:Name="wallID" Margin="100,10,10,10" Padding="2"/>
-                    <Label Grid.Column="1"  Content="Row #" VerticalAlignment="Center" Margin="0,8"/>
-                    <TextBox Grid.Column="1" Text="{Binding CurrentPageData.RowNum}" x:Name="rowNum" Margin="80,10,10,10" Padding="2"/>
-                    <Label Grid.Column="2" Content="Gravesite #"  VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,8"/>
-                    <TextBox x:Name="gravesiteNum" Grid.Column="3" Text="{Binding CurrentPageData.GavestoneNumber}" Margin="11,10,0,10" Padding="2"/>
+                    
+                    <!--#region Top Menue-->
+                    <Label Content="Wall ID #" Grid.Column="0"   VerticalAlignment="Center" Margin="0,8,104,8" Height="29"/>
+                    <TextBox Text="{Binding CurrentPageData.WallID}" Grid.Column="0" x:Name="wallID"
+                             Margin="80,8,10,8" Padding="2" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                    
+                    <Label  Content="Row #" Grid.Column="1" VerticalAlignment="Center"  Margin="0,8,110,8" Height="29"/>
+                    <TextBox Text="{Binding CurrentPageData.RowNum}" GotKeyboardFocus="TextBox_GotKeyboardFocus" 
+                             Grid.Column="1" x:Name="rowNum" Margin="60,8,0,8" Padding="2"/>
+                    
+                    <Label Content="Gravesite #" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,8" Height="29"/>
+                    <Label Content="{Binding CurrentPageData.Prev2GravesiteNum}" Grid.Column="3" Margin="0,8,2,8" Padding="2" Background="LightGray" IsEnabled="False"/>
+                    <Label Content="{Binding CurrentPageData.Prev1GravesiteNum}"  Grid.Column="4" Margin="2,8,5,8" Padding="2" Background="LightGray" IsEnabled="False"/>
+                    <TextBox Text="{Binding CurrentPageData.GavestoneNumber}" GotKeyboardFocus="TextBox_GotKeyboardFocus"
+                             Grid.Column="5" x:Name="gravesiteNum"  Margin="0,8,0,8" Padding="2"/>
+                    <!--#endregion-->
+                    
                 </Grid>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
@@ -318,15 +335,16 @@
                     </Border>
                     <Grid Grid.Column="1">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="3*"/>
-                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="138*"/>
+                            <ColumnDefinition Width="35*"/>
+                            <ColumnDefinition Width="11*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0"  Content="Emblem 1"  VerticalAlignment="Center"/>
+                        <Label Grid.Column="0"  Content="Emblem 1"  VerticalAlignment="Center" Margin="0,11"/>
                         <Border BorderThickness="1"
                                 Grid.Column="0"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Stretch"
-                                Margin="80,10,10,10"
+                                Margin="80,11,10,11"
                                 Padding="1"
                                 x:Name="emb1Border">
                             <ComboBox  
@@ -338,10 +356,11 @@
                                       LostFocus="EmblemCombox_LostFocus"
                                       TextSearch.TextPath="Code" 
                                       IsTextSearchEnabled="True"
+                                      PreviewTextInput="NumberValidationTextBox"
                                       TextBoxBase.TextChanged="EmblemCombox_TextChanged"/>
                         </Border>
                         <Image Grid.Column="1" Width="30" Height="30" Stretch="Fill" x:Name="emb1_selected"
-                       VerticalAlignment="Center" Margin="2,0,15,0"/>
+                       VerticalAlignment="Center" Margin="24,10,16,11"/>
                     </Grid>
                     <Grid Grid.Column="2">
                         <Grid.ColumnDefinitions>
@@ -355,6 +374,7 @@
                               Text="{Binding CurrentPageData.Emblem2}"  LostFocus="EmblemCombox_LostFocus"
                               TextSearch.TextPath="Code" IsTextSearchEnabled="True"
                               VerticalAlignment="Center" x:Name="emb2"
+                              PreviewTextInput="NumberValidationTextBox"
                               TextBoxBase.TextChanged="EmblemCombox_TextChanged"/>
                         <Image Grid.Column="1" Width="30" Height="30" Stretch="Fill" x:Name="emb2_selected"
                        VerticalAlignment="Center" Margin="2,0,15,0"/>
@@ -399,10 +419,12 @@
                     <Image x:Name="backFaceImage" Grid.Column="1"/>
                 </Grid>
 
-                <ScrollViewer VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
+                <ScrollViewer x:Name="ScrollBar" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible">
 
                     <Border BorderBrush="Black" BorderThickness="1">
                         <StackPanel>
+                            
+                            <!--#region Primary-->
                             <StackPanel Background="LightGray">
                                 <Label Margin="0,25,0,0" Content="PRIMARY" FontSize="17" FontWeight="Bold"/>
                                 <StackPanel Orientation="Horizontal">
@@ -410,23 +432,23 @@
                                         <Label Content="Name: First" />
                                         <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.FirstName}" 
                                          Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"
-                                             x:Name="primaryFirstName"/>
+                                             x:Name="primaryFirstName" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
                                     </StackPanel>
                                     <StackPanel>
                                         <Label Content="Middle" />
                                         <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.MiddleName}" 
                                          Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"
-                                             x:Name="primaryMiddleName"/>
+                                             x:Name="primaryMiddleName" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
                                     </StackPanel>
                                     <StackPanel>
                                         <Label Content="Last" />
                                         <TextBox x:Name="primaryLastName" Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"
-                                         Text="{Binding CurrentPageData.PrimaryDecedent.LastName}"/>
+                                         Text="{Binding CurrentPageData.PrimaryDecedent.LastName}" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
                                     </StackPanel>
                                     <StackPanel>
                                         <Label Content="Suffix" />
                                         <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.Suffix}" 
-                                         Margin="2,0,0,2"  Width="95" KeyDown="Textbox_KeyDown"/>
+                                         Margin="2,0,0,2"  Width="95" KeyDown="Textbox_KeyDown" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
                                     </StackPanel>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
@@ -443,7 +465,7 @@
                                     <StackPanel>
                                         <Label Content="Rank" />
                                         <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.RankList[0]}"
-                                             Padding="1"
+                                             Padding="1" GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                              Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                     </StackPanel>
                                     <StackPanel>
@@ -459,7 +481,8 @@
                                 <StackPanel Orientation="Horizontal">
                                     <StackPanel>
                                         <Label Content="Branch-Unit Custom" />
-                                        <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.BranchUnitCustom}"  
+                                        <TextBox GotKeyboardFocus="TextBox_GotKeyboardFocus"
+                                                 Text="{Binding CurrentPageData.PrimaryDecedent.BranchUnitCustom}"  
                                              Margin="2,0,0,2"  Width="702" KeyDown="Textbox_KeyDown"/>
                                     </StackPanel>
                                 </StackPanel>
@@ -488,7 +511,7 @@
                                     <StackPanel>
                                         <Label Content="Birth Date" />
                                         <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" 
-                                                        Mask="00/00/0000"
+                                                        Mask="00/00/0000" GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                         Margin="2,0,2,0" Width="200"  KeyDown="Textbox_KeyDown"
                                                         Value="{Binding CurrentPageData.PrimaryDecedent.BirthDate}"
                                                         NullValue=""/>
@@ -496,7 +519,7 @@
                                     <StackPanel>
                                         <Label Content="Death Date" />
                                         <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" 
-                                                        Mask="00/00/0000"
+                                                        Mask="00/00/0000" GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                         Margin="2,0,2,0"  Width="200" KeyDown="Textbox_KeyDown"
                                                         Value="{Binding CurrentPageData.PrimaryDecedent.DeathDate}"
                                                         NullValue=""/>
@@ -526,7 +549,7 @@
                                     </StackPanel>
                                     <StackPanel Grid.Column="3">
                                         <Label Content="Awards Custom (Enter multiple w/ spaces between)" />
-                                        <TextBox KeyDown="Textbox_KeyDown"
+                                        <TextBox KeyDown="Textbox_KeyDown" GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                              Text="{Binding CurrentPageData.PrimaryDecedent.AwardCustom}" 
                                              Margin="2,0,2,0"  Width="405"/>
                                     </StackPanel>
@@ -534,7 +557,7 @@
                                 <StackPanel Orientation="Horizontal">
                                     <StackPanel>
                                         <Label Content="Inscription" />
-                                        <TextBox KeyDown="Textbox_KeyDown"
+                                        <TextBox KeyDown="Textbox_KeyDown" GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                              Text="{Binding CurrentPageData.PrimaryDecedent.Inscription}"
                                              Margin="2,0,0,2"  Width="700">
                                         </TextBox>
@@ -656,6 +679,9 @@
                                     </StackPanel>
                                 </StackPanel>
                             </StackPanel>
+                            <!--#endregion-->
+
+                            <!--#region Secondary-->
                             <Label
                             Margin="0,50,0,0"
                             Content="SECONDARY"
@@ -664,22 +690,22 @@
                             <StackPanel Orientation="Horizontal">
                                 <StackPanel>
                                     <Label Content="Name: First" />
-                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].FirstName}" 
+                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].FirstName}" GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                             Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Middle" />
-                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].MiddleName}"
+                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].MiddleName}" GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                             Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Last" />
-                                    <TextBox x:Name="secondaryLastName" Text="{Binding CurrentPageData.OthersDecedentList[0].LastName}"
+                                    <TextBox x:Name="secondaryLastName" Text="{Binding CurrentPageData.OthersDecedentList[0].LastName}" GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                             Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Suffix" />
-                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].Suffix}"
+                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].Suffix}" GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                             Margin="2,0,0,2"  Width="95" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                             </StackPanel>
@@ -695,7 +721,7 @@
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Rank" />
-                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].RankList[0]}"
+                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].RankList[0]}" GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                             Margin="2,0,0,2" Width="200" Padding="1" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                                 <StackPanel>
@@ -711,7 +737,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <StackPanel>
                                     <Label Content="Branch-Unit Custom" />
-                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].BranchUnitCustom}"
+                                    <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].BranchUnitCustom}" GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                 Margin="2,0,0,2"  Width="702" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                             </StackPanel>
@@ -740,6 +766,7 @@
                                 <StackPanel>
                                     <Label Content="Birth Date" />
                                     <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" 
+                                                        GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                         Mask="00/00/0000"
                                                         Value="{Binding CurrentPageData.OthersDecedentList[0].BirthDate}"
                                                         Margin="2,0,2,0" 
@@ -750,6 +777,7 @@
                                 <StackPanel>
                                     <Label Content="Death Date" />
                                     <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" 
+                                                        GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                         Mask="00/00/0000"
                                                         Value="{Binding CurrentPageData.OthersDecedentList[0].DeathDate}"
                                                         Margin="2,0,2,0" 
@@ -783,6 +811,7 @@
                                 <StackPanel Grid.Column="3">
                                     <Label Content="Awards Custom (Enter multiple w/ spaces between)" />
                                     <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].AwardCustom}"
+                                             GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                 Margin="2,0,2,0"  Width="405" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                             </StackPanel>
@@ -790,6 +819,7 @@
                                 <StackPanel>
                                     <Label Content="Inscription" />
                                     <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].Inscription}"
+                                             GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                 Margin="2,0,0,2" Width="700" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                             </StackPanel>
@@ -907,10 +937,15 @@
                                     </StackPanel>
                                 </StackPanel>
                             </StackPanel>
+
+                            <!--#endregion-->
+
                             <StackPanel Margin="0,0,0,50">
                                 <StackPanel.Resources>
                                     <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
                                 </StackPanel.Resources>
+
+                                <!--#region Third-->
                                 <StackPanel Background="LightGray">
                                     <Label
                                     Margin="0,50,0,10"
@@ -926,21 +961,25 @@
                                             <StackPanel>
                                                 <Label Content="Name: First" />
                                                 <TextBox Text="{Binding CurrentPageData.OthersDecedentList[1].FirstName}"
+                                                         GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                  Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                             <StackPanel>
                                                 <Label Content="Middle" />
                                                 <TextBox Text="{Binding CurrentPageData.OthersDecedentList[1].MiddleName}"
+                                                         GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                  Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                             <StackPanel>
                                                 <Label Content="Last" />
                                                 <TextBox x:Name="name3LastName" Text="{Binding CurrentPageData.OthersDecedentList[1].LastName}"
+                                                         GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                  Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                             <StackPanel>
                                                 <Label Content="Suffix" />
                                                 <TextBox Text="{Binding CurrentPageData.OthersDecedentList[1].Suffix}"
+                                                         GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                  Margin="2,0,0,2"  Width="95" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                         </StackPanel>
@@ -957,6 +996,7 @@
                                             <StackPanel>
                                                 <Label Content="Rank" />
                                                 <TextBox Text="{Binding CurrentPageData.OthersDecedentList[1].RankList[0]}"
+                                                         GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                  Margin="2,0,0,2" Width="350" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                             <StackPanel>
@@ -982,6 +1022,7 @@
                                             <StackPanel>
                                                 <Label Content="Birth Date" />
                                                 <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000"
+                                                                    GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                                     Value="{Binding CurrentPageData.OthersDecedentList[1].BirthDate}"
                                                                     Margin="2,0,2,0" Width="245" KeyDown="Textbox_KeyDown"
                                                                     NullValue=""/>
@@ -989,6 +1030,7 @@
                                             <StackPanel>
                                                 <Label Content="Death Date" />
                                                 <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000" 
+                                                                    GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                                     Value="{Binding CurrentPageData.OthersDecedentList[1].DeathDate}"
                                                                     Margin="2,0,2,0"  Width="250" KeyDown="Textbox_KeyDown"
                                                                     NullValue=""/>
@@ -1007,13 +1049,16 @@
                                             <StackPanel>
                                                 <Label Content="Inscription" />
                                                 <TextBox Text="{Binding CurrentPageData.OthersDecedentList[1].Inscription}"
+                                                         GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                  Margin="2,0,0,50"  Width="580" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                         </StackPanel>
                                     </StackPanel>
+
                                 </StackPanel>
+                                <!--#endregion-->
 
-
+                                <!--#region Forth-->
                                 <CheckBox FontSize="15" Name="Name4" Margin="5,10,0,0"
                                   FontWeight="Bold" Content="4th Name Listed"/>
 
@@ -1023,21 +1068,25 @@
                                         <StackPanel>
                                             <Label Content="Name: First" />
                                             <TextBox Text="{Binding CurrentPageData.OthersDecedentList[2].FirstName}"
+                                             GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                              Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                         </StackPanel>
                                         <StackPanel>
                                             <Label Content="Middle" />
                                             <TextBox Text="{Binding CurrentPageData.OthersDecedentList[2].MiddleName}"
+                                                     GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                              Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                         </StackPanel>
                                         <StackPanel>
                                             <Label Content="Last" />
                                             <TextBox x:Name="name4LastName" Text="{Binding CurrentPageData.OthersDecedentList[2].LastName}"
+                                                     GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                              Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                         </StackPanel>
                                         <StackPanel>
                                             <Label Content="Suffix" />
                                             <TextBox Text="{Binding CurrentPageData.OthersDecedentList[2].Suffix}"
+                                                     GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                              Margin="2,0,0,2"  Width="95" KeyDown="Textbox_KeyDown"/>
                                         </StackPanel>
                                     </StackPanel>
@@ -1054,6 +1103,7 @@
                                         <StackPanel>
                                             <Label Content="Rank" />
                                             <TextBox Text="{Binding CurrentPageData.OthersDecedentList[2].RankList[0]}"
+                                                     GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                              Margin="2,0,0,2" Width="350" KeyDown="Textbox_KeyDown"/>
                                         </StackPanel>
                                         <StackPanel>
@@ -1080,6 +1130,7 @@
                                             <Label Content="Birth Date" />
                                             <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000" 
                                                                 Value="{Binding CurrentPageData.OthersDecedentList[2].BirthDate}"
+                                                                GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                                 Margin="2,0,2,0" Width="245" KeyDown="Textbox_KeyDown"
                                                                 NullValue=""/>
                                         </StackPanel>
@@ -1087,6 +1138,7 @@
                                             <Label Content="Death Date" />
                                             <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000" 
                                                                 Value="{Binding CurrentPageData.OthersDecedentList[2].DeathDate}"
+                                                                GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                                 Margin="2,0,2,0"  Width="250" KeyDown="Textbox_KeyDown"
                                                                 NullValue=""/>
                                         </StackPanel>
@@ -1104,11 +1156,14 @@
                                         <StackPanel>
                                             <Label Content="Inscription" />
                                             <TextBox Text="{Binding CurrentPageData.OthersDecedentList[2].Inscription}"
+                                                     GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                              Margin="2,0,0,50" Width="580" KeyDown="Textbox_KeyDown"/>
                                         </StackPanel>
                                     </StackPanel>
                                 </StackPanel>
+                                <!--#endregion-->
 
+                                <!--#region Fifth-->
                                 <StackPanel Background="LightGray">
                                     <CheckBox FontSize="15" Name="Name5" Margin="5,10,0,0"
                                       FontWeight="Bold" Content="5th Name Listed"/>
@@ -1119,21 +1174,25 @@
                                             <StackPanel>
                                                 <Label Content="Name: First" />
                                                 <TextBox Text="{Binding CurrentPageData.OthersDecedentList[3].FirstName}"
+                                                         GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                  Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                             <StackPanel>
                                                 <Label Content="Middle" />
                                                 <TextBox Text="{Binding CurrentPageData.OthersDecedentList[3].MiddleName}"
+                                                         GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                  Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                             <StackPanel>
                                                 <Label Content="Last" />
                                                 <TextBox x:Name="name5LastName" Text="{Binding CurrentPageData.OthersDecedentList[3].LastName}"
+                                                         GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                  Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                             <StackPanel>
                                                 <Label Content="Suffix" />
                                                 <TextBox Text="{Binding CurrentPageData.OthersDecedentList[3].Suffix}"
+                                                         GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                  Margin="2,0,0,2"  Width="95" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                         </StackPanel>
@@ -1150,6 +1209,7 @@
                                             <StackPanel>
                                                 <Label Content="Rank" />
                                                 <TextBox Text="{Binding CurrentPageData.OthersDecedentList[3].RankList[0]}"
+                                                         GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                  Margin="2,0,0,2" Width="350" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                             <StackPanel>
@@ -1175,6 +1235,7 @@
                                             <StackPanel>
                                                 <Label Content="Birth Date" />
                                                 <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000" 
+                                                                    GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                                     Value="{Binding CurrentPageData.OthersDecedentList[3].BirthDate}"
                                                                     Margin="2,0,2,0"  Width="245" KeyDown="Textbox_KeyDown"
                                                                     NullValue=""/>
@@ -1182,6 +1243,7 @@
                                             <StackPanel>
                                                 <Label Content="Death Date" />
                                                 <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000" 
+                                                                    GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                                     Value="{Binding CurrentPageData.OthersDecedentList[3].DeathDate}"
                                                                     Margin="2,0,2,0"  Width="250" KeyDown="Textbox_KeyDown"
                                                                     NullValue=""/>
@@ -1200,12 +1262,15 @@
                                             <StackPanel>
                                                 <Label Content="Inscription" />
                                                 <TextBox Text="{Binding CurrentPageData.OthersDecedentList[3].Inscription}"
+                                                         GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                  Margin="2,0,0,50"  Width="580" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                         </StackPanel>
                                     </StackPanel>
                                 </StackPanel>
+                                <!--#endregion-->
 
+                                <!--#region Sixth-->
                                 <CheckBox FontSize="15" Name="Name6" Margin="5,10,0,0"
                                   FontWeight="Bold" Content="6th Name Listed"/>
 
@@ -1215,21 +1280,25 @@
                                         <StackPanel>
                                             <Label Content="Name: First" />
                                             <TextBox Text="{Binding CurrentPageData.OthersDecedentList[4].FirstName}"
+                                                     GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                              Margin="2,0,0,2"  Width="200" KeyDown="Textbox_KeyDown"/>
                                         </StackPanel>
                                         <StackPanel>
                                             <Label Content="Middle" />
                                             <TextBox Text="{Binding CurrentPageData.OthersDecedentList[4].MiddleName}"
+                                                     GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                              Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                         </StackPanel>
                                         <StackPanel>
                                             <Label Content="Last" />
                                             <TextBox x:Name="name6LastName" Text="{Binding CurrentPageData.OthersDecedentList[4].LastName}"
+                                                     GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                              Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                         </StackPanel>
                                         <StackPanel>
                                             <Label Content="Suffix" />
                                             <TextBox Text="{Binding CurrentPageData.OthersDecedentList[4].Suffix}"
+                                                     GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                              Margin="2,0,0,2"  Width="95" KeyDown="Textbox_KeyDown"/>
                                         </StackPanel>
                                     </StackPanel>
@@ -1246,6 +1315,7 @@
                                         <StackPanel>
                                             <Label Content="Birth Date" />
                                             <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000" 
+                                                                GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                                 Value="{Binding CurrentPageData.OthersDecedentList[4].BirthDate}"
                                                                 Margin="2,0,2,0"  Width="345" KeyDown="Textbox_KeyDown"
                                                                 NullValue=""/>
@@ -1253,13 +1323,16 @@
                                         <StackPanel>
                                             <Label Content="Death Date" />
                                             <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000" 
+                                                                GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                                 Value="{Binding CurrentPageData.OthersDecedentList[4].DeathDate}"
                                                                 Margin="2,0,2,50"  Width="350" KeyDown="Textbox_KeyDown"
                                                                 NullValue=""/>
                                         </StackPanel>
                                     </StackPanel>
                                 </StackPanel>
-
+                                <!--#endregion-->
+                                
+                                <!--#region Seventh-->
                                 <StackPanel Background="LightGray">
                                     <CheckBox FontSize="15" Name="Name7" Margin="5,10,0,0"
                                       FontWeight="Bold" Content="7th Name Listed"/>
@@ -1270,21 +1343,25 @@
                                             <StackPanel>
                                                 <Label Content="Name: First" />
                                                 <TextBox Text="{Binding CurrentPageData.OthersDecedentList[5].FirstName}"
+                                                         GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                 Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                             <StackPanel>
                                                 <Label Content="Middle" />
                                                 <TextBox Text="{Binding CurrentPageData.OthersDecedentList[5].MiddleName}"
+                                                         GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                 Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                             <StackPanel>
                                                 <Label Content="Last" />
                                                 <TextBox x:Name="name7LastName" Text="{Binding CurrentPageData.OthersDecedentList[5].LastName}"
+                                                         GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                 Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                             <StackPanel>
                                                 <Label Content="Suffix" />
                                                 <TextBox Text="{Binding CurrentPageData.OthersDecedentList[5].Suffix}"
+                                                         GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                 Margin="2,0,0,2"  Width="95" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                         </StackPanel>
@@ -1301,6 +1378,7 @@
                                             <StackPanel>
                                                 <Label Content="Birth Date" />
                                                 <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000" 
+                                                                    GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                                     Value="{Binding CurrentPageData.OthersDecedentList[5].BirthDate}"
                                                                     Margin="2,0,2,0"  Width="345" KeyDown="Textbox_KeyDown"
                                                                     NullValue=""/>
@@ -1308,6 +1386,7 @@
                                             <StackPanel>
                                                 <Label Content="Death Date" />
                                                 <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" Mask="00/00/0000" 
+                                                                    GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                                     Value="{Binding CurrentPageData.OthersDecedentList[5].DeathDate}"
                                                                     Margin="2,0,2,50"  Width="350" KeyDown="Textbox_KeyDown"
                                                                     NullValue=""/>
@@ -1315,6 +1394,8 @@
                                         </StackPanel>
                                     </StackPanel>
                                 </StackPanel>
+                                <!--#endregion-->
+                                
                             </StackPanel>
                         </StackPanel>
                     </Border>

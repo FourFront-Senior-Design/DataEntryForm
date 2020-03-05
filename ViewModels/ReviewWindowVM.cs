@@ -30,6 +30,8 @@ namespace ViewModels
             set
             {
                 _currentPageData = value;
+                _currentPageData.Prev1GravesiteNum = _database.GetGraveSiteNum(PageIndex - 1);
+                _currentPageData.Prev2GravesiteNum = _database.GetGraveSiteNum(PageIndex - 2);
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentPageData)));
             }
         }
@@ -51,7 +53,16 @@ namespace ViewModels
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PageIndex)));
             }
         }
-        
+
+        public string Title
+        {
+            get
+            {
+                string _version = System.Reflection.AssemblyName.GetAssemblyName("DataEntryForm.exe").Version.ToString();
+                return $"Review (Verison {_version})";
+            }
+        }
+
         private void displayHeadStone()
         {
             CurrentPageData = _database.GetHeadstone(_currentPageIndex);
@@ -96,6 +107,7 @@ namespace ViewModels
             Trace.WriteLine("Set up records to review: ");
             Trace.WriteLine(CurrentPageData.PrimaryDecedent.LastName);
         }
+       
 
         public void NextRecord()
         {
@@ -109,6 +121,7 @@ namespace ViewModels
             _prevMarkerType = _currentPageData.MarkerType;
 
             PageIndex++;
+            
 
             if (string.IsNullOrEmpty(CurrentPageData.CemeteryName))
             {
@@ -139,13 +152,14 @@ namespace ViewModels
             }
 
             PageIndex--;
-            
+
             Trace.WriteLine("Previous click: ");
             Trace.WriteLine(CurrentPageData.PrimaryDecedent.LastName);
         }
 
         public void FirstRecord()
         {
+
             PageIndex = 1;
 
             Trace.WriteLine("First Record click: ");
@@ -154,6 +168,7 @@ namespace ViewModels
 
         public void LastRecord()
         {
+
             PageIndex = _database.TotalItems;
 
             Trace.WriteLine("Last Record click: ");
