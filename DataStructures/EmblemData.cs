@@ -13,7 +13,7 @@ namespace DataStructures
             get
             {
                 List<EmblemData> emblems = new List<EmblemData>();
-                emblems.Add(new EmblemData { Photo = "", Code = "00", Name = "UNKNOWN" });
+                emblems.Add(new EmblemData { Photo = "/DataEntryForm;component/Emblems/emb-empty.png", Code = "00", Name = "UNKNOWN" });
                 emblems.Add(new EmblemData { Photo = "/DataEntryForm;component/Emblems/emb-01.jpg", Code = "01", Name = "CHRISTIAN CROSS" });
                 emblems.Add(new EmblemData { Photo = "/DataEntryForm;component/Emblems/emb-02.jpg", Code = "02", Name = "BUDDHIST (Wheel of Righteousness)" });
                 emblems.Add(new EmblemData { Photo = "/DataEntryForm;component/Emblems/emb-03.jpg", Code = "03", Name = "JUDAISM (Star of David)" });
@@ -88,8 +88,8 @@ namespace DataStructures
                 emblems.Add(new EmblemData { Photo = "/DataEntryForm;component/Emblems/emb-72.jpg", Code = "72", Name = "EVANGELICAL LUTHERAN CHURCH" });
                 emblems.Add(new EmblemData { Photo = "/DataEntryForm;component/Emblems/emb-73.jpg", Code = "73", Name = "UNIVERSALIST CROSS" });
                 emblems.Add(new EmblemData { Photo = "/DataEntryForm;component/Emblems/emb-74.jpg", Code = "74", Name = "FAITH AND PRAYER" });
-                emblems.Add(new EmblemData { Photo = "/DataEntryForm;component/Emblems/emb-98.jpg", Code = "98", Name = "MUSLIM (Islamic 5-Pointed Star)" });
-                emblems.Add(new EmblemData { Photo = "/DataEntryForm;component/Emblems/emb-99.jpg", Code = "99", Name = "NON REQUESTED" });
+                emblems.Add(new EmblemData { Photo = "/DataEntryForm;component/Emblems/emb-empty.png", Code = "98", Name = "MUSLIM (Islamic 5-Pointed Star)" });
+                emblems.Add(new EmblemData { Photo = "/DataEntryForm;component/Emblems/emb-empty.png", Code = "99", Name = "NON REQUESTED" });
                 return emblems;
             }
         }
