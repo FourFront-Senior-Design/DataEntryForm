@@ -9,13 +9,13 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Collections.Generic;
 using MessageBox = System.Windows.MessageBox;
+using Xceed.Wpf.Toolkit;
 
 namespace Data_Entry_Form
 {
     public partial class ReviewWindow : Window
     {
         public event EventHandler MoveToMainPage;
-
 
         private IReviewWindowVM _viewModel;
         private HeadstoneDisplayWindow _displayWindow;
@@ -89,18 +89,23 @@ namespace Data_Entry_Form
             }
         }
 
-
-        private void updateFocusField(KeyEventArgs ee)
+        private void updateFocusField(KeyEventArgs e)
         {
-            if (ee.Source is TextBox)
+            if(e.Source is MaskedTextBox)
             {
-                TextBox tb = (TextBox)ee.Source;
+                MaskedTextBox mtb = (MaskedTextBox)e.Source;
+                mtb.GetBindingExpression(MaskedTextBox.ValueProperty).UpdateSource();
+                mtb.Focus();
+            }
+            else if (e.Source is TextBox)
+            {
+                TextBox tb = (TextBox)e.Source;
                 tb.GetBindingExpression(TextBox.TextProperty).UpdateSource();
                 tb.Focus();
             }
-            else if (ee.Source is ComboBox)
+            else if (e.Source is ComboBox)
             {
-                ComboBox cb = (ComboBox)ee.Source;
+                ComboBox cb = (ComboBox)e.Source;
                 cb.GetBindingExpression(ComboBox.TextProperty).UpdateSource();
                 cb.Focus();
             }
@@ -576,6 +581,45 @@ namespace Data_Entry_Form
         {
             var textbox = (e.Source as TextBox);
             if(textbox != null) textbox.SelectAll();
+        }
+
+        private void Cut_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (sender is TextBox || sender is MaskedTextBox)
+            {
+                TextBox tb = (TextBox)sender;
+
+                if (tb.SelectedText.Length == 0)
+                {
+                    tb.SelectAll();
+                }
+                tb.Cut();
+            }
+        }
+
+        private void Cut_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+            e.Handled = true;
+        }
+        private void Copy_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (sender is TextBox)
+            {
+                TextBox tb = (TextBox)sender;
+
+                if (tb.SelectedText.Length == 0)
+                {
+                    tb.SelectAll();
+                }
+                tb.Copy();
+            }
+        }
+
+        private void Copy_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+            e.Handled = true;
         }
     }
 }
