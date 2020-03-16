@@ -86,11 +86,11 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.02*"/>
+            <RowDefinition Height="0.2*"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="10*"/>
-            <RowDefinition Height="0.02*"/>
+            <RowDefinition Height="0.2*"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -117,20 +117,9 @@
                             <ColumnDefinition Width="2.5*"/>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0" Content="Record" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"/>
-                        <TextBox Grid.Column="1" Text="{Binding PageIndex}" IsReadOnly="True" IsEnabled="False" CharacterCasing="Upper" FontSize="14" Height="20">
-                            <TextBox.CommandBindings>
-                                <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                            </TextBox.CommandBindings>
-                        </TextBox>
+                        <TextBox Grid.Column="1" Text="{Binding PageIndex}" IsReadOnly="True" IsEnabled="False" CharacterCasing="Upper" FontSize="14" Height="20"/>
                         <Label Grid.Column="2" Content="of" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"/>
-                        <TextBox Grid.Column="3" Text="{Binding GetDatabaseCount, Mode=OneWay}" 
-                                 CharacterCasing="Upper" IsReadOnly="True" IsEnabled="False" FontSize="14" Height="20" Margin="0,0,5,0">
-                            <TextBox.CommandBindings>
-                                <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                            </TextBox.CommandBindings>
-                        </TextBox>
+                        <TextBox Grid.Column="3" Text="{Binding GetDatabaseCount, Mode=OneWay}" CharacterCasing="Upper" IsReadOnly="True" IsEnabled="False" FontSize="14" Height="20" Margin="0,0,5,0"/>
                     </Grid>
                 </Border>
 
@@ -141,19 +130,9 @@
                             <ColumnDefinition Width="0.75*"/>
                         </Grid.ColumnDefinitions>
                         <TextBox  Text="{Binding CurrentPageData.SequenceID}" IsEnabled="True"
-                                  IsReadOnly="True" CharacterCasing="Upper" FontSize="14" Width="auto" Height="20" Margin="2">
-                            <TextBox.CommandBindings>
-                                <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                            </TextBox.CommandBindings>
-                        </TextBox>
+                                  IsReadOnly="True" CharacterCasing="Upper" FontSize="14" Width="auto" Height="20" Margin="2"/>
                         <TextBox  Text="{Binding CurrentPageData.PrimaryKey}" IsEnabled="True" Margin="2,2,2,2"
-                                  Grid.Column="1" IsReadOnly="True" CharacterCasing="Upper" FontSize="14" Width="auto" Height="20">
-                            <TextBox.CommandBindings>
-                                <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                            </TextBox.CommandBindings>
-                        </TextBox>
+                                  Grid.Column="1" IsReadOnly="True" CharacterCasing="Upper" FontSize="14" Width="auto" Height="20"/>
                     </Grid>
                 </Border>
 
@@ -164,12 +143,7 @@
                             <ColumnDefinition Width="1.2*"/>
                         </Grid.ColumnDefinitions>
                         <TextBox x:Name="goToRecordTb" Grid.Column="0" CharacterCasing="Upper" 
-                                     FontSize="14" Height="20" Margin="2" GotKeyboardFocus="TextBox_GotKeyboardFocus">
-                            <TextBox.CommandBindings>
-                                <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                            </TextBox.CommandBindings>
-                        </TextBox>
+                                     FontSize="14" Height="20" Margin="2" GotKeyboardFocus="TextBox_GotKeyboardFocus" />
                         <Button Height="20" FontSize="12" Margin="0,0,3,0"
                             Grid.Column="1" Click="GoToRecordClick">
                             <TextBlock TextWrapping="Wrap" TextAlignment="Center">
@@ -279,19 +253,19 @@
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="1*"/>
                 </Grid.RowDefinitions>
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.8*"/>
-                    <ColumnDefinition Width="0.5*"/>
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
-
+                
                 <Grid Grid.Row="0">
-                    <Label  Content="Cemetry Name"  VerticalAlignment="Center" Margin="0,8"/>
-                    <Border BorderThickness="1"                                  
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="127*"/>
+                        <ColumnDefinition Width="415*"/>
+                        <ColumnDefinition Width="541*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Content="Cemetry Name"  VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="0,8"/>
+                    <Border BorderThickness="1" Grid.Column="0"                                   
                             VerticalAlignment="Center" 
                             Margin="120,9,50,11" 
                             Padding="1" 
+                            Grid.ColumnSpan="2"
                             x:Name="cemeteryName">
                         <ComboBox Text="{Binding CurrentPageData.CemeteryName}"
                                   HorizontalAlignment="Stretch"
@@ -302,63 +276,49 @@
                                   ItemTemplate="{StaticResource cemeteryNamesCmbTemplate}" 
                                   LostFocus="Cemetery_LostFocus"/>
                     </Border>
-                </Grid>
-                <Grid Grid.Row="0" Grid.Column="2">
-                    <Label Grid.Column="3" Content="Burial Section #" VerticalAlignment="Center" Margin="0,8"/>
-                    <TextBox x:Name="BurialSectionField" Grid.Column="3" Text="{Binding CurrentPageData.BurialSectionNumber}" 
-                             Margin="150,10,0,10" Padding="2" GotKeyboardFocus="TextBox_GotKeyboardFocus">
-                        <TextBox.CommandBindings>
-                            <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                            <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                        </TextBox.CommandBindings>
-                    </TextBox>
+
+                    <Label Grid.Column="2" Content="Burial Section #" VerticalAlignment="Center" Margin="0,8"/>
+                    <TextBox x:Name="BurialSectionField" Grid.Column="2" Text="{Binding CurrentPageData.BurialSectionNumber}" 
+                             Margin="120,10,0,10" Padding="2" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <Label Content="Wall ID #" Grid.Column="0"   VerticalAlignment="Center" Margin="0,8,104,8" Height="29"/>
-                    <TextBox Text="{Binding CurrentPageData.WallID}" Grid.Column="0" x:Name="wallID"
-                             Margin="80,8,50,8" Padding="2" GotKeyboardFocus="TextBox_GotKeyboardFocus">
-                        <TextBox.CommandBindings>
-                            <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                            <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                        </TextBox.CommandBindings>
-                    </TextBox>
-                </Grid>
-
-                <Grid Grid.Row="1" Grid.Column="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="0.4*"/>
-                        <ColumnDefinition Width="0.4*"/>
-                        <ColumnDefinition Width="0.4*"/>
-                        <ColumnDefinition Width="0.4*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="0.5*"/>
+                        <ColumnDefinition Width="0.5*"/>
+                        <ColumnDefinition Width="0.5*"/>
                     </Grid.ColumnDefinitions>
-                    <Label  Content="Row #" Grid.Column="0" VerticalAlignment="Center"  Margin="0,8,0,8" Height="29"/>
+                    
+                    <!--#region Top Menue-->
+                    <Label Content="Wall ID #" Grid.Column="0"   VerticalAlignment="Center" Margin="0,8,104,8" Height="29"/>
+                    <TextBox Text="{Binding CurrentPageData.WallID}" Grid.Column="0" x:Name="wallID"
+                             Margin="80,8,10,8" Padding="2" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
+                    
+                    <Label  Content="Row #" Grid.Column="1" VerticalAlignment="Center"  Margin="0,8,110,8" Height="29"/>
                     <TextBox Text="{Binding CurrentPageData.RowNum}" GotKeyboardFocus="TextBox_GotKeyboardFocus" 
-                             Grid.Column="0" x:Name="rowNum" Margin="80,8,0,8" Padding="2">
-                        <TextBox.CommandBindings>
-                            <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                            <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                        </TextBox.CommandBindings>
-                    </TextBox>
-
-                    <Label Content="Gravesite #" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,8" Height="29"/>
-                    <Label Content="{Binding CurrentPageData.Prev2GravesiteNum}" Grid.Column="2" Margin="0,8,2,8" Padding="2" Background="LightGray" IsEnabled="False"/>
-                    <Label Content="{Binding CurrentPageData.Prev1GravesiteNum}"  Grid.Column="3" Margin="2,8,5,8" Padding="2" Background="LightGray" IsEnabled="False"/>
+                             Grid.Column="1" x:Name="rowNum" Margin="60,8,0,8" Padding="2"/>
+                    
+                    <Label Content="Gravesite #" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,8" Height="29"/>
+                    <Label Content="{Binding CurrentPageData.Prev2GravesiteNum}" Grid.Column="3" Margin="0,8,2,8" Padding="2" Background="LightGray" IsEnabled="False"/>
+                    <Label Content="{Binding CurrentPageData.Prev1GravesiteNum}"  Grid.Column="4" Margin="2,8,5,8" Padding="2" Background="LightGray" IsEnabled="False"/>
                     <TextBox Text="{Binding CurrentPageData.GavestoneNumber}" GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                             Grid.Column="4" x:Name="gravesiteNum"  Margin="0,8,0,8" Padding="2">
-                        <TextBox.CommandBindings>
-                            <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                            <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                        </TextBox.CommandBindings>
-                    </TextBox>
+                             Grid.Column="5" x:Name="gravesiteNum"  Margin="0,8,0,8" Padding="2"/>
                     <!--#endregion-->
-
+                    
                 </Grid>
                 <Grid Grid.Row="2">
-                    <Label Content="Marker Type"  VerticalAlignment="Center"/>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Content="Marker Type"  VerticalAlignment="Center"/>
                     <Border BorderThickness="1" 
+                            Grid.Column="0" 
                             VerticalAlignment="Center" 
-                            Margin="100,10,50,10" 
+                            Margin="100,10,10,10" 
                             Padding="2" 
                             x:Name="markerType">
                         <ComboBox Text="{Binding CurrentPageData.MarkerType}" 
@@ -373,27 +333,21 @@
                             <ComboBoxItem Content="Temprory Marker"></ComboBoxItem>
                         </ComboBox>
                     </Border>
-                </Grid>
-
-                <Grid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.5*"/>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="1"  Content="Emblem 1"  VerticalAlignment="Center" Margin="20,0,11,0"/>
-                    <Border BorderThickness="1"
-                                Grid.Column="1"
+                    <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="138*"/>
+                            <ColumnDefinition Width="35*"/>
+                            <ColumnDefinition Width="11*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"  Content="Emblem 1"  VerticalAlignment="Center" Margin="0,11"/>
+                        <Border BorderThickness="1"
+                                Grid.Column="0"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Stretch"
-                                Margin="100,11,20,11"
+                                Margin="80,11,10,11"
                                 Padding="1"
                                 x:Name="emb1Border">
-                        <ComboBox  
+                            <ComboBox  
                                       ItemsSource="{Binding GetEmblemData}"
                                       ItemTemplate="{StaticResource emblemCmbTemplate}" 
                                       IsEditable="True"
@@ -404,12 +358,17 @@
                                       IsTextSearchEnabled="True"
                                       PreviewTextInput="NumberValidationTextBox"
                                       TextBoxBase.TextChanged="EmblemCombox_TextChanged"/>
-                    </Border>
-                    <Image Grid.Column="2" Width="30" Height="30" Stretch="Fill" x:Name="emb1_selected"
-                       VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,10,16,11"/>
-
-                    <Label Grid.Column="4" Content="Emblem 2"  VerticalAlignment="Center"/>
-                    <ComboBox Grid.Column="4"  Margin="80,11,20,11" Padding="1" 
+                        </Border>
+                        <Image Grid.Column="1" Width="30" Height="30" Stretch="Fill" x:Name="emb1_selected"
+                       VerticalAlignment="Center" Margin="24,10,16,11"/>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="Emblem 2"  VerticalAlignment="Center"/>
+                        <ComboBox Grid.Column="0"  Margin="90,10,0,10" Padding="1" 
                               HorizontalAlignment="Stretch" ItemsSource="{Binding GetEmblemData}"
                               ItemTemplate="{StaticResource emblemCmbTemplate}" IsEditable="True"
                               Text="{Binding CurrentPageData.Emblem2}"  LostFocus="EmblemCombox_LostFocus"
@@ -417,8 +376,9 @@
                               VerticalAlignment="Center" x:Name="emb2"
                               PreviewTextInput="NumberValidationTextBox"
                               TextBoxBase.TextChanged="EmblemCombox_TextChanged"/>
-                    <Image Grid.Column="5" Width="30" Height="30" Stretch="Fill" x:Name="emb2_selected"
-                       VerticalAlignment="Center" HorizontalAlignment="Left" Margin="2,0,15,0"/>
+                        <Image Grid.Column="1" Width="30" Height="30" Stretch="Fill" x:Name="emb2_selected"
+                       VerticalAlignment="Center" Margin="2,0,15,0"/>
+                    </Grid>
                 </Grid>
             </Grid>
         </Border>
@@ -463,52 +423,32 @@
 
                     <Border BorderBrush="Black" BorderThickness="1">
                         <StackPanel>
-
+                            
                             <!--#region Primary-->
                             <StackPanel Background="LightGray">
-                                <Label Margin="0,30,0,0" Content="PRIMARY" FontSize="17" FontWeight="Bold"/>
+                                <Label Margin="0,25,0,0" Content="PRIMARY" FontSize="17" FontWeight="Bold"/>
                                 <StackPanel Orientation="Horizontal">
                                     <StackPanel>
                                         <Label Content="Name: First" />
                                         <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.FirstName}" 
                                          Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"
-                                             x:Name="primaryFirstName" GotKeyboardFocus="TextBox_GotKeyboardFocus">
-                                            <TextBox.CommandBindings>
-                                                <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                            </TextBox.CommandBindings>
-                                        </TextBox>
+                                             x:Name="primaryFirstName" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
                                     </StackPanel>
                                     <StackPanel>
                                         <Label Content="Middle" />
                                         <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.MiddleName}" 
                                          Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"
-                                             x:Name="primaryMiddleName" GotKeyboardFocus="TextBox_GotKeyboardFocus">
-                                            <TextBox.CommandBindings>
-                                                <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                            </TextBox.CommandBindings>
-                                        </TextBox>
+                                             x:Name="primaryMiddleName" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
                                     </StackPanel>
                                     <StackPanel>
                                         <Label Content="Last" />
                                         <TextBox x:Name="primaryLastName" Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"
-                                         Text="{Binding CurrentPageData.PrimaryDecedent.LastName}" GotKeyboardFocus="TextBox_GotKeyboardFocus">
-                                            <TextBox.CommandBindings>
-                                                <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                            </TextBox.CommandBindings>
-                                        </TextBox>
+                                         Text="{Binding CurrentPageData.PrimaryDecedent.LastName}" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
                                     </StackPanel>
                                     <StackPanel>
                                         <Label Content="Suffix" />
                                         <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.Suffix}" 
-                                         Margin="2,0,0,2"  Width="95" KeyDown="Textbox_KeyDown" GotKeyboardFocus="TextBox_GotKeyboardFocus">
-                                            <TextBox.CommandBindings>
-                                                <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                            </TextBox.CommandBindings>
-                                        </TextBox>
+                                         Margin="2,0,0,2"  Width="95" KeyDown="Textbox_KeyDown" GotKeyboardFocus="TextBox_GotKeyboardFocus"/>
                                     </StackPanel>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
@@ -526,12 +466,7 @@
                                         <Label Content="Rank" />
                                         <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.RankList[0]}"
                                              Padding="1" GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                             Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown">
-                                            <TextBox.CommandBindings>
-                                                <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                            </TextBox.CommandBindings>
-                                        </TextBox>
+                                             Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                     </StackPanel>
                                     <StackPanel>
                                         <Label Content="Branch" />
@@ -548,12 +483,7 @@
                                         <Label Content="Branch-Unit Custom" />
                                         <TextBox GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                  Text="{Binding CurrentPageData.PrimaryDecedent.BranchUnitCustom}"  
-                                             Margin="2,0,0,2"  Width="702" KeyDown="Textbox_KeyDown">
-                                            <TextBox.CommandBindings>
-                                                <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                            </TextBox.CommandBindings>
-                                        </TextBox>
+                                             Margin="2,0,0,2"  Width="702" KeyDown="Textbox_KeyDown"/>
                                     </StackPanel>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
@@ -581,15 +511,10 @@
                                     <StackPanel>
                                         <Label Content="Birth Date" />
                                         <xctk:MaskedTextBox ValueDataType="{x:Type s:String}" 
-                                        Mask="00/00/0000" GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                        Margin="2,0,2,0" Width="200"  KeyDown="Textbox_KeyDown"
-                                        Value="{Binding CurrentPageData.PrimaryDecedent.BirthDate}"
-                                        NullValue="">
-                                            <xctk:MaskedTextBox.CommandBindings>
-                                                <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                            </xctk:MaskedTextBox.CommandBindings>
-                                        </xctk:MaskedTextBox>
+                                                        Mask="00/00/0000" GotKeyboardFocus="TextBox_GotKeyboardFocus"
+                                                        Margin="2,0,2,0" Width="200"  KeyDown="Textbox_KeyDown"
+                                                        Value="{Binding CurrentPageData.PrimaryDecedent.BirthDate}"
+                                                        NullValue=""/>
                                     </StackPanel>
                                     <StackPanel>
                                         <Label Content="Death Date" />
@@ -597,12 +522,7 @@
                                                         Mask="00/00/0000" GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                                         Margin="2,0,2,0"  Width="200" KeyDown="Textbox_KeyDown"
                                                         Value="{Binding CurrentPageData.PrimaryDecedent.DeathDate}"
-                                                        NullValue="">
-                                            <TextBox.CommandBindings>
-                                                <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                            </TextBox.CommandBindings>
-                                        </xctk:MaskedTextBox>
+                                                        NullValue=""/>
                                     </StackPanel>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
@@ -631,12 +551,7 @@
                                         <Label Content="Awards Custom (Enter multiple w/ spaces between)" />
                                         <TextBox KeyDown="Textbox_KeyDown" GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                              Text="{Binding CurrentPageData.PrimaryDecedent.AwardCustom}" 
-                                             Margin="2,0,2,0"  Width="405">
-                                            <TextBox.CommandBindings>
-                                                <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                <CommandBinding Command="Copy" CanExecute="Copy_CanExecute"  Executed="Copy_Executed"/>
-                                            </TextBox.CommandBindings>
-                                        </TextBox>
+                                             Margin="2,0,2,0"  Width="405"/>
                                     </StackPanel>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
@@ -645,10 +560,6 @@
                                         <TextBox KeyDown="Textbox_KeyDown" GotKeyboardFocus="TextBox_GotKeyboardFocus"
                                              Text="{Binding CurrentPageData.PrimaryDecedent.Inscription}"
                                              Margin="2,0,0,2"  Width="700">
-                                            <TextBox.CommandBindings>
-                                                <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                            </TextBox.CommandBindings>
                                         </TextBox>
                                     </StackPanel>
                                 </StackPanel>
@@ -739,12 +650,7 @@
                                             <Label Content="Rank 2" />
                                             <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.RankList[1]}"  
                                               Margin="2,0,0,2" Width="100" Padding="1"
-                                              HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                                                <TextBox.CommandBindings>
-                                                    <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                    <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                                </TextBox.CommandBindings>
-                                            </TextBox>
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
                                         </StackPanel>
                                         <StackPanel>
                                             <Label Content="Branch 2" />
@@ -759,12 +665,7 @@
                                             <Label Content="Rank 3" />
                                             <TextBox Text="{Binding CurrentPageData.PrimaryDecedent.RankList[2]}"
                                               Margin="2,0,0,2" Width="100" Padding="1"
-                                              HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                                                <TextBox.CommandBindings>
-                                                    <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                    <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                                </TextBox.CommandBindings>
-                                            </TextBox>
+                                              HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
                                         </StackPanel>
                                         <StackPanel>
                                             <Label Content="Branch 3" />
@@ -782,7 +683,7 @@
 
                             <!--#region Secondary-->
                             <Label
-                            Margin="0,10,0,0"
+                            Margin="0,50,0,0"
                             Content="SECONDARY"
                             FontSize="17"
                             FontWeight="Bold"/>
@@ -790,42 +691,22 @@
                                 <StackPanel>
                                     <Label Content="Name: First" />
                                     <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].FirstName}" GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                            Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown">
-                                        <TextBox.CommandBindings>
-                                            <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                            <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                        </TextBox.CommandBindings>
-                                    </TextBox>
+                                            Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Middle" />
                                     <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].MiddleName}" GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                            Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown">
-                                        <TextBox.CommandBindings>
-                                            <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                            <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                        </TextBox.CommandBindings>
-                                    </TextBox>
+                                            Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Last" />
                                     <TextBox x:Name="secondaryLastName" Text="{Binding CurrentPageData.OthersDecedentList[0].LastName}" GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                            Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown">
-                                        <TextBox.CommandBindings>
-                                            <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                            <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                        </TextBox.CommandBindings>
-                                    </TextBox>
+                                            Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Suffix" />
                                     <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].Suffix}" GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                            Margin="2,0,0,2"  Width="95" KeyDown="Textbox_KeyDown">
-                                        <TextBox.CommandBindings>
-                                            <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                            <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                        </TextBox.CommandBindings>
-                                    </TextBox>
+                                            Margin="2,0,0,2"  Width="95" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
@@ -841,12 +722,7 @@
                                 <StackPanel>
                                     <Label Content="Rank" />
                                     <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].RankList[0]}" GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                            Margin="2,0,0,2" Width="200" Padding="1" KeyDown="Textbox_KeyDown">
-                                        <TextBox.CommandBindings>
-                                            <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                            <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                        </TextBox.CommandBindings>
-                                    </TextBox>
+                                            Margin="2,0,0,2" Width="200" Padding="1" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Branch" />
@@ -862,12 +738,7 @@
                                 <StackPanel>
                                     <Label Content="Branch-Unit Custom" />
                                     <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].BranchUnitCustom}" GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                                Margin="2,0,0,2"  Width="702" KeyDown="Textbox_KeyDown">
-                                        <TextBox.CommandBindings>
-                                            <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                            <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                        </TextBox.CommandBindings>
-                                    </TextBox>
+                                                Margin="2,0,0,2"  Width="702" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
@@ -901,12 +772,7 @@
                                                         Margin="2,0,2,0" 
                                                         Width="200" 
                                                         KeyDown="Textbox_KeyDown"
-                                                        NullValue="">
-                                        <TextBox.CommandBindings>
-                                            <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                            <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                        </TextBox.CommandBindings>
-                                    </xctk:MaskedTextBox>
+                                                        NullValue=""/>
                                 </StackPanel>
                                 <StackPanel>
                                     <Label Content="Death Date" />
@@ -917,12 +783,7 @@
                                                         Margin="2,0,2,0" 
                                                         Width="200" 
                                                         KeyDown="Textbox_KeyDown"
-                                                        NullValue="">
-                                        <TextBox.CommandBindings>
-                                            <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                            <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                        </TextBox.CommandBindings>
-                                    </xctk:MaskedTextBox>
+                                                        NullValue=""/>
                                 </StackPanel>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
@@ -951,12 +812,7 @@
                                     <Label Content="Awards Custom (Enter multiple w/ spaces between)" />
                                     <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].AwardCustom}"
                                              GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                                Margin="2,0,2,0"  Width="405" KeyDown="Textbox_KeyDown">
-                                        <TextBox.CommandBindings>
-                                            <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                            <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                        </TextBox.CommandBindings>
-                                    </TextBox>
+                                                Margin="2,0,2,0"  Width="405" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
@@ -964,12 +820,7 @@
                                     <Label Content="Inscription" />
                                     <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].Inscription}"
                                              GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                                Margin="2,0,0,2" Width="700" KeyDown="Textbox_KeyDown">
-                                        <TextBox.CommandBindings>
-                                            <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                            <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                        </TextBox.CommandBindings>
-                                    </TextBox>
+                                                Margin="2,0,0,2" Width="700" KeyDown="Textbox_KeyDown"/>
                                 </StackPanel>
                             </StackPanel>
                             <StackPanel Margin="0,20,0,10">
@@ -1058,12 +909,7 @@
                                         <Label Content="Rank 2" />
                                         <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].RankList[1]}"
                                             Margin="2,0,0,2" Width="100" Padding="1"
-                                            HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                                            <TextBox.CommandBindings>
-                                                <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                            </TextBox.CommandBindings>
-                                        </TextBox>
+                                            HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
                                     </StackPanel>
                                     <StackPanel>
                                         <Label Content="Branch 2" />
@@ -1078,12 +924,7 @@
                                         <Label Content="Rank 3" />
                                         <TextBox Text="{Binding CurrentPageData.OthersDecedentList[0].RankList[2]}"
                                             Margin="2,0,0,2" Width="100" Padding="1"
-                                            HorizontalAlignment="Stretch" VerticalAlignment="Center">
-                                            <TextBox.CommandBindings>
-                                                <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                            </TextBox.CommandBindings>
-                                        </TextBox>
+                                            HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
                                     </StackPanel>
                                     <StackPanel>
                                         <Label Content="Branch 3" />
@@ -1121,45 +962,25 @@
                                                 <Label Content="Name: First" />
                                                 <TextBox Text="{Binding CurrentPageData.OthersDecedentList[1].FirstName}"
                                                          GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                                 Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown">
-                                                    <TextBox.CommandBindings>
-                                                        <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                        <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                                    </TextBox.CommandBindings>
-                                                </TextBox>
+                                                 Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                             <StackPanel>
                                                 <Label Content="Middle" />
                                                 <TextBox Text="{Binding CurrentPageData.OthersDecedentList[1].MiddleName}"
                                                          GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                                 Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown">
-                                                    <TextBox.CommandBindings>
-                                                        <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                        <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                                    </TextBox.CommandBindings>
-                                                </TextBox>
+                                                 Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                             <StackPanel>
                                                 <Label Content="Last" />
                                                 <TextBox x:Name="name3LastName" Text="{Binding CurrentPageData.OthersDecedentList[1].LastName}"
                                                          GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                                 Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown">
-                                                    <TextBox.CommandBindings>
-                                                        <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                        <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                                    </TextBox.CommandBindings>
-                                                </TextBox>
+                                                 Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                             <StackPanel>
                                                 <Label Content="Suffix" />
                                                 <TextBox Text="{Binding CurrentPageData.OthersDecedentList[1].Suffix}"
                                                          GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                                 Margin="2,0,0,2"  Width="95" KeyDown="Textbox_KeyDown">
-                                                    <TextBox.CommandBindings>
-                                                        <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                        <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                                    </TextBox.CommandBindings>
-                                                </TextBox>
+                                                 Margin="2,0,0,2"  Width="95" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                         </StackPanel>
                                         <StackPanel>
@@ -1176,12 +997,7 @@
                                                 <Label Content="Rank" />
                                                 <TextBox Text="{Binding CurrentPageData.OthersDecedentList[1].RankList[0]}"
                                                          GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                                 Margin="2,0,0,2" Width="350" KeyDown="Textbox_KeyDown">
-                                                    <TextBox.CommandBindings>
-                                                        <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                        <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                                    </TextBox.CommandBindings>
-                                                </TextBox>
+                                                 Margin="2,0,0,2" Width="350" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                             <StackPanel>
                                                 <Label Content="Branch" />
@@ -1234,12 +1050,7 @@
                                                 <Label Content="Inscription" />
                                                 <TextBox Text="{Binding CurrentPageData.OthersDecedentList[1].Inscription}"
                                                          GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                                 Margin="2,0,0,50"  Width="580" KeyDown="Textbox_KeyDown">
-                                                    <TextBox.CommandBindings>
-                                                        <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                        <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                                    </TextBox.CommandBindings>
-                                                </TextBox>
+                                                 Margin="2,0,0,50"  Width="580" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                         </StackPanel>
                                     </StackPanel>
@@ -1258,45 +1069,25 @@
                                             <Label Content="Name: First" />
                                             <TextBox Text="{Binding CurrentPageData.OthersDecedentList[2].FirstName}"
                                              GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                             Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown">
-                                                <TextBox.CommandBindings>
-                                                    <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                    <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                                </TextBox.CommandBindings>
-                                            </TextBox>
+                                             Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                         </StackPanel>
                                         <StackPanel>
                                             <Label Content="Middle" />
                                             <TextBox Text="{Binding CurrentPageData.OthersDecedentList[2].MiddleName}"
                                                      GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                             Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown">
-                                                <TextBox.CommandBindings>
-                                                    <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                    <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                                </TextBox.CommandBindings>
-                                            </TextBox>
+                                             Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                         </StackPanel>
                                         <StackPanel>
                                             <Label Content="Last" />
                                             <TextBox x:Name="name4LastName" Text="{Binding CurrentPageData.OthersDecedentList[2].LastName}"
                                                      GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                             Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown">
-                                                <TextBox.CommandBindings>
-                                                    <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                    <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                                </TextBox.CommandBindings>
-                                            </TextBox>
+                                             Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                         </StackPanel>
                                         <StackPanel>
                                             <Label Content="Suffix" />
                                             <TextBox Text="{Binding CurrentPageData.OthersDecedentList[2].Suffix}"
                                                      GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                             Margin="2,0,0,2"  Width="95" KeyDown="Textbox_KeyDown">
-                                                <TextBox.CommandBindings>
-                                                    <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                    <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                                </TextBox.CommandBindings>
-                                            </TextBox>
+                                             Margin="2,0,0,2"  Width="95" KeyDown="Textbox_KeyDown"/>
                                         </StackPanel>
                                     </StackPanel>
                                     <StackPanel>
@@ -1313,12 +1104,7 @@
                                             <Label Content="Rank" />
                                             <TextBox Text="{Binding CurrentPageData.OthersDecedentList[2].RankList[0]}"
                                                      GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                             Margin="2,0,0,2" Width="350" KeyDown="Textbox_KeyDown">
-                                                <TextBox.CommandBindings>
-                                                    <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                    <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                                </TextBox.CommandBindings>
-                                            </TextBox>
+                                             Margin="2,0,0,2" Width="350" KeyDown="Textbox_KeyDown"/>
                                         </StackPanel>
                                         <StackPanel>
                                             <Label Content="Branch" />
@@ -1371,12 +1157,7 @@
                                             <Label Content="Inscription" />
                                             <TextBox Text="{Binding CurrentPageData.OthersDecedentList[2].Inscription}"
                                                      GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                             Margin="2,0,0,50" Width="580" KeyDown="Textbox_KeyDown">
-                                                <TextBox.CommandBindings>
-                                                    <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                    <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                                </TextBox.CommandBindings>
-                                            </TextBox>
+                                             Margin="2,0,0,50" Width="580" KeyDown="Textbox_KeyDown"/>
                                         </StackPanel>
                                     </StackPanel>
                                 </StackPanel>
@@ -1394,45 +1175,25 @@
                                                 <Label Content="Name: First" />
                                                 <TextBox Text="{Binding CurrentPageData.OthersDecedentList[3].FirstName}"
                                                          GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                                 Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown">
-                                                    <TextBox.CommandBindings>
-                                                        <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                        <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                                    </TextBox.CommandBindings>
-                                                </TextBox>
+                                                 Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                             <StackPanel>
                                                 <Label Content="Middle" />
                                                 <TextBox Text="{Binding CurrentPageData.OthersDecedentList[3].MiddleName}"
                                                          GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                                 Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown">
-                                                    <TextBox.CommandBindings>
-                                                        <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                        <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                                    </TextBox.CommandBindings>
-                                                </TextBox>
+                                                 Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                             <StackPanel>
                                                 <Label Content="Last" />
                                                 <TextBox x:Name="name5LastName" Text="{Binding CurrentPageData.OthersDecedentList[3].LastName}"
                                                          GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                                 Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown">
-                                                    <TextBox.CommandBindings>
-                                                        <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                        <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                                    </TextBox.CommandBindings>
-                                                </TextBox>
+                                                 Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                             <StackPanel>
                                                 <Label Content="Suffix" />
                                                 <TextBox Text="{Binding CurrentPageData.OthersDecedentList[3].Suffix}"
                                                          GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                                 Margin="2,0,0,2"  Width="95" KeyDown="Textbox_KeyDown">
-                                                    <TextBox.CommandBindings>
-                                                        <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                        <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                                    </TextBox.CommandBindings>
-                                                </TextBox>
+                                                 Margin="2,0,0,2"  Width="95" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                         </StackPanel>
                                         <StackPanel>
@@ -1449,12 +1210,7 @@
                                                 <Label Content="Rank" />
                                                 <TextBox Text="{Binding CurrentPageData.OthersDecedentList[3].RankList[0]}"
                                                          GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                                 Margin="2,0,0,2" Width="350" KeyDown="Textbox_KeyDown">
-                                                    <TextBox.CommandBindings>
-                                                        <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                        <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                                    </TextBox.CommandBindings>
-                                                </TextBox>
+                                                 Margin="2,0,0,2" Width="350" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                             <StackPanel>
                                                 <Label Content="Branch" />
@@ -1507,12 +1263,7 @@
                                                 <Label Content="Inscription" />
                                                 <TextBox Text="{Binding CurrentPageData.OthersDecedentList[3].Inscription}"
                                                          GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                                 Margin="2,0,0,50"  Width="580" KeyDown="Textbox_KeyDown">
-                                                    <TextBox.CommandBindings>
-                                                        <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                        <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                                    </TextBox.CommandBindings>
-                                                </TextBox>
+                                                 Margin="2,0,0,50"  Width="580" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                         </StackPanel>
                                     </StackPanel>
@@ -1530,45 +1281,25 @@
                                             <Label Content="Name: First" />
                                             <TextBox Text="{Binding CurrentPageData.OthersDecedentList[4].FirstName}"
                                                      GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                             Margin="2,0,0,2"  Width="200" KeyDown="Textbox_KeyDown">
-                                                <TextBox.CommandBindings>
-                                                    <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                    <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                                </TextBox.CommandBindings>
-                                            </TextBox>
+                                             Margin="2,0,0,2"  Width="200" KeyDown="Textbox_KeyDown"/>
                                         </StackPanel>
                                         <StackPanel>
                                             <Label Content="Middle" />
                                             <TextBox Text="{Binding CurrentPageData.OthersDecedentList[4].MiddleName}"
                                                      GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                             Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown">
-                                                <TextBox.CommandBindings>
-                                                    <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                    <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                                </TextBox.CommandBindings>
-                                            </TextBox>
+                                             Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                         </StackPanel>
                                         <StackPanel>
                                             <Label Content="Last" />
                                             <TextBox x:Name="name6LastName" Text="{Binding CurrentPageData.OthersDecedentList[4].LastName}"
                                                      GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                             Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown">
-                                                <TextBox.CommandBindings>
-                                                    <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                    <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                                </TextBox.CommandBindings>
-                                            </TextBox>
+                                             Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                         </StackPanel>
                                         <StackPanel>
                                             <Label Content="Suffix" />
                                             <TextBox Text="{Binding CurrentPageData.OthersDecedentList[4].Suffix}"
                                                      GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                             Margin="2,0,0,2"  Width="95" KeyDown="Textbox_KeyDown">
-                                                <TextBox.CommandBindings>
-                                                    <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                    <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                                </TextBox.CommandBindings>
-                                            </TextBox>
+                                             Margin="2,0,0,2"  Width="95" KeyDown="Textbox_KeyDown"/>
                                         </StackPanel>
                                     </StackPanel>
                                     <StackPanel>
@@ -1600,7 +1331,7 @@
                                     </StackPanel>
                                 </StackPanel>
                                 <!--#endregion-->
-
+                                
                                 <!--#region Seventh-->
                                 <StackPanel Background="LightGray">
                                     <CheckBox FontSize="15" Name="Name7" Margin="5,10,0,0"
@@ -1613,45 +1344,25 @@
                                                 <Label Content="Name: First" />
                                                 <TextBox Text="{Binding CurrentPageData.OthersDecedentList[5].FirstName}"
                                                          GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                                Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown">
-                                                    <TextBox.CommandBindings>
-                                                        <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                        <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                                    </TextBox.CommandBindings>
-                                                </TextBox>
+                                                Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                             <StackPanel>
                                                 <Label Content="Middle" />
                                                 <TextBox Text="{Binding CurrentPageData.OthersDecedentList[5].MiddleName}"
                                                          GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                                Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown">
-                                                    <TextBox.CommandBindings>
-                                                        <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                        <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                                    </TextBox.CommandBindings>
-                                                </TextBox>
+                                                Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                             <StackPanel>
                                                 <Label Content="Last" />
                                                 <TextBox x:Name="name7LastName" Text="{Binding CurrentPageData.OthersDecedentList[5].LastName}"
                                                          GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                                Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown">
-                                                    <TextBox.CommandBindings>
-                                                        <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                        <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                                    </TextBox.CommandBindings>
-                                                </TextBox>
+                                                Margin="2,0,0,2" Width="200" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                             <StackPanel>
                                                 <Label Content="Suffix" />
                                                 <TextBox Text="{Binding CurrentPageData.OthersDecedentList[5].Suffix}"
                                                          GotKeyboardFocus="TextBox_GotKeyboardFocus"
-                                                Margin="2,0,0,2"  Width="95" KeyDown="Textbox_KeyDown">
-                                                    <TextBox.CommandBindings>
-                                                        <CommandBinding Command="Cut" CanExecute="Cut_CanExecute" Executed="Cut_Executed"/>
-                                                        <CommandBinding Command="Copy" CanExecute="Copy_CanExecute" Executed="Copy_Executed"/>
-                                                    </TextBox.CommandBindings>
-                                                </TextBox>
+                                                Margin="2,0,0,2"  Width="95" KeyDown="Textbox_KeyDown"/>
                                             </StackPanel>
                                         </StackPanel>
                                         <StackPanel>
@@ -1684,7 +1395,7 @@
                                     </StackPanel>
                                 </StackPanel>
                                 <!--#endregion-->
-
+                                
                             </StackPanel>
                         </StackPanel>
                     </Border>

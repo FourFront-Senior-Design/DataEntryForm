@@ -2,9 +2,6 @@
 using System.Windows;
 using ViewModelInterfaces;
 using System.Diagnostics;
-using System.Windows.Input;
-using System.Windows.Controls;
-using Xceed.Wpf.Toolkit;
 
 namespace Data_Entry_Form
 {
@@ -74,26 +71,6 @@ namespace Data_Entry_Form
         {
             this.Close();
             Application.Current.Shutdown();
-        }
-
-        private void Cut_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            if(sender is TextBox)
-            {
-                TextBox tb = (TextBox)sender;
-
-                if(tb.SelectedText.Length == 0)
-                {
-                    tb.SelectAll();
-                }
-                tb.Cut();
-            }
-        }
-
-        private void Cut_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-            e.Handled = true;
         }
     }
 }
