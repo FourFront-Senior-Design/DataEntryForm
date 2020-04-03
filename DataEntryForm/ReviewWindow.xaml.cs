@@ -80,7 +80,7 @@ namespace Data_Entry_Form
                 TraversalRequest tRequest = new TraversalRequest(FocusNavigationDirection.Next);
                 UIElement keyboardFocus = Keyboard.FocusedElement as UIElement;
 
-                if (keyboardFocus != null)
+                if (keyboardFocus != null && ee.Handled == false)
                 {
                     keyboardFocus.MoveFocus(tRequest);
                 }
@@ -326,40 +326,47 @@ namespace Data_Entry_Form
         {
             if((Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)) && Keyboard.IsKeyDown(Key.U))
             {
-                System.Diagnostics.Trace.WriteLine("Detected Alt+U");
-                TextBox tb = (TextBox)sender;
-                int pos = tb.CaretIndex;
-                tb.Text = tb.Text.Insert(pos, "UNKNOWN");
-                tb.CaretIndex = pos + "UNKNOWN".Length;
+                if (sender is TextBox)
+                {
+                    TextBox tb = (TextBox)sender;
+                    int pos = tb.CaretIndex;
+                    tb.Text = tb.Text.Insert(pos, "UNKNOWN");
+                    tb.CaretIndex = pos + "UNKNOWN".Length;
+                }
+                else if (sender is ComboBox)
+                {
+                    ComboBox cb = (ComboBox)sender;
+                    cb.Text = "UNKNOWN";
+                }
             }
             
             if ((Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)) && Keyboard.IsKeyDown(Key.I))
             {
-                System.Diagnostics.Trace.WriteLine("Detected Alt+I");
-                TextBox tb = (TextBox)sender;
-                int pos = tb.CaretIndex;
-                tb.Text = tb.Text.Insert(pos, "ILLEGIBLE");
-                tb.CaretIndex = pos + "ILLEGIBLE".Length;
+                if (sender is TextBox)
+                {
+                    TextBox tb = (TextBox)sender;
+                    int pos = tb.CaretIndex;
+                    tb.Text = tb.Text.Insert(pos, "ILLEGIBLE");
+                    tb.CaretIndex = pos + "ILLEGIBLE".Length;
+                }
+                else if (sender is ComboBox)
+                {
+                    ComboBox cb = (ComboBox)sender;
+                    cb.Text = "ILLEGIBLE";
+                }
             }
 
             if ((Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)) && Keyboard.IsKeyDown(Key.B))
             {
-                System.Diagnostics.Trace.WriteLine("Detected Alt+B");
                 primaryFirstName.Text = "BLANK";
                 primaryMiddleName.Text = "BLANK";
                 primaryLastName.Text = "BLANK";
-                TextBox tb = (TextBox)sender;
-                tb.CaretIndex = tb.Text.Length;
+                if (sender is TextBox)
+                {
+                    TextBox tb = (TextBox)sender;
+                    tb.CaretIndex = tb.Text.Length;
+                }
             }
-
-            //if ((Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)) && Keyboard.IsKeyDown(Key.X))
-            //if (e.Key == Key.X && (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)))
-            //{
-            //    System.Diagnostics.Trace.WriteLine("Detected ALT+X");
-            //    TextBox tb = (TextBox)sender;
-            //    tb.SelectAll();
-            //    tb.Cut();
-            //}
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
@@ -368,7 +375,7 @@ namespace Data_Entry_Form
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        private void MarkerCombox_LostFocus(object sender, EventArgs e)
+        private void MarkerCombox_LostFocus(object sender, RoutedEventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
             string input = cb.Text;
@@ -384,15 +391,18 @@ namespace Data_Entry_Form
 
             if (!string.IsNullOrEmpty(input))
             {
+                e.Handled = true;
                 cb.Text = "";
-                MessageBox.Show("The text you have entered isn't an item in the list."+
+                if (MessageBox.Show("The text you have entered isn't an item in the list." +
                     "\n\nSelect an item from the list, or enter text that matches one of the listed items.",
-                    "VA National Cemetery Inventory");
-                cb.IsDropDownOpen = true;
+                    "VA National Cemetery Inventory") == MessageBoxResult.OK)
+                {
+                    cb.IsDropDownOpen = true;
+                }
             }
         }
 
-        private void Cemetery_LostFocus(object sender, EventArgs e)
+        private void Cemetery_LostFocus(object sender, RoutedEventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
             string input = cb.Text;
@@ -409,15 +419,18 @@ namespace Data_Entry_Form
 
             if (!string.IsNullOrEmpty(input))
             {
+                e.Handled = true;
                 cb.Text = "";
-                MessageBox.Show("The text you have entered isn't an item in the list." +
+                if (MessageBox.Show("The text you have entered isn't an item in the list." +
                     "\n\nSelect an item from the list, or enter text that matches one of the listed items.",
-                    "VA National Cemetery Inventory");
-                cb.IsDropDownOpen = true;
+                    "VA National Cemetery Inventory") == MessageBoxResult.OK)
+                {
+                    cb.IsDropDownOpen = true;
+                }
             }
         }
 
-        private void Branch_LostFocus(object sender, EventArgs e)
+        private void Branch_LostFocus(object sender, RoutedEventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
             string input = cb.Text;
@@ -433,15 +446,18 @@ namespace Data_Entry_Form
 
             if (!string.IsNullOrEmpty(input))
             {
+                e.Handled = true;
                 cb.Text = "";
-                MessageBox.Show("The text you have entered isn't an item in the list." +
+                if (MessageBox.Show("The text you have entered isn't an item in the list." +
                     "\n\nSelect an item from the list, or enter text that matches one of the listed items.",
-                    "VA National Cemetery Inventory");
-                cb.IsDropDownOpen = true;
+                    "VA National Cemetery Inventory") == MessageBoxResult.OK)
+                {
+                    cb.IsDropDownOpen = true;
+                }
             }
         }
 
-        private void War_LostFocus(object sender, EventArgs e)
+        private void War_LostFocus(object sender, RoutedEventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
             string input = cb.Text;
@@ -457,15 +473,18 @@ namespace Data_Entry_Form
 
             if (!string.IsNullOrEmpty(input))
             {
+                e.Handled = true;
                 cb.Text = "";
-                MessageBox.Show("The text you have entered isn't an item in the list." +
+                if (MessageBox.Show("The text you have entered isn't an item in the list." +
                     "\n\nSelect an item from the list, or enter text that matches one of the listed items.",
-                    "VA National Cemetery Inventory");
-                cb.IsDropDownOpen = true;
+                    "VA National Cemetery Inventory") == MessageBoxResult.OK)
+                {
+                    cb.IsDropDownOpen = true;
+                }
             }
         }
 
-        private void Award_LostFocus(object sender, EventArgs e)
+        private void Award_LostFocus(object sender, RoutedEventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
             string input = cb.Text;
@@ -481,15 +500,18 @@ namespace Data_Entry_Form
 
             if (!string.IsNullOrEmpty(input))
             {
+                e.Handled = true;
                 cb.Text = "";
-                MessageBox.Show("The text you have entered isn't an item in the list." +
+                if (MessageBox.Show("The text you have entered isn't an item in the list." +
                     "\n\nSelect an item from the list, or enter text that matches one of the listed items.",
-                    "VA National Cemetery Inventory");
-                cb.IsDropDownOpen = true;
+                    "VA National Cemetery Inventory") == MessageBoxResult.OK)
+                {
+                    cb.IsDropDownOpen = true;
+                }
             }
         }
 
-        private void EmblemCombox_LostFocus(object sender, EventArgs e)
+        private void EmblemCombox_LostFocus(object sender, RoutedEventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
             int input = 0;
@@ -504,11 +526,14 @@ namespace Data_Entry_Form
             }
             catch
             {
+                e.Handled = true;
                 cb.Text = "";
-                MessageBox.Show("The text you have entered isn't an item in the list." +
-                "\n\nSelect an item from the list, or enter text that matches one of the listed items.",
-                "VA National Cemetery Inventory");
-                cb.IsDropDownOpen = true;
+                if (MessageBox.Show("The text you have entered isn't an item in the list." +
+                    "\n\nSelect an item from the list, or enter text that matches one of the listed items.",
+                    "VA National Cemetery Inventory") == MessageBoxResult.OK)
+                {
+                    cb.IsDropDownOpen = true;
+                }
                 return;
             }
 
@@ -522,11 +547,14 @@ namespace Data_Entry_Form
                     return;
                 }
             }
+            e.Handled = true;
             cb.Text = "";
-            MessageBox.Show("The text you have entered isn't an item in the list." +
+            if (MessageBox.Show("The text you have entered isn't an item in the list." +
                 "\n\nSelect an item from the list, or enter text that matches one of the listed items.",
-                "VA National Cemetery Inventory");
-            cb.IsDropDownOpen = true;
+                "VA National Cemetery Inventory") == MessageBoxResult.OK)
+            {
+                cb.IsDropDownOpen = true;
+            }
         }
         
         private void OpenImageClick(object sender, RoutedEventArgs e)
