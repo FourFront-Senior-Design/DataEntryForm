@@ -961,8 +961,12 @@ namespace Services
                 cmd = new OleDbCommand(sqlQuery, _connection);
                 reader = cmd.ExecuteReader();
                 reader.Read();
-
-                graveSiteNum = reader.GetString(0);
+                object val = reader.GetValue(0);
+                string stringVal = val.ToString();
+                if (!string.IsNullOrEmpty(stringVal))
+                {
+                    graveSiteNum = stringVal;
+                }
                 return graveSiteNum;
             }
             catch (Exception e)
