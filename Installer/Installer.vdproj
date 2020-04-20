@@ -5519,8 +5519,8 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Data Entry Form"
-        "ProductCode" = "8:{71FCE8DD-D583-4A35-9B36-3ABA1EC50DCB}"
-        "PackageCode" = "8:{667ECE81-1BE7-483D-B101-15FCB999DB36}"
+        "ProductCode" = "8:{5569BA0F-2477-4FA7-AD36-08B0E6C9DD45}"
+        "PackageCode" = "8:{31429084-17E1-4CC0-865C-EB26042DE4B6}"
         "UpgradeCode" = "8:{1AA8BC7D-5DC1-497D-9E37-129770CC0250}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
