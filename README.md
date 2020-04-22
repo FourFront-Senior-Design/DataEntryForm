@@ -23,5 +23,5 @@ The Data Entry Form acts as an interface between the Microsoft Access Database a
 
 ### Development
 * The project uses [MVVM design Pattern](https://docs.microsoft.com/en-us/archive/msdn-magazine/2009/february/patterns-wpf-apps-with-the-model-view-viewmodel-design-pattern).
-* [Here](https://docs.microsoft.com/en-us/dotnet/framework/wpf/getting-started/walkthrough-my-first-wpf-desktop-application) is a walkthrough a WPF desktop application.
+* [Here](https://docs.microsoft.com/en-us/dotnet/framework/wpf/getting-started/walkthrough-my-first-wpf-desktop-application) is a tutorial on creating a WPF desktop application.
 * Contributors and future developers are requested to [fork](https://guides.github.com/activities/forking/) from this project.
