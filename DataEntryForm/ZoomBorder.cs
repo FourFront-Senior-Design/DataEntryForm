@@ -1,4 +1,5 @@
-﻿using System;
+﻿/* Adding zooming feature to the enlarged image */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

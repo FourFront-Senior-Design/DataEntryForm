@@ -60,13 +60,14 @@ namespace Data_Entry_Form
                 pageReset();
             }
 
+            //Open help meny
             else if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && Keyboard.IsKeyDown(Key.H))
             {
                 Console.WriteLine("Detected Ctrl + H");
                 HelpMenu.IsOpen = !HelpMenu.IsOpen;
             }
 
-            //Skip mandatory info
+            //Developer's use only: Skip mandatory info
             else if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) &&
             Keyboard.IsKeyDown(Key.J) && Keyboard.IsKeyDown(Key.K) & Keyboard.IsKeyDown(Key.L))
             {
@@ -75,6 +76,7 @@ namespace Data_Entry_Form
                 BurialSectionField.Focus();
             }
 
+            //Move to next field on Enter
             else if (ee.Key == Key.Enter)
             {
                 TraversalRequest tRequest = new TraversalRequest(FocusNavigationDirection.Next);
@@ -88,7 +90,7 @@ namespace Data_Entry_Form
                 ee.Handled = true;
             }
         }
-
+        
         private void updateFocusField(KeyEventArgs e)
         {
             if(e.Source is MaskedTextBox)
@@ -281,6 +283,7 @@ namespace Data_Entry_Form
         {
             ScrollBar.ScrollToTop();
 
+            // used to open the decedents that contain info
             morePrimaryData.IsChecked = _viewModel.CurrentPageData.PrimaryDecedent.containsExtraData();
             moreSecondaryData.IsChecked = _viewModel.CurrentPageData.OthersDecedentList[0].containsExtraData();
             Name3.IsChecked = _viewModel.CurrentPageData.OthersDecedentList[1].containsData();
@@ -299,7 +302,7 @@ namespace Data_Entry_Form
 
         public void SetImagesToReview()
         {
-            _viewModel.SetRecordsToReview();
+            _viewModel.FirstRecord();
             pageReset();
         }
 
@@ -322,8 +325,10 @@ namespace Data_Entry_Form
             }
         }
         
+        // keyboard shortcuts for textboxes or comboboxes only
         private void Textbox_KeyDown(object sender, KeyEventArgs e)
         {
+            // Alt-U
             if((Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)) && Keyboard.IsKeyDown(Key.U))
             {
                 if (sender is TextBox)
@@ -340,6 +345,7 @@ namespace Data_Entry_Form
                 }
             }
             
+            // Alt-I
             if ((Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)) && Keyboard.IsKeyDown(Key.I))
             {
                 if (sender is TextBox)
@@ -356,6 +362,7 @@ namespace Data_Entry_Form
                 }
             }
 
+            // Alt-B
             if ((Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)) && Keyboard.IsKeyDown(Key.B))
             {
                 primaryFirstName.Text = "BLANK";
@@ -375,6 +382,7 @@ namespace Data_Entry_Form
             e.Handled = regex.IsMatch(e.Text);
         }
 
+        // check if the textbox contains valid info on losing focus
         private void MarkerCombox_LostFocus(object sender, RoutedEventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
@@ -562,6 +570,7 @@ namespace Data_Entry_Form
             _displayWindow.Show();
         }
 
+        // used to display the image of the selected emblem next to the emblem field
         private void EmblemCombox_TextChanged(object sender, RoutedEventArgs e)
         {
             List<int> codes = new List<int>();
@@ -605,12 +614,15 @@ namespace Data_Entry_Form
             }
         }
 
+        //Always selects of the text on entering the field
         private void TextBox_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             var textbox = (e.Source as TextBox);
             if(textbox != null) textbox.SelectAll();
         }
 
+        // Copy-paste short-cuts
+        // Does not work for dates and comboboxes
         private void Cut_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (sender is TextBox || sender is MaskedTextBox)

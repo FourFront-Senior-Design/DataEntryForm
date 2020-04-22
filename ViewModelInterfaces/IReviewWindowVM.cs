@@ -22,7 +22,6 @@ namespace ViewModelInterfaces
         int GetDatabaseCount { get; }
 
         List<bool> CheckMandatoryFields();
-        void SetRecordsToReview();
         void NextRecord();
         void PreviousRecord();
         void FirstRecord();
