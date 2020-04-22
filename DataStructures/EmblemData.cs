@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿/* Used to store the Emblems table data */
+using System.Collections.Generic;
 
 namespace DataStructures
 {
@@ -8,6 +9,7 @@ namespace DataStructures
         public string Code { get; set; }
         public string Name { get; set; }
 
+        /* Emblem images downloaded from https://www.cem.va.gov/cem/hmm/emblems.asp */
         public List<EmblemData> GetEmblemData
         {
             get

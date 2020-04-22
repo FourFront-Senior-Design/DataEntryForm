@@ -36,7 +36,8 @@ namespace ViewModels
             }
         }
 
-        public int PageIndex
+        // 1-indexed because the MS Access database is 1-indexed
+        public int PageIndex 
         {
             get
             {
@@ -61,12 +62,6 @@ namespace ViewModels
                 string _version = System.Reflection.AssemblyName.GetAssemblyName("DataEntryForm.exe").Version.ToString();
                 return $"Review (Verison {_version})";
             }
-        }
-
-        private void displayHeadStone()
-        {
-            CurrentPageData = _database.GetHeadstone(_currentPageIndex);
-            HeadstoneChanged?.Invoke(this, new EventArgs());
         }
 
         public int GetDatabaseCount
@@ -99,15 +94,12 @@ namespace ViewModels
         {
             _database = database;
         }
-        
-        public void SetRecordsToReview()
-        {
-            PageIndex = 1;
 
-            Trace.WriteLine("Set up records to review: ");
-            Trace.WriteLine(CurrentPageData.PrimaryDecedent.LastName);
+        private void displayHeadStone()
+        {
+            CurrentPageData = _database.GetHeadstone(_currentPageIndex);
+            HeadstoneChanged?.Invoke(this, new EventArgs());
         }
-       
 
         public void NextRecord()
         {
@@ -116,6 +108,7 @@ namespace ViewModels
                 return;
             }
 
+            /* copies the information forward on clicking the next record*/
             _prevCemeteryName = _currentPageData.CemeteryName;
             _prevSectionNumber = _currentPageData.BurialSectionNumber;
             _prevMarkerType = _currentPageData.MarkerType;
@@ -139,9 +132,6 @@ namespace ViewModels
             }
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentPageData)));
-
-            Trace.WriteLine("Next click");
-            Trace.WriteLine(CurrentPageData.PrimaryDecedent.LastName);
         }
         
         public void PreviousRecord()
@@ -152,27 +142,18 @@ namespace ViewModels
             }
 
             PageIndex--;
-
-            Trace.WriteLine("Previous click: ");
-            Trace.WriteLine(CurrentPageData.PrimaryDecedent.LastName);
         }
 
         public void FirstRecord()
         {
 
             PageIndex = 1;
-
-            Trace.WriteLine("First Record click: ");
-            Trace.WriteLine(CurrentPageData.PrimaryDecedent.LastName);
         }
 
         public void LastRecord()
         {
 
             PageIndex = _database.TotalItems;
-
-            Trace.WriteLine("Last Record click: ");
-            Trace.WriteLine(CurrentPageData.PrimaryDecedent.LastName);
         }
 
         public bool GoToRecord(string text)

@@ -714,11 +714,12 @@ namespace Services
                 sqlQuery += @"[" + entry.Key + @"] = " + @"@" + entry.Key + @", ";
             }
 
-            sqlQuery += "[Branch-Unit_CustomV] = '" + headstone.PrimaryDecedent.BranchUnitCustom +
-                "', [Branch-Unit_CustomS_D] = '" + headstone.OthersDecedentList[0].BranchUnitCustom + "'";
+
+            sqlQuery += "[Branch-Unit_CustomV] = '" + headstone.PrimaryDecedent.BranchUnitCustom.Replace("'","''") + "',";
+            sqlQuery += "[Branch-Unit_CustomS_D] = '" + headstone.OthersDecedentList[0].BranchUnitCustom.Replace("'", "''") + "'";
+
 
             // finalize update statement
-            //sqlQuery += @" WHERE SequenceID = '" + sequenceID[index] + @"';";
             sqlQuery += @" WHERE SequenceID = '" + SequenceIDs[index - 1] + "';";
 
             OleDbCommand cmd = new OleDbCommand(sqlQuery, _connection);
@@ -940,7 +941,8 @@ namespace Services
 
         public void Close()
         {
-            _connection.Close();
+            if(_connection != null)
+                _connection.Close();
         }
 
         public string GetGraveSiteNum(int index)

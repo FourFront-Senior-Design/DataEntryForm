@@ -1,4 +1,5 @@
-﻿using System;
+﻿/* The window with the enlarged headstone image */
+using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media.Imaging;

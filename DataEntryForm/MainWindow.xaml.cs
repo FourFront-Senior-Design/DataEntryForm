@@ -18,7 +18,7 @@ namespace Data_Entry_Form
         {
             InitializeComponent();
             _viewModel = viewModel;
-            DataContext = _viewModel;
+            DataContext = _viewModel; //used to link the backend data to the UI
 
             ResetMainWindow();
         }
@@ -50,6 +50,8 @@ namespace Data_Entry_Form
         {
             Trace.WriteLine(_viewModel.FileLocation);
 
+            // Used to save the file path so that a newly opened application 
+            // displaces the previous section that successfully opened
             if (_viewModel.LoadData())
             {
                 Properties.Settings.Default.databaseFilePath = _viewModel.FileLocation;

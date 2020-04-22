@@ -5,18 +5,21 @@ namespace ServicesInterfaces
 {
     public interface IDatabaseService
     {
+        string SectionFilePath { get; }
+
+        bool InitDBConnection(string sectionFilePath); //opens the connection to the database
+
+        int TotalItems { get; }
+
         Headstone GetHeadstone(int index);
 
         void SetHeadstone(int index, Headstone headstone);
 
-        bool InitDBConnection(string sectionFilePath);
-
         string GetGraveSiteNum(int index);
 
-        void Close();
-
-        int TotalItems { get; }
-
+        void Close(); //closes the connection to the database
+        
+        /* Gets the data from tables in the database for the dropdown menus*/
         List<CemeteryNameData> CemeteryNames { get; }
 
         List<EmblemData> EmblemNames { get;  }
@@ -28,7 +31,5 @@ namespace ServicesInterfaces
         List<WarData> WarNames { get; }
 
         List<AwardData> AwardNames { get; }
-
-        string SectionFilePath { get; }
     }
 }

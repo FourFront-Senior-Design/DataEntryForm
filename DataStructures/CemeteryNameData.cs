@@ -1,4 +1,5 @@
-﻿namespace DataStructures
+﻿/* Used to store the CemeteryNames table data */
+namespace DataStructures
 {
     public class CemeteryNameData
     {
