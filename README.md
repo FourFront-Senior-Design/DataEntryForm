@@ -8,7 +8,7 @@ The Data Entry Form acts as an interface between the Microsoft Access Database a
 * [Microsoft Access Database Manager 2010 (x64 bit)](https://www.microsoft.com/en-US/download/details.aspx?id=13255)
 
 ### Setup
-* Install [Microsoft Visual Studios 2017](https://docs.microsoft.com/en-us/visualstudio/productinfo/2017-redistribution-vs) (or higher) and add the [.NET framework 4.6.1](https://docs.microsoft.com/en-us/dotnet/framework/install/guide-for-developers).
+* Install [Microsoft Visual Studios 2017](https://docs.microsoft.com/en-us/visualstudio/productinfo/2017-redistribution-vs) (or higher) with the [.NET framework 4.6.1](https://docs.microsoft.com/en-us/dotnet/framework/install/guide-for-developers).
 * Build and run the project using Visual Studios.
 * Test the project on the [Test Databases](https://github.com/FourFront-Senior-Design/frontend/tree/development/TestDatabases) sections.
 
